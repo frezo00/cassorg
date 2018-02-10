@@ -5,13 +5,15 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
+import { ComponentsModule } from './components/components.module';
 import { AppRoutingModule } from './app.routing';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 import { environment } from '../environments/environment';
+import { reducers } from './store/reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,11 +22,11 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
-    // StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AuthModule
+    ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

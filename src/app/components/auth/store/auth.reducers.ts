@@ -1,4 +1,4 @@
-import * as AuthActions from '../actions/auth.actions';
+import * as AuthActions from './auth.actions';
 
 export interface AuthState {
   isAuthenticated: boolean;
@@ -16,7 +16,7 @@ export function authReducer(
     case AuthActions.AuthActionTypes.SET_AUTHENTICATED: {
       return { ...state, isAuthenticated: true };
     }
-    case AuthActions.AuthActionTypes.SET_UNAUTHENICATED: {
+    case AuthActions.AuthActionTypes.SET_UNAUTHENTICATED: {
       return { ...state, isAuthenticated: false };
     }
     default: {

@@ -1,7 +1,24 @@
-<button mat-button (click)="onLogin()">My button</button>
+<!-- <button mat-button (click)="onLogin()">My button</button>
 <div *ngIf="!!(isAuthenicated$ | async)">is authenicated</div>
-<div *ngIf="!(isAuthenicated$ | async)">not authenicated</div>
-
-<div class="container">
-
+<div *ngIf="!(isAuthenicated$ | async)">not authenicated</div> -->
+<div class="form__container" fxFlexFill fxLayoutAlign="center center">
+  <mat-card class="form__box" fxLayout="column">
+    <mat-card-title class="form__logo">Cassorg</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" fxLayout="column" fxFlexFill fxLayoutGap="10" class="form__login">
+        <mat-form-field>
+          <input matInput placeholder="Enter your email" formControlName="email">
+          <mat-error *ngIf="loginForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password" formControlName="password">
+          <mat-error *ngIf="loginForm.controls['email'].invalid">{{getPasswordErrorMessage()}}</mat-error>
+          <button type="button" matSuffix mat-icon-button (click)="showPassword = !showPassword; $event.stopPropagation();">
+            <mat-icon aria-label="Example icon-button with a heart icon">remove_red_eye</mat-icon>
+          </button>
+        </mat-form-field>
+        <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid" class="form__submitBtn">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

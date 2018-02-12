@@ -1,0 +1,20 @@
+.form__container {
+  background-color: #3c5ba0;
+}
+.form__logo {
+  padding: 10px;
+  color: green;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Gloria Hallelujah', cursive;
+}
+.form__box {
+  padding: 20px 32px;
+}
+.form__login {
+  padding: 0 16px;
+}
+.form__submitBtn {
+  margin: 12px 0;
+}

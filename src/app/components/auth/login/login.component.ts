@@ -10,11 +10,12 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -25,12 +26,14 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private store: Store<fromAuth.AuthState>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private af: AngularFireAuth
   ) {}
 
   ngOnInit() {
     this.initForm();
     this.isAuthenicated$ = this.store.select(fromAuth.getIsAuthenticated);
+    this.af.authState.subscribe(data => console.log(data));
   }
 
   initForm() {
@@ -61,11 +64,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    // this.store.dispatch(new AuthActions.SetAuthenicated());
-    const authData = {
-      email: 'frano@mail.com',
-      password: 'password'
-    };
-    this.store.dispatch(new AuthActions.TryLogin(authData));
+    this.store.dispatch(new AuthActions.TryLogin(this.loginForm.value));
   }
 }

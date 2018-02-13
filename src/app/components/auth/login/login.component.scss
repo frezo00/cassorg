@@ -14,7 +14,17 @@
 }
 .form__login {
   padding: 0 16px;
+  mat-form-field {
+    margin-bottom: 12px;
+  }
 }
 .form__submitBtn {
   margin: 12px 0;
+}
+:host {
+  mat-icon.password-icon.mat-icon {
+    height: 24px;
+    width: 24px;
+    margin-left: -4px;
+  }
 }

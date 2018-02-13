@@ -1,9 +1,22 @@
 import { Action } from '@ngrx/store';
+import { IUser } from '../../../models/user.model';
 
 export enum AuthActionTypes {
+  CHECK_LOGGED_IN_USER = '[Auth] Check Logged In User',
+  SAVE_LOGGED_IN_USER = '[Auth] Save Logged In User',
   TRY_LOGIN = '[Auth] Try Login',
   SET_AUTHENTICATED = '[Auth] Set Authenticated',
   SET_UNAUTHENTICATED = '[Auth] Set Unauthenticated'
+}
+
+export class CheckLoggedInUser implements Action {
+  readonly type = AuthActionTypes.CHECK_LOGGED_IN_USER;
+}
+
+export class SaveLoggedInUser implements Action {
+  readonly type = AuthActionTypes.SAVE_LOGGED_IN_USER;
+
+  constructor(public payload: IUser) {}
 }
 
 export class TryLogin implements Action {

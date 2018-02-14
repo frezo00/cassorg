@@ -8,3 +8,13 @@ export const getIsAuthenticated = createSelector(
   getAuthState,
   (state: fromAuth.AuthState) => state.isAuthenticated
 );
+
+export const getLoggedInUser = createSelector(
+  getAuthState,
+  (state: fromAuth.AuthState) => state.loggedInUser
+);
+
+export const getErrorMessage = createSelector(
+  getAuthState,
+  (state: fromAuth.AuthState) => state.errorMessage
+);

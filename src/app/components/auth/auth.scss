@@ -1,0 +1,67 @@
+.form {
+  &__container {
+    background-color: #3c5ba0;
+  }
+  &__logo {
+    padding: 10px;
+    color: green;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Gloria Hallelujah', cursive;
+  }
+  &__login {
+    padding: 0 16px;
+  }
+  &__submitBtn {
+    margin: 12px 0;
+  }
+  &__actions {
+    font-size: 0.8em;
+    text-align: center;
+    margin-bottom: 8px !important;
+  }
+  &__error_message {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    border-radius: 2px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    margin: 0;
+    padding: 0;
+    transition: all 0.5s ease;
+    mat-icon {
+      padding-right: 8px;
+    }
+  }
+  &__error_message.showError {
+    height: auto;
+    opacity: 1;
+    margin: 4px 0;
+    padding: 6px 12px;
+  }
+}
+mat-card-content {
+  margin-bottom: 0;
+}
+
+@mixin md-icon-size($size: 24px) {
+  font-size: $size;
+  height: $size;
+  width: $size;
+  line-height: $size;
+}
+:host {
+  mat-icon.password-icon.mat-icon {
+    @include md-icon-size(24px);
+    margin-left: -4px;
+  }
+}
+
+:host {
+  mat-icon.myIcon {
+    @include md-icon-size(50px);
+  }
+}

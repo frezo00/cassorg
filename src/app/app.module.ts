@@ -43,6 +43,7 @@ import { reducers } from './store/app.reducers';
 })
 export class AppModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    matIconRegistry.registerFontClassAlias('fa');
     matIconRegistry.addSvgIconSet(
       domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')
     );

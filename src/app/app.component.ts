@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<fromStore.AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new fromStore.CheckLoggedInUser());
+    // this.store.dispatch(new fromStore.CheckLoggedInUser());
   }
 }

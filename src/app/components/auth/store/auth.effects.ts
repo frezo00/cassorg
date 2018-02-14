@@ -7,8 +7,10 @@ import { Observable } from 'rxjs/Observable';
 import { map, switchMap, mergeMap, catchError, tap } from 'rxjs/operators';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { of } from 'rxjs/observable/of';
+import { from } from 'rxjs/observable/from';
 
 import * as AuthActions from './auth.actions';
+import * as RouterActions from '../../../router/store';
 import { User } from '../../../models/user.model';
 
 export interface LoginData {
@@ -28,28 +30,29 @@ export class AuthEffects {
   checkIfLoggedIn$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.CHECK_LOGGED_IN_USER),
     switchMap((action: AuthActions.CheckLoggedInUser) => this.af.authState),
-    map(user => {
-      const loggedUser = new User(
-        user.displayName,
-        user.email,
-        user.uid,
-        null,
-        null,
-        null,
-        user.emailVerified,
-        user.phoneNumber,
-        null,
-        user.photoURL,
-        user.metadata.creationTime,
-        user.metadata.lastSignInTime
-      );
-      return loggedUser;
-    }),
-    tap(user => console.log('user', user)),
-    mergeMap(user => [
-      { type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER },
-      { type: AuthActions.AuthActionTypes.SET_AUTHENTICATED, payload: user }
-    ])
+    mergeMap(user => {
+      let obs;
+      if (!user) {
+        obs = [
+          { type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED },
+          {
+            type: RouterActions.RouterActionTypes.GO,
+            payload: { path: '/login' }
+          }
+        ];
+      } else {
+        const loggedUser = this.getUser(user);
+        obs = [
+          { type: AuthActions.AuthActionTypes.SET_AUTHENTICATED },
+          {
+            type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER,
+            payload: loggedUser
+          },
+          { type: RouterActions.RouterActionTypes.GO, payload: { path: '/' } }
+        ];
+      }
+      return obs;
+    })
   );
 
   @Effect()
@@ -61,29 +64,88 @@ export class AuthEffects {
           action.payload.email,
           action.payload.password
         )
+      ).pipe(
+        mergeMap(user => {
+          const loggedUser = this.getUser(user);
+          return [
+            { type: AuthActions.AuthActionTypes.SET_AUTHENTICATED },
+            {
+              type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER,
+              payload: loggedUser
+            },
+            { type: AuthActions.AuthActionTypes.ERRORS, payload: null },
+            { type: RouterActions.RouterActionTypes.GO, payload: { path: '/' } }
+          ];
+        }),
+        catchError(error =>
+          from([
+            { type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED },
+            { type: AuthActions.AuthActionTypes.ERRORS, payload: error }
+          ])
+        )
       )
-    ),
-    map(userData => {
-      return {
-        id: userData.uid,
-        displayName: userData.displayName,
-        email: userData.email,
-        emailVerified: userData.emailVerified,
-        phoneNumber: userData.phoneNumber,
-        photoURL: userData.photoURL,
-        lastLogin: userData.metadata.lastSignInTime
-      };
-    }),
-    mergeMap(data => {
-      console.log('data in merge map: ', data);
-      this.router.navigate(['']);
-      return [{ type: AuthActions.AuthActionTypes.SET_AUTHENTICATED }];
-    }),
-    catchError(error => {
-      console.error('error: ', error);
-      return Observable.of({
-        type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED
-      });
-    })
+    )
   );
+
+  @Effect()
+  register$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.TRY_REGISTER),
+    switchMap((action: AuthActions.TryRegister) =>
+      fromPromise(
+        this.af.auth.createUserWithEmailAndPassword(
+          action.payload.email,
+          action.payload.password
+        )
+      ).pipe(
+        switchMap(user =>
+          fromPromise(
+            this.af.auth.currentUser.updateProfile({
+              displayName: action.payload.fullName,
+              photoURL: user.photoURL
+            })
+          ).pipe(
+            map(updatedUser => this.getUser(updatedUser)),
+            catchError(error =>
+              from([
+                { type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED },
+                { type: AuthActions.AuthActionTypes.ERRORS, payload: error }
+              ])
+            )
+          )
+        ),
+        mergeMap(user => [
+          { type: AuthActions.AuthActionTypes.SET_AUTHENTICATED },
+          {
+            type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER,
+            payload: user
+          },
+          { type: AuthActions.AuthActionTypes.ERRORS, payload: null },
+          { type: RouterActions.RouterActionTypes.GO, payload: { path: '/' } }
+        ]),
+        catchError(error =>
+          from([
+            { type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED },
+            { type: AuthActions.AuthActionTypes.ERRORS, payload: error }
+          ])
+        )
+      )
+    )
+  );
+
+  getUser(user) {
+    return new User(
+      user.displayName,
+      user.email,
+      user.uid,
+      null,
+      null,
+      null,
+      user.emailVerified,
+      user.phoneNumber,
+      null,
+      user.photoURL,
+      user.metadata.creationTime,
+      user.metadata.lastSignInTime
+    );
+  }
 }

@@ -1,3 +1,4 @@
-<p>
-  dashboard works!
-</p>
+<mat-list>
+  <mat-list-item>{{(user | async ).displayName}}</mat-list-item>
+  <mat-list-item>{{(user | async ).email}}</mat-list-item>
+</mat-list>

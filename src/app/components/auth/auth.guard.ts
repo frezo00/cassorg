@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate, CanLoad {
       take(1),
       map(isAuth => {
         if (!isAuth) {
-          this.store.dispatch(new fromStore.Go({ path: '/login' }));
+          this.store.dispatch(new fromStore.CheckLoggedInUser());
           return false;
         }
         return true;
@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate, CanLoad {
       take(1),
       map(isAuth => {
         if (!isAuth) {
-          this.store.dispatch(new fromStore.Go({ path: '/login' }));
+          this.store.dispatch(new fromStore.CheckLoggedInUser());
           return false;
         }
         return true;

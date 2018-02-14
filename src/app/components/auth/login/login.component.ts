@@ -10,30 +10,27 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
-import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['../auth.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   email: FormControl;
   password: FormControl;
   showPassword: boolean;
-  isAuthenicated$: Observable<boolean>;
+  errorMessage: Observable<string>;
 
   constructor(
     private store: Store<fromAuth.AuthState>,
-    private fb: FormBuilder,
-    private af: AngularFireAuth
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.initForm();
-    this.isAuthenicated$ = this.store.select(fromAuth.getIsAuthenticated);
-    this.af.authState.subscribe(data => console.log(data));
+    this.errorMessage = this.store.select(fromAuth.getErrorMessage);
   }
 
   initForm() {

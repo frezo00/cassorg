@@ -1,8 +1,5 @@
-<!-- <button mat-button (click)="onLogin()">My button</button>
-<div *ngIf="!!(isAuthenicated$ | async)">is authenicated</div>
-<div *ngIf="!(isAuthenicated$ | async)">not authenicated</div> -->
 <div class="form__container" fxFlexFill fxLayoutAlign="center center">
-  <mat-card class="form__box" fxLayout="column">
+  <mat-card class="form__box" fxFlex.xs="85" fxFlex.sm="66" fxFlex.gt-sm="33" fxLayout="column">
     <mat-card-title class="form__logo">Cassorg</mat-card-title>
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()" fxLayout="column" fxFlexFill fxLayoutGap="12px" class="form__login">
@@ -18,7 +15,15 @@
           </button>
         </mat-form-field>
         <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid" class="form__submitBtn">Login</button>
+        <div [ngClass]="{'showError': !!(errorMessage | async)}" class="form__error_message" fxLayoutAlign="start center">
+          <mat-icon>warning</mat-icon>
+          {{(errorMessage | async)}}
+        </div>
       </form>
     </mat-card-content>
+    <mat-card-actions class="form__actions">
+      <span>Don't have account?</span>
+      <a [routerLink]="'/register'">Register now</a>
+    </mat-card-actions>
   </mat-card>
 </div>

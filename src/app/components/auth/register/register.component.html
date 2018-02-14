@@ -1,3 +1,33 @@
-<p>
-  register works!
-</p>
+<div class="form__container" fxFlexFill fxLayoutAlign="center center">
+  <mat-card class="form__box" fxFlex.xs="85" fxFlex.sm="66" fxFlex.gt-sm="33" fxLayout="column">
+    <mat-card-title class="form__logo">Cassorg</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" fxLayout="column" fxFlexFill fxLayoutGap="12px" class="form__login">
+        <mat-form-field floatLabel="always">
+          <input matInput placeholder="Full Name" formControlName="fullName" required>
+          <mat-error *ngIf="fullName.invalid">{{getFullNameErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field floatLabel="always">
+          <input matInput type="email" placeholder="Email" formControlName="email" required>
+          <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field floatLabel="always">
+          <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password" required>
+          <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+          <button type="button" matSuffix mat-icon-button [disabled]="!password.value" (click)="showPassword = !showPassword" [title]="showPassword ? 'Hide password' : 'Show password'">
+            <mat-icon class="password-icon" [svgIcon]="showPassword ? 'eye-off' : 'eye'" aria-hidden="true"></mat-icon>
+          </button>
+        </mat-form-field>
+        <button mat-raised-button type="submit" color="primary" [disabled]="registerForm.invalid" class="form__submitBtn">Register</button>
+        <div [ngClass]="{'showError': !!(errorMessage | async)}" class="form__error_message" fxLayoutAlign="start center">
+          <mat-icon>warning</mat-icon>
+          {{(errorMessage | async)}}
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="form__actions">
+      <span>Already have account?</span>
+      <a [routerLink]="'/login'">Login now</a>
+    </mat-card-actions>
+  </mat-card>
+</div>

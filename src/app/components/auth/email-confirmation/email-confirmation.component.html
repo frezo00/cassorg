@@ -1,2 +1,23 @@
-<mat-icon class="myIcon">email</mat-icon>
-<mat-icon fontSet="fa" fontIcon="fa-times-circle"></mat-icon>
+<div fxFlexFill fxLayoutAlign="center center">
+  <mat-card class="email-confirm__card" fxFlex.xs="85" fxFlex.sm="66" fxFlex.gt-sm="33" fxLayoutAlign="center center" fxLayout="column">
+    <mat-card-title>Email confirmation</mat-card-title>
+    <mat-card-content class="email-confirm__card-content" fxLayoutAlign="center center" fxLayout="column">
+      <mat-icon class="email-confirm__icon" fontSet="fa" fontIcon="fa-envelope-open"></mat-icon>
+      <p>
+        Hi
+        <b>{{(user | async)?.displayName}}</b>,
+        <br> we've sent confirmation email to
+        <em>
+          <b>{{(user | async)?.displayName}}</b>
+        </em>.
+        <br/> Please confirm your email to continue.
+      </p>
+      <button type="button" class="email-confirm__button" mat-raised-button (click)="checkEmailConfirmation()">I've confirmed my email</button>
+      <mat-error *ngIf="!(user | async)?.emailVerified">Email not verified</mat-error>
+    </mat-card-content>
+    <mat-card-footer class="email-confirm__footer" fxLayout="column">
+      <span>You didn't recieve any email?</span>
+      <a href="#">Resend confirmation email</a>
+    </mat-card-footer>
+  </mat-card>
+</div>

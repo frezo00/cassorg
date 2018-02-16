@@ -24,8 +24,14 @@ export function authReducer(
     case AuthActions.AuthActionTypes.SET_UNAUTHENTICATED: {
       return { ...state, isAuthenticated: false };
     }
-    case AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER: {
+    case AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER_COMPLETE: {
       return { ...state, loggedInUser: action.payload };
+    }
+    case AuthActions.AuthActionTypes.UPDATE_USER_PROFILE_COMPLETE: {
+      const user = { ...state.loggedInUser };
+      user.displayName = action.payload.displayName;
+      user.photoURL = action.payload.photoURL;
+      return { ...state, loggedInUser: user };
     }
     case AuthActions.AuthActionTypes.ERRORS: {
       return {

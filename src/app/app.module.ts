@@ -21,6 +21,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { environment } from '../environments/environment';
 import { reducers } from './store/app.reducers';
+import { AuthService } from './components/auth/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +39,7 @@ import { reducers } from './store/app.reducers';
     ComponentsModule,
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -14,6 +14,11 @@ export const getLoggedInUser = createSelector(
   (state: fromAuth.AuthState) => state.loggedInUser
 );
 
+export const checkIfEmailVerified = createSelector(
+  getAuthState,
+  (state: fromAuth.AuthState) => state.loggedInUser.emailVerified
+);
+
 export const getErrorMessage = createSelector(
   getAuthState,
   (state: fromAuth.AuthState) => state.errorMessage

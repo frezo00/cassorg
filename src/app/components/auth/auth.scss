@@ -1,3 +1,7 @@
+@import '../../../_variables.scss';
+.auth__container {
+  background-color: color(blue-accent);
+}
 .form {
   &__container {
     background-color: #3c5ba0;
@@ -60,8 +64,37 @@ mat-card-content {
   }
 }
 
-:host {
-  mat-icon.myIcon {
-    @include md-icon-size(50px);
+.email-confirm {
+  &__container {
+    background-color: color(blue-accent);
+  }
+  &__card {
+    background-color: color(light);
+    color: color(primary);
+    mat-card-title {
+      font-weight: 500;
+    }
+  }
+  &__card-content {
+    padding: 0 16px;
+    p {
+      padding-bottom: 12px;
+      line-height: 1.4em;
+    }
+  }
+  &__icon {
+    @include md-icon-size(60px);
+    padding: 20px 0;
+  }
+  &__button {
+    background-color: color(primary);
+    color: white;
+    margin-bottom: 6px;
+  }
+  &__footer {
+    padding: 0 16px;
+    font-size: 0.8em;
+    text-align: center;
+    margin: 16px 0;
   }
 }

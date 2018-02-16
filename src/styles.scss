@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah');
 $fa-font-path: '../node_modules/font-awesome/fonts';
 @import '../node_modules/font-awesome/scss/font-awesome';
+@import './_variables.scss';
 
 @mixin md-icon-size($size: 24px) {
   font-size: $size !important;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromAuth from '../store';
+import * as fromRouter from '../../../router/store';
 import { Observable } from 'rxjs/Observable';
 import { IUser } from '../../../models/user.model';
 
@@ -16,10 +17,15 @@ export class EmailConfirmationComponent implements OnInit {
   constructor(private store: Store<fromAuth.AuthState>) {}
 
   ngOnInit() {
+    this.store.dispatch(new fromAuth.CheckLoggedInUser());
     this.user = this.store.select(fromAuth.getLoggedInUser);
   }
 
   checkEmailConfirmation() {
-    this.store.dispatch(new fromAuth.SaveLoggedInUser());
+    this.store.dispatch(new fromRouter.Go({ path: '/auth/login' }));
+  }
+
+  resendEmail() {
+    this.store.dispatch(new fromAuth.SendVerificationEmail());
   }
 }

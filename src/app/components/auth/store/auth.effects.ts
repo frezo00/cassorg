@@ -40,41 +40,38 @@ export class AuthEffects {
   @Effect()
   saveUserData$ = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER),
-    map(action => this.af.authState),
-    switchMap(user => {
-      console.log('data in action is: ', user);
-      return this.authService.getCurrentUser().map(myUser => {
-        console.log('data is: ', myUser);
-        return {
-          type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER_COMPLETE,
-          payload: this.getUser(myUser)
-        };
-      });
+    switchMap(action => this.af.authState),
+    map(authData => {
+      const user = this.getUser(authData);
+      return new AuthActions.SaveLoggedInUserComplete(user);
     })
   );
 
   @Effect()
   checkIfLoggedIn$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.CHECK_LOGGED_IN_USER),
-    map(() => this.af.authState),
+    switchMap(() => this.af.authState),
     mergeMap(user => {
-      let obs;
+      let actions;
       if (!user) {
-        obs = [
-          { type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED },
-          {
-            type: RouterActions.RouterActionTypes.GO,
-            payload: { path: '/auth/login' }
-          }
+        actions = [
+          new AuthActions.SetUnauthenicated(),
+          new RouterActions.Go({ path: '/auth/login' })
         ];
       } else {
-        obs = [
-          { type: AuthActions.AuthActionTypes.SET_AUTHENTICATED },
-          { type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER },
-          { type: RouterActions.RouterActionTypes.GO, payload: { path: '/' } }
+        actions = [
+          new AuthActions.SetAuthenicated(),
+          new AuthActions.SaveLoggedInUser()
         ];
+        if (!user.emailVerified) {
+          actions.push(
+            new RouterActions.Go({ path: '/auth/email-confirmation' })
+          );
+        } else {
+          actions.push(new RouterActions.Go({ path: '/' }));
+        }
       }
-      return obs;
+      return actions;
     })
   );
 
@@ -88,16 +85,25 @@ export class AuthEffects {
           action.payload.password
         )
       ).pipe(
-        mergeMap(() => [
-          { type: AuthActions.AuthActionTypes.SET_AUTHENTICATED },
-          { type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER },
-          { type: AuthActions.AuthActionTypes.ERRORS, payload: null },
-          { type: RouterActions.RouterActionTypes.GO, payload: { path: '/' } }
-        ]),
+        mergeMap(loggedUser => {
+          const actions: Array<any> = [
+            new AuthActions.SetAuthenicated(),
+            new AuthActions.SaveLoggedInUser(),
+            new AuthActions.SetErrors(null)
+          ];
+          if (!loggedUser.emailVerified) {
+            actions.push(
+              new RouterActions.Go({ path: '/auth/email-confirmation' })
+            );
+          } else {
+            actions.push(new RouterActions.Go({ path: '/' }));
+          }
+          return actions;
+        }),
         catchError(error =>
           from([
-            { type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED },
-            { type: AuthActions.AuthActionTypes.ERRORS, payload: error }
+            new AuthActions.SetAuthenicated(),
+            new AuthActions.SetErrors(error)
           ])
         )
       )
@@ -115,47 +121,33 @@ export class AuthEffects {
         )
       ).pipe(
         mergeMap(createdUser => {
-          console.log('user: ', createdUser);
           const actions: Array<any> = [
-            { type: AuthActions.AuthActionTypes.SET_AUTHENTICATED },
-            { type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER }
+            new AuthActions.SetAuthenicated(),
+            new AuthActions.SaveLoggedInUser(),
+            new AuthActions.SetErrors(null)
           ];
           if (!createdUser.displayName) {
-            console.log('no display name');
-            actions.push({
-              type: AuthActions.AuthActionTypes.UPDATE_USER_PROFILE,
-              payload: {
+            actions.push(
+              new AuthActions.UpdateUserProfile({
                 displayName: action.payload.fullName,
                 photoURL: createdUser.photoURL
-              }
-            });
+              })
+            );
           }
           if (!createdUser.emailVerified) {
-            console.log('email not verified');
             actions.push.apply(actions, [
-              { type: AuthActions.AuthActionTypes.SEND_VERIFICATION_EMAIL },
-              {
-                type: RouterActions.RouterActionTypes.GO,
-                payload: { path: '/auth/email-confirmation' }
-              }
+              new AuthActions.SendVerificationEmail(),
+              new RouterActions.Go({ path: '/auth/email-confirmation' })
             ]);
           } else {
-            actions.push({
-              type: RouterActions.RouterActionTypes.GO,
-              payload: { path: '/' }
-            });
+            actions.push(new RouterActions.Go({ path: '/' }));
           }
-          actions.push({
-            type: AuthActions.AuthActionTypes.ERRORS,
-            payload: null
-          });
-          console.log('actions: ', actions);
           return actions;
         }),
         catchError(error =>
           from([
-            { type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED },
-            { type: AuthActions.AuthActionTypes.ERRORS, payload: error }
+            new AuthActions.SetAuthenicated(),
+            new AuthActions.SetErrors(error)
           ])
         )
       )
@@ -173,13 +165,11 @@ export class AuthEffects {
           photoURL: userProfile.photoURL
         })
       ).pipe(
-        map(() => {
-          return { type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER };
-        }),
+        map(() => new AuthActions.SaveLoggedInUser()),
         catchError(error =>
           from([
-            { type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED },
-            { type: AuthActions.AuthActionTypes.ERRORS, payload: error }
+            new AuthActions.SetAuthenicated(),
+            new AuthActions.SetErrors(error)
           ])
         )
       )
@@ -191,22 +181,18 @@ export class AuthEffects {
     ofType(AuthActions.AuthActionTypes.SEND_VERIFICATION_EMAIL),
     switchMap(() =>
       fromPromise(this.af.auth.currentUser.sendEmailVerification()).pipe(
-        map(() => {
-          return { type: AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER };
-        }),
+        map(() => new AuthActions.SaveLoggedInUser()),
         catchError(error =>
           from([
-            { type: AuthActions.AuthActionTypes.SET_UNAUTHENTICATED },
-            { type: AuthActions.AuthActionTypes.ERRORS, payload: error }
+            new AuthActions.SetAuthenicated(),
+            new AuthActions.SetErrors(error)
           ])
         )
       )
-    ),
-    tap(data => console.log(data))
+    )
   );
 
   getUser(user) {
-    console.log('my user is: ', user);
     return new User(
       user.displayName,
       user.email,

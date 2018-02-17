@@ -8,16 +8,16 @@
         <b>{{(user | async)?.displayName}}</b>,
         <br> we've sent confirmation email to
         <em>
-          <b>{{(user | async)?.displayName}}</b>
+          <b>{{(user | async)?.email}}</b>
         </em>.
         <br/> Please confirm your email to continue.
       </p>
-      <button type="button" class="email-confirm__button" mat-raised-button (click)="checkEmailConfirmation()">I've confirmed my email</button>
+      <button type="button" class="email-confirm__button" mat-raised-button (click)="checkEmailConfirmation()">Go to Login</button>
       <mat-error *ngIf="!(user | async)?.emailVerified">Email not verified</mat-error>
     </mat-card-content>
     <mat-card-footer class="email-confirm__footer" fxLayout="column">
       <span>You didn't recieve any email?</span>
-      <a href="#">Resend confirmation email</a>
+      <a (click)="resendEmail()">Resend confirmation email</a>
     </mat-card-footer>
   </mat-card>
 </div>

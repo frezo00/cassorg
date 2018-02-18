@@ -6,13 +6,17 @@ import { SharedModule } from '../shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TopNavbarComponent } from './navigation/top-navbar/top-navbar.component';
 import { SideMenuComponent } from './navigation/side-menu/side-menu.component';
+import { GroupsComponent } from './groups/groups.component';
+import { ActivitiesComponent } from './activities/activities.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     PageNotFoundComponent,
     TopNavbarComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    GroupsComponent,
+    ActivitiesComponent
   ],
   imports: [CommonModule, AuthModule, SharedModule],
   exports: [AuthModule],

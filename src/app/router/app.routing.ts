@@ -4,15 +4,22 @@ import { NgModule } from '@angular/core';
 import { AuthGuard } from '../components/auth/auth.guard';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { AuthComponent } from '../components/auth/auth.component';
-import { LoginComponent } from '../components/auth/login/login.component';
-import { RegisterComponent } from '../components/auth/register/register.component';
-import { EmailConfirmationComponent } from '../components/auth/email-confirmation/email-confirmation.component';
+import { ActivitiesComponent } from '../components/activities/activities.component';
+import { GroupsComponent } from '../components/groups/groups.component';
 import { PageNotFoundComponent } from '../components/page-not-found/page-not-found.component';
 
 import { authRoutes } from '../components/auth/auth.routing';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+  {
+    path: '',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: ActivitiesComponent },
+      { path: 'groups', component: GroupsComponent }
+    ]
+  },
   { path: 'auth', component: AuthComponent, children: authRoutes },
   { path: '**', component: PageNotFoundComponent }
 ];

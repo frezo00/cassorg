@@ -1,3 +1,35 @@
-<p>
-  side-menu works!
-</p>
+<div class="menu-header" fxFlex="25%">
+  <div class="menu-actions" fxLayoutAlign="end center">
+    <mat-icon>compare_arrows</mat-icon>
+    <mat-icon>add</mat-icon>
+    <!-- <mat-icon fontSet="fa" fontIcon="fa-exchange"></mat-icon>
+      <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon> -->
+  </div>
+</div>
+<mat-list class="nav-list" fxFlex="70%">
+  <a mat-list-item [routerLink]="'/'" [routerLinkActive]="'active'">
+    <mat-icon mat-list-icon>home</mat-icon>
+    <h4 mat-line>Dashboard</h4>
+  </a>
+  <mat-list-item class="user-data">
+    <mat-icon mat-list-icon>folder</mat-icon>
+    <h4 mat-line>Mate Matić</h4>
+    <p mat-line>moj@mail.com</p>
+  </mat-list-item>
+  <a mat-list-item [routerLink]="'/'" [routerLinkActive]="'active'">
+    <mat-icon mat-list-icon>people</mat-icon>
+    <h4 mat-line>People</h4>
+  </a>
+  <a mat-list-item [routerLink]="'/groups'" [routerLinkActive]="'active'">
+    <mat-icon mat-list-icon>group_work</mat-icon>
+    <h4 mat-line>Groups</h4>
+  </a>
+  <a mat-list-item [routerLink]="'/'" [routerLinkActive]="'active'">
+    <mat-icon mat-list-icon>assessment</mat-icon>
+    <h4 mat-line>Activities</h4>
+  </a>
+  <a mat-list-item [routerLink]="'/'" [routerLinkActive]="'active'">
+    <mat-icon mat-list-icon>trending_up</mat-icon>
+    <h4 mat-line>Statistics</h4>
+  </a>
+</mat-list>

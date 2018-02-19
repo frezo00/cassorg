@@ -36,3 +36,13 @@ mat-list.nav-list > a {
     border-left-color: red;
   }
 }
+
+mat-list.group-list {
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+  &.opened {
+    height: 100px;
+  }
+}

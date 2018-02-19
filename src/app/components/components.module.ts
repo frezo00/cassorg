@@ -8,6 +8,7 @@ import { TopNavbarComponent } from './navigation/top-navbar/top-navbar.component
 import { SideMenuComponent } from './navigation/side-menu/side-menu.component';
 import { GroupsComponent } from './groups/groups.component';
 import { ActivitiesComponent } from './activities/activities.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ActivitiesComponent } from './activities/activities.component';
     TopNavbarComponent,
     SideMenuComponent,
     GroupsComponent,
-    ActivitiesComponent
+    ActivitiesComponent,
+    AdminComponent
   ],
   imports: [CommonModule, AuthModule, SharedModule],
   exports: [AuthModule],

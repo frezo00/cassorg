@@ -1,15 +1,1 @@
-<app-top-navbar></app-top-navbar>
-
-<mat-sidenav-container fxFlexFill>
-  <mat-sidenav #sidenav mode="side" opened="true" style="width: 250px;">
-    <app-side-menu fxFlexFill fxLayout="column"></app-side-menu>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-    <button mat-button (click)="sidenav.toggle()">Toggle</button>
-    <mat-list>
-      <mat-list-item>{{(user | async )?.displayName}}</mat-list-item>
-      <mat-list-item>{{(user | async )?.email}}</mat-list-item>
-    </mat-list>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div>Hello from dashboard</div>

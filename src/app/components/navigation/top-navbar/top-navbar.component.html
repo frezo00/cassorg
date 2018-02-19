@@ -1,21 +1,38 @@
-<mat-toolbar>
-  <span>Cassorg</span>
+<mat-toolbar color="primary" class="app-top-nav">
+  <button mat-icon-button (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1 class="app-name">Cassorg</h1>
   <div class="top-menu-nav" fxLayoutAlign="end center">
-    <a mat-icon-button>
+    <a mat-icon-button class="notification">
       <mat-icon>notifications</mat-icon>
+      <div class="icon-badge">
+        <span>5</span>
+      </div>
     </a>
     <a mat-icon-button>
       <mat-icon>settings</mat-icon>
     </a>
-    <button mat-button class="user-info" fxLayout="row" fxLayoutAlign="space-around center">
+    <a mat-icon-button *ngIf="!!isMobile">
+      <mat-icon>account_circle</mat-icon>
+    </a>
+    <div *ngIf="!isMobile" class="user-info" fxLayout="row" fxLayoutAlign="space-around center">
       <div class="user-image">
-        <img src="../../../../assets/images/autumn.jpg" alt="User Image" width="24">
+        <img src="../../../../assets/images/autumn.jpg" alt="User Image" width="28">
       </div>
       <div class="user-name">
-        <h4>Mate Matić</h4>
-        <p>moj@mail.com</p>
+        <h4>{{ (user | async)?.displayName}}</h4>
+        <p>{{ (user | async)?.email}}</p>
       </div>
-    </button>
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item>My profile</button>
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item>Logout</button>
+      </mat-menu>
+    </div>
 
   </div>
 </mat-toolbar>

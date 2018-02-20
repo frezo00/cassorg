@@ -2,8 +2,8 @@
   <app-top-navbar [isMobile]="mobileQuery.matches" (toggleSide)="sidenav.toggle()"></app-top-navbar>
 
   <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 64">
-    <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="mobileQuery.matches ? 'false' : 'true'" [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56" style="width: 250px;">
+    <mat-sidenav #sidenav [mode]="tabletQuery.matches ? 'over' : 'side'" [opened]="tabletQuery.matches ? 'false' : 'true'" [fixedInViewport]="tabletQuery.matches"
+      [fixedTopGap]="mobileQuery.matches ? 56 : 64" style="width: 250px;">
       <app-side-menu fxFlexFill fxLayout="column"></app-side-menu>
     </mat-sidenav>
 

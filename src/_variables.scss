@@ -7,7 +7,8 @@ $theme-colors: (
   dark: #1f2432,
   default: #999999,
   blue-accent: #2fa2d0,
-  light-accent: #baae6d
+  light-accent: #baae6d,
+  light-dark: rgba(31, 36, 50, 0.5)
 );
 
 @function color($key) {

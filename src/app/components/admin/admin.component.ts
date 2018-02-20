@@ -8,11 +8,14 @@ import { MediaMatcher } from '@angular/cdk/layout';
 })
 export class AdminComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
+  tabletQuery: MediaQueryList;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQuery = media.matchMedia('(max-width: 599px)');
+    this.tabletQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    this.tabletQuery.addListener(this._mobileQueryListener);
   }
 
   private _mobileQueryListener: () => void;

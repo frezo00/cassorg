@@ -18,26 +18,17 @@
     </mat-card>
   </div>
 
-  <div class="dashboard__card-list" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
+  <div class="dashboard__card-list" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-between center" fxLayoutAlign.gt-sm="space-between start">
 
     <mat-card id="dashboard__users" class="dashboard__card" fxFlexFill fxFlex.gt-xs="50%">
       <mat-card-header>
         <mat-card-title class="dashboard__card-title">Active Users</mat-card-title>
-        <mat-card-subtitle>Most recent Members</mat-card-subtitle>
+        <mat-card-subtitle>Recently added Users</mat-card-subtitle>
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content class="dashboard__card-content">
         <mat-list>
-          <mat-list-item>
-            <mat-icon mat-list-icon>folder</mat-icon>
-            <h4 mat-line>Mate Matić</h4>
-            <p mat-line>mate@mail.com</p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>folder</mat-icon>
-            <h4 mat-line>Mate Matić</h4>
-            <p mat-line>mate@mail.com</p>
-          </mat-list-item>
+          <app-user-item *ngFor="let user of userList | async" [user]="user"></app-user-item>
         </mat-list>
       </mat-card-content>
       <mat-divider></mat-divider>
@@ -49,19 +40,18 @@
     <mat-card id="dashboard__groups" class="dashboard__card" fxFlexFill fxFlex.gt-xs="50%">
       <mat-card-header>
         <mat-card-title class="dashboard__card-title">Category Groups</mat-card-title>
-        <mat-card-subtitle>The biggest groups</mat-card-subtitle>
+        <mat-card-subtitle>Most active groups</mat-card-subtitle>
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content class="dashboard__card-content">
         <mat-list>
           <mat-list-item>
-            <h4 mat-line>Mate Matić</h4>
-            <button mat-button mat-list-option>Click me</button>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>folder</mat-icon>
-            <h4 mat-line>Mate Matić</h4>
-            <p mat-line>mate@mail.com</p>
+            <mat-icon mat-list-icon>
+              <div class="group-icon" style="width: 100%; height: 100%; border-radius: 50%; background-color: red;"></div>
+            </mat-icon>
+            <h4 mat-line>Group 1</h4>
+            <p mat-line>20 members</p>
+            <button mat-button mat-list-option color="primary">View</button>
           </mat-list-item>
         </mat-list>
       </mat-card-content>

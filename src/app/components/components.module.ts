@@ -9,6 +9,9 @@ import { SideMenuComponent } from './navigation/side-menu/side-menu.component';
 import { GroupsComponent } from './groups/groups.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { AdminComponent } from './admin/admin.component';
+import { UsersComponent } from './users/users.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { UserItemComponent } from './users/user-item/user-item.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { AdminComponent } from './admin/admin.component';
     SideMenuComponent,
     GroupsComponent,
     ActivitiesComponent,
-    AdminComponent
+    AdminComponent,
+    UsersComponent,
+    StatisticsComponent,
+    UserItemComponent
   ],
   imports: [CommonModule, AuthModule, SharedModule],
   exports: [AuthModule],

@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthEffects } from './components/auth/store';
 import { RouterEffects } from './router/store';
+import { UsersEffects } from './store';
 
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
@@ -32,7 +33,7 @@ import { AuthService } from './components/auth/auth.service';
     RouterModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, RouterEffects]),
+    EffectsModule.forRoot([AuthEffects, RouterEffects, UsersEffects]),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,

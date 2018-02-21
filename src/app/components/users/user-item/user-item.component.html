@@ -1,0 +1,10 @@
+<mat-list-item class="user__container">
+  <mat-icon mat-list-icon class="user__image-wrapper">
+    <div class="user__image-box">
+      <img class="user__image" src="../../../assets/images/profile.jpg" alt="User Image" width="36">
+    </div>
+  </mat-icon>
+  <h4 mat-line class="user__title">{{user?.displayName}}</h4>
+  <p mat-line class="user__subtitle">{{user?.email}}</p>
+  <a [routerLink]="'/users/' + user?.id" mat-button mat-list-option color="primary">View</a>
+</mat-list-item>

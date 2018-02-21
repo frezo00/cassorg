@@ -1,0 +1,30 @@
+@import '~_variables.scss';
+
+.user {
+  &__container {
+    height: 60px !important;
+  }
+
+  &__image {
+    display: block;
+    margin: 0 auto;
+
+    &-wrapper {
+      @include mat-icon-size(36px);
+    }
+    &-box {
+      @include mat-icon-size(36px);
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &__title {
+    font-weight: 500 !important;
+    margin-bottom: 2px !important;
+  }
+
+  &__subtitle {
+    color: map-get($map: $theme-colors, $key: subtitle);
+  }
+}

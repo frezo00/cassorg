@@ -5,13 +5,6 @@
 $fa-font-path: '../node_modules/font-awesome/fonts';
 @import '../node_modules/font-awesome/scss/font-awesome';
 
-@mixin md-icon-size($size: 24px) {
-  font-size: $size !important;
-  height: $size !important;
-  width: $size !important;
-  line-height: $size !important;
-}
-
 html,
 body {
   margin: 0;

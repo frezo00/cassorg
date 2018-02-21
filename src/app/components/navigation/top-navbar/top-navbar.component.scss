@@ -18,7 +18,9 @@
 .user-image {
   height: 28px;
   padding: 4px;
-  img {
+  background-color: white;
+  border-radius: 50%;
+  & > img {
     border-radius: 50%;
     height: 28px;
   }

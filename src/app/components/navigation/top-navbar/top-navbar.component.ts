@@ -24,4 +24,8 @@ export class TopNavbarComponent implements OnInit {
   toggleSidenav() {
     this.toggleSide.emit(true);
   }
+
+  logout() {
+    this.store.dispatch(new fromAuth.Logout());
+  }
 }

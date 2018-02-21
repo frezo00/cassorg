@@ -192,6 +192,25 @@ export class AuthEffects {
     )
   );
 
+  @Effect()
+  logout$ = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.LOGOUT),
+    switchMap(() =>
+      fromPromise(this.af.auth.signOut()).pipe(
+        mergeMap(() => [
+          new AuthActions.SetAuthenicated(),
+          new RouterActions.Go({ path: '/auth/login' })
+        ]),
+        catchError(error =>
+          from([
+            new AuthActions.SetAuthenicated(),
+            new AuthActions.SetErrors(error)
+          ])
+        )
+      )
+    )
+  );
+
   getUser(user) {
     return new User(
       user.displayName,

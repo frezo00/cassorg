@@ -12,6 +12,8 @@ import { AdminComponent } from './admin/admin.component';
 import { UsersComponent } from './users/users.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { UserItemComponent } from './users/user-item/user-item.component';
+import { ProjectComponent } from './project/project.component';
+import { EmptyStateComponent } from './empty-state/empty-state.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { UserItemComponent } from './users/user-item/user-item.component';
     AdminComponent,
     UsersComponent,
     StatisticsComponent,
-    UserItemComponent
+    UserItemComponent,
+    ProjectComponent,
+    EmptyStateComponent
   ],
   imports: [CommonModule, AuthModule, SharedModule],
   exports: [AuthModule],

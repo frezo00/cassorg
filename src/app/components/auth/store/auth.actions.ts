@@ -7,6 +7,7 @@ export enum AuthActionTypes {
   SAVE_LOGGED_IN_USER_COMPLETE = '[Auth] Save Logged In User Complete',
   TRY_LOGIN = '[Auth] Try Login',
   TRY_REGISTER = '[Auth] Try Register',
+  LOGOUT = '[Auth] Logout',
   SET_AUTHENTICATED = '[Auth] Set Authenticated',
   SET_UNAUTHENTICATED = '[Auth] Set Unauthenticated',
   ERRORS = '[Auth] Errors',
@@ -41,6 +42,10 @@ export class TryRegister implements Action {
   constructor(
     public payload: { fullName: string; email: string; password: string }
   ) {}
+}
+
+export class Logout implements Action {
+  readonly type = AuthActionTypes.LOGOUT;
 }
 
 export class SetAuthenicated implements Action {
@@ -78,6 +83,7 @@ export type AuthActions =
   | SaveLoggedInUserComplete
   | TryLogin
   | TryRegister
+  | Logout
   | SetAuthenicated
   | SetUnauthenicated
   | SetErrors

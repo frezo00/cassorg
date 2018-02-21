@@ -5,6 +5,7 @@ export enum UsersActionTypes {
   GET_RECENT_USERS = '[Users] Get Recent Users',
   GET_RECENT_USERS_COMPLETE = '[Users] Get Recent Users Complete',
   CREATE_USER = '[Users] Create User',
+  CREATE_USER_COMPLETE = '[Users] Create User Complete',
   ERRORS = '[Users] Errors'
 }
 
@@ -23,6 +24,11 @@ export class CreateUsers implements Action {
 
   constructor(public payload: IUser) {}
 }
+export class CreateUsersComplete implements Action {
+  readonly type = UsersActionTypes.CREATE_USER_COMPLETE;
+
+  constructor(public payload: IUser) {}
+}
 
 export class Errors implements Action {
   readonly type = UsersActionTypes.ERRORS;
@@ -34,4 +40,5 @@ export type UsersActions =
   | GetRecentUsers
   | GetRecentUsersComplete
   | CreateUsers
+  | CreateUsersComplete
   | Errors;

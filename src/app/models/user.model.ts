@@ -11,6 +11,8 @@ export interface IUser {
   photoURL?: string;
   createdAt?: string;
   lastLogin?: string;
+  createdProject?: string;
+  userOfProjects?: Array<any>;
 }
 
 export class User implements IUser {
@@ -26,6 +28,8 @@ export class User implements IUser {
     public birthday?: string,
     public photoURL?: string,
     public createdAt?: string,
-    public lastLogin?: string
+    public lastLogin?: string,
+    public createdProject?: string,
+    public userOfProjects?: Array<any>
   ) {}
 }

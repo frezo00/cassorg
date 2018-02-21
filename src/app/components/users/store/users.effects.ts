@@ -11,10 +11,10 @@ import { IUser } from '../../../models/user.model';
 @Injectable()
 export class UsersEffects {
   @Effect()
-  getRecentUsers$ = this.actions$.pipe(
+  getRecentUsers$: Observable<Action> = this.actions$.pipe(
     ofType(UsersActions.UsersActionTypes.GET_RECENT_USERS),
-    switchMap(() => {
-      return this.afDB
+    switchMap(() =>
+      this.afDB
         .collection('users')
         .snapshotChanges()
         .pipe(
@@ -31,7 +31,16 @@ export class UsersEffects {
             console.log('error:', error);
             return Observable.of(new UsersActions.Errors(error));
           })
-        );
+        )
+    )
+  );
+
+  @Effect()
+  createUser$: Observable<Action> = this.actions$.pipe(
+    ofType(UsersActions.UsersActionTypes.CREATE_USER),
+    map((action: UsersActions.CreateUsers) => action.payload),
+    switchMap((user: IUser) => {
+      return Observable.of();
     })
   );
 

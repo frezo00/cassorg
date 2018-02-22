@@ -18,6 +18,7 @@ import { from } from 'rxjs/observable/from';
 
 import * as AuthActions from './auth.actions';
 import * as RouterActions from '../../../router/store';
+import * as UsersActions from '../../users/store';
 import { User, IUser } from '../../../models/user.model';
 import { AppState } from '../../../store';
 import { AuthService } from '../auth.service';
@@ -124,7 +125,8 @@ export class AuthEffects {
           const actions: Array<any> = [
             new AuthActions.SetAuthenicated(),
             new AuthActions.SaveLoggedInUser(),
-            new AuthActions.SetErrors(null)
+            new AuthActions.SetErrors(null),
+            new UsersActions.CreateUser(this.getUser(createdUser))
           ];
           if (!createdUser.displayName) {
             actions.push(
@@ -224,7 +226,9 @@ export class AuthEffects {
       null,
       user.photoURL,
       user.metadata.creationTime,
-      user.metadata.lastSignInTime
+      user.metadata.lastSignInTime,
+      null,
+      null
     );
   }
 }

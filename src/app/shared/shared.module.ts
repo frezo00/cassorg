@@ -4,9 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
+import { StopPropagationDirective } from '../directives/stop-propagation.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [StopPropagationDirective],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,7 +22,8 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     RouterModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    StopPropagationDirective
   ],
   providers: []
 })

@@ -19,12 +19,12 @@ export class GetRecentUsersComplete implements Action {
   constructor(public payload: IUser[]) {}
 }
 
-export class CreateUsers implements Action {
+export class CreateUser implements Action {
   readonly type = UsersActionTypes.CREATE_USER;
 
   constructor(public payload: IUser) {}
 }
-export class CreateUsersComplete implements Action {
+export class CreateUserComplete implements Action {
   readonly type = UsersActionTypes.CREATE_USER_COMPLETE;
 
   constructor(public payload: IUser) {}
@@ -39,6 +39,6 @@ export class Errors implements Action {
 export type UsersActions =
   | GetRecentUsers
   | GetRecentUsersComplete
-  | CreateUsers
-  | CreateUsersComplete
+  | CreateUser
+  | CreateUserComplete
   | Errors;

@@ -1,16 +1,41 @@
-<div class="menu-header" fxFlex="25%">
-  <div class="menu-actions" fxLayoutAlign="end center">
-    <button mat-icon-button>
-      <mat-icon>compare_arrows</mat-icon>
+<div class="menu-header" fxLayout="column" fxLayoutAlign="start strech">
+  <div class="menu-actions" fxLayoutAlign="space-between center">
+    <button class="menu-icon-button" mat-icon-button>
+      <mat-icon>star</mat-icon>
+      <span fxHide>Set Favourite</span>
     </button>
-    <button mat-icon-button>
-      <mat-icon>add</mat-icon>
-    </button>
+    <div class="more-actions" fxLayoutAlign="end center">
+      <button class="menu-icon-button" mat-icon-button>
+        <mat-icon>compare_arrows</mat-icon>
+        <span fxHide>Set Favourite</span>
+      </button>
+      <button class="menu-icon-button" mat-icon-button>
+        <mat-icon>add</mat-icon>
+        <span fxHide>Set Favourite</span>
+      </button>
+    </div>
     <!-- <mat-icon fontSet="fa" fontIcon="fa-exchange"></mat-icon>
-      <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon> -->
+          <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon> -->
   </div>
+  <div class="category-box" fxLayout="row" fxLayoutAlign="space-between center">
+    <h3>Category Name</h3>
+    <button class="menu-icon-button" mat-icon-button>
+      <mat-icon>edit</mat-icon>
+      <span fxHide>Edit</span>
+    </button>
+  </div>
+  <!-- <div class="menu-actions" fxLayoutAlign="space-between center">
+    <button class="menu-icon-button" mat-button fxFlex="50%">
+      <mat-icon>compare_arrows</mat-icon>
+      <span>Switch Category</span>
+    </button>
+    <button class="menu-icon-button" mat-button fxFlex="50%">
+      <mat-icon>add</mat-icon>
+      <span>Add Category</span>
+    </button>
+  </div> -->
 </div>
-<mat-list class="nav-list" fxFlex="70%">
+<mat-nav-list class="nav-list" fxFlex="80%">
   <a mat-list-item [routerLink]="'/'" [routerLinkActive]="'active'">
     <mat-icon mat-list-icon>home</mat-icon>
     <h4 mat-line>Dashboard</h4>
@@ -22,13 +47,14 @@
   <a mat-list-item [routerLink]="'/groups'" [routerLinkActive]="'active'">
     <mat-icon mat-list-icon>group_work</mat-icon>
     <h4 mat-line>Groups</h4>
-    <button mat-icon-button mat-list-option (click)="isGroupOpened = !isGroupOpened;">
+    <button mat-icon-button mat-list-option appStopPropagation (click)="isGroupOpened = !isGroupOpened">
       <mat-icon>{{!isGroupOpened ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}}</mat-icon>
     </button>
   </a>
-  <mat-list [ngClass]="{'opened': isGroupOpened}" class="group-list">
-    <mat-list-item>Group 1</mat-list-item>
-    <mat-list-item>Group 2</mat-list-item>
+  <mat-list [ngStyle]="{'height': isGroupOpened ? ([0,1,2,3,4,5,6,7,8].length * 36) + 'px' : '0px'}" class="group-list">
+    <mat-list-item mat-button *ngFor="let number of [0,1,2,3,4,5,6,7,8]">
+      <span>Group {{number}}</span>
+    </mat-list-item>
   </mat-list>
   <a mat-list-item [routerLink]="'/activities'" [routerLinkActive]="'active'">
     <mat-icon mat-list-icon>assessment</mat-icon>
@@ -38,4 +64,4 @@
     <mat-icon mat-list-icon>trending_up</mat-icon>
     <h4 mat-line>Statistics</h4>
   </a>
-</mat-list>
+</mat-nav-list>

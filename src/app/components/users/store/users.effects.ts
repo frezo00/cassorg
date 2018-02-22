@@ -3,10 +3,11 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError, tap } from 'rxjs/operators';
 
 import * as UsersActions from './users.actions';
-import { IUser } from '../../../models/user.model';
+import { IUser, User } from '../../../models/user.model';
+import { fromPromise } from 'rxjs/observable/fromPromise';
 
 @Injectable()
 export class UsersEffects {
@@ -38,8 +39,23 @@ export class UsersEffects {
   @Effect()
   createUser$: Observable<Action> = this.actions$.pipe(
     ofType(UsersActions.UsersActionTypes.CREATE_USER),
-    map((action: UsersActions.CreateUsers) => action.payload),
+    map((action: UsersActions.CreateUser) => action.payload),
+    tap(user => console.log('user:', user)),
     switchMap((user: IUser) => {
+      fromPromise(
+        this.afDB
+          .collection('projects/myproject/categories/category1/users')
+          .add(user)
+      ).pipe(
+        map(userData => {
+          console.log('userData:', userData);
+          console.log('userData id:', userData.id);
+        }),
+        catchError(error => {
+          console.error('error', error);
+          return Observable.of(error);
+        })
+      );
       return Observable.of();
     })
   );

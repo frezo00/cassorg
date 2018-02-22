@@ -1,9 +1,13 @@
+@import '~_variables.scss';
 .menu-header {
-  background: url('../../../../assets/images/autumn.jpg') center center
+  /* background: url('../../../../assets/images/autumn.jpg') center center
     no-repeat;
-  background-size: cover;
+  background-size: cover; */
+  background: map-get($theme-colors, light-accent);
   position: relative;
-  &:before {
+  min-height: 100px;
+
+  /* &:before {
     content: '';
     position: absolute;
     top: 0;
@@ -16,33 +20,63 @@
       rgba(0, 0, 0, 1) 100%
     );
     opacity: 0.6;
-  }
+  } */
 }
 .menu-actions {
   color: white;
+  padding: 4px;
+
   mat-icon.mat-icon {
-    font-size: 30px;
-    height: 30px;
-    width: 30px;
-    padding: 4px;
+    @include mat-icon-size(20px);
+  }
+  span {
+    font-size: 0.7em;
+    font-weight: normal;
+    padding-left: 2px;
   }
 }
-mat-list.nav-list > a {
-  text-decoration: none;
-  border-left-width: 0px;
-  transition: border-left-width 0.3s ease-in-out;
-  &.active {
-    border-left: 4px solid;
-    border-left-color: red;
+.more-actions {
+  mat-icon.mat-icon {
+    @include mat-icon-size(26px);
+  }
+}
+.category-box {
+  padding: 0 4px 0 16px;
+  & > h3 {
+    font-weight: 500;
+    margin: 0;
+    color: white;
+    font-size: 1.2em;
+  }
+  & mat-icon {
+    @include mat-icon-size(20px);
+    color: white;
+  }
+}
+.menu-icon-button {
+  padding: 0 4px;
+}
+
+mat-nav-list.nav-list {
+  & > a {
+    text-decoration: none;
+    border-left: 0px solid map-get($theme-colors, light-accent);
+    transition: border-left-width 0.3s ease-in-out;
+    &.active {
+      border-left-width: 4px;
+    }
   }
 }
 
 mat-list.group-list {
-  height: 0;
   padding: 0;
   overflow: hidden;
   transition: height 0.3s ease-in-out;
-  &.opened {
-    height: 100px;
+
+  & > mat-list-item {
+    height: 36px;
+    & span {
+      padding-left: 48px;
+    }
   }
 }

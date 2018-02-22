@@ -2,6 +2,7 @@
 
 .content-wrapper {
   padding: 0 16px;
+  height: 100%;
   background-color: #f6f6f6;
 }
 
@@ -9,7 +10,7 @@
   &__title {
     color: #565656;
     margin: 0;
-    padding: 28px 8px;
+    padding: 16px 12px 8px;
     font-size: 20px;
   }
 

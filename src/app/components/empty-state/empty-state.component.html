@@ -1,3 +1,10 @@
-<p>
-  empty-state works!
-</p>
+<div class="empty-state__containter" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center" fxFlex.xs="80%" fxFlex.gt-xs="50%">
+    <mat-icon class="empty-state__icon">mood_bad</mat-icon>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <h2 class="empty-state__title">{{title}}</h2>
+      <p class="empty-state__message">{{message}}</p>
+      <button class="empty-state__button" mat-raised-button color="primary" (click)="doAction()">{{btnText}}</button>
+    </div>
+  </div>
+</div>

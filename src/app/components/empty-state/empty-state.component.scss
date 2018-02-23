@@ -1,0 +1,30 @@
+@import '~_variables.scss';
+
+.empty-state {
+  &__containter {
+    padding: 20px 0;
+  }
+
+  &__icon {
+    color: map-get($theme-colors, subtitle);
+    @include mat-icon-size(80px);
+  }
+
+  &__title {
+    margin: 16px 0 8px;
+    font-size: 24px;
+    font-weight: 500;
+    color: map-get($theme-colors, subtitle);
+  }
+
+  &__message {
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    color: map-get($theme-colors, light-dark);
+  }
+
+  &__button {
+    margin: 12px 0;
+  }
+}

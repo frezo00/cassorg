@@ -4,10 +4,10 @@
   <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 64">
     <mat-sidenav #sidenav [mode]="tabletQuery.matches ? 'over' : 'side'" [opened]="tabletQuery.matches ? 'false' : 'true'" [fixedInViewport]="tabletQuery.matches"
       [fixedTopGap]="mobileQuery.matches ? 56 : 64" style="width: 250px;">
-      <app-side-menu fxFlexFill fxLayout="column"></app-side-menu>
+      <app-side-menu (toggleSide)="sidenav.toggle()" fxFlexFill fxLayout="column"></app-side-menu>
     </mat-sidenav>
 
-    <mat-sidenav-content>
+    <mat-sidenav-content class="app-sidenav-content">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -12,6 +12,7 @@ import { AuthComponent } from '../components/auth/auth.component';
 import { PageNotFoundComponent } from '../components/page-not-found/page-not-found.component';
 
 import { authRoutes } from '../components/auth/auth.routing';
+import { ProjectComponent } from '../components/project/project.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
     ]
   },
   { path: 'auth', component: AuthComponent, children: authRoutes },
+  { path: 'project', component: ProjectComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

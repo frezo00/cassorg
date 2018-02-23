@@ -11,7 +11,7 @@ import { IUser } from '../../../models/user.model';
   styleUrls: ['./top-navbar.component.scss']
 })
 export class TopNavbarComponent implements OnInit {
-  @Output() toggleSide = new EventEmitter<boolean>();
+  @Output() toggleSide = new EventEmitter();
   @Input() isMobile: any;
   user: Observable<IUser>;
 
@@ -22,7 +22,7 @@ export class TopNavbarComponent implements OnInit {
   }
 
   toggleSidenav() {
-    this.toggleSide.emit(true);
+    this.toggleSide.emit();
   }
 
   logout() {

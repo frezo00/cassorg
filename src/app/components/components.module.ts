@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthModule } from './auth/auth.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavigationModule } from './navigation/navigation.module';
 import { SharedModule } from '../shared/shared.module';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { TopNavbarComponent } from './navigation/top-navbar/top-navbar.component';
-import { SideMenuComponent } from './navigation/side-menu/side-menu.component';
 import { GroupsComponent } from './groups/groups.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { AdminComponent } from './admin/admin.component';
@@ -19,8 +19,6 @@ import { EmptyStateComponent } from './empty-state/empty-state.component';
   declarations: [
     DashboardComponent,
     PageNotFoundComponent,
-    TopNavbarComponent,
-    SideMenuComponent,
     GroupsComponent,
     ActivitiesComponent,
     AdminComponent,
@@ -30,8 +28,8 @@ import { EmptyStateComponent } from './empty-state/empty-state.component';
     ProjectComponent,
     EmptyStateComponent
   ],
-  imports: [CommonModule, AuthModule, SharedModule],
-  exports: [AuthModule],
+  imports: [CommonModule, AuthModule, NavigationModule, SharedModule],
+  exports: [],
   providers: []
 })
 export class ComponentsModule {}

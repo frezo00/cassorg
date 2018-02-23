@@ -1,9 +1,13 @@
 @import '~_variables.scss';
 
+:host {
+  display: flex;
+}
+
 .content-wrapper {
   padding: 0 16px;
   height: 100%;
-  background-color: #f6f6f6;
+  width: 100%;
 }
 
 .dashboard {

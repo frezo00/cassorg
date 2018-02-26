@@ -6,8 +6,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { StopPropagationDirective } from '../directives/stop-propagation.directive';
 
+import { CreateProjectModalComponent } from './../components/project/create-project-modal/create-project-modal.component';
+
 @NgModule({
-  declarations: [StopPropagationDirective],
+  declarations: [StopPropagationDirective, CreateProjectModalComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -23,8 +25,10 @@ import { StopPropagationDirective } from '../directives/stop-propagation.directi
     RouterModule,
     MaterialModule,
     FlexLayoutModule,
-    StopPropagationDirective
+    StopPropagationDirective,
+    CreateProjectModalComponent
   ],
-  providers: []
+  providers: [],
+  entryComponents: [CreateProjectModalComponent]
 })
 export class SharedModule {}

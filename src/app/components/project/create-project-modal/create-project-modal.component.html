@@ -1,0 +1,45 @@
+<mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+  <mat-step [stepControl]="projectForm">
+    <form [formGroup]="projectForm">
+      <ng-template matStepLabel>Enter Project's Name</ng-template>
+      <mat-form-field floatLabel="always" fxFlexFill class="modal-form__input">
+        <input matInput placeholder="Project Name" formControlName="name" required>
+        <mat-hint align="end">{{projectName.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="projectName.invalid">{{getProjectErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <div fxLayoutAlign="end center" class="modal-form__actions">
+        <button mat-raised-button matStepperNext color="primary" [disabled]="projectForm.invalid">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="categoryForm">
+    <form [formGroup]="categoryForm">
+      <ng-template matStepLabel>Add Categories</ng-template>
+      <button mat-button (click)="addItem()">Add item</button>
+      <div formArrayName="names" *ngFor="let item of categoryForm.get('names')?.controls; let i = index;">
+        <div [formGroupName]="i">
+          <input formControlName="name" placeholder="Item name">
+        </div>
+
+        Chosen name: {{ categoryForm.controls['names']?.controls[i].controls.name.value }}
+      </div>
+      <!-- <mat-form-field floatLabel="always" fxFlexFill class="modal-form__input">
+        <input matInput placeholder="Category Name" formControlName="name" required>
+        <mat-hint align="end">{{categoryName.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="categoryName.invalid">{{getCategoryErrorMessage()}}</mat-error>
+      </mat-form-field> -->
+      <div fxLayoutAlign="end center" class="modal-form__actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext color="primary" [disabled]="projectForm.invalid && categoryForm.invalid" (click)="onSubmitForms()">Finish</button>
+      </div>
+    </form>
+  </mat-step>
+  <!-- <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step> -->
+</mat-horizontal-stepper>

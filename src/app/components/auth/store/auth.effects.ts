@@ -125,8 +125,8 @@ export class AuthEffects {
           const actions: Array<any> = [
             new AuthActions.SetAuthenicated(),
             new AuthActions.SaveLoggedInUser(),
-            new AuthActions.SetErrors(null),
-            new UsersActions.CreateUser(this.getUser(createdUser))
+            new AuthActions.SetErrors(null)
+            // new UsersActions.CreateUser(this.getUser(createdUser))
           ];
           if (!createdUser.displayName) {
             actions.push(

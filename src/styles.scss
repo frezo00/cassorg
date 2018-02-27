@@ -22,3 +22,18 @@ a.mat-menu-item > mat-icon {
   height: 24px;
   width: 24px;
 }
+.modal-dialog > mat-dialog-container {
+  padding: 8px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+mat-step-header.mat-step-header {
+  padding: 0 16px;
+  & + .mat-stepper-horizontal-line {
+    margin: 0 -8px;
+    min-width: 24px;
+  }
+}
+mat-horizontal-stepper > .mat-horizontal-content-container {
+  padding: 0 16px 16px 16px;
+}

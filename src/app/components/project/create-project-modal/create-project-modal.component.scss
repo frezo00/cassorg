@@ -1,10 +1,20 @@
+@import '~_variables.scss';
+
 .modal-form {
+  &__container {
+    padding: 16px 0 8px;
+  }
+
   &__input {
-    padding: 24px 0;
+    padding-bottom: 8px;
+    mat-icon.mat-icon {
+      @include mat-icon-size(20px);
+    }
   }
 
   &__actions {
     margin: 4px 0;
+    text-align: center;
     & > button[mat-button] {
       margin-right: 8px;
     }

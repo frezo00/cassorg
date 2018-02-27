@@ -39,8 +39,8 @@ export class TopNavbarComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateProjectModalComponent, {
-      // width: '250px'
-      // data: { name: this.name, animal: this.animal }
+      height: 'calc(100%-20vh)',
+      panelClass: 'modal-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {

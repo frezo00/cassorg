@@ -17,9 +17,7 @@ export class CreateProjectModalComponent implements OnInit {
   projectForm: FormGroup;
   projectName: FormControl;
   categoryForm: FormGroup;
-  categoryName: FormControl;
   categoryArray: FormArray;
-  names: FormArray;
 
   constructor(private fb: FormBuilder) {}
 
@@ -37,44 +35,46 @@ export class CreateProjectModalComponent implements OnInit {
   }
 
   initCategoryForm() {
+    this.categoryArray = this.fb.array(
+      [this.categoryGroupName()],
+      Validators.compose([Validators.required, Validators.maxLength(3)])
+    );
     this.categoryForm = this.fb.group({
-      names: this.fb.array([this.addGroupName()])
+      categories: this.categoryArray
     });
-    /* this.categoryName = new FormControl('', [
-      Validators.required,
-      Validators.maxLength(20)
-    ]);
-    this.categoryForm = this.fb.group({
-      name: this.categoryName
-    }); */
   }
 
-  addGroupName(): FormGroup {
-    return this.fb.group({ name: this.categoryName });
+  categoryGroupName(): FormGroup {
+    return this.fb.group({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20)
+      ]),
+      isFavourite: new FormControl(false)
+    });
   }
 
-  addItem(): void {
-    this.names = this.categoryForm.get('names') as FormArray;
-    this.names.push(this.addGroupName());
+  setFavouriteCategory(category: FormControl) {
+    category.setValue(!category.value);
   }
 
   onSubmitForms() {
     console.log('project form: ', this.projectForm.value);
-    console.log('category form: ', this.categoryForm.value);
+    console.log('category form: ', this.categoryForm.controls);
   }
 
   getProjectErrorMessage() {
     return this.projectName.hasError('required')
-      ? 'You must enter a value'
+      ? 'Please, enter a value'
       : this.projectName.hasError('maxlength')
         ? 'Maximum name length is 20 characters'
         : '';
   }
 
-  getCategoryErrorMessage() {
-    return this.categoryName.hasError('required')
-      ? 'You must enter a value'
-      : this.categoryName.hasError('maxlength')
+  getCategoryErrorMessage(category: FormControl) {
+    return category.hasError('required')
+      ? 'Please, enter a value'
+      : category.hasError('maxlength')
         ? 'Maximum name length is 20 characters'
         : '';
   }

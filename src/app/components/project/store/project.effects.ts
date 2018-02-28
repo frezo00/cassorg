@@ -1,29 +1,41 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap, tap, catchError } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  mergeMap,
+  tap,
+  catchError,
+  withLatestFrom
+} from 'rxjs/operators';
 
 import * as ProjectActions from './project.actions';
-import { IProject } from '../../../models';
+import { IProject, Project } from '../../../models';
+import { AppState } from '../../../store';
 
 @Injectable()
 export class ProjectEffects {
   @Effect()
   createProject$: Observable<Action> = this.actions$.pipe(
     ofType(ProjectActions.ProjectActionTypes.CREATE_PROJECT),
-    map((action: ProjectActions.CreateProject) => action.payload),
-    tap(project => console.log('project is: ', project)),
+    withLatestFrom(this.store$),
+    map(([action, store]: [ProjectActions.CreateProject, AppState]) => {
+      return {
+        name: action.payload.name,
+        createdBy: store.auth.loggedInUser.id
+      } as IProject;
+    }),
     switchMap((project: IProject) =>
       Observable.fromPromise(
         this.afDB.collection('projects').add(project)
       ).pipe(
-        map(data => {
-          console.log('data: ', data);
-          console.log('and project: ', project);
-          return new ProjectActions.CreateProjectComplete(project);
-        }),
+        mergeMap(data => [
+          new ProjectActions.CreateProjectComplete({ ...project, id: data.id })
+          // TODO: Update logged in user's User.createdProject value
+        ]),
         catchError(err => {
           console.error('error: ', err);
           return Observable.of(new ProjectActions.ProjectErrors(err));
@@ -32,5 +44,9 @@ export class ProjectEffects {
     )
   );
 
-  constructor(private actions$: Actions, private afDB: AngularFirestore) {}
+  constructor(
+    private actions$: Actions,
+    private afDB: AngularFirestore,
+    private store$: Store<AppState>
+  ) {}
 }

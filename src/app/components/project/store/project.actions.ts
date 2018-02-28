@@ -21,7 +21,7 @@ export class CloseCreateProjectModal implements Action {
 export class CreateProject implements Action {
   readonly type = ProjectActionTypes.CREATE_PROJECT;
 
-  constructor(public payload: IProject) {}
+  constructor(public payload: { name: string }) {}
 }
 
 export class CreateProjectComplete implements Action {

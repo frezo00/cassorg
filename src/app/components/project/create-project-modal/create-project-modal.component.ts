@@ -6,6 +6,10 @@ import {
   FormControl,
   FormArray
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import * as fromProject from '../store';
+
+import { IProject, Project } from '../../../models';
 
 @Component({
   selector: 'app-create-project-modal',
@@ -19,7 +23,10 @@ export class CreateProjectModalComponent implements OnInit {
   categoryForm: FormGroup;
   categoryArray: FormArray;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<fromProject.ProjectState>
+  ) {}
 
   ngOnInit() {
     this.initProjectForm();
@@ -59,6 +66,9 @@ export class CreateProjectModalComponent implements OnInit {
   }
 
   onSubmitForms() {
+    this.store.dispatch(
+      new fromProject.CreateProject({ name: this.projectName.value.trim() })
+    );
     console.log('project form: ', this.projectForm.value);
     console.log('category form: ', this.categoryForm.controls);
   }

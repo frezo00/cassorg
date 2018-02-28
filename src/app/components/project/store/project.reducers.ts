@@ -32,7 +32,7 @@ export function projectReducer(
       return { ...state, openModal: false };
     }
 
-    case ProjectActions.ProjectActionTypes.CREATE_PROJECT: {
+    case ProjectActions.ProjectActionTypes.CREATE_PROJECT_COMPLETE: {
       return { ...state, activeProject: action.payload };
     }
 

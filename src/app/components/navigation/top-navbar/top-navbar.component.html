@@ -2,13 +2,13 @@
   <button mat-icon-button (click)="toggleSidenav()">
     <mat-icon>menu</mat-icon>
   </button>
-  <h1 class="app-name">{{ (project | async)?.name }}</h1>
-  <div *ngIf="!(project | async)" class="no-project">
+  <h1 class="app-name">Cassorg</h1>
+  <!-- <div *ngIf="!(project | async)" class="no-project">
     <button mat-raised-button color="accent" (click)="onCreateProject()">
       <mat-icon *ngIf="!isMobile">add</mat-icon>
       <span>Add Project</span>
     </button>
-  </div>
+  </div> -->
   <div class="top-menu-nav" fxLayoutAlign="end center">
     <a mat-icon-button class="notification">
       <mat-icon>notifications</mat-icon>

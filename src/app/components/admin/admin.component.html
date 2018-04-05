@@ -3,7 +3,7 @@
 
   <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 64">
     <mat-sidenav #sidenav [mode]="tabletQuery.matches ? 'over' : 'side'" [opened]="tabletQuery.matches ? 'false' : 'true'" [fixedInViewport]="tabletQuery.matches"
-      [fixedTopGap]="mobileQuery.matches ? 56 : 64" style="width: 250px;">
+      [fixedTopGap]="mobileQuery.matches ? 56 : 64" style="width: 280px;">
       <app-side-menu (toggleSide)="sidenav.toggle()" fxFlexFill fxLayout="column"></app-side-menu>
     </mat-sidenav>
 

@@ -11,6 +11,32 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 
 @Injectable()
 export class UsersEffects {
+
+  @Effect({dispatch: false})
+  getAllUsers$ = this.actions$.pipe(
+    ofType(UsersActions.UsersActionTypes.GET_ALL_USERS),
+    switchMap(() =>
+      this.afDB
+        .collection('users')
+        .snapshotChanges()
+        .pipe(
+          map(usersData => {
+            const users = usersData.map(user => {
+              const data = user.payload.doc.data() as IUser;
+              const id = user.payload.doc.id;
+              return { id, ...data };
+            });
+            console.log('userList: ', users);
+            // return new UsersActions.GetRecentUsersComplete(users);
+          }),
+          catchError(error => {
+            console.log('error:', error);
+            return Observable.of(new UsersActions.Errors(error));
+          })
+        )
+    )
+  );
+
   @Effect()
   getRecentUsers$: Observable<Action> = this.actions$.pipe(
     ofType(UsersActions.UsersActionTypes.GET_RECENT_USERS),
@@ -44,12 +70,10 @@ export class UsersEffects {
     switchMap((user: IUser) => {
       fromPromise(
         this.afDB
-          .collection('projects/myproject/categories/category1/users')
-          .add(user)
+          .collection('users').doc(user.id).set(user)
       ).pipe(
         map(userData => {
           console.log('userData:', userData);
-          console.log('userData id:', userData.id);
         }),
         catchError(error => {
           console.error('error', error);

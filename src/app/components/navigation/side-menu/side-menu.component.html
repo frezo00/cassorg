@@ -1,12 +1,14 @@
 <app-side-top-header></app-side-top-header>
 <mat-nav-list class="nav-list" fxFlex="80%">
-  <a mat-list-item [routerLink]="nav.link" [routerLinkActive]="'active'" *ngFor="let nav of navList" style="height: 48px;">
-    <mat-icon mat-list-icon>{{nav.icon}}</mat-icon>
+  <a class="nav-item" mat-list-item [routerLink]="nav.link" [routerLinkActive]="'active'" *ngFor="let nav of navList"
+    [ngStyle]="{'height': isGroupOpened && nav.title === 'Groups' ? (([0,1,2,3,4,5,6,7,8].length + 1) * 36) + 'px' : '48px'}">
+    <mat-icon mat-list-icon [ngClass]="{'opened-nav-icon': nav.title === 'Groups'}">{{nav.icon}}</mat-icon>
     <h4 mat-line>{{nav.title}}</h4>
-    <button *ngIf="nav.title === 'Groups'" mat-icon-button mat-list-option appStopPropagation (click)="isGroupOpened = !isGroupOpened">
+    <button *ngIf="nav.title === 'Groups'" [ngClass]="{'opened-nav-button': nav.title === 'Groups'}"
+      mat-icon-button mat-list-option appStopPropagation (click)="isGroupOpened = !isGroupOpened">
       <mat-icon>{{!isGroupOpened ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}}</mat-icon>
     </button>
-    <mat-list *ngIf="nav.title === 'Groups'" mat-line [ngStyle]="{'height': isGroupOpened ? ([0,1,2,3,4,5,6,7,8].length * 36) + 'px' : '0px'}"
+    <mat-list *ngIf="nav.title === 'Groups'" mat-line [ngStyle]="{'height': isGroupOpened ? ([0,1,2,3,4,5,6,7,8].length * 36) - 12 + 'px' : '0px'}"
       class="group-list">
       <mat-list-item mat-button *ngFor="let number of [0,1,2,3,4,5,6,7,8]">
         <span>Group {{number}}</span>

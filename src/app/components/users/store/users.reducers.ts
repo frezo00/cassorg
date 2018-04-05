@@ -2,11 +2,13 @@ import * as UsersActions from './users.actions';
 import { IUser } from '../../../models/user.model';
 
 export interface UsersState {
+  allUsers: IUser[];
   recentUsers: IUser[];
   error: string;
 }
 
 const initialState: UsersState = {
+  allUsers: null,
   recentUsers: null,
   error: null
 };

@@ -22,13 +22,25 @@
     @include mat-icon-size(26px);
   }
 }
-.category-box {
+.project-box {
   padding: 0 4px 0 16px;
-  & > h3 {
+  &__name, &__mat-input input.mat-input-element {
     font-weight: 500;
     margin: 0;
     color: white;
-    font-size: 1.2em;
+    font-size: 20px;
+  }
+  ::ng-deep &__mat-input {
+    & .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+    & .mat-form-field-infix {
+      border-top: none;
+      width: auto;
+    }
+    & .mat-input-underline {
+      bottom: 2px;
+    }
   }
   & mat-icon {
     @include mat-icon-size(20px);
@@ -40,10 +52,10 @@
 }
 
 mat-nav-list.nav-list {
-  & > a {
+  & > a.nav-item {
     text-decoration: none;
     border-left: 0px solid map-get($theme-colors, light-accent);
-    transition: border-left-width 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     &.active {
       border-left-width: 4px;
     }
@@ -61,4 +73,21 @@ mat-list.group-list {
       padding-left: 48px;
     }
   }
+}
+
+.no-project {
+  margin: 0 16px;
+  &__button {
+    width: 100%;
+  }
+}
+
+.opened-nav-icon {
+  align-self: flex-start;
+  padding-top: 12px  !important;
+}
+
+.opened-nav-button {
+  align-self: flex-start;
+  margin-top: 4px  !important;
 }

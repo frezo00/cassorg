@@ -2,11 +2,16 @@ import { Action } from '@ngrx/store';
 import { IUser } from '../../../models/user.model';
 
 export enum UsersActionTypes {
+  GET_ALL_USERS = '[Users] Get All Users',
   GET_RECENT_USERS = '[Users] Get Recent Users',
   GET_RECENT_USERS_COMPLETE = '[Users] Get Recent Users Complete',
   CREATE_USER = '[Users] Create User',
   CREATE_USER_COMPLETE = '[Users] Create User Complete',
   ERRORS = '[Users] Errors'
+}
+
+export class GetAllUsers implements Action {
+  readonly type = UsersActionTypes.GET_ALL_USERS;
 }
 
 export class GetRecentUsers implements Action {
@@ -37,6 +42,7 @@ export class Errors implements Action {
 }
 
 export type UsersActions =
+  | GetAllUsers
   | GetRecentUsers
   | GetRecentUsersComplete
   | CreateUser

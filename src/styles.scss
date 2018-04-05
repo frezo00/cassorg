@@ -37,3 +37,20 @@ mat-step-header.mat-step-header {
 mat-horizontal-stepper > .mat-horizontal-content-container {
   padding: 0 16px 16px 16px;
 }
+
+.section {
+  &__content-wrapper {
+    padding: 0 16px;
+    height: 100%;
+    width: 100%;
+  }
+  &__header {
+    padding: 8px 0;
+  }
+  &__title {
+    color: #565656;
+    margin: 0;
+    padding: 16px 4px;
+    font-size: 20px;
+  }
+}

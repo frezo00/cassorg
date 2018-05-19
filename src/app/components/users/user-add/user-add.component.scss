@@ -1,0 +1,64 @@
+@import "~_variables.scss";
+
+.card-container {
+  margin-top: 16px;
+}
+
+.user {
+  &__title {
+    color: rgba(50, 50, 50, 0.5);
+    font-weight: 600;
+    position: relative;
+
+    &::after {
+      content: "";
+      height: 3px;
+      background-color: #ddd;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: -12px;
+    }
+  }
+
+  &__image {
+    &_box {
+      padding: 36px 0;
+    }
+
+    &_block {
+      background-color: rgba(50, 50, 50, 0.5);
+      border-radius: 50%;
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: rgba(50, 50, 50, 0.6);
+        cursor: pointer;
+      }
+    }
+
+    &_block:hover > &_plus_sign > mat-icon.mat-icon {
+      transform: scale(1.1);
+    }
+
+    &_plus_sign {
+      height: 100%;
+
+      & > mat-icon.mat-icon {
+        @include mat-icon-size(80px);
+        color: color(light);
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+
+  &__personal_info {
+    &_form {
+      margin: 36px 0 0;
+    }
+  }
+}

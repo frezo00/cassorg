@@ -14,6 +14,10 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { UserItemComponent } from './users/user-item/user-item.component';
 import { ProjectComponent } from './project/project.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
+import { UserAddComponent } from './users/user-add/user-add.component';
+import { CdkDetailRowDirective } from './users/cdk-detail-row.directive';
+import { UserFormComponent } from './users/user-form/user-form.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { EmptyStateComponent } from './empty-state/empty-state.component';
     StatisticsComponent,
     UserItemComponent,
     ProjectComponent,
-    EmptyStateComponent
+    EmptyStateComponent,
+    UserAddComponent,
+    CdkDetailRowDirective,
+    UserFormComponent,
+    UserProfileComponent
   ],
   imports: [CommonModule, AuthModule, NavigationModule, SharedModule],
   exports: [],

@@ -39,10 +39,23 @@ mat-horizontal-stepper > .mat-horizontal-content-container {
 }
 
 .section {
-  &__content-wrapper {
-    padding: 0 16px;
-    height: 100%;
-    width: 100%;
+  &__go_back {
+    text-decoration: none;
+    color: color(light-dark);
+    transition: all .3s ease;
+
+    &:hover {
+      cursor: pointer;
+      color: #777;
+
+      & > span {
+        text-decoration: underline;
+      }
+    }
+
+    & > span {
+      padding-left: 6px;
+    }
   }
   &__header {
     padding: 8px 0;

@@ -1,0 +1,34 @@
+<div fxFlex="100%" fxFlexFill style="padding: 16px;">
+  <div fxLayoutAlign="start center">
+    <a (click)="location.back()" fxLayoutAlign="start center" class="section__go_back">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Back to Users</span>
+    </a>
+  </div>
+
+  <mat-card class="card-container" fxLayout.xs="column" fxLayoutGap="16px">
+
+    <!-- User Image -->
+    <div class="user__image" title="Add Image" fxFlex.xs="100%" fxFlex.gt-xs="30%">
+      <div class="user__image_box" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+        <input type="hidden" name="userImage">
+        <div class="user__image_block">
+          <div class="user__image_plus_sign" fxLayoutAlign="center center">
+            <mat-icon>add</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Info -->
+    <div class="user__personal_info" fxFlex.xs="100%" fxFlex.gt-xs="70%">
+      <div class="user__title">
+        Personal Information
+      </div>
+      <div class="user__personal_info_form">
+        <app-user-form></app-user-form>
+      </div>
+    </div>
+
+  </mat-card>
+</div>

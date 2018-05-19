@@ -13,6 +13,8 @@ import { PageNotFoundComponent } from '../components/page-not-found/page-not-fou
 
 import { authRoutes } from '../components/auth/auth.routing';
 import { ProjectComponent } from '../components/project/project.component';
+import { UserAddComponent } from '../components/users/user-add/user-add.component';
+import { UserProfileComponent } from '../components/users/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -21,7 +23,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'users', component: UsersComponent },
+      { path: 'users', children: [
+        {path: '', component: UsersComponent},
+        {path: 'add', component: UserAddComponent},
+        {path: ':id', component: UserProfileComponent},
+      ] },
       { path: 'groups', component: GroupsComponent },
       { path: 'activities', component: ActivitiesComponent },
       { path: 'statistics', component: StatisticsComponent }

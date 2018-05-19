@@ -1,44 +1,64 @@
-<div class="section__content-wrapper">
+<div fxFlex="100%" fxFlexFill style="padding: 16px;">
+  <div fxLayoutAlign="start center">
+    <a (click)="location.back()" fxLayoutAlign="start center" class="section__go_back">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Back to Dashboard</span>
+    </a>
+  </div>
+
   <div class="section__header" fxLayout="row" fxLayoutAlign="space-between center">
     <h2 class="section__title">Users</h2>
-    <button mat-raised-button color="accent">Add User</button>
+    <button mat-raised-button color="accent" [routerLink]="'/users/add'">Add User</button>
   </div>
 
   <div class="table-container mat-elevation-z8">
     <mat-table #table [dataSource]="dataSource">
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      <!-- Full Name Column -->
+      <ng-container matColumnDef="displayName">
+        <mat-header-cell *matHeaderCellDef> Full Name </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.displayName}} </mat-cell>
       </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
       </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      <!-- Phone Number Column -->
+      <ng-container matColumnDef="phoneNumber">
+        <mat-header-cell *matHeaderCellDef> Phone Number </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.phoneNumber}} </mat-cell>
       </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      <!-- Action Button Column -->
+      <ng-container matColumnDef="actionButton">
+        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+        <mat-cell *matCellDef="let user">
+          <button mat-button color="primary">View</button>
+        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goShowUser(row)">
+      </mat-row>
+      <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"
+            matRipple
+            class="element-row"
+            [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl"
+            (toggleChange)="onToggleChange($event)">
+      </mat-row> -->
     </mat-table>
 
-    <mat-paginator #paginator
-                  [pageSize]="10"
-                  [pageSizeOptions]="[5, 10, 20]"
-                  [showFirstLastButtons]="true">
+    <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
     </mat-paginator>
   </div>
 </div>
+
+<ng-template #tpl let-element>
+  <div class="mat-row" [@detailExpand] style="overflow: hidden">
+    <!-- The user is: <br> -->
+    <pre>{{element | json}}</pre>
+  </div>
+</ng-template>

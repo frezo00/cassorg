@@ -1,0 +1,69 @@
+<div fxFlex="100%" fxFlexFill style="padding: 16px;">
+  <div fxLayoutAlign="start center">
+    <a (click)="location.back()" fxLayoutAlign="start center" class="section__go_back">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Back to Users</span>
+    </a>
+  </div>
+
+  <mat-card class="card-container" fxLayout="column" fxLayoutGap="16px">
+    <div class="top-container" fxLayout.xs="column" fxLayoutGap="16px">
+      <!-- User Image -->
+      <div class="user__image" fxFlex.xs="100%" fxFlex.gt-xs="30%">
+        <div class="user__image_box" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+          <input type="hidden" name="userImage">
+          <div class="user__image_block">
+            <a mat-icon-button color="primary" class="user__image_edit mat-elevation-z8" fxLayoutAlign="center center" title="Edit Image">
+              <mat-icon>add_a_photo</mat-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Info -->
+      <div class="user__personal_info" fxFlex.xs="100%" fxFlex.gt-xs="70%">
+        <div class="user__infos">
+          <h1>Mate Matić</h1>
+          <p>Member of:
+            <a href="#">Kids</a>,
+            <a href="#">Guitar</a>,
+            <a href="#">Piano</a>
+          </p>
+          <div class="user__infos_personal" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px">
+            <p fxLayoutAlign="center center"><mat-icon>mail</mat-icon> moj-mail@mail.com</p>
+            <p fxLayoutAlign="center center"><mat-icon>phone</mat-icon> 063 111 222</p>
+            <p fxLayoutAlign="center center"><mat-icon>cake</mat-icon> 21/05/1998</p>
+          </div>
+        </div>
+        <div class="user__personal_info_form" style="display: none;">
+          <app-user-form></app-user-form>
+        </div>
+        <div class="user__action_buttons">
+          <button mat-raised-button color="primary">Edit</button>
+          <button mat-raised-button color="warn">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Groups and Activities -->
+    <mat-tab-group fxFlex="100%" fxFlexFill>
+      <mat-tab label="Groups">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
+            Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices.
+            Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
+            Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus.
+        </p>
+      </mat-tab>
+      <mat-tab label="Activities">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
+            Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices.
+            Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
+            Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus.
+        </p>
+      </mat-tab>
+    </mat-tab-group>
+
+  </mat-card>
+</div>

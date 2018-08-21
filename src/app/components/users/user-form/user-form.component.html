@@ -1,5 +1,5 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()" fxFlexFill>
-  <div fxLayout.xs="column" fxLayoutGap="16px">
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div fxLayout.xs="column" fxLayoutGap.gt-xs="16px">
     <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
       <input type="text" matInput placeholder="First Name" formControlName="firstName" required>
     </mat-form-field>
@@ -7,12 +7,17 @@
       <input type="text" matInput placeholder="Last Name" formControlName="lastName" required>
     </mat-form-field>
   </div>
-  <div fxLayout.xs="column" fxLayoutGap="16px">
+  <div fxLayout.xs="column" fxLayoutGap.gt-xs="16px">
     <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
       <input matInput [matDatepicker]="picker" placeholder="Date of Birth" formControlName="birthdate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+    <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
+      <input type="text" matInput placeholder="Address" formControlName="address">
+    </mat-form-field>
+  </div>
+  <div fxLayout.xs="column" fxLayoutGap.gt-xs="16px">
     <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
       <mat-select placeholder="Gender" [formControl]="gender">
         <mat-option>--</mat-option>
@@ -22,13 +27,24 @@
       <mat-error *ngIf="gender.hasError('required')">Please choose a gender</mat-error>
       <mat-hint>{{gender.value}}</mat-hint>
     </mat-form-field>
+    <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
+      <mat-select placeholder="Role" [formControl]="role">
+        <mat-option value="admin">Admin</mat-option>
+        <mat-option value="member">Member</mat-option>
+      </mat-select>
+      <mat-error *ngIf="gender.hasError('required')">Please choose role</mat-error>
+      <mat-hint>{{role.value}}</mat-hint>
+    </mat-form-field>
   </div>
-  <div fxLayout.xs="column" fxLayoutGap="16px">
+  <div fxLayout.xs="column" fxLayoutGap.gt-xs="16px">
     <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
       <input type="email" matInput placeholder="Email" formControlName="email" required>
     </mat-form-field>
     <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
       <input type="text" matInput placeholder="Phone Number" formControlName="phoneNumber">
     </mat-form-field>
+  </div>
+  <div class="action-buttons">
+    <button type="submit" mat-raised-button color="primary">Create</button>
   </div>
 </form>

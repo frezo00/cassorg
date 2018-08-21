@@ -30,22 +30,14 @@ export interface LoginData {
 
 @Injectable()
 export class AuthEffects {
-  constructor(
-    private actions$: Actions,
-    private store$: Store<AppState>,
-    private af: AngularFireAuth,
-    private router: Router,
-    private authService: AuthService
-  ) {}
-
   @Effect()
   saveUserData$ = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER),
     switchMap(action => this.af.authState),
-    map(authData => {
-      const user = this.getUser(authData);
-      return new AuthActions.SaveLoggedInUserComplete(user);
-    })
+    map(
+      authData =>
+        new AuthActions.SaveLoggedInUserComplete(this.getUser(authData))
+    )
   );
 
   @Effect()
@@ -79,13 +71,9 @@ export class AuthEffects {
   @Effect()
   login$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.TRY_LOGIN),
-    switchMap((action: AuthActions.TryLogin) =>
-      fromPromise(
-        this.af.auth.signInWithEmailAndPassword(
-          action.payload.email,
-          action.payload.password
-        )
-      ).pipe(
+    map((action: AuthActions.TryLogin) => action.payload),
+    switchMap((data: { email: string; password: string }) =>
+      fromPromise(this.authService.login(data.email, data.password)).pipe(
         mergeMap(loggedUser => {
           const actions: Array<any> = [
             new AuthActions.SetAuthenicated(),
@@ -114,24 +102,19 @@ export class AuthEffects {
   @Effect()
   register$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.TRY_REGISTER),
-    switchMap((action: AuthActions.TryRegister) =>
-      fromPromise(
-        this.af.auth.createUserWithEmailAndPassword(
-          action.payload.email,
-          action.payload.password
-        )
-      ).pipe(
+    map((action: AuthActions.TryLogin) => action.payload),
+    switchMap((data: { email: string; password: string; fullName: string }) =>
+      fromPromise(this.authService.register(data.email, data.password)).pipe(
         mergeMap(createdUser => {
           const actions: Array<any> = [
             new AuthActions.SetAuthenicated(),
             new AuthActions.SaveLoggedInUser(),
             new AuthActions.SetErrors(null)
-            // new UsersActions.CreateUser(this.getUser(createdUser))
           ];
           if (!createdUser.displayName) {
             actions.push(
               new AuthActions.UpdateUserProfile({
-                displayName: action.payload.fullName,
+                displayName: data.fullName,
                 photoURL: createdUser.photoURL
               })
             );
@@ -162,10 +145,10 @@ export class AuthEffects {
     map((action: AuthActions.UpdateUserProfile) => action.payload),
     switchMap((userProfile: { displayName: string; photoURL: string }) =>
       fromPromise(
-        this.af.auth.currentUser.updateProfile({
-          displayName: userProfile.displayName,
-          photoURL: userProfile.photoURL
-        })
+        this.authService.updateProfile(
+          userProfile.displayName,
+          userProfile.photoURL
+        )
       ).pipe(
         map(() => new AuthActions.SaveLoggedInUser()),
         catchError(error =>
@@ -182,7 +165,7 @@ export class AuthEffects {
   sendVerificationEmail$ = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.SEND_VERIFICATION_EMAIL),
     switchMap(() =>
-      fromPromise(this.af.auth.currentUser.sendEmailVerification()).pipe(
+      fromPromise(this.authService.sendVerificationEmail()).pipe(
         map(() => new AuthActions.SaveLoggedInUser()),
         catchError(error =>
           from([
@@ -198,7 +181,7 @@ export class AuthEffects {
   logout$ = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.LOGOUT),
     switchMap(() =>
-      fromPromise(this.af.auth.signOut()).pipe(
+      fromPromise(this.authService.signOut()).pipe(
         mergeMap(() => [
           new AuthActions.SetAuthenicated(),
           new RouterActions.Go({ path: '/auth/login' })
@@ -217,18 +200,27 @@ export class AuthEffects {
     return new User(
       user.displayName,
       user.email,
-      user.uid,
       null,
       null,
       null,
-      user.emailVerified,
       user.phoneNumber,
       null,
+      null,
       user.photoURL,
-      user.metadata.creationTime,
-      user.metadata.lastSignInTime,
+      null,
+      user.uid,
+      user.emailVerified,
+      null,
       null,
       null
     );
   }
+
+  constructor(
+    private actions$: Actions,
+    private store$: Store<AppState>,
+    private af: AngularFireAuth,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 }

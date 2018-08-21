@@ -1,4 +1,4 @@
-<div class="content-wrapper">
+<div style="display: none;" class="content-wrapper">
   <mat-list-item>
     <h2 class="dashboard__title">Dashboard</h2>
   </mat-list-item>
@@ -62,3 +62,17 @@
     </mat-card>
   </div>
 </div>
+
+<app-empty-state [title]="'Uuups, it seems you don\'t have any projects...'" [message]="'Want to create one?'" [action]="'createProject'"
+  [firstBtnText]="'Yes, create project'" [secondBtnText]="'I already have project'" (firstAction)="onCreateProjectModal()"
+  (secondAction)="onFindProjectModal()">
+</app-empty-state>
+
+<!-- <div fxLayoutAlign="center center">
+  <h1>Uuups, it seems you don't have any projects.</h1>
+  <p>Want to create one?</p>
+  <div fxLayoutAlign="center center">
+    <button mat-raised-button color="primary">Yes, create project</button>
+    <button mat-raised-button>I already have project</button>
+  </div>
+</div> -->

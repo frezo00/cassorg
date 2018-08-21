@@ -27,7 +27,7 @@ export class SaveLoggedInUser implements Action {
 export class SaveLoggedInUserComplete implements Action {
   readonly type = AuthActionTypes.SAVE_LOGGED_IN_USER_COMPLETE;
 
-  constructor(public payload: IUser) {}
+  constructor(public payload: any) {}
 }
 
 export class TryLogin implements Action {

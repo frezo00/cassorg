@@ -1,10 +1,13 @@
-<div class="empty-state__containter" fxLayoutAlign="center center">
-  <div fxLayout="column" fxLayoutAlign="center center" fxFlex.xs="80%" fxFlex.gt-xs="50%">
+<div class="empty-state__containter" fxLayoutAlign="center center" fxFlexFill>
+  <div fxLayout="column" fxLayoutAlign="center center" class="empty-state__wrapper">
     <mat-icon class="empty-state__icon">mood_bad</mat-icon>
     <div fxLayout="column" fxLayoutAlign="center center">
       <h2 class="empty-state__title">{{title}}</h2>
       <p class="empty-state__message">{{message}}</p>
-      <button class="empty-state__button" mat-raised-button color="primary" (click)="doAction()">{{btnText}}</button>
+    </div>
+    <div class="empty-state__action-buttons" fxLayout.xs="column" fxLayout.gt-xs="row">
+      <button class="empty-state__button mat-elevation-z8" mat-raised-button color="primary" (click)="primaryAction()">{{firstBtnText}}</button>
+      <button *ngIf="!!secondBtnText" class="empty-state__button mat-elevation-z8" mat-raised-button (click)="secondaryAction()">{{secondBtnText}}</button>
     </div>
   </div>
 </div>

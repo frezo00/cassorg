@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IUser } from '../../../models/user.model';
+import { IUser, IProjectUser } from '../../../models/user.model';
 
 export enum UsersActionTypes {
   GET_ALL_USERS = '[Users] Get All Users',
@@ -7,6 +7,7 @@ export enum UsersActionTypes {
   GET_RECENT_USERS_COMPLETE = '[Users] Get Recent Users Complete',
   CREATE_USER = '[Users] Create User',
   CREATE_USER_COMPLETE = '[Users] Create User Complete',
+  CREATE_PROJECT_USER = '[Users] Create Project User Complete',
   ERRORS = '[Users] Errors'
 }
 
@@ -29,10 +30,17 @@ export class CreateUser implements Action {
 
   constructor(public payload: IUser) {}
 }
+
 export class CreateUserComplete implements Action {
   readonly type = UsersActionTypes.CREATE_USER_COMPLETE;
 
   constructor(public payload: IUser) {}
+}
+
+export class CreateProjectUser implements Action {
+  readonly type = UsersActionTypes.CREATE_PROJECT_USER;
+
+  constructor(public payload: IProjectUser) {}
 }
 
 export class Errors implements Action {
@@ -47,4 +55,5 @@ export type UsersActions =
   | GetRecentUsersComplete
   | CreateUser
   | CreateUserComplete
+  | CreateProjectUser
   | Errors;

@@ -1,0 +1,37 @@
+.top-alert-notification {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #ca923b;
+  height: 40px;
+  color: white;
+  overflow: hidden;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.3s ease-out;
+  animation: hideAlertBar 1s ease-out 5s forwards;
+  animation-fill-mode: forwards;
+
+  & > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 16px;
+    font-size: 14px;
+  }
+
+  &.closed {
+    opacity: 0;
+    visibility: hidden;
+    margin-top: -40px;
+  }
+}
+
+@keyframes hideAlertBar {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    margin-top: -40px;
+  }
+}

@@ -1,35 +1,52 @@
 export interface IUser {
   displayName: string;
   email: string;
-  id?: string;
   firstName?: string;
   lastName?: string;
-  gender?: 'male' | 'femele' | null;
-  emailVerified?: boolean;
+  gender?: 'male' | 'female' | null;
   phoneNumber?: string;
-  birthday?: string;
+  birthdate?: Date;
+  address?: string;
   photoURL?: string;
-  createdAt?: string;
-  lastLogin?: string;
+  id?: string;
+  authId?: string;
+  emailVerified?: boolean;
   createdProject?: string;
-  userOfProjects?: Array<any>;
+  lastProjectLogin?: string;
+  userOfProjects?: { projectId: string; role: 'admin' | 'member' }[];
+  // userOfProjects?: Array<{projectId: string, role: 'admin' | 'member'}>;
+}
+
+export interface IProjectUser {
+  user: IUser;
+  projectID: string;
+  role: 'admin' | 'member';
+  createdAt?: Date;
+  lastLogin?: Date;
+  createdByAdmin?: string;
 }
 
 export class User implements IUser {
   constructor(
     public displayName: string,
     public email: string,
-    public id?: string,
     public firstName?: string,
     public lastName?: string,
-    public gender?: 'male' | 'femele',
-    public emailVerified?: boolean,
+    public gender?: 'male' | 'female' | null,
     public phoneNumber?: string,
-    public birthday?: string,
+    public birthdate?: Date,
+    public address?: string,
     public photoURL?: string,
-    public createdAt?: string,
-    public lastLogin?: string,
+    public id?: string,
+    public authId?: string,
+    public emailVerified?: boolean,
     public createdProject?: string,
-    public userOfProjects?: Array<any>
+    public lastProjectLogin?: string,
+    // public userOfProjects?: Array<{projectId: string, role: 'admin' | 'member'}>
+    public userOfProjects?: { projectId: string; role: 'admin' | 'member' }[]
   ) {}
+
+  public get fullName(): string {
+    return this.firstName + ' ' + this.lastName;
+  }
 }

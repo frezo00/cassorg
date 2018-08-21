@@ -1,4 +1,4 @@
-<mat-horizontal-stepper linear #stepper="matHorizontalStepper">
+<!-- <mat-horizontal-stepper linear #stepper="matHorizontalStepper">
   <mat-step [stepControl]="projectForm">
     <form [formGroup]="projectForm">
       <ng-template matStepLabel>Project</ng-template>
@@ -52,12 +52,44 @@
       </div>
     </form>
   </mat-step>
-  <!-- <mat-step>
+  <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     You are now done.
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
-  </mat-step> -->
-</mat-horizontal-stepper>
+  </mat-step>
+</mat-horizontal-stepper> -->
+<div class="dialog_container" fxFlexFill>
+  <div class="modal-header">
+    <h2 mat-dialog-title>Create New Project</h2>
+  </div>
+  <mat-dialog-content>
+    <form [formGroup]="projectForm">
+      <div class="modal-form__container">
+        <mat-form-field floatLabel="always" fxFlexFill class="modal-form__input">
+          <input matInput placeholder="Project Name" formControlName="name" required maxlength="20">
+          <mat-hint align="end">{{projectName.value?.length || 0}}/20</mat-hint>
+          <mat-error *ngIf="projectName.invalid">{{getProjectErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="modal-form__tag" fxLayoutAlign="space-between center">
+        <span *ngIf="!!projectName.value" class="modal-form__tag-name">#{{getProjectTagName()}}</span>
+        <span *ngIf="!projectName.value" class="modal-form__tag-no-name">
+          <em>#Your Project Tag</em>
+        </span>
+        <mat-icon (click)="showInfo = !showInfo">info</mat-icon>
+      </div>
+      <div class="modal-form__tag-info" [ngClass]="{'opened': !!showInfo}">
+        <p>Project Tag is
+          <b>unique</b> for each project and can be used for searching purposes.</p>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="projectForm.invalid" (click)="onSubmit()">Create</button>
+  </mat-dialog-actions>
+</div>

@@ -1,19 +1,28 @@
 @import '~_variables.scss';
 
+:host {
+  width: 100%;
+}
+
 .empty-state {
   &__containter {
-    padding: 20px 0;
+    padding: 24px;
+  }
+
+  &__wrapper {
+    margin-top: -10%;
   }
 
   &__icon {
     color: map-get($theme-colors, subtitle);
-    @include mat-icon-size(80px);
+    @include mat-icon-size(100px);
   }
 
   &__title {
     margin: 16px 0 8px;
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
     color: map-get($theme-colors, subtitle);
   }
 
@@ -25,6 +34,6 @@
   }
 
   &__button {
-    margin: 12px 0;
+    margin: 6px;
   }
 }

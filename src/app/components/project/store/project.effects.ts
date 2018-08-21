@@ -13,8 +13,10 @@ import {
 } from 'rxjs/operators';
 
 import * as ProjectActions from './project.actions';
+import * as UserActions from '../../users/store/users.actions';
 import { IProject, Project } from '../../../models';
 import { AppState } from '../../../store';
+import { ProjectService } from '../project.service';
 
 @Injectable()
 export class ProjectEffects {
@@ -25,17 +27,41 @@ export class ProjectEffects {
     map(([action, store]: [ProjectActions.CreateProject, AppState]) => {
       return {
         name: action.payload.name,
-        createdBy: store.auth.loggedInUser.id
+        tag: action.payload.tag,
+        createdBy: store.auth.loggedInUser.authId,
+        createdAt: new Date()
+        // administrators: new Array<string>(store.auth.loggedInUser.authId)
       } as IProject;
     }),
+    tap(data => console.log('data in here is:', data)),
     switchMap((project: IProject) =>
-      Observable.fromPromise(
-        this.afDB.collection('projects').add(project)
-      ).pipe(
-        mergeMap(data => [
-          new ProjectActions.CreateProjectComplete({ ...project, id: data.id })
-          // TODO: Update logged in user's User.createdProject value
-        ]),
+      Observable.fromPromise(this.projectService.createProject(project)).pipe(
+        mergeMap(() => {
+          console.log('data after project created:', project);
+          return [
+            new ProjectActions.CreateProjectComplete(project)
+            // new UserActions.CreateUser({})
+            // TODO: Update logged in user's User.createdProject value
+          ];
+        }),
+        catchError(err => {
+          console.error('error: ', err);
+          return Observable.of(new ProjectActions.ProjectErrors(err));
+        })
+      )
+    )
+  );
+
+  @Effect({ dispatch: false })
+  getProject$ = this.actions$.pipe(
+    ofType(ProjectActions.ProjectActionTypes.GET_PROJECT),
+    map((action: ProjectActions.GetProject) => action.payload),
+    tap(projectID => console.log('project id is:', projectID)),
+    switchMap((projectID: string) =>
+      Observable.fromPromise(this.projectService.getProject(projectID)).pipe(
+        map(data => {
+          console.log('data jdlajd is', data);
+        }),
         catchError(err => {
           console.error('error: ', err);
           return Observable.of(new ProjectActions.ProjectErrors(err));
@@ -46,7 +72,7 @@ export class ProjectEffects {
 
   constructor(
     private actions$: Actions,
-    private afDB: AngularFirestore,
-    private store$: Store<AppState>
+    private store$: Store<AppState>,
+    private projectService: ProjectService
   ) {}
 }

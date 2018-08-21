@@ -7,10 +7,11 @@ import { Location } from '@angular/common';
   styleUrls: ['./user-add.component.scss']
 })
 export class UserAddComponent implements OnInit {
+  showImg: boolean;
 
-  constructor(public location: Location) { }
+  constructor(public location: Location) {}
 
   ngOnInit() {
+    this.showImg = false;
   }
-
 }

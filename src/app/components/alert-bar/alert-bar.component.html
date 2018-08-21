@@ -1,0 +1,6 @@
+<div class="top-alert-notification" fxLayoutAlign="space-between center" [ngClass]="{'closed': isClosed}">
+  <span>My alert text which is really really long so i need dots</span>
+  <button mat-icon-button (click)="isClosed = true">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>

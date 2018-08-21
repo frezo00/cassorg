@@ -2,26 +2,31 @@ import { Action } from '@ngrx/store';
 import { IProject } from './../../../models/project.model';
 
 export enum ProjectActionTypes {
-  OPEN_CREATE_PROJECT_MODAL = '[Project] Open Create Project Modal',
-  CLOSE_CREATE_PROJECT_MODAL = '[Project] Close Create Project Modal',
+  GET_PROJECT = '[Project] Get Project',
+  EDIT_PROJECT = '[Project] Edit Project',
   CREATE_PROJECT = '[Project] Create Project',
   CREATE_PROJECT_COMPLETE = '[Project] Create Project Complete',
-  EDIT_PROJECT = '[Project] Edit Project',
+  OPEN_CREATE_PROJECT_MODAL = '[Project] Open Create Project Modal',
+  CLOSE_CREATE_PROJECT_MODAL = '[Project] Close Create Project Modal',
   PROJECT_ERRORS = '[Project] Project Errors'
 }
 
-export class OpenCreateProjectModal implements Action {
-  readonly type = ProjectActionTypes.OPEN_CREATE_PROJECT_MODAL;
+export class GetProject implements Action {
+  readonly type = ProjectActionTypes.GET_PROJECT;
+
+  constructor(public payload: string) {}
 }
 
-export class CloseCreateProjectModal implements Action {
-  readonly type = ProjectActionTypes.CLOSE_CREATE_PROJECT_MODAL;
+export class EditProject implements Action {
+  readonly type = ProjectActionTypes.EDIT_PROJECT;
+
+  constructor(public payload: IProject) {}
 }
 
 export class CreateProject implements Action {
   readonly type = ProjectActionTypes.CREATE_PROJECT;
 
-  constructor(public payload: { name: string }) {}
+  constructor(public payload: { name: string, tag: string }) {}
 }
 
 export class CreateProjectComplete implements Action {
@@ -30,10 +35,12 @@ export class CreateProjectComplete implements Action {
   constructor(public payload: IProject) {}
 }
 
-export class EditProject implements Action {
-  readonly type = ProjectActionTypes.EDIT_PROJECT;
+export class OpenCreateProjectModal implements Action {
+  readonly type = ProjectActionTypes.OPEN_CREATE_PROJECT_MODAL;
+}
 
-  constructor(public payload: IProject) {}
+export class CloseCreateProjectModal implements Action {
+  readonly type = ProjectActionTypes.CLOSE_CREATE_PROJECT_MODAL;
 }
 
 export class ProjectErrors implements Action {

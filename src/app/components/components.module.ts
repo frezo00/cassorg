@@ -18,6 +18,7 @@ import { UserAddComponent } from './users/user-add/user-add.component';
 import { CdkDetailRowDirective } from './users/cdk-detail-row.directive';
 import { UserFormComponent } from './users/user-form/user-form.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { AlertBarComponent } from './alert-bar/alert-bar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     UserAddComponent,
     CdkDetailRowDirective,
     UserFormComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AlertBarComponent
   ],
   imports: [CommonModule, AuthModule, NavigationModule, SharedModule],
   exports: [],

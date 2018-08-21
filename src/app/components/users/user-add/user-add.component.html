@@ -1,4 +1,4 @@
-<div fxFlex="100%" fxFlexFill style="padding: 16px;">
+<div fxFlex="100%" fxFlexFill>
   <div fxLayoutAlign="start center">
     <a (click)="location.back()" fxLayoutAlign="start center" class="section__go_back">
       <mat-icon>arrow_back</mat-icon>
@@ -6,10 +6,18 @@
     </a>
   </div>
 
-  <mat-card class="card-container" fxLayout.xs="column" fxLayoutGap="16px">
+  <mat-card class="card-container" fxLayout="column" fxLayoutGap="16px">
+    <div class="img-block mat-elevation-z2">
+      <a (click)="showImg = !showImg">
+        <img *ngIf="!!showImg" src="http://i.imgur.com/hfH9CiC.png" alt="User Image">
+        <div *ngIf="!showImg" class="no-image" fxLayoutAlign="center center">
+          <span>Fr</span>
+        </div>
+      </a>
+    </div>
 
     <!-- User Image -->
-    <div class="user__image" title="Add Image" fxFlex.xs="100%" fxFlex.gt-xs="30%">
+    <!--  <div class="user__image" title="Add Image" fxFlex.xs="100%">
       <div class="user__image_box" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
         <input type="hidden" name="userImage">
         <div class="user__image_block">
@@ -18,10 +26,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Personal Info -->
-    <div class="user__personal_info" fxFlex.xs="100%" fxFlex.gt-xs="70%">
+    <div class="user__personal_info" fxFlex.xs="100%" fxFlex.gt-xs="100%">
       <div class="user__title">
         Personal Information
       </div>

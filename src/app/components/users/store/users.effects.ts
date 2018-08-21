@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map, switchMap, catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import {
+  map,
+  switchMap,
+  catchError,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
 
 import * as UsersActions from './users.actions';
-import { IUser, User } from '../../../models/user.model';
+import { IUser, User, IProjectUser } from '../../../models/user.model';
 import { fromPromise } from 'rxjs/observable/fromPromise';
+import { AppState } from '../../../store';
+import { UsersService } from '../user.service';
 
 @Injectable()
 export class UsersEffects {
-
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   getAllUsers$ = this.actions$.pipe(
     ofType(UsersActions.UsersActionTypes.GET_ALL_USERS),
     switchMap(() =>
@@ -62,16 +69,59 @@ export class UsersEffects {
     )
   );
 
-  @Effect()
-  createUser$: Observable<Action> = this.actions$.pipe(
+  @Effect({ dispatch: false })
+  createUser$: Observable<Action | IUser> = this.actions$.pipe(
     ofType(UsersActions.UsersActionTypes.CREATE_USER),
     map((action: UsersActions.CreateUser) => action.payload),
-    tap(user => console.log('user:', user)),
-    switchMap((user: IUser) => {
+    tap(data => console.log('user data:', data))
+    // withLatestFrom(this.store$),
+    /* map(([action, store]: [UsersActions.CreateUser, AppState]) => {
+      return <IUser> {
+        userID: action.payload.userID,
+        projectID: store.project.activeProject.id,
+        role: action.payload.role,
+        createdAt: new Date(),
+        lastLogin: null,
+        createdByAdmin: store.auth.loggedInUser.id
+      };
+    }), */
+    // map((action: UsersActions.CreateUser) => action.payload),
+    /* switchMap((projectUser: IProjectUser) => {
       fromPromise(
-        this.afDB
-          .collection('users').doc(user.id).set(user)
+        <Promise<any>>this.userService.createProjectUser(projectUser)
       ).pipe(
+        map(userData => {
+          console.log('userData:', userData);
+        }),
+        catchError(error => {
+          console.error('error', error);
+          return Observable.of(error);
+        })
+      );
+      return Observable.of();
+    }) */
+  );
+
+  @Effect()
+  createProjectUser$: Observable<Action> = this.actions$.pipe(
+    ofType(UsersActions.UsersActionTypes.CREATE_PROJECT_USER),
+    withLatestFrom(this.store$),
+    map(([action, store]: [UsersActions.CreateProjectUser, AppState]) => {
+      return <IProjectUser>{
+        user: action.payload.user,
+        projectID: store.project.activeProject.id,
+        role: action.payload.role,
+        createdAt: new Date(),
+        lastLogin: null,
+        createdByAdmin: store.auth.loggedInUser.id
+      };
+    }),
+    // map((action: UsersActions.CreateUser) => action.payload),
+    tap(data => console.log('project user data:', data)),
+    switchMap((projectUser: IProjectUser) => {
+      fromPromise(<Promise<any>>(
+        this.userService.createProjectUser(projectUser)
+      )).pipe(
         map(userData => {
           console.log('userData:', userData);
         }),
@@ -84,5 +134,10 @@ export class UsersEffects {
     })
   );
 
-  constructor(private actions$: Actions, private afDB: AngularFirestore) {}
+  constructor(
+    private actions$: Actions,
+    private afDB: AngularFirestore,
+    private store$: Store<AppState>,
+    private userService: UsersService
+  ) {}
 }

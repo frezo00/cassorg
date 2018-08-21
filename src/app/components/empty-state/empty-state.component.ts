@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-empty-state',
@@ -8,14 +8,22 @@ import { Component, OnInit, Input } from '@angular/core';
 export class EmptyStateComponent implements OnInit {
   @Input() title: string;
   @Input() message: string;
-  @Input() btnText: string;
+  @Input() firstBtnText: string;
+  @Input() secondBtnText: string;
   @Input() action: string;
+
+  @Output() firstAction = new EventEmitter<any>();
+  @Output() secondAction = new EventEmitter<any>();
 
   constructor() {}
 
   ngOnInit() {}
 
-  doAction() {
-    console.log(this.action);
+  primaryAction() {
+    this.firstAction.emit();
+  }
+
+  secondaryAction() {
+    this.firstAction.emit();
   }
 }

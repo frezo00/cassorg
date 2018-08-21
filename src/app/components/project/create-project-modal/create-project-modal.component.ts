@@ -18,7 +18,9 @@ import { IProject, Project } from '../../../models';
 })
 export class CreateProjectModalComponent implements OnInit {
   isLinear = false;
+  showInfo = false;
   projectForm: FormGroup;
+  projectTag: FormControl;
   projectName: FormControl;
   categoryForm: FormGroup;
   categoryArray: FormArray;
@@ -38,6 +40,7 @@ export class CreateProjectModalComponent implements OnInit {
       Validators.required,
       Validators.maxLength(20)
     ]);
+    this.projectTag = new FormControl('', Validators.required);
     this.projectForm = this.fb.group({ name: this.projectName });
   }
 
@@ -65,12 +68,24 @@ export class CreateProjectModalComponent implements OnInit {
     category.setValue(!category.value);
   }
 
-  onSubmitForms() {
-    this.store.dispatch(
-      new fromProject.CreateProject({ name: this.projectName.value.trim() })
-    );
+  getProjectTagName(): string {
+    return this.projectName.value
+      .toLowerCase()
+      .trim()
+      .replace(/ /g, '');
+  }
+
+  onSubmit() {
     console.log('project form: ', this.projectForm.value);
-    console.log('category form: ', this.categoryForm.controls);
+    if (this.projectForm.valid) {
+      this.store.dispatch(
+        new fromProject.CreateProject({
+          name: this.projectName.value.trim(),
+          tag: this.getProjectTagName()
+        })
+      );
+    }
+    // console.log('category form: ', this.categoryForm.controls);
   }
 
   getProjectErrorMessage() {

@@ -1,7 +1,39 @@
-@import "~_variables.scss";
+@import '~_variables.scss';
 
 .card-container {
-  margin-top: 16px;
+  margin-top: 28px;
+}
+
+.card-header {
+  margin: -40px -4px;
+  background-color: #6a788f;
+  color: white;
+}
+
+.img-block {
+  max-width: 120px;
+  max-height: 120px;
+  margin: -50px auto 0;
+  border-radius: 50%;
+  z-index: 3;
+  overflow: hidden;
+
+  & img {
+    width: 100%;
+    height: auto;
+  }
+
+  & .no-image {
+    background-color: #3f51b5;
+    width: 120px;
+    height: 120px;
+
+    & > span {
+      font-size: 44px;
+      color: white;
+      text-transform: uppercase;
+    }
+  }
 }
 
 .user {
@@ -11,7 +43,7 @@
     position: relative;
 
     &::after {
-      content: "";
+      content: '';
       height: 3px;
       background-color: #ddd;
       width: 100%;
@@ -23,7 +55,9 @@
 
   &__image {
     &_box {
-      padding: 36px 0;
+      // padding: 36px 0;
+      margin: -50px auto 0 !important;
+      border-radius: 50%;
     }
 
     &_block {
@@ -32,6 +66,8 @@
       position: relative;
       width: 150px;
       height: 150px;
+      max-width: 130px;
+      max-height: 130px;
       margin: 0 auto;
       transition: background-color 0.2s ease-in-out;
 

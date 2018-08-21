@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromApp from '../../../../store';
-import { CreateProjectModalComponent } from '../../../project/create-project-modal/create-project-modal.component';
 import { IProject } from '../../../../models';
+import { CommonService } from '../../../common/common.service';
 
 @Component({
   selector: 'app-side-top-header',
@@ -14,13 +18,16 @@ import { IProject } from '../../../../models';
   styleUrls: ['../../navigation.scss']
 })
 export class SideTopHeaderComponent implements OnInit {
-
   projectForm: FormGroup;
   projectName: FormControl;
   project: Observable<IProject>;
   editProjectName: boolean;
 
-  constructor(public dialog: MatDialog, private store: Store<fromApp.AppState>, private fb: FormBuilder) {}
+  constructor(
+    public commonService: CommonService,
+    private store: Store<fromApp.AppState>,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.initProjectForm();
@@ -44,19 +51,7 @@ export class SideTopHeaderComponent implements OnInit {
 
   onCreateProject() {
     // this.store.dispatch(new fromApp.OpenCreateProjectModal());
-    this.openDialog();
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CreateProjectModalComponent, {
-      height: 'calc(100%-20vh)',
-      panelClass: 'modal-dialog'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
+    this.commonService.openCreateProjectDialog();
   }
 
   saveProject() {

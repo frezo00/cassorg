@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  from as fromPromise ,  of ,  from } from 'rxjs';
 import {
   map,
   switchMap,
@@ -12,9 +12,6 @@ import {
   tap,
   withLatestFrom
 } from 'rxjs/operators';
-import { fromPromise } from 'rxjs/observable/fromPromise';
-import { of } from 'rxjs/observable/of';
-import { from } from 'rxjs/observable/from';
 
 import * as AuthActions from './auth.actions';
 import * as RouterActions from '../../../router/store';

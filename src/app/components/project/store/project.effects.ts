@@ -1,8 +1,9 @@
+
+import {of as observableOf, from as observableFrom,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
 import {
   map,
   switchMap,
@@ -35,7 +36,7 @@ export class ProjectEffects {
     }),
     tap(data => console.log('data in here is:', data)),
     switchMap((project: IProject) =>
-      Observable.fromPromise(this.projectService.createProject(project)).pipe(
+      observableFrom(this.projectService.createProject(project)).pipe(
         mergeMap(() => {
           console.log('data after project created:', project);
           return [
@@ -46,7 +47,7 @@ export class ProjectEffects {
         }),
         catchError(err => {
           console.error('error: ', err);
-          return Observable.of(new ProjectActions.ProjectErrors(err));
+          return observableOf(new ProjectActions.ProjectErrors(err));
         })
       )
     )
@@ -58,13 +59,13 @@ export class ProjectEffects {
     map((action: ProjectActions.GetProject) => action.payload),
     tap(projectID => console.log('project id is:', projectID)),
     switchMap((projectID: string) =>
-      Observable.fromPromise(this.projectService.getProject(projectID)).pipe(
+      observableFrom(this.projectService.getProject(projectID)).pipe(
         map(data => {
           console.log('data jdlajd is', data);
         }),
         catchError(err => {
           console.error('error: ', err);
-          return Observable.of(new ProjectActions.ProjectErrors(err));
+          return observableOf(new ProjectActions.ProjectErrors(err));
         })
       )
     )

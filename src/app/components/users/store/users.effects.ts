@@ -1,8 +1,9 @@
+
+import {of as observableOf,  Observable ,  from as fromPromise } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
 import {
   map,
   switchMap,
@@ -13,7 +14,6 @@ import {
 
 import * as UsersActions from './users.actions';
 import { IUser, User, IProjectUser } from '../../../models/user.model';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 import { AppState } from '../../../store';
 import { UsersService } from '../user.service';
 
@@ -38,7 +38,7 @@ export class UsersEffects {
           }),
           catchError(error => {
             console.log('error:', error);
-            return Observable.of(new UsersActions.Errors(error));
+            return observableOf(new UsersActions.Errors(error));
           })
         )
     )
@@ -63,7 +63,7 @@ export class UsersEffects {
           }),
           catchError(error => {
             console.log('error:', error);
-            return Observable.of(new UsersActions.Errors(error));
+            return observableOf(new UsersActions.Errors(error));
           })
         )
     )
@@ -127,10 +127,10 @@ export class UsersEffects {
         }),
         catchError(error => {
           console.error('error', error);
-          return Observable.of(error);
+          return observableOf(error);
         })
       );
-      return Observable.of();
+      return observableOf();
     })
   );
 

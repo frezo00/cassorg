@@ -1,3 +1,5 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import {
   Component,
   OnInit,
@@ -14,7 +16,6 @@ import {
 } from '@angular/animations';
 import { DataSource } from '@angular/cdk/table';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 
 import * as fromApp from '../../store';
@@ -150,7 +151,7 @@ const ELEMENT_DATA: Element[] = [
 export class UsersDataSource extends DataSource<any> {
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Element[]> {
-    return Observable.of(ELEMENT_DATA);
+    return observableOf(ELEMENT_DATA);
   }
 
   disconnect() {}

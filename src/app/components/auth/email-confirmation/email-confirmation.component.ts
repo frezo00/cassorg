@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromAuth from '../store';
 import * as fromRouter from '../../../router/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { IUser } from '../../../models/user.model';
 
 @Component({

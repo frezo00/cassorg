@@ -6,7 +6,7 @@ import {
   FormControl
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';

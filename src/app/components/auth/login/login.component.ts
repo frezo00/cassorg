@@ -48,15 +48,15 @@ export class LoginComponent implements OnInit {
 
   getEmailErrorMessage() {
     return this.email.hasError('required')
-      ? 'You must enter a value'
-      : this.email.hasError('email') ? 'Not a valid email' : '';
+      ? 'Ovo polje je obavezno'
+      : this.email.hasError('email') ? 'Neispravan email format' : '';
   }
 
   getPasswordErrorMessage() {
     return this.password.hasError('required')
-      ? 'You must enter a value'
+      ? 'Ovo polje je obavezno'
       : this.password.hasError('minlength')
-        ? 'Must be minimum 6 characters'
+        ? 'Mora imati minimalno 6 znakova'
         : '';
   }
 

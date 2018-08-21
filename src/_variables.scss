@@ -8,7 +8,11 @@ $theme-colors: (
   subtitle: rgba(0, 0, 0, 0.55),
   blue-accent: #2fa2d0,
   light-accent: #baae6d,
-  light-dark: rgba(31, 36, 50, 0.5)
+  light-dark: rgba(31, 36, 50, 0.5),
+  red-primary: #ee3b3b,
+  text: #333,
+  text-08: rgba(51, 51, 51, 0.8),
+  text-05: rgba(51, 51, 51, 0.5)
 );
 
 @function color($key) {

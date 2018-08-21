@@ -1,6 +1,64 @@
 @import '../../../_variables.scss';
-.auth__container {
+/* .auth__container {
   background-color: color(blue-accent);
+} */
+.login {
+  &__container {
+    overflow-y: auto;
+    background: linear-gradient(
+      to bottom,
+      rgba($color: color(red-primary), $alpha: 0.9) 0,
+      rgba($color: color(red-primary), $alpha: 0.8) 25%,
+      rgba($color: color(red-primary), $alpha: 0.7) 50%,
+      rgba($color: color(red-primary), $alpha: 0.6) 75%,
+      rgba($color: color(red-primary), $alpha: 0.5) 100%
+    );
+  }
+  &__bg-image {
+    background: url('/assets/images/gtk.jpg') left center no-repeat;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  &__logo {
+    padding: 12px 0;
+    & > img {
+      height: 50px;
+    }
+  }
+  &__content {
+    padding: 28px 16px;
+    margin: auto;
+    width: 100%;
+  }
+  &__card {
+    border-radius: 20px;
+  }
+  &__title {
+    margin-bottom: 24px;
+    &-text {
+      color: color(text-08);
+      font-size: 18px;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    &-underline {
+      height: 2px;
+      width: 50px;
+      background-color: color(red-primary);
+      display: block;
+      margin: 0 auto;
+      border-radius: 1px;
+    }
+  }
+  &__rights {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+  }
 }
 .form {
   &__container {
@@ -15,15 +73,33 @@
     font-family: 'Gloria Hallelujah', cursive;
   }
   &__login {
-    padding: 0 16px;
+    padding: 16px;
+  }
+  &__icon-button {
+    width: 30px;
+    height: 30px;
+    &:not(:disabled) mat-icon {
+      color: color(text-08) !important;
+    }
   }
   &__submitBtn {
     margin: 12px 0;
+    font-size: 18px;
+    line-height: 1.8em;
+    padding: 8px;
+    border-radius: 24px;
+    background-color: color(red-primary);
   }
   &__actions {
+    color: color(text);
     font-size: 0.8em;
     text-align: center;
     margin-bottom: 8px !important;
+    & > a {
+      color: color(red-primary);
+      text-decoration: none;
+      padding-left: 8px;
+    }
   }
   &__error_message {
     height: 0;
@@ -50,7 +126,6 @@
 mat-card-content {
   margin-bottom: 0;
 }
-
 @mixin md-icon-size($size: 24px) {
   font-size: $size;
   height: $size;
@@ -58,9 +133,13 @@ mat-card-content {
   line-height: $size;
 }
 :host {
-  mat-icon.password-icon.mat-icon {
-    @include md-icon-size(24px);
+  mat-icon.password-icon.mat-icon,
+  mat-icon.account-icon.mat-icon {
+    @include md-icon-size(28px);
     margin-left: -4px;
+    padding: 4px;
+    color: color(text-05);
+    text-align: center;
   }
 }
 

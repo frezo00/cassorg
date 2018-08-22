@@ -15,6 +15,7 @@ import {
 
 import * as AuthActions from './auth.actions';
 import * as RouterActions from '../../../router/store';
+import * as CommonActions from '../../common/store';
 import * as UsersActions from '../../users/store';
 import { User, IUser } from '../../../models/user.model';
 import { AppState } from '../../../store';
@@ -75,7 +76,8 @@ export class AuthEffects {
           const actions: Array<any> = [
             new AuthActions.SetAuthenicated(),
             new AuthActions.SaveLoggedInUser(),
-            new AuthActions.RemoveErrors()
+            new AuthActions.RemoveErrors(),
+            new CommonActions.ShowLoading(false)
           ];
           if (!loggedUser.emailVerified) {
             actions.push(
@@ -89,7 +91,8 @@ export class AuthEffects {
         catchError(error =>
           from([
             new AuthActions.SetAuthenicated(),
-            new AuthActions.SetLoginError(error)
+            new AuthActions.SetLoginError(error),
+            new CommonActions.ShowLoading(false)
           ])
         )
       )
@@ -106,7 +109,8 @@ export class AuthEffects {
           const actions: Array<any> = [
             new AuthActions.SetAuthenicated(),
             new AuthActions.SaveLoggedInUser(),
-            new AuthActions.RemoveErrors()
+            new AuthActions.RemoveErrors(),
+            new CommonActions.ShowLoading(false)
           ];
           if (!createdUser.displayName) {
             actions.push(
@@ -129,7 +133,8 @@ export class AuthEffects {
         catchError(error =>
           from([
             new AuthActions.SetAuthenicated(),
-            new AuthActions.SetRegisterError(error)
+            new AuthActions.SetRegisterError(error),
+            new CommonActions.ShowLoading(false)
           ])
         )
       )

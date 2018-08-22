@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
 import * as RouterActions from '../../../router/store';
+import * as CommonActions from '../../common/store';
 
 @Component({
   selector: 'app-register',
@@ -78,6 +79,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister() {
+    this.store.dispatch(new CommonActions.ShowLoading(true));
     this.store.dispatch(new AuthActions.TryRegister(this.registerForm.value));
   }
 

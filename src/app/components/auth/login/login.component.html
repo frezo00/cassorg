@@ -19,7 +19,8 @@
           <mat-icon class="auth__form__icon" [svgIcon]="showPassword ? 'eye-off' : 'eye'" aria-hidden="true"></mat-icon>
         </button>
       </mat-form-field>
-      <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid" class="auth__form__submit-button">
+      <button mat-raised-button type="submit" color="primary" [ngClass]="{'valid': loginForm.valid}" [disabled]="loginForm.invalid"
+        class="auth__form__submit-button">
         Prijavi se
       </button>
       <div [ngClass]="{'showError': !!(errorMessage | async)}" class="auth__form__error_message" fxLayoutAlign="start center">

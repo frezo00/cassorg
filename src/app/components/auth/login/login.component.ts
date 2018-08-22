@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
 import * as RouterActions from '../../../router/store';
+import * as CommonActions from '../../common/store';
 
 @Component({
   selector: 'app-login',
@@ -64,6 +65,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    this.store.dispatch(new CommonActions.ShowLoading(true));
     this.store.dispatch(new AuthActions.TryLogin(this.loginForm.value));
   }
 

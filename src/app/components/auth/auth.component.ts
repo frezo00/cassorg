@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import * as fromCommon from '../common/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -19,11 +23,16 @@ import { Component, OnInit } from '@angular/core';
         </div>
       </div>
     </div>
+    <app-loading *ngIf="!!(loading | async)" fxLayout="column" fxLayoutAlign="center center"></app-loading>
     `,
   styleUrls: ['./auth.scss']
 })
 export class AuthComponent implements OnInit {
-  constructor() {}
+  loading: Observable<boolean>;
 
-  ngOnInit() {}
+  constructor(private commonStore: Store<fromCommon.CommonState>) {}
+
+  ngOnInit() {
+    this.loading = this.commonStore.select(fromCommon.getShowLoading);
+  }
 }

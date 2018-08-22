@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AuthModule } from './auth/auth.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { SharedModule } from '../shared/shared.module';
+import { CommonComponentsModule } from './common/common-components.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -38,7 +39,13 @@ import { AlertBarComponent } from './alert-bar/alert-bar.component';
     UserProfileComponent,
     AlertBarComponent
   ],
-  imports: [CommonModule, AuthModule, NavigationModule, SharedModule],
+  imports: [
+    CommonModule,
+    AuthModule,
+    NavigationModule,
+    SharedModule,
+    CommonComponentsModule
+  ],
   exports: [],
   providers: []
 })

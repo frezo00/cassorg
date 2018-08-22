@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 
 import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
+import * as RouterActions from '../../../router/store';
 
 @Component({
   selector: 'app-register',
@@ -31,13 +32,13 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.errorMessage = this.store.select(fromAuth.getErrorMessage);
+    this.errorMessage = this.store.select(fromAuth.getRegisterErrorMessage);
   }
 
   initForm() {
     this.fullName = new FormControl('', [
       Validators.required,
-      Validators.maxLength(50)
+      Validators.maxLength(30)
     ]);
     this.email = new FormControl('', [Validators.required, Validators.email]);
     this.password = new FormControl('', [
@@ -54,25 +55,35 @@ export class RegisterComponent implements OnInit {
 
   getFullNameErrorMessage() {
     return this.fullName.hasError('required')
-      ? 'You must enter a value'
-      : this.fullName.hasError('maxlength') ? 'Too large text' : '';
+      ? 'Ovo polje je obavezno'
+      : this.fullName.hasError('maxlength')
+        ? 'Text je predug'
+        : '';
   }
 
   getEmailErrorMessage() {
     return this.email.hasError('required')
-      ? 'You must enter a value'
-      : this.email.hasError('email') ? 'Not a valid email' : '';
+      ? 'Ovo polje je obavezno'
+      : this.email.hasError('email')
+        ? 'Neispravan email format'
+        : '';
   }
 
   getPasswordErrorMessage() {
     return this.password.hasError('required')
-      ? 'You must enter a value'
+      ? 'Ovo polje je obavezno'
       : this.password.hasError('minlength')
-        ? 'Must be minimum 6 characters'
+        ? 'Potrebno je minimalno 6 znakova'
         : '';
   }
 
   onRegister() {
     this.store.dispatch(new AuthActions.TryRegister(this.registerForm.value));
+  }
+
+  goToLogin() {
+    this.registerForm.reset();
+    this.store.dispatch(new RouterActions.Go({ path: '/auth/login' }));
+    this.store.dispatch(new AuthActions.RemoveErrors());
   }
 }

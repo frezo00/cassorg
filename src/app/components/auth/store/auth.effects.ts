@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable ,  from as fromPromise ,  of ,  from } from 'rxjs';
+import { Observable, from as fromPromise, of, from } from 'rxjs';
 import {
   map,
   switchMap,
@@ -75,7 +75,7 @@ export class AuthEffects {
           const actions: Array<any> = [
             new AuthActions.SetAuthenicated(),
             new AuthActions.SaveLoggedInUser(),
-            new AuthActions.SetErrors(null)
+            new AuthActions.RemoveErrors()
           ];
           if (!loggedUser.emailVerified) {
             actions.push(
@@ -89,7 +89,7 @@ export class AuthEffects {
         catchError(error =>
           from([
             new AuthActions.SetAuthenicated(),
-            new AuthActions.SetErrors(error)
+            new AuthActions.SetLoginError(error)
           ])
         )
       )
@@ -106,7 +106,7 @@ export class AuthEffects {
           const actions: Array<any> = [
             new AuthActions.SetAuthenicated(),
             new AuthActions.SaveLoggedInUser(),
-            new AuthActions.SetErrors(null)
+            new AuthActions.RemoveErrors()
           ];
           if (!createdUser.displayName) {
             actions.push(
@@ -129,7 +129,7 @@ export class AuthEffects {
         catchError(error =>
           from([
             new AuthActions.SetAuthenicated(),
-            new AuthActions.SetErrors(error)
+            new AuthActions.SetRegisterError(error)
           ])
         )
       )

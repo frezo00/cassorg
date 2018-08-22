@@ -5,12 +5,16 @@ export interface AuthState {
   isAuthenticated: boolean;
   loggedInUser: IUser;
   errorMessage: string;
+  registerErrorMessage: string;
+  loginErrorMessage: string;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
   loggedInUser: null,
-  errorMessage: null
+  errorMessage: '',
+  registerErrorMessage: '',
+  loginErrorMessage: ''
 };
 
 export function authReducer(
@@ -38,6 +42,49 @@ export function authReducer(
         ...state,
         errorMessage: action.payload ? action.payload.message : null
       };
+    }
+    case AuthActions.AuthActionTypes.REMOVE_ERRORS: {
+      return { ...state, loginErrorMessage: '', registerErrorMessage: '' };
+    }
+    case AuthActions.AuthActionTypes.SET_LOGIN_ERROR: {
+      let message = '';
+      switch (action.payload.code) {
+        case 'auth/invalid-email':
+          message = 'Neispravan email.';
+          break;
+        case 'auth/user-disabled':
+          message = 'Korisnik blokiran.';
+          break;
+        case 'auth/user-not-found':
+          message = 'Korisnik nije pronađen.';
+          break;
+        case 'auth/wrong-password':
+          message = 'Pogrešna lozinka.';
+          break;
+        default:
+          break;
+      }
+      return { ...state, loginErrorMessage: message };
+    }
+    case AuthActions.AuthActionTypes.SET_REGISTER_ERROR: {
+      let message = '';
+      switch (action.payload.code) {
+        case 'auth/email-already-in-use':
+          message = 'Ovaj email se već koristi.';
+          break;
+        case 'auth/invalid-email':
+          message = 'Neispravan email.';
+          break;
+        case 'auth/operation-not-allowed':
+          message = 'Operacija nije dopuštena.';
+          break;
+        case 'auth/weak-password':
+          message = 'Preslaba lozinka.';
+          break;
+        default:
+          break;
+      }
+      return { ...state, registerErrorMessage: message };
     }
     default: {
       return state;

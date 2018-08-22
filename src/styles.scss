@@ -67,3 +67,22 @@ mat-horizontal-stepper > .mat-horizontal-content-container {
     font-size: 20px;
   }
 }
+
+:-webkit-autofill,
+:-webkit-autofill:hover,
+:-webkit-autofill:focus {
+  -webkit-text-fill-color: color(text);
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.mat-form-field.ng-touched.ng-dirty.ng-valid {
+  & .mat-form-field-underline {
+    background-color: color(success-05) !important;
+    height: 2px;
+  }
+  & mat-icon {
+    color: color(success-05);
+  }
+}

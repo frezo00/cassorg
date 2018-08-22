@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 
 import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
+import * as RouterActions from '../../../router/store';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.errorMessage = this.store.select(fromAuth.getErrorMessage);
+    this.errorMessage = this.store.select(fromAuth.getLoginErrorMessage);
   }
 
   initForm() {
@@ -49,18 +50,26 @@ export class LoginComponent implements OnInit {
   getEmailErrorMessage() {
     return this.email.hasError('required')
       ? 'Ovo polje je obavezno'
-      : this.email.hasError('email') ? 'Neispravan email format' : '';
+      : this.email.hasError('email')
+        ? 'Neispravan email format'
+        : '';
   }
 
   getPasswordErrorMessage() {
     return this.password.hasError('required')
       ? 'Ovo polje je obavezno'
       : this.password.hasError('minlength')
-        ? 'Mora imati minimalno 6 znakova'
+        ? 'Potrebno je minimalno 6 znakova'
         : '';
   }
 
   onLogin() {
     this.store.dispatch(new AuthActions.TryLogin(this.loginForm.value));
+  }
+
+  goToRegister() {
+    this.loginForm.reset();
+    this.store.dispatch(new RouterActions.Go({ path: '/auth/register' }));
+    this.store.dispatch(new AuthActions.RemoveErrors());
   }
 }

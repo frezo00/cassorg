@@ -1,23 +1,22 @@
-<div fxFlexFill fxLayoutAlign="center center">
-  <mat-card class="email-confirm__card" fxFlex.xs="85" fxFlex.sm="66" fxFlex.gt-sm="33" fxLayoutAlign="center center" fxLayout="column">
-    <mat-card-title>Email confirmation</mat-card-title>
-    <mat-card-content class="email-confirm__card-content" fxLayoutAlign="center center" fxLayout="column">
-      <mat-icon class="email-confirm__icon" fontSet="fa" fontIcon="fa-envelope-open"></mat-icon>
-      <p>
-        Hi
-        <b>{{(user | async)?.displayName}}</b>,
-        <br> we've sent confirmation email to
-        <em>
-          <b>{{(user | async)?.email}}</b>
-        </em>.
-        <br/> Please confirm your email to continue.
-      </p>
-      <button type="button" class="email-confirm__button" mat-raised-button (click)="checkEmailConfirmation()">Go to Login</button>
-      <mat-error *ngIf="!(user | async)?.emailVerified">Email not verified</mat-error>
-    </mat-card-content>
-    <mat-card-footer class="email-confirm__footer" fxLayout="column">
-      <span>You didn't recieve any email?</span>
-      <a (click)="resendEmail()">Resend confirmation email</a>
-    </mat-card-footer>
-  </mat-card>
-</div>
+<mat-card class="auth__card mat-elevation-z14" fxLayout="column">
+  <mat-card-title class="auth__title">
+    <h2 class="auth__title-text">Email potvrda</h2>
+    <span class="auth__title-underline"></span>
+  </mat-card-title>
+  <mat-card-content class="auth__email-confirm__content" fxLayoutAlign="center stretch" fxLayout="column">
+    <div class="auth__email-confirm__icon-box">
+      <mat-icon class="auth__email-confirm__icon" fontSet="fa" fontIcon="fa-envelope-open"></mat-icon>
+    </div>
+    <div class="auth__email-confirm__text">
+      <p>Pozdrav <b>{{(user | async)?.displayName}}</b>,</p>
+      <p>Poslali smo link za potvrdu računa na email adresu: <b>{{(user | async)?.email}}</b></p>
+      <p>Molimo Vas, potvrdite email za nastavak.</p>
+    </div>
+    <button type="button" class="auth__form__submit-button" mat-raised-button (click)="checkEmailConfirmation()">Idi na prijavu</button>
+    <!-- <mat-error *ngIf="!(user | async)?.emailVerified">Email not verified</mat-error> -->
+  </mat-card-content>
+  <mat-card-actions class="auth__form__actions">
+    <span>Niste primili email?</span>
+    <a (click)="resendEmail()">Pošalji ponovo</a>
+  </mat-card-actions>
+</mat-card>

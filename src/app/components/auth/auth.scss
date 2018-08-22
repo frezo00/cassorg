@@ -1,8 +1,13 @@
 @import '../../../_variables.scss';
-/* .auth__container {
-  background-color: color(blue-accent);
-} */
-.login {
+
+@mixin md-icon-size($size: 24px) {
+  font-size: $size !important;
+  height: $size !important;
+  width: $size !important;
+  line-height: $size;
+}
+
+.auth {
   &__container {
     overflow-y: auto;
     background: linear-gradient(
@@ -22,6 +27,9 @@
     height: 100%;
     z-index: -1;
   }
+  &__wrapper {
+    min-height: 100vh;
+  }
   &__logo {
     padding: 12px 0;
     & > img {
@@ -29,12 +37,15 @@
     }
   }
   &__content {
-    padding: 28px 16px;
+    padding: 16px;
     margin: auto;
     width: 100%;
   }
   &__card {
     border-radius: 20px;
+    &__content {
+      margin-bottom: 0;
+    }
   }
   &__title {
     margin-bottom: 24px;
@@ -59,121 +70,91 @@
     font-size: 12px;
     color: rgba(255, 255, 255, 0.6);
   }
-}
-.form {
-  &__container {
-    background-color: #3c5ba0;
-  }
-  &__logo {
-    padding: 10px;
-    color: green;
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Gloria Hallelujah', cursive;
-  }
-  &__login {
-    padding: 16px;
-  }
-  &__icon-button {
-    width: 30px;
-    height: 30px;
-    &:not(:disabled) mat-icon {
-      color: color(text-08) !important;
+  &__form {
+    &__input {
+      font-size: 18px;
+      color: #333;
+    }
+    &__container {
+      padding: 16px;
+    }
+    &__icon-button {
+      width: 30px;
+      height: 30px;
+      &:not(:disabled) mat-icon.mat-icon {
+        color: color(text-08) !important;
+      }
+    }
+    &__icon.mat-icon {
+      @include md-icon-size(28px);
+      margin-left: -4px;
+      padding: 4px;
+      color: color(text-05);
+      text-align: center;
+    }
+    &__submit-button {
+      color: white;
+      margin: 12px 0;
+      font-size: 18px;
+      line-height: 1.8em;
+      padding: 8px;
+      border-radius: 24px;
+      background-color: color(red-primary);
+      &:not(:disabled) {
+        box-shadow: 0 5px 5px -3px rgba($color: color(red-primary), $alpha: 0.14),
+          0 8px 10px 1px rgba($color: color(red-primary), $alpha: 0.14),
+          0 3px 14px 2px rgba($color: color(red-primary), $alpha: 0.12);
+      }
+    }
+    &__actions {
+      color: color(text);
+      font-size: 0.8em;
+      text-align: center;
+      margin-bottom: 8px !important;
+      & > a {
+        cursor: pointer;
+        color: color(red-primary);
+        text-decoration: none;
+        padding-left: 6px;
+      }
+    }
+    &__error_message {
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+      border-radius: 4px;
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      margin: 0;
+      padding: 0;
+      transition: all 0.5s ease;
+      mat-icon {
+        padding-right: 8px;
+      }
+    }
+    &__error_message.showError {
+      height: 36px;
+      opacity: 1;
+      margin: 4px 0;
+      padding: 6px 12px;
     }
   }
-  &__submitBtn {
-    margin: 12px 0;
-    font-size: 18px;
-    line-height: 1.8em;
-    padding: 8px;
-    border-radius: 24px;
-    background-color: color(red-primary);
-  }
-  &__actions {
-    color: color(text);
-    font-size: 0.8em;
-    text-align: center;
-    margin-bottom: 8px !important;
-    & > a {
-      color: color(red-primary);
-      text-decoration: none;
-      padding-left: 8px;
+  &__email-confirm {
+    &__content {
+      padding: 0 16px;
     }
-  }
-  &__error_message {
-    height: 0;
-    opacity: 0;
-    overflow: hidden;
-    border-radius: 2px;
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    margin: 0;
-    padding: 0;
-    transition: all 0.5s ease;
-    mat-icon {
-      padding-right: 8px;
-    }
-  }
-  &__error_message.showError {
-    height: auto;
-    opacity: 1;
-    margin: 4px 0;
-    padding: 6px 12px;
-  }
-}
-mat-card-content {
-  margin-bottom: 0;
-}
-@mixin md-icon-size($size: 24px) {
-  font-size: $size;
-  height: $size;
-  width: $size;
-  line-height: $size;
-}
-:host {
-  mat-icon.password-icon.mat-icon,
-  mat-icon.account-icon.mat-icon {
-    @include md-icon-size(28px);
-    margin-left: -4px;
-    padding: 4px;
-    color: color(text-05);
-    text-align: center;
-  }
-}
-
-.email-confirm {
-  &__container {
-    background-color: color(blue-accent);
-  }
-  &__card {
-    background-color: color(light);
-    color: color(primary);
-    mat-card-title {
-      font-weight: 500;
-    }
-  }
-  &__card-content {
-    padding: 0 16px;
-    p {
-      padding-bottom: 12px;
+    &__text {
       line-height: 1.4em;
+      color: color(text);
     }
-  }
-  &__icon {
-    @include md-icon-size(60px);
-    padding: 20px 0;
-  }
-  &__button {
-    background-color: color(primary);
-    color: white;
-    margin-bottom: 6px;
-  }
-  &__footer {
-    padding: 0 16px;
-    font-size: 0.8em;
-    text-align: center;
-    margin: 16px 0;
+    &__icon {
+      @include md-icon-size(80px);
+      padding: 20px 0;
+      color: color(red-primary);
+      &-box {
+        text-align: center;
+      }
+    }
   }
 }

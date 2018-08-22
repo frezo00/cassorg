@@ -23,3 +23,13 @@ export const getErrorMessage = createSelector(
   getAuthState,
   (state: fromAuth.AuthState) => state.errorMessage
 );
+
+export const getLoginErrorMessage = createSelector(
+  getAuthState,
+  (state: fromAuth.AuthState) => state.loginErrorMessage
+);
+
+export const getRegisterErrorMessage = createSelector(
+  getAuthState,
+  (state: fromAuth.AuthState) => state.registerErrorMessage
+);

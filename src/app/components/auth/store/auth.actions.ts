@@ -1,16 +1,20 @@
 import { Action } from '@ngrx/store';
 import { IUser } from '../../../models/user.model';
+import { AuthError } from '../../../models';
 
 export enum AuthActionTypes {
   CHECK_LOGGED_IN_USER = '[Auth] Check Logged In User',
   SAVE_LOGGED_IN_USER = '[Auth] Save Logged In User',
   SAVE_LOGGED_IN_USER_COMPLETE = '[Auth] Save Logged In User Complete',
   TRY_LOGIN = '[Auth] Try Login',
+  SET_LOGIN_ERROR = '[Auth] Set Login Error',
   TRY_REGISTER = '[Auth] Try Register',
+  SET_REGISTER_ERROR = '[Auth] Set Register Error',
   LOGOUT = '[Auth] Logout',
   SET_AUTHENTICATED = '[Auth] Set Authenticated',
   SET_UNAUTHENTICATED = '[Auth] Set Unauthenticated',
   ERRORS = '[Auth] Errors',
+  REMOVE_ERRORS = '[Auth] Remove Errors',
   UPDATE_USER_PROFILE = '[Auth] Update User Profile',
   UPDATE_USER_PROFILE_COMPLETE = '[Auth] Update User Profile Complete',
   SEND_VERIFICATION_EMAIL = '[Auth] Send Verification Email'
@@ -36,12 +40,24 @@ export class TryLogin implements Action {
   constructor(public payload: { email: string; password: string }) {}
 }
 
+export class SetLoginError implements Action {
+  readonly type = AuthActionTypes.SET_LOGIN_ERROR;
+
+  constructor(public payload: AuthError) {}
+}
+
 export class TryRegister implements Action {
   readonly type = AuthActionTypes.TRY_REGISTER;
 
   constructor(
     public payload: { fullName: string; email: string; password: string }
   ) {}
+}
+
+export class SetRegisterError implements Action {
+  readonly type = AuthActionTypes.SET_REGISTER_ERROR;
+
+  constructor(public payload: AuthError) {}
 }
 
 export class Logout implements Action {
@@ -60,6 +76,9 @@ export class SetErrors implements Action {
   readonly type = AuthActionTypes.ERRORS;
 
   constructor(public payload: { message: string }) {}
+}
+export class RemoveErrors implements Action {
+  readonly type = AuthActionTypes.REMOVE_ERRORS;
 }
 
 export class UpdateUserProfile implements Action {
@@ -82,11 +101,14 @@ export type AuthActions =
   | SaveLoggedInUser
   | SaveLoggedInUserComplete
   | TryLogin
+  | SetLoginError
   | TryRegister
+  | SetRegisterError
   | Logout
   | SetAuthenicated
   | SetUnauthenicated
   | SetErrors
+  | RemoveErrors
   | UpdateUserProfile
   | UpdateUserProfileComplete
   | SendVerificationEmail;

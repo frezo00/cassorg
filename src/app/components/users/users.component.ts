@@ -80,7 +80,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 }
 
-const USER_DATA: IUser[] = [
+const USER_DATA: any[] = [
   {
     displayName: 'Mate Matić',
     email: 'mate@email.com',

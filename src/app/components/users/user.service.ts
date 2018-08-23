@@ -42,4 +42,11 @@ export class UsersService {
     }
     return projectUserRef.add(projectUser);
   }
+
+  checkIfUserExists(authId: string): Promise<any> {
+    return this.afDB
+      .collection('users')
+      .doc(authId)
+      .ref.get();
+  }
 }

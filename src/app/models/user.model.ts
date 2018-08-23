@@ -1,15 +1,25 @@
-export interface IUser {
-  displayName: string;
+export interface IUserLogin {
+  authId: string;
   email: string;
+  displayName?: string;
+}
+
+export class UserLogin implements IUserLogin {
+  constructor(
+    public authId: string,
+    public email: string,
+    public displayName?: string
+  ) {}
+}
+
+export interface IUser extends IUserLogin {
   firstName?: string;
   lastName?: string;
   gender?: 'male' | 'female' | null;
   phoneNumber?: string;
-  birthdate?: Date;
+  birthdate?: string;
   address?: string;
   photoURL?: string;
-  id?: string;
-  authId?: string;
   emailVerified?: boolean;
   createdProject?: string;
   lastProjectLogin?: string;
@@ -21,24 +31,23 @@ export interface IProjectUser {
   user: IUser;
   projectID: string;
   role: 'admin' | 'member';
-  createdAt?: Date;
-  lastLogin?: Date;
+  createdAt?: string;
+  lastLogin?: string;
   createdByAdmin?: string;
 }
 
 export class User implements IUser {
   constructor(
+    public authId: string,
     public displayName: string,
     public email: string,
     public firstName?: string,
     public lastName?: string,
     public gender?: 'male' | 'female' | null,
     public phoneNumber?: string,
-    public birthdate?: Date,
+    public birthdate?: string,
     public address?: string,
     public photoURL?: string,
-    public id?: string,
-    public authId?: string,
     public emailVerified?: boolean,
     public createdProject?: string,
     public lastProjectLogin?: string,

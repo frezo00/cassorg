@@ -23,9 +23,10 @@
         class="auth__form__submit-button">
         Prijavi se
       </button>
-      <div [ngClass]="{'showError': !!(errorMessage | async)}" class="auth__form__error_message" fxLayoutAlign="start center">
+      <div [ngClass]="{'showError': !!(errorMessage | async)?.type === ('Login' || 'Error')}" class="auth__form__error_message"
+        fxLayoutAlign="start center">
         <mat-icon>warning</mat-icon>
-        {{(errorMessage | async)}}
+        {{(errorMessage | async)?.message}}
       </div>
     </form>
   </mat-card-content>

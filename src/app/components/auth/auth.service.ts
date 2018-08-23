@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
   constructor(private af: AngularFireAuth) {}
 
-  getCurrentUser() {
+  getAuthState(): Observable<any> {
     return this.af.authState;
   }
 

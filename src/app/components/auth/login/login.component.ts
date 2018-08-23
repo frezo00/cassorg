@@ -12,6 +12,7 @@ import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
 import * as RouterActions from '../../../router/store';
 import * as CommonActions from '../../common/store';
+import { AuthError } from '../../../models';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   email: FormControl;
   password: FormControl;
   showPassword: boolean;
-  errorMessage: Observable<string>;
+  errorMessage: Observable<AuthError>;
 
   constructor(
     private store: Store<fromAuth.AuthState>,
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.errorMessage = this.store.select(fromAuth.getLoginErrorMessage);
+    this.errorMessage = this.store.select<AuthError>(fromAuth.getAuthErrors);
   }
 
   initForm() {

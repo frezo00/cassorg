@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import * as fromAuth from '../store';
 import * as fromRouter from '../../../router/store';
 import { Observable } from 'rxjs';
-import { IUser } from '../../../models/user.model';
+import { IUserLogin } from '../../../models/user.model';
 
 @Component({
   selector: 'app-email-confirmation',
@@ -12,13 +12,13 @@ import { IUser } from '../../../models/user.model';
   styleUrls: ['../auth.scss']
 })
 export class EmailConfirmationComponent implements OnInit {
-  user: Observable<IUser>;
+  user: Observable<IUserLogin>;
 
   constructor(private store: Store<fromAuth.AuthState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new fromAuth.CheckLoggedInUser());
-    this.user = this.store.select(fromAuth.getLoggedInUser);
+    this.store.dispatch(new fromAuth.CheckIfUserLoggedIn());
+    this.user = this.store.select(fromAuth.getUserLoginData);
   }
 
   checkEmailConfirmation() {

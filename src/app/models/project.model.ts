@@ -4,8 +4,14 @@ export interface IProject {
   name: string;
   tag: string;
   createdBy: string;
-  createdAt: Date;
-  id?: string;
+  createdAt: string;
+}
+
+export interface IProjectWithID extends IProject {
+  id: string;
+}
+
+export interface IProjectAllData extends IProjectWithID {
   administrators?: string[];
   members?: string[];
   notifications?: INotification[];
@@ -16,7 +22,7 @@ export class Project {
     public name: string,
     public tag: string,
     public createdBy: string,
-    public createdAt: Date,
+    public createdAt: string,
     public id?: string,
     public administrators?: string[],
     public members?: string[],

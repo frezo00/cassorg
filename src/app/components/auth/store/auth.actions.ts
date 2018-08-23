@@ -1,51 +1,32 @@
 import { Action } from '@ngrx/store';
-import { IUser } from '../../../models/user.model';
-import { AuthError } from '../../../models';
+import { FirebaseAuthError, IUserLogin } from '../../../models';
 
 export enum AuthActionTypes {
-  CHECK_LOGGED_IN_USER = '[Auth] Check Logged In User',
-  SAVE_LOGGED_IN_USER = '[Auth] Save Logged In User',
-  SAVE_LOGGED_IN_USER_COMPLETE = '[Auth] Save Logged In User Complete',
-  TRY_LOGIN = '[Auth] Try Login',
-  SET_LOGIN_ERROR = '[Auth] Set Login Error',
+  // Register, Login and Logout
   TRY_REGISTER = '[Auth] Try Register',
-  SET_REGISTER_ERROR = '[Auth] Set Register Error',
+  TRY_LOGIN = '[Auth] Try Login',
   LOGOUT = '[Auth] Logout',
-  SET_AUTHENTICATED = '[Auth] Set Authenticated',
-  SET_UNAUTHENTICATED = '[Auth] Set Unauthenticated',
-  ERRORS = '[Auth] Errors',
+
+  // Saving and Checking Data for Logged In User
+  SAVE_USER_LOGIN_DATA = '[Auth] Save User Login Data',
+  SAVE_USER_LOGIN_DATA_SUCCESS = '[Auth] Save User Login Data Success',
+  CHECK_IF_USER_LOGGED_IN = '[Auth] Check If User Logged In',
+
+  // Handling Auth Errors
+  SET_ERRORS = '[Auth] Set Errors',
   REMOVE_ERRORS = '[Auth] Remove Errors',
+
+  // Updating User Display Name and Photo
   UPDATE_USER_PROFILE = '[Auth] Update User Profile',
   UPDATE_USER_PROFILE_COMPLETE = '[Auth] Update User Profile Complete',
-  SEND_VERIFICATION_EMAIL = '[Auth] Send Verification Email'
+
+  // Email Verification
+  SEND_VERIFICATION_EMAIL = '[Auth] Send Verification Email',
+  CHECK_IF_EMAIL_VERIFIED = '[Auth] Check If Email Verified',
+  CHECK_IF_EMAIL_VERIFIED_SUCCESS = '[Auth] Check If Email Verified Success'
 }
 
-export class CheckLoggedInUser implements Action {
-  readonly type = AuthActionTypes.CHECK_LOGGED_IN_USER;
-}
-
-export class SaveLoggedInUser implements Action {
-  readonly type = AuthActionTypes.SAVE_LOGGED_IN_USER;
-}
-
-export class SaveLoggedInUserComplete implements Action {
-  readonly type = AuthActionTypes.SAVE_LOGGED_IN_USER_COMPLETE;
-
-  constructor(public payload: any) {}
-}
-
-export class TryLogin implements Action {
-  readonly type = AuthActionTypes.TRY_LOGIN;
-
-  constructor(public payload: { email: string; password: string }) {}
-}
-
-export class SetLoginError implements Action {
-  readonly type = AuthActionTypes.SET_LOGIN_ERROR;
-
-  constructor(public payload: AuthError) {}
-}
-
+// Register, Login and Logout
 export class TryRegister implements Action {
   readonly type = AuthActionTypes.TRY_REGISTER;
 
@@ -53,34 +34,39 @@ export class TryRegister implements Action {
     public payload: { fullName: string; email: string; password: string }
   ) {}
 }
+export class TryLogin implements Action {
+  readonly type = AuthActionTypes.TRY_LOGIN;
 
-export class SetRegisterError implements Action {
-  readonly type = AuthActionTypes.SET_REGISTER_ERROR;
-
-  constructor(public payload: AuthError) {}
+  constructor(public payload: { email: string; password: string }) {}
 }
-
 export class Logout implements Action {
   readonly type = AuthActionTypes.LOGOUT;
 }
 
-export class SetAuthenicated implements Action {
-  readonly type = AuthActionTypes.SET_AUTHENTICATED;
+// Saving and Checking Data for Logged In User
+export class SaveUserLoginData implements Action {
+  readonly type = AuthActionTypes.SAVE_USER_LOGIN_DATA;
+}
+export class SaveUserLoginDataSuccess implements Action {
+  readonly type = AuthActionTypes.SAVE_USER_LOGIN_DATA_SUCCESS;
+
+  constructor(public payload: IUserLogin) {}
+}
+export class CheckIfUserLoggedIn implements Action {
+  readonly type = AuthActionTypes.CHECK_IF_USER_LOGGED_IN;
 }
 
-export class SetUnauthenicated implements Action {
-  readonly type = AuthActionTypes.SET_UNAUTHENTICATED;
-}
-
+// Handling Auth Errors
 export class SetErrors implements Action {
-  readonly type = AuthActionTypes.ERRORS;
+  readonly type = AuthActionTypes.SET_ERRORS;
 
-  constructor(public payload: { message: string }) {}
+  constructor(public payload: FirebaseAuthError) {}
 }
 export class RemoveErrors implements Action {
   readonly type = AuthActionTypes.REMOVE_ERRORS;
 }
 
+// Updating User Display Name and Photo
 export class UpdateUserProfile implements Action {
   readonly type = AuthActionTypes.UPDATE_USER_PROFILE;
 
@@ -92,23 +78,30 @@ export class UpdateUserProfileComplete implements Action {
   constructor(public payload: { displayName: string; photoURL: string }) {}
 }
 
+// Email Verification
 export class SendVerificationEmail implements Action {
   readonly type = AuthActionTypes.SEND_VERIFICATION_EMAIL;
 }
+export class CheckIfEmailVerified implements Action {
+  readonly type = AuthActionTypes.CHECK_IF_EMAIL_VERIFIED;
+}
+export class CheckIfEmailVerifiedSuccess implements Action {
+  readonly type = AuthActionTypes.CHECK_IF_EMAIL_VERIFIED_SUCCESS;
+
+  constructor(public payload: boolean) {}
+}
 
 export type AuthActions =
-  | CheckLoggedInUser
-  | SaveLoggedInUser
-  | SaveLoggedInUserComplete
-  | TryLogin
-  | SetLoginError
   | TryRegister
-  | SetRegisterError
+  | TryLogin
   | Logout
-  | SetAuthenicated
-  | SetUnauthenicated
   | SetErrors
   | RemoveErrors
+  | CheckIfUserLoggedIn
+  | SaveUserLoginData
+  | SaveUserLoginDataSuccess
   | UpdateUserProfile
   | UpdateUserProfileComplete
-  | SendVerificationEmail;
+  | SendVerificationEmail
+  | CheckIfEmailVerified
+  | CheckIfEmailVerifiedSuccess;

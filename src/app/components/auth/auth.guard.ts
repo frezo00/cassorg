@@ -20,11 +20,11 @@ export class AuthGuard implements CanActivate, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.store.select(fromStore.getIsAuthenticated).pipe(
+    return this.store.select(fromStore.getUserLoginData).pipe(
       take(1),
       map(isAuth => {
         if (!isAuth) {
-          this.store.dispatch(new fromStore.CheckLoggedInUser());
+          this.store.dispatch(new fromStore.CheckIfUserLoggedIn());
           return false;
         }
         return true;
@@ -33,11 +33,11 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-    return this.store.select(fromStore.getIsAuthenticated).pipe(
+    return this.store.select(fromStore.getUserLoginData).pipe(
       take(1),
       map(isAuth => {
         if (!isAuth) {
-          this.store.dispatch(new fromStore.CheckLoggedInUser());
+          this.store.dispatch(new fromStore.CheckIfUserLoggedIn());
           return false;
         }
         return true;

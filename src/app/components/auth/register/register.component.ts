@@ -12,6 +12,7 @@ import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
 import * as RouterActions from '../../../router/store';
 import * as CommonActions from '../../common/store';
+import { AuthError } from '../../../models';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit {
   email: FormControl;
   password: FormControl;
   showPassword: boolean;
-  errorMessage: Observable<string>;
+  errorMessage: Observable<AuthError>;
 
   constructor(
     private store: Store<fromAuth.AuthState>,
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.errorMessage = this.store.select(fromAuth.getRegisterErrorMessage);
+    this.errorMessage = this.store.select<AuthError>(fromAuth.getAuthErrors);
   }
 
   initForm() {

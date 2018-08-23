@@ -8,6 +8,7 @@ export enum UsersActionTypes {
   CREATE_USER = '[Users] Create User',
   CREATE_USER_COMPLETE = '[Users] Create User Complete',
   CREATE_PROJECT_USER = '[Users] Create Project User Complete',
+  CHECK_IF_USER_EXISTS = '[Users] Check If User Exists',
   ERRORS = '[Users] Errors'
 }
 
@@ -43,6 +44,10 @@ export class CreateProjectUser implements Action {
   constructor(public payload: IProjectUser) {}
 }
 
+export class CheckIfUserExists implements Action {
+  readonly type = UsersActionTypes.CHECK_IF_USER_EXISTS;
+}
+
 export class Errors implements Action {
   readonly type = UsersActionTypes.ERRORS;
 
@@ -56,4 +61,5 @@ export type UsersActions =
   | CreateUser
   | CreateUserComplete
   | CreateProjectUser
+  | CheckIfUserExists
   | Errors;

@@ -17,9 +17,10 @@ import * as AuthActions from './auth.actions';
 import * as RouterActions from '../../../router/store';
 import * as CommonActions from '../../common/store';
 import * as UsersActions from '../../users/store';
-import { User, IUser } from '../../../models/user.model';
+import { User, IUser, IUserLogin, UserLogin } from '../../../models/user.model';
 import { AppState } from '../../../store';
 import { AuthService } from '../auth.service';
+import { FirebaseAuthError } from '../../../models';
 
 export interface LoginData {
   email: string;
@@ -29,31 +30,33 @@ export interface LoginData {
 @Injectable()
 export class AuthEffects {
   @Effect()
-  saveUserData$ = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.SAVE_LOGGED_IN_USER),
-    switchMap(action => this.af.authState),
-    map(
-      authData =>
-        new AuthActions.SaveLoggedInUserComplete(this.getUser(authData))
+  saveUserData$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.SAVE_USER_LOGIN_DATA),
+    switchMap(() =>
+      this.authService.getAuthState().pipe(
+        map(authData => {
+          const loginData = new UserLogin(
+            authData.uid,
+            authData.email,
+            authData.displayName
+          );
+          return new AuthActions.SaveUserLoginDataSuccess(loginData);
+        }),
+        catchError(error => of(new AuthActions.SetErrors(error)))
+      )
     )
   );
 
   @Effect()
   checkIfLoggedIn$: Observable<Action> = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.CHECK_LOGGED_IN_USER),
+    ofType(AuthActions.AuthActionTypes.CHECK_IF_USER_LOGGED_IN),
     switchMap(() => this.af.authState),
     mergeMap(user => {
       let actions;
       if (!user) {
-        actions = [
-          new AuthActions.SetUnauthenicated(),
-          new RouterActions.Go({ path: '/auth/login' })
-        ];
+        actions = [new RouterActions.Go({ path: '/auth/login' })];
       } else {
-        actions = [
-          new AuthActions.SetAuthenicated(),
-          new AuthActions.SaveLoggedInUser()
-        ];
+        actions = [new AuthActions.SaveUserLoginData()];
         if (!user.emailVerified) {
           actions.push(
             new RouterActions.Go({ path: '/auth/email-confirmation' })
@@ -66,32 +69,22 @@ export class AuthEffects {
     })
   );
 
-  @Effect()
+  @Effect({ dispatch: true })
   login$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.TRY_LOGIN),
     map((action: AuthActions.TryLogin) => action.payload),
     switchMap((data: { email: string; password: string }) =>
       fromPromise(this.authService.login(data.email, data.password)).pipe(
-        mergeMap(loggedUser => {
-          const actions: Array<any> = [
-            new AuthActions.SetAuthenicated(),
-            new AuthActions.SaveLoggedInUser(),
-            new AuthActions.RemoveErrors(),
-            new CommonActions.ShowLoading(false)
-          ];
-          if (!loggedUser.emailVerified) {
-            actions.push(
-              new RouterActions.Go({ path: '/auth/email-confirmation' })
-            );
-          } else {
-            actions.push(new RouterActions.Go({ path: '/' }));
-          }
-          return actions;
-        }),
-        catchError(error =>
+        mergeMap(() => [
+          new AuthActions.SaveUserLoginData(),
+          new AuthActions.RemoveErrors(),
+          new AuthActions.CheckIfEmailVerified(),
+          new CommonActions.ShowLoading(false),
+          new RouterActions.Go({ path: '/' })
+        ]),
+        catchError((error: FirebaseAuthError) =>
           from([
-            new AuthActions.SetAuthenicated(),
-            new AuthActions.SetLoginError(error),
+            new AuthActions.SetErrors(error),
             new CommonActions.ShowLoading(false)
           ])
         )
@@ -107,10 +100,10 @@ export class AuthEffects {
       fromPromise(this.authService.register(data.email, data.password)).pipe(
         mergeMap(createdUser => {
           const actions: Array<any> = [
-            new AuthActions.SetAuthenicated(),
-            new AuthActions.SaveLoggedInUser(),
+            new AuthActions.SaveUserLoginData(),
             new AuthActions.RemoveErrors(),
-            new CommonActions.ShowLoading(false)
+            new CommonActions.ShowLoading(false),
+            new RouterActions.Go({ path: '/' })
           ];
           if (!createdUser.displayName) {
             actions.push(
@@ -120,20 +113,19 @@ export class AuthEffects {
               })
             );
           }
-          if (!createdUser.emailVerified) {
+          /* if (!createdUser.emailVerified) {
             actions.push.apply(actions, [
               new AuthActions.SendVerificationEmail(),
               new RouterActions.Go({ path: '/auth/email-confirmation' })
             ]);
           } else {
             actions.push(new RouterActions.Go({ path: '/' }));
-          }
+          } */
           return actions;
         }),
-        catchError(error =>
+        catchError((error: FirebaseAuthError) =>
           from([
-            new AuthActions.SetAuthenicated(),
-            new AuthActions.SetRegisterError(error),
+            new AuthActions.SetErrors(error),
             new CommonActions.ShowLoading(false)
           ])
         )
@@ -152,13 +144,8 @@ export class AuthEffects {
           userProfile.photoURL
         )
       ).pipe(
-        map(() => new AuthActions.SaveLoggedInUser()),
-        catchError(error =>
-          from([
-            new AuthActions.SetAuthenicated(),
-            new AuthActions.SetErrors(error)
-          ])
-        )
+        map(() => new AuthActions.SaveUserLoginData()),
+        catchError(error => of(new AuthActions.SetErrors(error)))
       )
     )
   );
@@ -168,55 +155,36 @@ export class AuthEffects {
     ofType(AuthActions.AuthActionTypes.SEND_VERIFICATION_EMAIL),
     switchMap(() =>
       fromPromise(this.authService.sendVerificationEmail()).pipe(
-        map(() => new AuthActions.SaveLoggedInUser()),
-        catchError(error =>
-          from([
-            new AuthActions.SetAuthenicated(),
-            new AuthActions.SetErrors(error)
-          ])
-        )
+        map(() => new AuthActions.SaveUserLoginData()),
+        catchError(error => of(new AuthActions.SetErrors(error)))
       )
     )
   );
 
   @Effect()
-  logout$ = this.actions$.pipe(
+  logout$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.LOGOUT),
     switchMap(() =>
       fromPromise(this.authService.signOut()).pipe(
-        mergeMap(() => [
-          new AuthActions.SetAuthenicated(),
-          new RouterActions.Go({ path: '/auth/login' })
-        ]),
-        catchError(error =>
-          from([
-            new AuthActions.SetAuthenicated(),
-            new AuthActions.SetErrors(error)
-          ])
-        )
+        map(() => new RouterActions.Go({ path: '/auth/login' })),
+        catchError(error => of(new AuthActions.SetErrors(error)))
       )
     )
   );
 
-  getUser(user) {
-    return new User(
-      user.displayName,
-      user.email,
-      null,
-      null,
-      null,
-      user.phoneNumber,
-      null,
-      null,
-      user.photoURL,
-      null,
-      user.uid,
-      user.emailVerified,
-      null,
-      null,
-      null
-    );
-  }
+  @Effect()
+  checkIfEmailVerified$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.CHECK_IF_EMAIL_VERIFIED),
+    switchMap(() =>
+      this.authService.getAuthState().pipe(
+        map(
+          authData =>
+            new AuthActions.CheckIfEmailVerifiedSuccess(authData.emailVerified)
+        ),
+        catchError(error => of(new AuthActions.SetErrors(error)))
+      )
+    )
+  );
 
   constructor(
     private actions$: Actions,

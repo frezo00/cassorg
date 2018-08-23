@@ -1,5 +1,4 @@
-
-import {of as observableOf, from as observableFrom,  Observable } from 'rxjs';
+import { of as observableOf, from as observableFrom, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Action, Store } from '@ngrx/store';
@@ -29,8 +28,8 @@ export class ProjectEffects {
       return {
         name: action.payload.name,
         tag: action.payload.tag,
-        createdBy: store.auth.loggedInUser.authId,
-        createdAt: new Date()
+        createdBy: store.auth.userLoginData.authId,
+        createdAt: new Date().toISOString()
         // administrators: new Array<string>(store.auth.loggedInUser.authId)
       } as IProject;
     }),

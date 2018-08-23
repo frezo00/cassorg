@@ -4,32 +4,17 @@ import * as fromAuth from './auth.reducers';
 
 export const getAuthState = createFeatureSelector<fromAuth.AuthState>('auth');
 
-export const getIsAuthenticated = createSelector(
+export const getUserLoginData = createSelector(
   getAuthState,
-  (state: fromAuth.AuthState) => state.isAuthenticated
+  (state: fromAuth.AuthState) => state.userLoginData
 );
 
-export const getLoggedInUser = createSelector(
+export const getAuthErrors = createSelector(
   getAuthState,
-  (state: fromAuth.AuthState) => state.loggedInUser
+  (state: fromAuth.AuthState) => state.authError
 );
 
-export const checkIfEmailVerified = createSelector(
+/* export const checkIfEmailVerified = createSelector(
   getAuthState,
-  (state: fromAuth.AuthState) => state.loggedInUser.emailVerified
-);
-
-export const getErrorMessage = createSelector(
-  getAuthState,
-  (state: fromAuth.AuthState) => state.errorMessage
-);
-
-export const getLoginErrorMessage = createSelector(
-  getAuthState,
-  (state: fromAuth.AuthState) => state.loginErrorMessage
-);
-
-export const getRegisterErrorMessage = createSelector(
-  getAuthState,
-  (state: fromAuth.AuthState) => state.registerErrorMessage
-);
+  (state: fromAuth.AuthState) => state.userLoginData.emailVerified
+); */

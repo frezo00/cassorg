@@ -1,5 +1,4 @@
-
-import {of as observableOf,  Observable ,  from as fromPromise } from 'rxjs';
+import { of as observableOf, Observable, from as fromPromise } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Action, Store } from '@ngrx/store';
@@ -109,11 +108,11 @@ export class UsersEffects {
     map(([action, store]: [UsersActions.CreateProjectUser, AppState]) => {
       return <IProjectUser>{
         user: action.payload.user,
-        projectID: store.project.activeProject.id,
+        projectID: store.project.activeProject.tag,
         role: action.payload.role,
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
         lastLogin: null,
-        createdByAdmin: store.auth.loggedInUser.id
+        createdByAdmin: store.auth.userLoginData.authId
       };
     }),
     // map((action: UsersActions.CreateUser) => action.payload),
@@ -131,6 +130,19 @@ export class UsersEffects {
         })
       );
       return observableOf();
+    })
+  );
+
+  @Effect({ dispatch: false })
+  checkIfUserExists = this.actions$.pipe(
+    ofType(UsersActions.UsersActionTypes.CHECK_IF_USER_EXISTS),
+    // map((action: UsersActions.CheckIfUserExists) => action.payload),
+    withLatestFrom(this.store$),
+    tap(data => console.log('user authid is:', data)),
+    map(([action, store]: [UsersActions.CheckIfUserExists, AppState]) => {
+      console.log('action', action);
+      console.log('store', store.auth.userLoginData.authId);
+      return;
     })
   );
 

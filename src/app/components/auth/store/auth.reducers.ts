@@ -16,30 +16,24 @@ const initialState: AuthState = {
 };
 
 export function authReducer(
-  state = initialState,
+  state: AuthState = initialState,
   action: AuthActions.AuthActions
 ): AuthState {
   switch (action.type) {
     case AuthActions.AuthActionTypes.SAVE_USER_LOGIN_DATA_SUCCESS: {
-      return { ...state, userLoginData: action.payload };
+      return { ...state, userLoginData: action.payload, authError: null };
     }
     case AuthActions.AuthActionTypes.CHECK_IF_EMAIL_VERIFIED_SUCCESS: {
-      return { ...state, emailVerified: action.payload };
+      return { ...state, emailVerified: action.payload, authError: null };
     }
-    /* case AuthActions.AuthActionTypes.UPDATE_USER_PROFILE_COMPLETE: {
-      const user = { ...state.loggedInUser };
-      user.displayName = action.payload.displayName;
-      user.photoURL = action.payload.photoURL;
-      return { ...state, loggedInUser: user };
-    } */
+    case AuthActions.AuthActionTypes.REMOVE_ERRORS: {
+      return { ...state, authError: null };
+    }
     case AuthActions.AuthActionTypes.SET_ERRORS: {
       return {
         ...state,
         authError: firebaseAuthErrorHandler(action.payload.code)
       };
-    }
-    case AuthActions.AuthActionTypes.REMOVE_ERRORS: {
-      return { ...state, authError: null };
     }
     default: {
       return state;

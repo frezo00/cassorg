@@ -10,7 +10,6 @@ export enum AuthActionTypes {
   // Saving and Checking Data for Logged In User
   SAVE_USER_LOGIN_DATA = '[Auth] Save User Login Data',
   SAVE_USER_LOGIN_DATA_SUCCESS = '[Auth] Save User Login Data Success',
-  CHECK_IF_USER_LOGGED_IN = '[Auth] Check If User Logged In',
 
   // Handling Auth Errors
   SET_ERRORS = '[Auth] Set Errors',
@@ -18,7 +17,6 @@ export enum AuthActionTypes {
 
   // Updating User Display Name and Photo
   UPDATE_USER_PROFILE = '[Auth] Update User Profile',
-  UPDATE_USER_PROFILE_COMPLETE = '[Auth] Update User Profile Complete',
 
   // Email Verification
   SEND_VERIFICATION_EMAIL = '[Auth] Send Verification Email',
@@ -43,7 +41,7 @@ export class Logout implements Action {
   readonly type = AuthActionTypes.LOGOUT;
 }
 
-// Saving and Checking Data for Logged In User
+// Saving Data for Logged In User
 export class SaveUserLoginData implements Action {
   readonly type = AuthActionTypes.SAVE_USER_LOGIN_DATA;
 }
@@ -51,9 +49,6 @@ export class SaveUserLoginDataSuccess implements Action {
   readonly type = AuthActionTypes.SAVE_USER_LOGIN_DATA_SUCCESS;
 
   constructor(public payload: IUserLogin) {}
-}
-export class CheckIfUserLoggedIn implements Action {
-  readonly type = AuthActionTypes.CHECK_IF_USER_LOGGED_IN;
 }
 
 // Handling Auth Errors
@@ -69,11 +64,6 @@ export class RemoveErrors implements Action {
 // Updating User Display Name and Photo
 export class UpdateUserProfile implements Action {
   readonly type = AuthActionTypes.UPDATE_USER_PROFILE;
-
-  constructor(public payload: { displayName: string; photoURL: string }) {}
-}
-export class UpdateUserProfileComplete implements Action {
-  readonly type = AuthActionTypes.UPDATE_USER_PROFILE_COMPLETE;
 
   constructor(public payload: { displayName: string; photoURL: string }) {}
 }
@@ -97,11 +87,9 @@ export type AuthActions =
   | Logout
   | SetErrors
   | RemoveErrors
-  | CheckIfUserLoggedIn
   | SaveUserLoginData
   | SaveUserLoginDataSuccess
   | UpdateUserProfile
-  | UpdateUserProfileComplete
   | SendVerificationEmail
   | CheckIfEmailVerified
   | CheckIfEmailVerifiedSuccess;

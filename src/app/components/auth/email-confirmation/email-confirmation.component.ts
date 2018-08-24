@@ -17,7 +17,6 @@ export class EmailConfirmationComponent implements OnInit {
   constructor(private store: Store<fromAuth.AuthState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new fromAuth.CheckIfUserLoggedIn());
     this.user = this.store.select(fromAuth.getUserLoginData);
   }
 

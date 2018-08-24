@@ -14,7 +14,7 @@ export const getAuthErrors = createSelector(
   (state: fromAuth.AuthState) => state.authError
 );
 
-/* export const checkIfEmailVerified = createSelector(
+export const checkIfEmailVerified = createSelector(
   getAuthState,
-  (state: fromAuth.AuthState) => state.userLoginData.emailVerified
-); */
+  (state: fromAuth.AuthState) => state.emailVerified
+);

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IUser, IProjectUser } from '../../../models/user.model';
+import { IUser, IProjectUser, IUserLogin } from '../../../models/user.model';
 
 export enum UsersActionTypes {
   GET_ALL_USERS = '[Users] Get All Users',
@@ -9,7 +9,14 @@ export enum UsersActionTypes {
   CREATE_USER_COMPLETE = '[Users] Create User Complete',
   CREATE_PROJECT_USER = '[Users] Create Project User Complete',
   CHECK_IF_USER_EXISTS = '[Users] Check If User Exists',
-  ERRORS = '[Users] Errors'
+  ERRORS = '[Users] Errors',
+  PLAIN = '[Users] Plain Action',
+  CREATE_USER_AFTER_REGISTER_BEGIN = '[Users] Create User After Register Begin',
+  CREATE_USER_AFTER_REGISTER_SUCCESS = '[Users] Create User After Register Success'
+}
+
+export class PlainAction implements Action {
+  readonly type = UsersActionTypes.PLAIN;
 }
 
 export class GetAllUsers implements Action {
@@ -46,6 +53,8 @@ export class CreateProjectUser implements Action {
 
 export class CheckIfUserExists implements Action {
   readonly type = UsersActionTypes.CHECK_IF_USER_EXISTS;
+
+  constructor(public payload: string) {}
 }
 
 export class Errors implements Action {
@@ -54,7 +63,17 @@ export class Errors implements Action {
   constructor(public payload: any) {}
 }
 
+export class CreateUserAfterRegisterBegin implements Action {
+  readonly type = UsersActionTypes.CREATE_USER_AFTER_REGISTER_BEGIN;
+
+  constructor(public payload: IUserLogin) {}
+}
+export class CreateUserAfterRegisterSuccess implements Action {
+  readonly type = UsersActionTypes.CREATE_USER_AFTER_REGISTER_SUCCESS;
+}
+
 export type UsersActions =
+  | PlainAction
   | GetAllUsers
   | GetRecentUsers
   | GetRecentUsersComplete
@@ -62,4 +81,6 @@ export type UsersActions =
   | CreateUserComplete
   | CreateProjectUser
   | CheckIfUserExists
-  | Errors;
+  | Errors
+  | CreateUserAfterRegisterBegin
+  | CreateUserAfterRegisterSuccess;

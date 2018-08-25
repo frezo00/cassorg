@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { IUser, IProjectUser } from '../../models/user.model';
+import { IUser, IProjectUser, IUserLogin } from '../../models/user.model';
 import { ProjectService } from '../project/project.service';
 import { Store } from '@ngrx/store';
 
@@ -44,9 +44,18 @@ export class UsersService {
   }
 
   checkIfUserExists(authId: string): Promise<any> {
+    console.log('inserv auth id', authId);
     return this.afDB
       .collection('users')
       .doc(authId)
       .ref.get();
+  }
+
+  createUserAfterRegister(user: IUserLogin): Promise<void> {
+    console.log('in s data', user);
+    return this.afDB
+      .collection('users')
+      .doc(user.authId)
+      .set(Object.assign({}, user));
   }
 }

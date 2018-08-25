@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
+import { Login, FirebaseUpdateProfile } from '../../models';
 
 @Injectable()
 export class AuthService {
@@ -10,8 +11,8 @@ export class AuthService {
     return this.af.authState;
   }
 
-  login(email: string, password: string): Promise<any> {
-    return this.af.auth.signInWithEmailAndPassword(email, password);
+  login(loginData: Login): Promise<any> {
+    return this.af.auth.signInWithEmailAndPassword(loginData.email, loginData.password);
   }
 
   register(email: string, password: string): Promise<any> {
@@ -22,8 +23,8 @@ export class AuthService {
     return this.af.auth.signOut();
   }
 
-  updateProfile(displayName: string, photoURL: string): Promise<any> {
-    return this.af.auth.currentUser.updateProfile({ displayName, photoURL });
+  updateProfile(firebaseUpdateProfileData: FirebaseUpdateProfile): Promise<any> {
+    return this.af.auth.currentUser.updateProfile(firebaseUpdateProfileData);
   }
 
   sendVerificationEmail(): Promise<any> {

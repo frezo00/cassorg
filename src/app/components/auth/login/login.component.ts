@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.store.dispatch(new CommonActions.ShowLoading(true));
-    this.store.dispatch(new AuthActions.TryLogin(this.loginForm.value));
+    this.store.dispatch(new AuthActions.LoginBegin(this.loginForm.value));
   }
 
   goToRegister() {

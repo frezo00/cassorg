@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate, CanLoad {
           this.store.dispatch(new fromStore.Go({ path: '/auth/login' }));
           return false;
         }
-        this.store.dispatch(new fromStore.SaveUserLoginData());
+        this.store.dispatch(new fromStore.SaveUserLoginDataBegin());
         return true;
       })
     );
@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate, CanLoad {
           this.store.dispatch(new fromStore.Go({ path: '/auth/login' }));
           return false;
         }
-        this.store.dispatch(new fromStore.SaveUserLoginData());
+        this.store.dispatch(new fromStore.SaveUserLoginDataBegin());
         return true;
       })
     );

@@ -13,8 +13,10 @@ import { CreateProjectModalComponent } from './../../project/create-project-moda
   styleUrls: ['./top-navbar.component.scss']
 })
 export class TopNavbarComponent implements OnInit {
-  @Output() toggleSide = new EventEmitter();
-  @Input() isMobile: any;
+  @Output()
+  toggleSide = new EventEmitter();
+  @Input()
+  isMobile: any;
   user: Observable<IUserLogin>;
   project: Observable<IProject>;
 
@@ -50,6 +52,6 @@ export class TopNavbarComponent implements OnInit {
   }
 
   logout() {
-    this.store.dispatch(new fromApp.Logout());
+    this.store.dispatch(new fromApp.LogoutBegin());
   }
 }

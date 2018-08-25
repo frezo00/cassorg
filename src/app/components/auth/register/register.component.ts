@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit {
 
   onRegister() {
     this.store.dispatch(new CommonActions.ShowLoading(true));
-    this.store.dispatch(new AuthActions.TryRegister(this.registerForm.value));
+    this.store.dispatch(new AuthActions.RegisterBegin(this.registerForm.value));
   }
 
   goToLogin() {

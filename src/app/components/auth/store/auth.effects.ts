@@ -17,13 +17,20 @@ import * as CommonActions from '../../common/store';
 import * as UsersActions from '../../users/store';
 import { AppState } from '../../../store';
 import { AuthService } from '../auth.service';
-import { FirebaseAuthError, UserLogin } from '../../../models';
+import {
+  FirebaseAuthError,
+  UserLogin,
+  Login,
+  Register,
+  FirebaseUpdateProfile,
+  IUserLogin
+} from '../../../models';
 
 @Injectable()
 export class AuthEffects {
   @Effect()
-  saveUserData$: Observable<Action> = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.SAVE_USER_LOGIN_DATA),
+  saveUserDataBegin$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.SAVE_USER_LOGIN_DATA_BEGIN),
     switchMap(() =>
       this.authService.getAuthState().pipe(
         mergeMap(authData => {
@@ -37,22 +44,23 @@ export class AuthEffects {
             new CommonActions.ShowLoading(false)
           ];
         }),
-        catchError(error => of(new AuthActions.SetErrors(error)))
+        catchError(error =>
+          from([
+            new AuthActions.SetErrors(error),
+            new CommonActions.ShowLoading(false)
+          ])
+        )
       )
     )
   );
 
-  @Effect({ dispatch: true })
-  login$: Observable<Action> = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.TRY_LOGIN),
-    map((action: AuthActions.TryLogin) => action.payload),
-    switchMap((data: { email: string; password: string }) =>
-      fromPromise(this.authService.login(data.email, data.password)).pipe(
-        mergeMap(() => [
-          new AuthActions.SaveUserLoginData(),
-          new AuthActions.CheckIfEmailVerified(),
-          new RouterActions.Go({ path: '/' })
-        ]),
+  @Effect()
+  loginBegin$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.LOGIN_BEGIN),
+    map((action: AuthActions.LoginBegin) => action.payload),
+    switchMap((loginData: Login) =>
+      fromPromise(this.authService.login(loginData)).pipe(
+        map(() => new AuthActions.LoginSuccess()),
         catchError((error: FirebaseAuthError) =>
           from([
             new AuthActions.SetErrors(error),
@@ -64,18 +72,49 @@ export class AuthEffects {
   );
 
   @Effect()
-  register$: Observable<Action> = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.TRY_REGISTER),
-    map((action: AuthActions.TryLogin) => action.payload),
-    switchMap((data: { email: string; password: string; fullName: string }) =>
-      fromPromise(this.authService.register(data.email, data.password)).pipe(
-        mergeMap(createdUser => [
-          new AuthActions.UpdateUserProfile({
-            displayName: data.fullName,
-            photoURL: createdUser.photoURL
-          }), // also calls SaveUserLoginData()
-          new RouterActions.Go({ path: '/' })
-        ]),
+  loginSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.LOGIN_SUCCESS),
+    mergeMap(() => [
+      new AuthActions.SaveUserLoginDataBegin(),
+      new CommonActions.ShowLoading(false),
+      new RouterActions.Go({ path: '/' })
+    ]),
+    catchError((error: FirebaseAuthError) =>
+      from([
+        new AuthActions.SetErrors(error),
+        new CommonActions.ShowLoading(false)
+      ])
+    )
+  );
+
+  @Effect()
+  registerBegin$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.REGISTER_BEGIN),
+    map((action: AuthActions.RegisterBegin) => action.payload),
+    switchMap((registerData: Register) =>
+      fromPromise(
+        this.authService.register(registerData.email, registerData.password)
+      ).pipe(
+        mergeMap(registeredUser => {
+          console.log('registered user', registeredUser);
+          const newUser = new UserLogin(
+            registeredUser.user.uid,
+            registerData.email,
+            registerData.fullName
+          );
+          console.log('new user:', newUser);
+          return [
+            new AuthActions.UpdateUserProfile({
+              displayName: registerData.fullName,
+              photoURL: registeredUser.user.photoURL
+            }), // also calls SaveUserLoginData()
+            // new UsersActions.CheckIfUserExists(registeredUser.user.uid),
+            new UsersActions.CreateUserAfterRegisterBegin(
+              newUser as IUserLogin
+            ),
+            new RouterActions.Go({ path: '/' })
+          ];
+        }),
         catchError((error: FirebaseAuthError) =>
           from([
             new AuthActions.SetErrors(error),
@@ -83,6 +122,22 @@ export class AuthEffects {
           ])
         )
       )
+    )
+  );
+
+  @Effect()
+  registerSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.REGISTER_SUCCESS),
+    mergeMap(() => [
+      new AuthActions.SaveUserLoginDataBegin(),
+      new CommonActions.ShowLoading(false),
+      new RouterActions.Go({ path: '/' })
+    ]),
+    catchError((error: FirebaseAuthError) =>
+      from([
+        new AuthActions.SetErrors(error),
+        new CommonActions.ShowLoading(false)
+      ])
     )
   );
 
@@ -90,14 +145,9 @@ export class AuthEffects {
   updateUserProfile$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.UPDATE_USER_PROFILE),
     map((action: AuthActions.UpdateUserProfile) => action.payload),
-    switchMap((userProfile: { displayName: string; photoURL: string }) =>
-      fromPromise(
-        this.authService.updateProfile(
-          userProfile.displayName,
-          userProfile.photoURL
-        )
-      ).pipe(
-        map(() => new AuthActions.SaveUserLoginData()),
+    switchMap((userProfile: FirebaseUpdateProfile) =>
+      fromPromise(this.authService.updateProfile(userProfile)).pipe(
+        map(() => new AuthActions.SaveUserLoginDataBegin()),
         catchError(error => of(new AuthActions.SetErrors(error)))
       )
     )
@@ -105,7 +155,7 @@ export class AuthEffects {
 
   @Effect()
   logout$: Observable<Action> = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.LOGOUT),
+    ofType(AuthActions.AuthActionTypes.LOGOUT_BEGIN),
     switchMap(() =>
       fromPromise(this.authService.signOut()).pipe(
         map(() => new RouterActions.Go({ path: '/auth/login' })),
@@ -119,7 +169,7 @@ export class AuthEffects {
     ofType(AuthActions.AuthActionTypes.SEND_VERIFICATION_EMAIL),
     switchMap(() =>
       fromPromise(this.authService.sendVerificationEmail()).pipe(
-        map(() => new AuthActions.SaveUserLoginData()),
+        map(() => new AuthActions.SaveUserLoginDataBegin()),
         catchError(error => of(new AuthActions.SetErrors(error)))
       )
     )

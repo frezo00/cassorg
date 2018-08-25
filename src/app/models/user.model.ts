@@ -27,15 +27,6 @@ export interface IUser extends IUserLogin {
   // userOfProjects?: Array<{projectId: string, role: 'admin' | 'member'}>;
 }
 
-export interface IProjectUser {
-  user: IUser;
-  projectID: string;
-  role: 'admin' | 'member';
-  createdAt?: string;
-  lastLogin?: string;
-  createdByAdmin?: string;
-}
-
 export class User implements IUser {
   constructor(
     public authId: string,
@@ -58,4 +49,13 @@ export class User implements IUser {
   public get fullName(): string {
     return this.firstName + ' ' + this.lastName;
   }
+}
+
+export interface IProjectUser {
+  user: IUser;
+  projectID: string;
+  role: 'admin' | 'member';
+  createdAt?: string;
+  lastLogin?: string;
+  createdByAdmin?: string;
 }

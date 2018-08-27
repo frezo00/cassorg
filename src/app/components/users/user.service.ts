@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { IUser, IProjectUser, IUserLogin } from '../../models/user.model';
+import { IUser, IUserLogin } from '../../models/user.model';
 import { ProjectService } from '../project/project.service';
 import { Store } from '@ngrx/store';
 
@@ -13,6 +13,13 @@ export class UsersService {
     private store: Store<fromApp.AppState>,
     public projectService: ProjectService
   ) {}
+
+  getUserByAuthId(authId: string) {
+    console.log('aut', authId);
+    return this.afDB
+      .collection<IUser[]>('users', ref => ref.where('authId', '==', authId))
+      .valueChanges();
+  }
 
   createUser(user: IUser, authId: string) {
     const userRef = this.afDB
@@ -33,7 +40,7 @@ export class UsersService {
     return this.afDB.collection('users').add(user);
   }
 
-  createProjectUser(projectUser: IProjectUser, userID?: string): Promise<any> {
+  /* createProjectUser(projectUser: IProjectUser, userID?: string): Promise<any> {
     const projectUserRef = this.afDB.collection(
       `projects/${projectUser.projectID}/users`
     );
@@ -41,7 +48,7 @@ export class UsersService {
       return projectUserRef.doc(userID).set(projectUser);
     }
     return projectUserRef.add(projectUser);
-  }
+  } */
 
   checkIfUserExists(authId: string): Promise<any> {
     console.log('inserv auth id', authId);
@@ -51,11 +58,8 @@ export class UsersService {
       .ref.get();
   }
 
-  createUserAfterRegister(user: IUserLogin): Promise<void> {
-    console.log('in s data', user);
-    return this.afDB
-      .collection('users')
-      .doc(user.authId)
-      .set(Object.assign({}, user));
+  createUserAfterRegister(user: IUserLogin): Promise<any> {
+    console.log('in serv data', user);
+    return this.afDB.collection('users').add(user);
   }
 }

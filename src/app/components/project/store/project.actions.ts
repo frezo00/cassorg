@@ -2,7 +2,10 @@ import { Action } from '@ngrx/store';
 import { IProject } from './../../../models/project.model';
 
 export enum ProjectActionTypes {
-  GET_PROJECT = '[Project] Get Project',
+  // Get Project
+  GET_PROJECT_BEGIN = '[Project] Get Project Begin',
+  GET_PROJECT_SUCCESS = '[Project] Get Project Success',
+
   EDIT_PROJECT = '[Project] Edit Project',
   CREATE_PROJECT = '[Project] Create Project',
   CREATE_PROJECT_COMPLETE = '[Project] Create Project Complete',
@@ -11,10 +14,14 @@ export enum ProjectActionTypes {
   PROJECT_ERRORS = '[Project] Project Errors'
 }
 
-export class GetProject implements Action {
-  readonly type = ProjectActionTypes.GET_PROJECT;
-
+// Get Project
+export class GetProjectBegin implements Action {
+  readonly type = ProjectActionTypes.GET_PROJECT_BEGIN;
   constructor(public payload: string) {}
+}
+export class GetProjectSuccess implements Action {
+  readonly type = ProjectActionTypes.GET_PROJECT_SUCCESS;
+  constructor(public payload: IProject) {}
 }
 
 export class EditProject implements Action {
@@ -26,7 +33,7 @@ export class EditProject implements Action {
 export class CreateProject implements Action {
   readonly type = ProjectActionTypes.CREATE_PROJECT;
 
-  constructor(public payload: { name: string, tag: string }) {}
+  constructor(public payload: { name: string; tag: string }) {}
 }
 
 export class CreateProjectComplete implements Action {
@@ -50,6 +57,8 @@ export class ProjectErrors implements Action {
 }
 
 export type ProjectActions =
+  | GetProjectBegin
+  | GetProjectSuccess
   | OpenCreateProjectModal
   | CloseCreateProjectModal
   | CreateProject

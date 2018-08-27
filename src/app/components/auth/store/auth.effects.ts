@@ -19,7 +19,6 @@ import { AppState } from '../../../store';
 import { AuthService } from '../auth.service';
 import {
   FirebaseAuthError,
-  UserLogin,
   Login,
   Register,
   FirebaseUpdateProfile,
@@ -34,13 +33,14 @@ export class AuthEffects {
     switchMap(() =>
       this.authService.getAuthState().pipe(
         mergeMap(authData => {
-          const loginData = new UserLogin(
-            authData.uid,
-            authData.email,
-            authData.displayName
-          );
+          const loginData: IUserLogin = {
+            authId: authData.uid,
+            email: authData.email,
+            displayName: authData.displayName
+          };
           return [
             new AuthActions.SaveUserLoginDataSuccess(loginData),
+            new UsersActions.GetLoggedInUserDataBegin(authData.uid),
             new CommonActions.ShowLoading(false)
           ];
         }),
@@ -96,23 +96,19 @@ export class AuthEffects {
         this.authService.register(registerData.email, registerData.password)
       ).pipe(
         mergeMap(registeredUser => {
-          console.log('registered user', registeredUser);
-          const newUser = new UserLogin(
-            registeredUser.user.uid,
-            registerData.email,
-            registerData.fullName
-          );
-          console.log('new user:', newUser);
+          const newUser: IUserLogin = {
+            authId: registeredUser.user.uid,
+            email: registerData.email,
+            displayName: registerData.fullName
+          };
+          const profileData: FirebaseUpdateProfile = {
+            displayName: registerData.fullName,
+            photoURL: registeredUser.user.photoURL
+          };
           return [
-            new AuthActions.UpdateUserProfile({
-              displayName: registerData.fullName,
-              photoURL: registeredUser.user.photoURL
-            }), // also calls SaveUserLoginData()
-            // new UsersActions.CheckIfUserExists(registeredUser.user.uid),
-            new UsersActions.CreateUserAfterRegisterBegin(
-              newUser as IUserLogin
-            ),
-            new RouterActions.Go({ path: '/' })
+            new AuthActions.UpdateUserProfile(profileData),
+            new UsersActions.CreateUserAfterRegisterBegin(newUser),
+            new AuthActions.RegisterSuccess()
           ];
         }),
         catchError((error: FirebaseAuthError) =>

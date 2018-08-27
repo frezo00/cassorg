@@ -4,15 +4,8 @@ export interface IUserLogin {
   displayName?: string;
 }
 
-export class UserLogin implements IUserLogin {
-  constructor(
-    public authId: string,
-    public email: string,
-    public displayName?: string
-  ) {}
-}
-
 export interface IUser extends IUserLogin {
+  id?: string;
   firstName?: string;
   lastName?: string;
   gender?: 'male' | 'female' | null;
@@ -21,10 +14,9 @@ export interface IUser extends IUserLogin {
   address?: string;
   photoURL?: string;
   emailVerified?: boolean;
+  userOfProjects?: string[];
   createdProject?: string;
   lastProjectLogin?: string;
-  userOfProjects?: { projectId: string; role: 'admin' | 'member' }[];
-  // userOfProjects?: Array<{projectId: string, role: 'admin' | 'member'}>;
 }
 
 export class User implements IUser {
@@ -32,6 +24,7 @@ export class User implements IUser {
     public authId: string,
     public displayName: string,
     public email: string,
+    public id?: string,
     public firstName?: string,
     public lastName?: string,
     public gender?: 'male' | 'female' | null,
@@ -40,22 +33,12 @@ export class User implements IUser {
     public address?: string,
     public photoURL?: string,
     public emailVerified?: boolean,
+    public userOfProjects?: string[],
     public createdProject?: string,
-    public lastProjectLogin?: string,
-    // public userOfProjects?: Array<{projectId: string, role: 'admin' | 'member'}>
-    public userOfProjects?: { projectId: string; role: 'admin' | 'member' }[]
+    public lastProjectLogin?: string
   ) {}
 
   public get fullName(): string {
     return this.firstName + ' ' + this.lastName;
   }
-}
-
-export interface IProjectUser {
-  user: IUser;
-  projectID: string;
-  role: 'admin' | 'member';
-  createdAt?: string;
-  lastLogin?: string;
-  createdByAdmin?: string;
 }

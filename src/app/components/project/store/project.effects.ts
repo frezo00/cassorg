@@ -1,6 +1,10 @@
-import { of as observableOf, from as observableFrom, Observable } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  DocumentReference,
+  DocumentSnapshot
+} from 'angularfire2/firestore';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
@@ -35,7 +39,7 @@ export class ProjectEffects {
     }),
     tap(data => console.log('data in here is:', data)),
     switchMap((project: IProject) =>
-      observableFrom(this.projectService.createProject(project)).pipe(
+      from(this.projectService.createProject(project)).pipe(
         mergeMap(() => {
           console.log('data after project created:', project);
           return [
@@ -46,25 +50,25 @@ export class ProjectEffects {
         }),
         catchError(err => {
           console.error('error: ', err);
-          return observableOf(new ProjectActions.ProjectErrors(err));
+          return of(new ProjectActions.ProjectErrors(err));
         })
       )
     )
   );
 
-  @Effect({ dispatch: false })
-  getProject$ = this.actions$.pipe(
-    ofType(ProjectActions.ProjectActionTypes.GET_PROJECT),
-    map((action: ProjectActions.GetProject) => action.payload),
-    tap(projectID => console.log('project id is:', projectID)),
-    switchMap((projectID: string) =>
-      observableFrom(this.projectService.getProject(projectID)).pipe(
-        map(data => {
-          console.log('data jdlajd is', data);
-        }),
+  @Effect()
+  getProjectBegin$: Observable<Action> = this.actions$.pipe(
+    ofType(ProjectActions.ProjectActionTypes.GET_PROJECT_BEGIN),
+    map((action: ProjectActions.GetProjectBegin) => action.payload),
+    switchMap((projectId: string) =>
+      from(this.projectService.getProject(projectId)).pipe(
+        map(
+          (projectData: DocumentSnapshot<IProject>) =>
+            new ProjectActions.GetProjectSuccess(projectData.data() as IProject)
+        ),
         catchError(err => {
           console.error('error: ', err);
-          return observableOf(new ProjectActions.ProjectErrors(err));
+          return of(new ProjectActions.ProjectErrors(err));
         })
       )
     )

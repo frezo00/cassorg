@@ -16,10 +16,10 @@ export class ProjectService {
       .set(project);
   }
 
-  getProject(projectID: string): Promise<any> {
+  getProject(projectId: string): Promise<any> {
     return this.afDB
-      .collection('users')
-      .doc(projectID)
+      .collection('projects')
+      .doc(projectId)
       .ref.get();
   }
 }

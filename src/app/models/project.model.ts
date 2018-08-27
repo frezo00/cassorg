@@ -5,16 +5,16 @@ export interface IProject {
   tag: string;
   createdBy: string;
   createdAt: string;
-}
-
-export interface IProjectWithID extends IProject {
-  id: string;
-}
-
-export interface IProjectAllData extends IProjectWithID {
-  administrators?: string[];
-  members?: string[];
+  users?: IProjectUser[];
   notifications?: INotification[];
+}
+
+export interface IProjectUser {
+  userId: string;
+  role: 'admin' | 'member';
+  createdAt?: string;
+  lastLogin?: string;
+  createdByAdmin?: string;
 }
 
 export class Project {
@@ -23,9 +23,7 @@ export class Project {
     public tag: string,
     public createdBy: string,
     public createdAt: string,
-    public id?: string,
-    public administrators?: string[],
-    public members?: string[],
+    public users?: IProjectUser[],
     public notifications?: INotification[]
   ) {}
 }

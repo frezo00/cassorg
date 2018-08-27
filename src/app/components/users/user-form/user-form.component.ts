@@ -73,6 +73,6 @@ export class UserFormComponent implements OnInit {
     console.log('user with dn: ', userWithDN);
     console.log('role: ', role);
     console.log('projectUser: ', createUserData);
-    this.store.dispatch(new fromStore.CreateProjectUser(createUserData as IProjectUser));
+    // this.store.dispatch(new fromStore.CreateProjectUser(createUserData as IUser));
   }
 }

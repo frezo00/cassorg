@@ -24,6 +24,9 @@ export function projectReducer(
   action: ProjectActions.ProjectActions
 ): ProjectState {
   switch (action.type) {
+    case ProjectActions.ProjectActionTypes.GET_PROJECT_SUCCESS: {
+      return { ...state, activeProject: action.payload };
+    }
     case ProjectActions.ProjectActionTypes.OPEN_CREATE_PROJECT_MODAL: {
       return { ...state, openModal: true };
     }

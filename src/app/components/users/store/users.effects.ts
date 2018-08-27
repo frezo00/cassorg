@@ -8,23 +8,40 @@ import {
   switchMap,
   catchError,
   tap,
-  withLatestFrom
+  withLatestFrom,
+  mergeMap
 } from 'rxjs/operators';
 
 import * as UsersActions from './users.actions';
-import {
-  IUser,
-  User,
-  IProjectUser,
-  IUserLogin,
-  UserLogin
-} from '../../../models/user.model';
-import { AppState } from '../../../store';
+import * as ProjectActions from '../../project/store';
+import { IUser, User, IUserLogin } from '../../../models/user.model';
+import { AppState, SetErrors, GetProjectBegin } from '../../../store';
 import { UsersService } from '../user.service';
 import { AuthService } from '../../auth/auth.service';
 
 @Injectable()
 export class UsersEffects {
+  @Effect()
+  getLoggedInUserDataBegin$: Observable<Action> = this.actions$.pipe(
+    ofType(UsersActions.UsersActionTypes.GET_LOGGED_IN_USER_DATA_BEGIN),
+    map((action: UsersActions.GetLoggedInUserDataBegin) => action.payload),
+    switchMap((authId: string) =>
+      fromPromise(this.userService.getUserByAuthId(authId)).pipe(
+        mergeMap((userData: IUser[]) => {
+          const projId = userData[0].userOfProjects[0];
+          return [
+            new ProjectActions.GetProjectBegin(projId),
+            new UsersActions.GetLoggedInUserDataSuccess(userData[0])
+          ];
+        }),
+        catchError(error => {
+          console.error('error is', error);
+          return of(new UsersActions.Errors(error));
+        })
+      )
+    )
+  );
+
   @Effect({ dispatch: false })
   getAllUsers$ = this.actions$.pipe(
     ofType(UsersActions.UsersActionTypes.GET_ALL_USERS),
@@ -108,11 +125,11 @@ export class UsersEffects {
     }) */
   );
 
-  @Effect()
-  createProjectUser$: Observable<Action> = this.actions$.pipe(
+  @Effect({ dispatch: false })
+  createProjectUser$ = this.actions$.pipe(
     ofType(UsersActions.UsersActionTypes.CREATE_PROJECT_USER),
-    withLatestFrom(this.store$),
-    map(([action, store]: [UsersActions.CreateProjectUser, AppState]) => {
+    withLatestFrom(this.store$)
+    /* map(([action, store]: [UsersActions.CreateProjectUser, AppState]) => {
       return <IProjectUser>{
         user: action.payload.user,
         projectID: store.project.activeProject.tag,
@@ -137,7 +154,7 @@ export class UsersEffects {
         })
       );
       return observableOf();
-    })
+    }) */
   );
 
   @Effect({ dispatch: false })
@@ -161,21 +178,26 @@ export class UsersEffects {
     )
   );
 
-  @Effect({ dispatch: false })
-  createUserAfterRegister = this.actions$.pipe(
+  @Effect()
+  createUserAfterRegister: Observable<Action> = this.actions$.pipe(
     ofType(UsersActions.UsersActionTypes.CREATE_USER_AFTER_REGISTER_BEGIN),
     map((action: UsersActions.CreateUserAfterRegisterBegin) => action.payload),
     // withLatestFrom(this.store$.select(state => state.auth.userLoginData)),
     // map(([action, storeState]: [UsersActions.CreateUserAfterRegister, IUserLogin]) => [action.payload, storeState]),
     switchMap((createdUser: IUserLogin) =>
       fromPromise(this.userService.createUserAfterRegister(createdUser)).pipe(
-        map(data => {
-          console.log('data after register create', data);
-          return data;
+        map((currentUser: DocumentSnapshot<IUser>) => {
+          console.log('data after register create', currentUser.data());
+          return new UsersActions.GetLoggedInUserDataBegin(
+            currentUser.data().authId
+          );
+        }),
+        catchError(error => {
+          console.error('error is', error);
+          return of(new UsersActions.Errors(error));
         })
       )
-    ),
-    tap(ldata => console.log('ldta', ldata))
+    )
     /* switchMap(
       ([action, storeState]: [
         UsersActions.CreateUserAfterRegister,

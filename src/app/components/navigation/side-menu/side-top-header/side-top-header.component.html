@@ -1,49 +1,8 @@
-<form [formGroup]="projectForm">
-  <div class="menu-header" fxLayout="column" fxLayoutAlign="start strech">
-    <div class="menu-actions" fxLayoutAlign="space-between center">
-      <button class="menu-icon-button" mat-icon-button>
-        <mat-icon>star</mat-icon>
-        <span fxHide>Set Favourite</span>
-      </button>
-      <div class="more-actions" fxLayoutAlign="end center">
-        <button class="menu-icon-button" mat-icon-button>
-          <mat-icon>compare_arrows</mat-icon>
-          <span fxHide>Set Favourite</span>
-        </button>
-        <button class="menu-icon-button" mat-icon-button>
-          <mat-icon>add</mat-icon>
-          <span fxHide>Set Favourite</span>
-        </button>
-      </div>
-    <!-- <mat-icon fontSet="fa" fontIcon="fa-exchange"></mat-icon>
-          <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon> -->
-    </div>
-    <div *ngIf="(project | async)" class="project-box">
-      <div *ngIf="editProjectName" fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-form-field class="project-box__mat-input">
-          <input matInput formControlName="projectName" required maxlength="20">
-        </mat-form-field>
-        <button class="menu-icon-button" mat-icon-button
-          [disabled]="projectName.invalid && (projectName.dirty || projectName.touched)"
-          (click)="saveProject()">
-          <mat-icon>save</mat-icon>
-        </button>
-        <button class="menu-icon-button" mat-icon-button (click)="editProjectName = !editProjectName">
-          <mat-icon>clear</mat-icon>
-        </button>
-      </div>
-      <div *ngIf="!editProjectName" fxLayout="row" fxLayoutAlign="space-between center">
-        <h3 class="project-box__name">{{ (project | async)?.name }}</h3>
-        <button class="menu-icon-button" mat-icon-button (click)="editProjectName = !editProjectName">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </div>
-    </div>
-    <div *ngIf="!(project | async)" class="no-project">
-      <button mat-raised-button class="no-project__button" (click)="onCreateProject()">
-        <!-- <mat-icon *ngIf="!isMobile">add</mat-icon> -->
-        <span>Add Project</span>
-      </button>
-    </div>
+<div class="side-navigation-header__container" fxLayout="column" fxLayoutGap="8px">
+  <div class="side-navigation-header__title">
+    <h2 class="side-navigation-header__title-text">{{ (project | async)?.name }}</h2>
   </div>
-</form>
+  <div class="side-navigation-header__subtitle">
+    <p class="side-navigation-header__subtitle-text">Veselje uz glazbu</p>
+  </div>
+</div>

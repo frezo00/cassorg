@@ -1,4 +1,4 @@
-<div style="display: none;" class="content-wrapper">
+<div class="content-wrapper">
   <mat-list-item>
     <h2 class="dashboard__title">Dashboard</h2>
   </mat-list-item>
@@ -63,8 +63,8 @@
   </div>
 </div>
 
-<app-empty-state [title]="'Uuups, it seems you don\'t have any projects...'" [message]="'Want to create one?'" [action]="'createProject'"
-  [firstBtnText]="'Yes, create project'" [secondBtnText]="'I already have project'" (firstAction)="onCreateProjectModal()"
+<app-empty-state style="display: none;" [title]="'Uuups, it seems you don\'t have any projects...'" [message]="'Want to create one?'"
+  [action]="'createProject'" [firstBtnText]="'Yes, create project'" [secondBtnText]="'I already have project'" (firstAction)="onCreateProjectModal()"
   (secondAction)="onFindProjectModal()">
 </app-empty-state>
 

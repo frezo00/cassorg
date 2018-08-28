@@ -1,44 +1,22 @@
-<mat-toolbar color="primary" class="app-top-nav">
-  <button mat-icon-button (click)="toggleSidenav()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <h1 class="app-name">Cassorg</h1>
-  <!-- <div *ngIf="!(project | async)" class="no-project">
-    <button mat-raised-button color="accent" (click)="onCreateProject()">
-      <mat-icon *ngIf="!isMobile">add</mat-icon>
-      <span>Add Project</span>
+<mat-toolbar class="top-navigation__container" fxLayoutAlign="space-between center">
+  <div fxFlex.gt-sm="60%" fxLayoutAlign="start center" fxLayoutGap="12px">
+    <button mat-icon-button (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
     </button>
-  </div> -->
-  <div class="top-menu-nav" fxLayoutAlign="end center">
-    <a mat-icon-button class="notification">
-      <mat-icon>notifications</mat-icon>
-      <div class="icon-badge">
-        <span>5</span>
-      </div>
-    </a>
-    <a mat-icon-button>
-      <mat-icon>settings</mat-icon>
-    </a>
-    <a mat-icon-button *ngIf="!!isMobile">
-      <mat-icon>account_circle</mat-icon>
-    </a>
-    <div *ngIf="!isMobile" class="user-info" fxLayout="row" fxLayoutAlign="space-around center">
-      <div class="user-image">
-        <img src="../../../../assets/images/user.png" alt="User Image" width="28">
-      </div>
-      <div class="user-name">
-        <h4>{{ (user | async)?.displayName}}</h4>
-        <p>{{ (user | async)?.email}}</p>
-      </div>
-      <button mat-icon-button [matMenuTriggerFor]="profileMenu">
-        <mat-icon>keyboard_arrow_down</mat-icon>
-      </button>
-      <mat-menu #profileMenu="matMenu">
-        <button mat-menu-item>My profile</button>
-        <button mat-menu-item>Settings</button>
-        <button mat-menu-item (click)="logout()">Logout</button>
-      </mat-menu>
+    <div class="top-navigation__search">
+      <input class="top-navigation__search-input" type="search" placeholder="Pretraži">
+      <mat-icon class="top-navigation__search-input">search</mat-icon>
     </div>
-
+  </div>
+  <div class="top-navigation_nav" fxFlex.gt-sm="40%" fxLayoutAlign="end center" fxLayoutGap.gt-xs="8px">
+    <a mat-icon-button><mat-icon matBadge="5" matBadgeColor="warn">notifications</mat-icon></a>
+    <a mat-icon-button><mat-icon>settings</mat-icon></a>
+    <div class="top-navigation__initials" fxLayoutAlign="center center">
+      <p>{{ (user | async)?.displayName | firstLetter}}</p>
+    </div>
+    <a mat-button *ngIf="!isMobile" class="top-navigation__display-name">{{ (user | async)?.displayName }}</a>
+    <a mat-icon-button class="top-navigation__logout" (click)="logout()">
+      <mat-icon>power_settings_new</mat-icon>
+    </a>
   </div>
 </mat-toolbar>

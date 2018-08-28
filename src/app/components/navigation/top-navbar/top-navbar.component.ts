@@ -3,9 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromApp from '../../../store';
-import { IProject, IUserLogin } from '../../../models';
-import { MatDialog } from '@angular/material';
-import { CreateProjectModalComponent } from './../../project/create-project-modal/create-project-modal.component';
+import { IUserLogin } from '../../../models';
 
 @Component({
   selector: 'app-top-navbar',
@@ -17,38 +15,17 @@ export class TopNavbarComponent implements OnInit {
   toggleSide = new EventEmitter();
   @Input()
   isMobile: any;
-  user: Observable<IUserLogin>;
-  project: Observable<IProject>;
 
-  constructor(
-    private store: Store<fromApp.AppState>,
-    public dialog: MatDialog
-  ) {}
+  user: Observable<IUserLogin>;
+
+  constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
     this.user = this.store.select(fromApp.getUserLoginData);
-    this.project = this.store.select(fromApp.getActiveProject);
   }
 
   toggleSidenav() {
     this.toggleSide.emit();
-  }
-
-  onCreateProject() {
-    // this.store.dispatch(new fromApp.OpenCreateProjectModal());
-    this.openDialog();
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CreateProjectModalComponent, {
-      height: 'calc(100%-20vh)',
-      panelClass: 'modal-dialog'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
   }
 
   logout() {

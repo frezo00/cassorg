@@ -7,9 +7,14 @@ import { RouterModule } from '@angular/router';
 import { StopPropagationDirective } from '../directives/stop-propagation.directive';
 
 import { CreateProjectModalComponent } from './../components/project/create-project-modal/create-project-modal.component';
+import { FirstLetterPipe } from '../pipes/first-letter.pipe';
 
 @NgModule({
-  declarations: [StopPropagationDirective, CreateProjectModalComponent],
+  declarations: [
+    StopPropagationDirective,
+    CreateProjectModalComponent,
+    FirstLetterPipe
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -26,7 +31,8 @@ import { CreateProjectModalComponent } from './../components/project/create-proj
     MaterialModule,
     FlexLayoutModule,
     StopPropagationDirective,
-    CreateProjectModalComponent
+    CreateProjectModalComponent,
+    FirstLetterPipe
   ],
   providers: [],
   entryComponents: [CreateProjectModalComponent]

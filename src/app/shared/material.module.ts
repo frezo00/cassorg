@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import {
   MatAutocompleteModule,
+  MatBadgeModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
@@ -25,11 +26,11 @@ import {
   MatSlideToggleModule,
   MatSnackBarModule,
   MatSortModule,
+  MatStepperModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule,
-  MatStepperModule
+  MatTooltipModule
 } from '@angular/material';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -47,6 +48,7 @@ import { PortalModule } from '@angular/cdk/portal';
 @NgModule({
   exports: [
     MatAutocompleteModule,
+    MatBadgeModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,

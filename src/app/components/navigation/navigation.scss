@@ -24,7 +24,8 @@
 }
 .project-box {
   padding: 0 4px 0 16px;
-  &__name, &__mat-input input.mat-input-element {
+  &__name,
+  &__mat-input input.mat-input-element {
     font-weight: 500;
     margin: 0;
     color: white;
@@ -47,33 +48,6 @@
     color: white;
   }
 }
-.menu-icon-button {
-  padding: 0 4px;
-}
-
-mat-nav-list.nav-list {
-  & > a.nav-item {
-    text-decoration: none;
-    border-left: 0px solid map-get($theme-colors, light-accent);
-    transition: all 0.3s ease-in-out;
-    &.active {
-      border-left-width: 4px;
-    }
-  }
-}
-
-mat-list.group-list {
-  padding: 0;
-  overflow: hidden;
-  transition: height 0.3s ease-in-out;
-
-  & > mat-list-item {
-    height: 36px;
-    & span {
-      padding-left: 48px;
-    }
-  }
-}
 
 .no-project {
   margin: 0 16px;
@@ -84,10 +58,54 @@ mat-list.group-list {
 
 .opened-nav-icon {
   align-self: flex-start;
-  padding-top: 12px  !important;
+  padding-top: 12px !important;
 }
 
 .opened-nav-button {
   align-self: flex-start;
-  margin-top: 4px  !important;
+  margin-top: 4px !important;
+}
+
+.side-navigation {
+  &__container {
+    background-color: map-get($theme-colors, red-primary);
+  }
+  &__list {
+    padding-top: 0;
+  }
+  &__item {
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-left: 0px solid white;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background: rgba($color: #000000, $alpha: 0.1);
+    }
+    &.active {
+      border-left-width: 4px;
+      background: rgba($color: #000000, $alpha: 0.1);
+    }
+  }
+}
+
+.side-navigation-header {
+  &__container {
+    padding: 36px;
+    border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.2);
+  }
+  &__title {
+    &-text {
+      color: white;
+      margin: 0;
+    }
+  }
+  &__subtitle {
+    &-text {
+      color: rgba($color: #ffffff, $alpha: 0.8);
+      margin: 0;
+      font-size: 14px;
+    }
+  }
 }

@@ -1,15 +1,16 @@
-<div class="app-container">
-  <app-top-navbar [isMobile]="mobileQuery.matches" (toggleSide)="sidenav.toggle()"></app-top-navbar>
+<mat-drawer-container class="admin__container" fxFlexFill autosize>
 
-  <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 64">
-    <mat-sidenav #sidenav [mode]="tabletQuery.matches ? 'over' : 'side'" [opened]="tabletQuery.matches ? 'false' : 'true'" [fixedInViewport]="tabletQuery.matches"
-      [fixedTopGap]="mobileQuery.matches ? 56 : 64" style="width: 280px;">
-      <app-side-menu (toggleSide)="sidenav.toggle()" fxFlexFill fxLayout="column"></app-side-menu>
-    </mat-sidenav>
+  <mat-drawer #sidenav [mode]="tabletQuery.matches ? 'over' : 'side'" [opened]="tabletQuery.matches ? 'false' : 'true'" style="width: 280px;">
+    <app-side-menu (toggleSide)="tabletQuery.matches ? sidenav.toggle() : null" fxFlexFill fxLayout="column"></app-side-menu>
+  </mat-drawer>
 
-    <mat-sidenav-content class="app-sidenav-content">
-      <app-alert-bar></app-alert-bar>
+  <mat-drawer-content class="admin__content" fxLayout="column" fxLayoutAlign="start stretch">
+    <app-top-navbar [isMobile]="mobileQuery.matches" (toggleSide)="sidenav.toggle()"></app-top-navbar>
+
+    <div class="admin__content-box" fxFlex="100%">
+      <!-- <app-alert-bar></app-alert-bar> -->
       <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+    </div>
+  </mat-drawer-content>
+
+</mat-drawer-container>

@@ -9,6 +9,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class AdminComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   tabletQuery: MediaQueryList;
+  showFiller = false;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 599px)');

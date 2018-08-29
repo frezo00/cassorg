@@ -14,7 +14,12 @@ import {
 
 import * as UsersActions from './users.actions';
 import * as ProjectActions from '../../project/store';
-import { IUser, User, IUserLogin } from '../../../models/user.model';
+import {
+  IUser,
+  User,
+  IUserLogin,
+  IApplicant
+} from '../../../models/user.model';
 import { AppState, SetErrors, GetProjectBegin } from '../../../store';
 import { UsersService } from '../user.service';
 import { AuthService } from '../../auth/auth.service';
@@ -26,7 +31,7 @@ export class UsersEffects {
     ofType(UsersActions.UsersActionTypes.GET_LOGGED_IN_USER_DATA_BEGIN),
     map((action: UsersActions.GetLoggedInUserDataBegin) => action.payload),
     switchMap((authId: string) =>
-      fromPromise(this.userService.getUserByAuthId(authId)).pipe(
+      this.userService.getUserByAuthId(authId).pipe(
         mergeMap((userData: IUser[]) => {
           const projId = userData[0].userOfProjects[0];
           return [
@@ -34,10 +39,21 @@ export class UsersEffects {
             new UsersActions.GetLoggedInUserDataSuccess(userData[0])
           ];
         }),
-        catchError(error => {
-          console.error('error is', error);
-          return of(new UsersActions.Errors(error));
-        })
+        catchError(error => of(new UsersActions.Errors(error)))
+      )
+    )
+  );
+
+  @Effect()
+  getApplicants$: Observable<Action> = this.actions$.pipe(
+    ofType(UsersActions.UsersActionTypes.GET_APPLICANTS_BEGIN),
+    switchMap(() =>
+      this.userService.getApplicants().pipe(
+        map(
+          (applicants: IApplicant[]) =>
+            new UsersActions.GetApplicantsSuccess(applicants)
+        ),
+        catchError(error => of(new UsersActions.Errors(error)))
       )
     )
   );

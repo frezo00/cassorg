@@ -8,12 +8,14 @@ import { StopPropagationDirective } from '../directives/stop-propagation.directi
 
 import { CreateProjectModalComponent } from './../components/project/create-project-modal/create-project-modal.component';
 import { FirstLetterPipe } from '../pipes/first-letter.pipe';
+import { AgePipe } from '../pipes/age.pipe';
 
 @NgModule({
   declarations: [
     StopPropagationDirective,
     CreateProjectModalComponent,
-    FirstLetterPipe
+    FirstLetterPipe,
+    AgePipe
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { FirstLetterPipe } from '../pipes/first-letter.pipe';
     FlexLayoutModule,
     StopPropagationDirective,
     CreateProjectModalComponent,
-    FirstLetterPipe
+    FirstLetterPipe,
+    AgePipe
   ],
   providers: [],
   entryComponents: [CreateProjectModalComponent]

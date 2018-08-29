@@ -8,11 +8,15 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromAuth from '../store';
-import * as AuthActions from '../store/auth.actions';
-import * as RouterActions from '../../../router/store';
-import * as CommonActions from '../../common/store';
 import { AuthError } from '../../../models';
+import {
+  AuthState,
+  ShowLoading,
+  LoginBegin,
+  Go,
+  RemoveErrors,
+  getAuthErrors
+} from '../../../store';
 
 @Component({
   selector: 'app-login',
@@ -26,14 +30,11 @@ export class LoginComponent implements OnInit {
   showPassword: boolean;
   errorMessage: Observable<AuthError>;
 
-  constructor(
-    private store: Store<fromAuth.AuthState>,
-    private fb: FormBuilder
-  ) {}
+  constructor(private store: Store<AuthState>, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.initForm();
-    this.errorMessage = this.store.select<AuthError>(fromAuth.getAuthErrors);
+    this.errorMessage = this.store.select<AuthError>(getAuthErrors);
   }
 
   initForm() {
@@ -66,13 +67,13 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    this.store.dispatch(new CommonActions.ShowLoading(true));
-    this.store.dispatch(new AuthActions.LoginBegin(this.loginForm.value));
+    this.store.dispatch(new ShowLoading(true));
+    this.store.dispatch(new LoginBegin(this.loginForm.value));
   }
 
   goToRegister() {
     this.loginForm.reset();
-    this.store.dispatch(new RouterActions.Go({ path: '/auth/register' }));
-    this.store.dispatch(new AuthActions.RemoveErrors());
+    this.store.dispatch(new Go({ path: '/auth/register' }));
+    this.store.dispatch(new RemoveErrors());
   }
 }

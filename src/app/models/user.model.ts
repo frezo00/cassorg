@@ -19,6 +19,18 @@ export interface IUser extends IUserLogin {
   lastProjectLogin?: string;
 }
 
+export interface IApplicant {
+  firstName: string;
+  lastName: string;
+  birthdate: any;
+  parentsNames: string;
+  phoneNumber: string;
+  dateCreated: any;
+  email?: string;
+  message?: string;
+  recaptcha?: string;
+}
+
 export class User implements IUser {
   constructor(
     public authId: string,

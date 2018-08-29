@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as fromCommon from '../common/store';
 import { Observable } from 'rxjs';
+import { CommonState, getShowLoading } from '../../store';
 
 @Component({
   selector: 'app-auth',
@@ -30,9 +30,9 @@ import { Observable } from 'rxjs';
 export class AuthComponent implements OnInit {
   loading: Observable<boolean>;
 
-  constructor(private commonStore: Store<fromCommon.CommonState>) {}
+  constructor(private commonStore: Store<CommonState>) {}
 
   ngOnInit() {
-    this.loading = this.commonStore.select(fromCommon.getShowLoading);
+    this.loading = this.commonStore.select(getShowLoading);
   }
 }

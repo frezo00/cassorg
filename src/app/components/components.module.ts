@@ -20,6 +20,7 @@ import { CdkDetailRowDirective } from './users/cdk-detail-row.directive';
 import { UserFormComponent } from './users/user-form/user-form.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { AlertBarComponent } from './alert-bar/alert-bar.component';
+import { ApplicantsComponent } from './users/applicants/applicants.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AlertBarComponent } from './alert-bar/alert-bar.component';
     CdkDetailRowDirective,
     UserFormComponent,
     UserProfileComponent,
-    AlertBarComponent
+    AlertBarComponent,
+    ApplicantsComponent
   ],
   imports: [
     CommonModule,

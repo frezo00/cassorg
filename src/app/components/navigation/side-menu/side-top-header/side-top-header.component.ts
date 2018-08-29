@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromApp from '../../../../store';
 import { IProject } from '../../../../models';
+import { AppState, getActiveProject } from '../../../../store';
 
 @Component({
   selector: 'app-side-top-header',
@@ -13,9 +13,9 @@ import { IProject } from '../../../../models';
 export class SideTopHeaderComponent implements OnInit {
   project: Observable<IProject>;
 
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.project = this.store.select(fromApp.getActiveProject);
+    this.project = this.store.select(getActiveProject);
   }
 }

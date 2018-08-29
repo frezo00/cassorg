@@ -1,10 +1,14 @@
 import { Action } from '@ngrx/store';
-import { IUser, IUserLogin } from '../../../models/user.model';
+import { IUser, IUserLogin, IApplicant } from '../../../models/user.model';
 
 export enum UsersActionTypes {
   // Get Logged In User Data
   GET_LOGGED_IN_USER_DATA_BEGIN = '[Users] Get Logged In User Data Begin',
   GET_LOGGED_IN_USER_DATA_SUCCESS = '[Users] Get Logged In User Data Success',
+
+  // Get Applicants
+  GET_APPLICANTS_BEGIN = '[Users] Get Applicants Begin',
+  GET_APPLICANTS_SUCCESS = '[Users] Get Applicants Success',
 
   GET_ALL_USERS = '[Users] Get All Users',
   GET_RECENT_USERS = '[Users] Get Recent Users',
@@ -27,6 +31,15 @@ export class GetLoggedInUserDataBegin implements Action {
 export class GetLoggedInUserDataSuccess implements Action {
   readonly type = UsersActionTypes.GET_LOGGED_IN_USER_DATA_SUCCESS;
   constructor(public payload: IUser) {}
+}
+
+// Get Applicants
+export class GetApplicantsBegin implements Action {
+  readonly type = UsersActionTypes.GET_APPLICANTS_BEGIN;
+}
+export class GetApplicantsSuccess implements Action {
+  readonly type = UsersActionTypes.GET_APPLICANTS_SUCCESS;
+  constructor(public payload: IApplicant[]) {}
 }
 
 export class PlainAction implements Action {
@@ -89,6 +102,8 @@ export class CreateUserAfterRegisterSuccess implements Action {
 export type UsersActions =
   | GetLoggedInUserDataBegin
   | GetLoggedInUserDataSuccess
+  | GetApplicantsBegin
+  | GetApplicantsSuccess
   | PlainAction
   | GetAllUsers
   | GetRecentUsers

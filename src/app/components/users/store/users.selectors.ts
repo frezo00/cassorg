@@ -6,6 +6,11 @@ export const getUsersState = createFeatureSelector<fromUsers.UsersState>(
   'users'
 );
 
+export const getApplicants = createSelector(
+  getUsersState,
+  (state: fromUsers.UsersState) => state.applicants
+);
+
 export const getAllUsers = createSelector(
   getUsersState,
   (state: fromUsers.UsersState) => state.recentUsers

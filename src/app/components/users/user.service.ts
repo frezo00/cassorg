@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { IUser, IUserLogin } from '../../models/user.model';
+import { IUser, IUserLogin, IApplicant } from '../../models/user.model';
 import { ProjectService } from '../project/project.service';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from '../../store';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -14,11 +15,17 @@ export class UsersService {
     public projectService: ProjectService
   ) {}
 
-  getUserByAuthId(authId: string) {
+  getUserByAuthId(authId: string): Observable<IUser[]> {
     console.log('aut', authId);
     return this.afDB
-      .collection<IUser[]>('users', ref => ref.where('authId', '==', authId))
+      .collection<IUser>('users', ref => ref.where('authId', '==', authId))
       .valueChanges();
+  }
+
+  getApplicants(): Observable<IApplicant[]> {
+    return this.afDB.collection<IApplicant>('applicants', ref =>
+    ref.orderBy('dateCreated', 'desc')
+  ).valueChanges();
   }
 
   createUser(user: IUser, authId: string) {

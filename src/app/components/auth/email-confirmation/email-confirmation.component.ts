@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as fromAuth from '../store';
-import * as fromRouter from '../../../router/store';
 import { Observable } from 'rxjs';
 import { IUserLogin } from '../../../models/user.model';
+import {
+  AuthState,
+  Go,
+  SendVerificationEmail,
+  getUserLoginData
+} from '../../../store';
 
 @Component({
   selector: 'app-email-confirmation',
@@ -14,17 +18,17 @@ import { IUserLogin } from '../../../models/user.model';
 export class EmailConfirmationComponent implements OnInit {
   user: Observable<IUserLogin>;
 
-  constructor(private store: Store<fromAuth.AuthState>) {}
+  constructor(private store: Store<AuthState>) {}
 
   ngOnInit() {
-    this.user = this.store.select(fromAuth.getUserLoginData);
+    this.user = this.store.select(getUserLoginData);
   }
 
   checkEmailConfirmation() {
-    this.store.dispatch(new fromRouter.Go({ path: '/auth/login' }));
+    this.store.dispatch(new Go({ path: '/auth/login' }));
   }
 
   resendEmail() {
-    this.store.dispatch(new fromAuth.SendVerificationEmail());
+    this.store.dispatch(new SendVerificationEmail());
   }
 }

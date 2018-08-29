@@ -41,30 +41,33 @@ mat-horizontal-stepper > .mat-horizontal-content-container {
 .section {
   &__go_back {
     text-decoration: none;
-    color: color(light-dark);
-    transition: all 0.3s ease;
-
+    color: #91979b;
+    transition: color 0.3s;
+    margin-left: -8px !important;
     &:hover {
-      cursor: pointer;
       color: #777;
-
-      & > span {
-        text-decoration: underline;
-      }
-    }
-
-    & > span {
-      padding-left: 6px;
     }
   }
   &__header {
     padding: 8px 0;
+    margin-bottom: 8px;
   }
   &__title {
-    color: #565656;
+    color: color(text-08);
     margin: 0;
-    padding: 16px 4px;
     font-size: 20px;
+    line-height: 32px;
+  }
+  &__action-button {
+    border-radius: 20px !important;
+    padding: 0 20px !important;
+    border: 1px solid color(red-primary) !important;
+    background-color: color(red-primary);
+    color: white;
+    &.outline {
+      color: color(red-primary);
+      background-color: white;
+    }
   }
 }
 

@@ -1,0 +1,11 @@
+<div class="subheader__container" fxLayoutAlign="space-between center">
+  <div class="subheader__content" fxLayoutAlign="start center">
+    <a *ngIf="!!showBackButton" mat-icon-button class="subheader__go_back" (click)="location.back()">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <h2 class="subheader__title">{{ title }}</h2>
+  </div>
+  <a *ngIf="!!showActionButton" [routerLink]="[actionRoute]" class="subheader__action-button" mat-raised-button>
+    {{ actionText}}
+  </a>
+</div>

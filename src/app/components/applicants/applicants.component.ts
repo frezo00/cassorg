@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState, GetApplicantsBegin } from '../../../store';
-import { IApplicant } from '../../../models';
+import { AppState, GetApplicantsBegin } from '../../store';
+import { IApplicant } from '../../models';
 
 @Component({
   selector: 'app-applicants',

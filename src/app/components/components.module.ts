@@ -20,7 +20,10 @@ import { CdkDetailRowDirective } from './users/cdk-detail-row.directive';
 import { UserFormComponent } from './users/user-form/user-form.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { AlertBarComponent } from './alert-bar/alert-bar.component';
-import { ApplicantsComponent } from './users/applicants/applicants.component';
+import { ApplicantsComponent } from './applicants/applicants.component';
+import { GroupAddComponent } from './groups/group-add/group-add.component';
+import { GroupFormComponent } from './groups/group-form/group-form.component';
+import { GroupListComponent } from './groups/group-list/group-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { ApplicantsComponent } from './users/applicants/applicants.component';
     UserFormComponent,
     UserProfileComponent,
     AlertBarComponent,
-    ApplicantsComponent
+    ApplicantsComponent,
+    GroupAddComponent,
+    GroupFormComponent,
+    GroupListComponent
   ],
   imports: [
     CommonModule,

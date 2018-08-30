@@ -1,10 +1,8 @@
 <div class="applicants-list__container">
+  <app-subheader [title]="'Upisi'"></app-subheader>
   <div class="applicants-list__content" fxLayoutAlign="center center" fxFlexFill>
     <div class="applicants-list__table" fxFlex="100%" fxLayout="column">
       <div class="applicants-list__row header" fxFlex="100%" fxLayoutAlign="space-around center">
-        <div class="applicants-list__column number">
-          <p class="applicants-list__cell number">#</p>
-        </div>
         <div class="applicants-list__column" fxFlex.xs="65%" fxFlex="100%">
           <p class="applicants-list__cell">Ime i Prezime</p>
         </div>
@@ -23,10 +21,10 @@
       </div>
       <div *ngFor="let applicant of (applicants | async); let i=index" (click)="showInfo(i)" class="applicants-list__item" fxLayout="column">
         <div class="applicants-list__row" fxFlex="100%" fxLayoutAlign="space-around center">
-          <div class="applicants-list__column number">
-            <p class="applicants-list__cell number">#{{ (applicants | async)?.length - i }}</p>
-          </div>
-          <div class="applicants-list__column" fxFlex.xs="65%" fxFlex="100%">
+          <div class="applicants-list__column" fxFlex.xs="65%" fxFlex="100%" fxLayoutAlign="start center">
+            <div class="applicants-list__initials" fxLayoutAlign="center center">
+              <span>{{ (applicant?.firstName | firstLetter) + (applicant?.lastName | firstLetter) }}</span>
+            </div>
             <p class="applicants-list__cell name">{{ applicant?.firstName + ' ' + applicant?.lastName }}</p>
           </div>
           <div class="applicants-list__column" fxFlex.xs="35%" fxFlex="100%">

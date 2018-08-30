@@ -38,39 +38,6 @@ mat-horizontal-stepper > .mat-horizontal-content-container {
   padding: 0 16px 16px 16px;
 }
 
-.section {
-  &__go_back {
-    text-decoration: none;
-    color: #91979b;
-    transition: color 0.3s;
-    margin-left: -8px !important;
-    &:hover {
-      color: #777;
-    }
-  }
-  &__header {
-    padding: 8px 0;
-    margin-bottom: 8px;
-  }
-  &__title {
-    color: color(text-08);
-    margin: 0;
-    font-size: 20px;
-    line-height: 32px;
-  }
-  &__action-button {
-    border-radius: 20px !important;
-    padding: 0 20px !important;
-    border: 1px solid color(red-primary) !important;
-    background-color: color(red-primary);
-    color: white;
-    &.outline {
-      color: color(red-primary);
-      background-color: white;
-    }
-  }
-}
-
 :-webkit-autofill,
 :-webkit-autofill:hover,
 :-webkit-autofill:focus {

@@ -6,9 +6,11 @@
 .admin {
   &__content {
     background-color: #f5f5f5;
+    overflow: hidden;
     &-box {
       position: relative;
       padding: 0 16px;
+      overflow: auto;
     }
   }
 }

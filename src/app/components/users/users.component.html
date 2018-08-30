@@ -1,15 +1,5 @@
 <div class="users__container" fxFlex="100%" fxFlexFill>
-  <div class="section__header" fxLayoutAlign="space-between center">
-    <div class="section__header-location" fxLayoutAlign="start center">
-      <a mat-icon-button class="section__go_back" (click)="location.back()">
-        <mat-icon>arrow_back</mat-icon>
-      </a>
-      <h2 class="section__title">Članovi</h2>
-    </div>
-    <a [routerLink]="'/users/add'" class="section__action-button" mat-raised-button>Dodaj člana</a>
-  </div>
-
-  <app-applicants></app-applicants>
+  <app-subheader></app-subheader>
   <div style="display: none;" class="table-container mat-elevation-z8">
     <mat-table #table [dataSource]="dataSource">
 

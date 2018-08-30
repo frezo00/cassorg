@@ -1,0 +1,40 @@
+@import '~_variables.scss';
+
+.group-list {
+  &__table {
+    border-radius: 2px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 5px 5px -3px rgba($color: #333333, $alpha: 0.2),
+      0 8px 10px 1px rgba($color: #333333, $alpha: 0.14),
+      0 3px 14px 2px rgba($color: #333333, $alpha: 0.12);
+  }
+  &__row {
+    &.header {
+      border-bottom: 1px solid #eee;
+    }
+  }
+  &__cell {
+    padding-left: 16px;
+    &-title {
+      color: color(text-08);
+      font-weight: 600;
+      &.header {
+        color: color(text-05);
+        text-transform: uppercase;
+        font-size: 14px;
+      }
+    }
+    &-subtitle {
+      margin: 0 0 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: color(text-05);
+    }
+    &-color {
+      height: 28px;
+      width: 28px;
+      border-radius: 50%;
+    }
+  }
+}

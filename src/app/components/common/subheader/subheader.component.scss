@@ -1,0 +1,37 @@
+@import '~_variables.scss';
+
+.subheader {
+  &__container {
+    padding: 16px 0;
+    margin-bottom: 8px;
+  }
+  &__content {
+    padding-left: 8px;
+  }
+  &__go_back {
+    text-decoration: none;
+    color: #91979b;
+    transition: color 0.3s;
+    margin-left: -20px !important;
+    &:hover {
+      color: #777;
+    }
+  }
+  &__title {
+    color: color(text-08);
+    margin: 0;
+    font-size: 30px;
+    line-height: 42px;
+  }
+  &__action-button {
+    border-radius: 20px !important;
+    padding: 0 20px !important;
+    border: 1px solid color(red-primary) !important;
+    background-color: color(red-primary);
+    color: white;
+    &.outline {
+      color: color(red-primary);
+      background-color: white;
+    }
+  }
+}

@@ -15,6 +15,9 @@ import { authRoutes } from '../components/auth/auth.routing';
 import { ProjectComponent } from '../components/project/project.component';
 import { UserAddComponent } from '../components/users/user-add/user-add.component';
 import { UserProfileComponent } from '../components/users/user-profile/user-profile.component';
+import { ApplicantsComponent } from '../components/applicants/applicants.component';
+import { GroupListComponent } from '../components/groups/group-list/group-list.component';
+import { GroupAddComponent } from '../components/groups/group-add/group-add.component';
 
 const routes: Routes = [
   {
@@ -23,12 +26,23 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'users', children: [
-        {path: '', component: UsersComponent},
-        {path: 'add', component: UserAddComponent},
-        {path: ':id', component: UserProfileComponent},
-      ] },
-      { path: 'groups', component: GroupsComponent },
+      {
+        path: 'users',
+        children: [
+          { path: '', component: UsersComponent },
+          { path: 'add', component: UserAddComponent },
+          { path: ':id', component: UserProfileComponent }
+        ]
+      },
+      { path: 'applicants', component: ApplicantsComponent },
+      {
+        path: 'groups',
+        component: GroupsComponent,
+        children: [
+          { path: '', component: GroupListComponent },
+          { path: 'new', component: GroupAddComponent }
+        ]
+      },
       { path: 'activities', component: ActivitiesComponent },
       { path: 'statistics', component: StatisticsComponent }
     ]

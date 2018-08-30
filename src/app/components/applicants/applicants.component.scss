@@ -5,9 +5,7 @@
     background-color: #f5f5f5;
   }
   &__table {
-    // margin: 36px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 2px;
     overflow: hidden;
     background-color: white;
     box-shadow: 0 5px 5px -3px rgba($color: #333333, $alpha: 0.2),
@@ -44,7 +42,7 @@
     }
   }
   &__cell {
-    color: #333;
+    color: color(text-08);
     &:not(.number) {
       padding-left: 12px;
       max-width: 150px;
@@ -55,6 +53,24 @@
     &.number {
       text-align: center;
       font-size: 14px;
+    }
+    &.name {
+      font-weight: 600;
+    }
+  }
+  &__initials {
+    min-height: 40px;
+    min-width: 40px;
+    overflow: hidden;
+    background-color: #fafafa;
+    border-radius: 50%;
+    border: 1px solid #cccc;
+    color: color(red-primary);
+    text-align: center;
+    margin: 8px;
+    & > span {
+      font-size: 14px;
+      font-weight: 600;
     }
   }
 }

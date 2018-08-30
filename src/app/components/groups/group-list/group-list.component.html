@@ -1,0 +1,22 @@
+<app-subheader [title]="'Grupe'" [showActionButton]="true" [actionRoute]="'new'" [actionText]="'Nova grupa'"></app-subheader>
+<div class="group-list__content">
+  <div class="group-list__table" fxFlex="100%" fxFlex.gt-sm="50%">
+    <div class="group-list__row header" fxLayoutAlign="space-between center">
+      <div class="group-list__cell header" fxFlex="50%">
+        <p class="group-list__cell-title header">Naziv</p>
+      </div>
+      <div class="group-list__cell header" fxFlex="50%">
+        <p class="group-list__cell-title header">Boja</p>
+      </div>
+    </div>
+    <div class="group-list__row" fxLayoutAlign="space-between center">
+      <div class="group-list__cell" fxFlex="50%" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="8px">
+        <p class="group-list__cell-title">Moja grupa</p>
+        <h5 class="group-list__cell-subtitle">20 članova</h5>
+      </div>
+      <div class="group-list__cell" fxFlex="50%">
+        <p class="group-list__cell-color" [ngStyle]="{'background-color': '#ee3b3b'}"></p>
+      </div>
+    </div>
+  </div>
+</div>

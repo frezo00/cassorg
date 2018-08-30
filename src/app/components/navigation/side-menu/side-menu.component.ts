@@ -16,6 +16,7 @@ export class SideMenuComponent implements OnInit {
   ngOnInit() {
     this.navList = [
       { title: 'Početna', icon: 'home', link: '/' },
+      { title: 'Upisi', icon: 'how_to_vote', link: '/applicants' },
       { title: 'Članovi', icon: 'people', link: '/users' },
       { title: 'Grupe', icon: 'group_work', link: '/groups' },
       { title: 'Aktivnosti', icon: 'assessment', link: '/activities' },

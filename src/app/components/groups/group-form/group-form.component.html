@@ -1,5 +1,15 @@
 <div class="group-form__container">
   <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
-
+    <div class="group-form__content" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+      <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
+        <input type="text" matInput placeholder="Naziv" formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
+        <input type="color" matInput placeholder="Odaberi boju" formControlName="color" required>
+      </mat-form-field>
+      <div class="group-form__actions">
+        <button type="submit" mat-raised-button>Spremi</button>
+      </div>
+    </div>
   </form>
 </div>

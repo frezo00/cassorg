@@ -2,7 +2,7 @@
   <app-side-top-header></app-side-top-header>
   <mat-nav-list class="side-navigation__list" fxLayout="column">
     <a *ngFor="let nav of navList" class="side-navigation__item" mat-list-item [routerLink]="nav.link" [routerLinkActive]="'active'"
-      [routerLinkActiveOptions]="{exact: true}" (click)="toggleSidenav()">
+      [routerLinkActiveOptions]="{exact: nav.link === '/'}" (click)="toggleSidenav()">
       <mat-icon mat-list-icon [ngClass]="{'opened-nav-icon': nav.title === 'Groups'}">{{nav.icon}}</mat-icon>
       <h4 class="side-navigation__item-title" mat-line>{{nav.title}}</h4>
       <button *ngIf="nav.title === 'Groups'" [ngClass]="{'opened-nav-button': nav.title === 'Groups'}" mat-icon-button mat-list-option

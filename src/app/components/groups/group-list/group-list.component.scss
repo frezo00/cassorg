@@ -15,18 +15,18 @@
     }
   }
   &__cell {
-    padding-left: 16px;
+    padding-left: 20px;
     &-title {
       color: color(text-08);
       font-weight: 600;
       &.header {
         color: color(text-05);
         text-transform: uppercase;
-        font-size: 14px;
+        font-size: 12px;
       }
     }
     &-subtitle {
-      margin: 0 0 12px;
+      margin: 0 0 16px;
       font-size: 12px;
       font-weight: 500;
       color: color(text-05);

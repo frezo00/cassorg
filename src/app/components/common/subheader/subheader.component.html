@@ -3,7 +3,10 @@
     <a *ngIf="!!showBackButton" mat-icon-button class="subheader__go_back" (click)="location.back()">
       <mat-icon>arrow_back</mat-icon>
     </a>
-    <h2 class="subheader__title">{{ title }}</h2>
+    <div class="subheader__text" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="4px">
+      <h2 class="subheader__title">{{ title }}</h2>
+      <p *ngIf="!!subtitle" class="subheader__subtitle">{{ subtitle }}</p>
+    </div>
   </div>
   <a *ngIf="!!showActionButton" [routerLink]="[actionRoute]" class="subheader__action-button" mat-raised-button>
     {{ actionText}}

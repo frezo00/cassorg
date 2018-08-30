@@ -25,7 +25,7 @@ export class GroupFormComponent implements OnInit {
 
   initForm(): void {
     this.name = new FormControl('', Validators.required);
-    this.color = new FormControl('', Validators.required);
+    this.color = new FormControl('#000000', Validators.required);
     this.users = new FormControl(null);
     this.groupForm = this.fb.group({
       name: this.name,

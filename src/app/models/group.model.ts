@@ -1,15 +1,15 @@
-import { IUser, IActivity } from '.';
-
 export interface IGroup {
   name: string;
-  activities?: IActivity[];
-  users?: IUser[];
+  color: string;
+  users?: string[];
+  activities?: string[];
 }
 
-export class Group {
+export class Group implements IGroup {
   constructor(
     public name: string,
-    public activities?: IActivity[],
-    public users?: IUser[]
+    public color: string,
+    public users?: string[],
+    public activities?: string[]
   ) {}
 }

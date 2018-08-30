@@ -17,6 +17,8 @@ export class SubheaderComponent implements OnInit {
   actionRoute = '';
   @Input()
   title: string;
+  @Input()
+  subtitle: string;
 
   constructor(public location: Location) {}
 

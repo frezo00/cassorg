@@ -1,5 +1,5 @@
 <div class="applicants-list__container">
-  <app-subheader [title]="'Upisi'"></app-subheader>
+  <app-subheader [title]="'Upisi'" [subtitle]="'Ukupno: ' + (applicants | async)?.length"></app-subheader>
   <div class="applicants-list__content" fxLayoutAlign="center center" fxFlexFill>
     <div class="applicants-list__table" fxFlex="100%" fxLayout="column">
       <div class="applicants-list__row header" fxFlex="100%" fxLayoutAlign="space-around center">

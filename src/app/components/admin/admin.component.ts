@@ -1,5 +1,15 @@
-import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+
+import { ModalService } from '../common/modal/modal.service';
+import { GroupFormComponent } from '../groups/group-form/group-form.component';
 
 @Component({
   selector: 'app-admin',
@@ -9,9 +19,14 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class AdminComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   tabletQuery: MediaQueryList;
-  showFiller = false;
+  @ViewChild('modal', { read: ViewContainerRef })
+  viewContainerRef: ViewContainerRef;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    public modalService: ModalService
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 599px)');
     this.tabletQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -21,7 +36,10 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   private _mobileQueryListener: () => void;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.modalService.setRootViewContainerRef(this.viewContainerRef);
+    // this.modalService.addDynamicComponent(GroupFormComponent);
+  }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

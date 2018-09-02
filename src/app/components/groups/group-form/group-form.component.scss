@@ -1,0 +1,83 @@
+@import '~_variables.scss';
+
+.group-form {
+  &__content {
+    padding: 24px 20px;
+    border-top: 1px solid #ccc;
+  }
+  &__color-text {
+    color: rgba(51, 51, 51, 0.5);
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: uppercase;
+    padding-left: 8px;
+  }
+  &__user {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: color(text-08);
+    &-input:not(:last-child)::after {
+      content: ',';
+      margin-left: -4px;
+    }
+    &-text {
+      font-size: 12px;
+      color: color(text-05);
+      padding-bottom: 2px;
+    }
+    &-option {
+      padding-left: 8px;
+    }
+    &-initials {
+      width: 32px;
+      height: 32px;
+      background-color: white;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      & > span {
+        line-height: 1em;
+        font-size: 12px;
+        color: #91979b;
+      }
+    }
+    &-info {
+      line-height: 1em;
+      padding-left: 12px;
+      & > span {
+        color: color(text-08);
+        line-height: 1.2em;
+        font-size: 0.95em;
+      }
+      & > small {
+        color: color(text-05);
+        font-size: 12px;
+      }
+    }
+  }
+  &__action-button {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    width: 100%;
+    padding: 16px;
+    color: rgba($color: #333333, $alpha: 0.9);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+
+    &:focus {
+      outline: none;
+    }
+    &:first-child:hover {
+      background-color: rgba($color: #333333, $alpha: 0.05);
+    }
+    &:last-child {
+      color: #ee3b3b;
+      &:hover {
+        background-color: rgba($color: #ee3b3b, $alpha: 0.1);
+      }
+    }
+  }
+}

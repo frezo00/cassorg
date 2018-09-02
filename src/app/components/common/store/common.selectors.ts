@@ -10,3 +10,8 @@ export const getShowLoading = createSelector(
   getCommonState,
   (state: fromCommon.CommonState) => state.showLoading
 );
+
+export const getOpenModal = createSelector(
+  getCommonState,
+  (state: fromCommon.CommonState) => state.openModal
+);

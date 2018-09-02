@@ -19,6 +19,9 @@
     &-title {
       color: color(text-08);
       font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       &.header {
         color: color(text-05);
         text-transform: uppercase;
@@ -36,5 +39,9 @@
       width: 28px;
       border-radius: 50%;
     }
+  }
+  &__empty {
+    text-align: center;
+    color: rgba($color: #333333, $alpha: 0.5);
   }
 }

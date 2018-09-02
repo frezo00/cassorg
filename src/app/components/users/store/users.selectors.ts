@@ -1,27 +1,24 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { UsersState } from './users.reducers';
 
-import * as fromUsers from './users.reducers';
-
-export const getUsersState = createFeatureSelector<fromUsers.UsersState>(
-  'users'
-);
+export const getUsersState = createFeatureSelector<UsersState>('users');
 
 export const getApplicants = createSelector(
   getUsersState,
-  (state: fromUsers.UsersState) => state.applicants
+  (state: UsersState) => state.applicants
 );
 
 export const getAllUsers = createSelector(
   getUsersState,
-  (state: fromUsers.UsersState) => state.recentUsers
+  (state: UsersState) => state.recentUsers
 );
 
 export const getRecentUsers = createSelector(
   getUsersState,
-  (state: fromUsers.UsersState) => state.recentUsers
+  (state: UsersState) => state.recentUsers
 );
 
 export const getError = createSelector(
   getUsersState,
-  (state: fromUsers.UsersState) => state.error
+  (state: UsersState) => state.error
 );

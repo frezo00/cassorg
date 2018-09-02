@@ -5,6 +5,18 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import { IApplicant, IGroup } from '../../../models';
+import {
+  getApplicants,
+  AppState,
+  OpenModal,
+  GetApplicantsBegin,
+  CreateGroupBegin
+} from '../../../store';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-form',
@@ -15,26 +27,49 @@ export class GroupFormComponent implements OnInit {
   groupForm: FormGroup;
   name: FormControl;
   color: FormControl;
-  users: FormControl;
+  selectedUsers: FormControl;
+  applicants: Observable<IApplicant[]>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.initForm();
+    this.store.dispatch(new GetApplicantsBegin());
+    this.applicants = this.store.select(getApplicants);
   }
 
   initForm(): void {
-    this.name = new FormControl('', Validators.required);
+    this.name = new FormControl('', [
+      Validators.required,
+      Validators.maxLength(30)
+    ]);
     this.color = new FormControl('#000000', Validators.required);
-    this.users = new FormControl(null);
+    this.selectedUsers = new FormControl(null);
     this.groupForm = this.fb.group({
       name: this.name,
       color: this.color,
-      users: this.users
+      selectedUsers: this.selectedUsers
     });
   }
 
   onSubmit(): void {
-    console.log(this.groupForm.value);
+    // console.log(this.selectedUsers.value);
+    if (this.groupForm.valid) {
+      let userIDs: string[] = null;
+      if (!!this.selectedUsers.value) {
+        userIDs = this.selectedUsers.value.map(user => user.id);
+      }
+      console.log('ids', userIDs);
+      const newGroupData: IGroup = {
+        name: this.name.value.trim(),
+        color: this.color.value,
+        users: userIDs
+      };
+      this.store.dispatch(new CreateGroupBegin(newGroupData));
+    }
+  }
+
+  onCancel() {
+    this.store.dispatch(new OpenModal(false));
   }
 }

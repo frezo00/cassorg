@@ -55,6 +55,7 @@ import { GroupListComponent } from './groups/group-list/group-list.component';
     CommonComponentsModule
   ],
   exports: [],
-  providers: []
+  providers: [],
+  entryComponents: [GroupFormComponent]
 })
 export class ComponentsModule {}

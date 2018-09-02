@@ -1,4 +1,4 @@
-<app-subheader [title]="'Grupe'" [subtitle]="'Ukupno: 16'" [showActionButton]="true" [actionRoute]="'new'" [actionText]="'Nova grupa'"></app-subheader>
+<app-subheader [title]="'Grupe'" [subtitle]="'Ukupno: 16'" [actionText]="'Nova grupa'" (action)="openNewGroupModal()"></app-subheader>
 <div class="group-list__content">
   <div class="group-list__table" fxFlex="100%" fxFlex.gt-sm="50%">
     <div class="group-list__row header" fxLayoutAlign="space-between center">
@@ -9,14 +9,21 @@
         <p class="group-list__cell-title header">Boja</p>
       </div>
     </div>
-    <div class="group-list__row" fxLayoutAlign="space-between center">
+    <div class="group-list__row" fxLayoutAlign="space-between center" *ngFor="let group of groups | async">
       <div class="group-list__cell" fxFlex="50%" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="8px">
-        <p class="group-list__cell-title">Moja grupa</p>
-        <h5 class="group-list__cell-subtitle">20 članova</h5>
+        <p class="group-list__cell-title">{{group?.name}}</p>
+        <h5 class="group-list__cell-subtitle">{{group?.users.length}} članova</h5>
       </div>
       <div class="group-list__cell" fxFlex="50%">
-        <p class="group-list__cell-color" [ngStyle]="{'background-color': '#ee3b3b'}"></p>
+        <p class="group-list__cell-color" [ngStyle]="{'background-color': group?.color}"></p>
       </div>
+    </div>
+    <div *ngIf="!(groups | async)" class="group-list__empty">
+      <p>Nema podataka</p>
     </div>
   </div>
 </div>
+
+<!-- <app-modal *ngIf="(openModal | async)">
+  <app-group-form></app-group-form>
+</app-modal> -->

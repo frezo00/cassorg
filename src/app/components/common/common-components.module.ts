@@ -4,11 +4,12 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { LoadingComponent } from './loading/loading.component';
 import { SubheaderComponent } from './subheader/subheader.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
-  declarations: [LoadingComponent, SubheaderComponent],
+  declarations: [LoadingComponent, SubheaderComponent, ModalComponent],
   imports: [CommonModule, SharedModule],
-  exports: [LoadingComponent, SubheaderComponent],
+  exports: [LoadingComponent, SubheaderComponent, ModalComponent],
   providers: []
 })
 export class CommonComponentsModule {}

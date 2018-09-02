@@ -12,6 +12,7 @@ import { AuthEffects } from './components/auth/store';
 import { RouterEffects } from './router/store';
 import { UsersEffects } from './store';
 import { ProjectEffects } from './components/project/store';
+import { GroupsEffects } from './components/groups/store';
 
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
@@ -27,6 +28,8 @@ import { AuthService } from './components/auth/auth.service';
 import { ProjectService } from './components/project/project.service';
 import { UsersService } from './components/users/user.service';
 import { CommonService } from './components/common/common.service';
+import { ModalService } from './components/common/modal/modal.service';
+import { GroupsService } from './components/groups/groups.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,7 +44,8 @@ import { CommonService } from './components/common/common.service';
       AuthEffects,
       RouterEffects,
       UsersEffects,
-      ProjectEffects
+      ProjectEffects,
+      GroupsEffects
     ]),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -49,7 +53,14 @@ import { CommonService } from './components/common/common.service';
     ComponentsModule,
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [AuthService, ProjectService, UsersService, CommonService],
+  providers: [
+    AuthService,
+    ProjectService,
+    UsersService,
+    GroupsService,
+    CommonService,
+    ModalService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

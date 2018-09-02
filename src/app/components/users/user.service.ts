@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from '../../store';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class UsersService {
@@ -23,9 +24,20 @@ export class UsersService {
   }
 
   getApplicants(): Observable<IApplicant[]> {
-    return this.afDB.collection<IApplicant>('applicants', ref =>
-    ref.orderBy('dateCreated', 'desc')
-  ).valueChanges();
+    return this.afDB
+      .collection<IApplicant>('applicants', ref =>
+        ref.orderBy('dateCreated', 'desc')
+      )
+      .snapshotChanges()
+      .pipe(
+        map(applicants =>
+          applicants.map(a => {
+            const data = a.payload.doc.data() as IApplicant;
+            const id = a.payload.doc.id;
+            return { id, ...data } as IApplicant;
+          })
+        )
+      );
   }
 
   createUser(user: IUser, authId: string) {

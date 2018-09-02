@@ -1,4 +1,4 @@
-import { of as observableOf, Observable, from as fromPromise, of } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentSnapshot } from 'angularfire2/firestore';
 import { Action, Store } from '@ngrx/store';
@@ -9,18 +9,26 @@ import {
   catchError,
   tap,
   withLatestFrom,
-  mergeMap
+  mergeMap,
+  filter
 } from 'rxjs/operators';
 
-import * as UsersActions from './users.actions';
-import * as ProjectActions from '../../project/store';
 import {
-  IUser,
-  User,
-  IUserLogin,
-  IApplicant
-} from '../../../models/user.model';
-import { AppState, SetErrors, GetProjectBegin } from '../../../store';
+  UsersActionTypes,
+  GetLoggedInUserDataBegin,
+  GetLoggedInUserDataSuccess,
+  Errors,
+  GetApplicantsSuccess,
+  GetRecentUsersComplete,
+  CreateUser,
+  CheckIfUserExists,
+  PlainAction,
+  CreateUserAfterRegisterBegin
+} from './users.actions';
+import { getApplicants } from './users.selectors';
+import * as ProjectActions from '../../project/store';
+import { IUser, IUserLogin, IApplicant } from '../../../models/user.model';
+import { AppState } from '../../../store';
 import { UsersService } from '../user.service';
 import { AuthService } from '../../auth/auth.service';
 
@@ -28,39 +36,38 @@ import { AuthService } from '../../auth/auth.service';
 export class UsersEffects {
   @Effect()
   getLoggedInUserDataBegin$: Observable<Action> = this.actions$.pipe(
-    ofType(UsersActions.UsersActionTypes.GET_LOGGED_IN_USER_DATA_BEGIN),
-    map((action: UsersActions.GetLoggedInUserDataBegin) => action.payload),
+    ofType(UsersActionTypes.GET_LOGGED_IN_USER_DATA_BEGIN),
+    map((action: GetLoggedInUserDataBegin) => action.payload),
     switchMap((authId: string) =>
       this.userService.getUserByAuthId(authId).pipe(
         mergeMap((userData: IUser[]) => {
           const projId = userData[0].userOfProjects[0];
           return [
             new ProjectActions.GetProjectBegin(projId),
-            new UsersActions.GetLoggedInUserDataSuccess(userData[0])
+            new GetLoggedInUserDataSuccess(userData[0])
           ];
         }),
-        catchError(error => of(new UsersActions.Errors(error)))
+        catchError(error => of(new Errors(error)))
       )
     )
   );
 
   @Effect()
   getApplicants$: Observable<Action> = this.actions$.pipe(
-    ofType(UsersActions.UsersActionTypes.GET_APPLICANTS_BEGIN),
+    ofType(UsersActionTypes.GET_APPLICANTS_BEGIN),
+    withLatestFrom(this.store$.select(getApplicants)),
+    filter(([action, applicants]) => !applicants), // only continue if applicants don't exist
     switchMap(() =>
       this.userService.getApplicants().pipe(
-        map(
-          (applicants: IApplicant[]) =>
-            new UsersActions.GetApplicantsSuccess(applicants)
-        ),
-        catchError(error => of(new UsersActions.Errors(error)))
+        map((applicants: IApplicant[]) => new GetApplicantsSuccess(applicants)),
+        catchError(error => of(new Errors(error)))
       )
     )
   );
 
   @Effect({ dispatch: false })
   getAllUsers$ = this.actions$.pipe(
-    ofType(UsersActions.UsersActionTypes.GET_ALL_USERS),
+    ofType(UsersActionTypes.GET_ALL_USERS),
     switchMap(() =>
       this.afDB
         .collection('users')
@@ -73,11 +80,11 @@ export class UsersEffects {
               return { id, ...data };
             });
             console.log('userList: ', users);
-            // return new UsersActions.GetRecentUsersComplete(users);
+            // return new GetRecentUsersComplete(users);
           }),
           catchError(error => {
             console.log('error:', error);
-            return observableOf(new UsersActions.Errors(error));
+            return of(new Errors(error));
           })
         )
     )
@@ -85,7 +92,7 @@ export class UsersEffects {
 
   @Effect()
   getRecentUsers$: Observable<Action> = this.actions$.pipe(
-    ofType(UsersActions.UsersActionTypes.GET_RECENT_USERS),
+    ofType(UsersActionTypes.GET_RECENT_USERS),
     switchMap(() =>
       this.afDB
         .collection('users')
@@ -98,11 +105,11 @@ export class UsersEffects {
               return { id, ...data };
             });
             console.log('users:', users);
-            return new UsersActions.GetRecentUsersComplete(users);
+            return new GetRecentUsersComplete(users);
           }),
           catchError(error => {
             console.log('error:', error);
-            return observableOf(new UsersActions.Errors(error));
+            return of(new Errors(error));
           })
         )
     )
@@ -110,11 +117,11 @@ export class UsersEffects {
 
   @Effect({ dispatch: false })
   createUser$: Observable<Action | IUser> = this.actions$.pipe(
-    ofType(UsersActions.UsersActionTypes.CREATE_USER),
-    map((action: UsersActions.CreateUser) => action.payload),
+    ofType(UsersActionTypes.CREATE_USER),
+    map((action: CreateUser) => action.payload),
     tap(data => console.log('user data:', data))
     // withLatestFrom(this.store$),
-    /* map(([action, store]: [UsersActions.CreateUser, AppState]) => {
+    /* map(([action, store]: [CreateUser, AppState]) => {
       return <IUser> {
         userID: action.payload.userID,
         projectID: store.project.activeProject.id,
@@ -124,9 +131,9 @@ export class UsersEffects {
         createdByAdmin: store.auth.loggedInUser.id
       };
     }), */
-    // map((action: UsersActions.CreateUser) => action.payload),
+    // map((action: CreateUser) => action.payload),
     /* switchMap((projectUser: IProjectUser) => {
-      fromPromise(
+      from(
         <Promise<any>>this.userService.createProjectUser(projectUser)
       ).pipe(
         map(userData => {
@@ -143,9 +150,9 @@ export class UsersEffects {
 
   @Effect({ dispatch: false })
   createProjectUser$ = this.actions$.pipe(
-    ofType(UsersActions.UsersActionTypes.CREATE_PROJECT_USER),
+    ofType(UsersActionTypes.CREATE_PROJECT_USER),
     withLatestFrom(this.store$)
-    /* map(([action, store]: [UsersActions.CreateProjectUser, AppState]) => {
+    /* map(([action, store]: [CreateProjectUser, AppState]) => {
       return <IProjectUser>{
         user: action.payload.user,
         projectID: store.project.activeProject.tag,
@@ -155,10 +162,10 @@ export class UsersEffects {
         createdByAdmin: store.auth.userLoginData.authId
       };
     }),
-    // map((action: UsersActions.CreateUser) => action.payload),
+    // map((action: CreateUser) => action.payload),
     tap(data => console.log('project user data:', data)),
     switchMap((projectUser: IProjectUser) => {
-      fromPromise(<Promise<any>>(
+      from(<Promise<any>>(
         this.userService.createProjectUser(projectUser)
       )).pipe(
         map(userData => {
@@ -166,29 +173,29 @@ export class UsersEffects {
         }),
         catchError(error => {
           console.error('error', error);
-          return observableOf(error);
+          return of(error);
         })
       );
-      return observableOf();
+      return of();
     }) */
   );
 
   @Effect({ dispatch: false })
   checkIfUserExists = this.actions$.pipe(
-    ofType(UsersActions.UsersActionTypes.CHECK_IF_USER_EXISTS),
-    map((action: UsersActions.CheckIfUserExists) => action.payload),
+    ofType(UsersActionTypes.CHECK_IF_USER_EXISTS),
+    map((action: CheckIfUserExists) => action.payload),
     // withLatestFrom(this.store$.select(state => state.auth.userLoginData)),
-    // map(([action, storeState]: [UsersActions.CheckIfUserExists, IUserLogin]) => [action.payload, storeState]),
+    // map(([action, storeState]: [CheckIfUserExists, IUserLogin]) => [action.payload, storeState]),
     switchMap((authId: string) =>
-      fromPromise(this.userService.checkIfUserExists(authId)).pipe(
+      from(this.userService.checkIfUserExists(authId)).pipe(
         map((userSnapshot: DocumentSnapshot<any>) => {
           console.log('useexis', userSnapshot);
           console.log('bool', userSnapshot.exists);
-          return of(new UsersActions.PlainAction());
+          return of(new PlainAction());
         }),
         catchError(error => {
           console.log('error', error);
-          return of(new UsersActions.PlainAction());
+          return of(new PlainAction());
         })
       )
     )
@@ -196,37 +203,35 @@ export class UsersEffects {
 
   @Effect()
   createUserAfterRegister: Observable<Action> = this.actions$.pipe(
-    ofType(UsersActions.UsersActionTypes.CREATE_USER_AFTER_REGISTER_BEGIN),
-    map((action: UsersActions.CreateUserAfterRegisterBegin) => action.payload),
+    ofType(UsersActionTypes.CREATE_USER_AFTER_REGISTER_BEGIN),
+    map((action: CreateUserAfterRegisterBegin) => action.payload),
     // withLatestFrom(this.store$.select(state => state.auth.userLoginData)),
-    // map(([action, storeState]: [UsersActions.CreateUserAfterRegister, IUserLogin]) => [action.payload, storeState]),
+    // map(([action, storeState]: [CreateUserAfterRegister, IUserLogin]) => [action.payload, storeState]),
     switchMap((createdUser: IUserLogin) =>
-      fromPromise(this.userService.createUserAfterRegister(createdUser)).pipe(
+      from(this.userService.createUserAfterRegister(createdUser)).pipe(
         map((currentUser: DocumentSnapshot<IUser>) => {
           console.log('data after register create', currentUser.data());
-          return new UsersActions.GetLoggedInUserDataBegin(
-            currentUser.data().authId
-          );
+          return new GetLoggedInUserDataBegin(currentUser.data().authId);
         }),
         catchError(error => {
           console.error('error is', error);
-          return of(new UsersActions.Errors(error));
+          return of(new Errors(error));
         })
       )
     )
     /* switchMap(
       ([action, storeState]: [
-        UsersActions.CreateUserAfterRegister,
+        CreateUserAfterRegister,
         IUserLogin
       ]) =>
-        fromPromise(this.userService.createUserAfterRegister(storeState)).pipe(
+        from(this.userService.createUserAfterRegister(storeState)).pipe(
           map(data => {
             console.log('data', data);
-            return of(new UsersActions.PlainAction());
+            return of(new PlainAction());
           }),
           catchError(error => {
             console.log('error', error);
-            return of(new UsersActions.PlainAction());
+            return of(new PlainAction());
           })
         )
     ) */

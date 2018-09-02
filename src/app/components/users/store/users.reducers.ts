@@ -1,5 +1,5 @@
-import * as UsersActions from './users.actions';
 import { IUser, IApplicant } from '../../../models/user.model';
+import { UsersActions, UsersActionTypes } from '../store/users.actions';
 
 export interface UsersState {
   currentUser: IUser;
@@ -19,20 +19,20 @@ const initialState: UsersState = {
 
 export function usersReducer(
   state = initialState,
-  action: UsersActions.UsersActions
+  action: UsersActions
 ): UsersState {
   switch (action.type) {
-    case UsersActions.UsersActionTypes.GET_LOGGED_IN_USER_DATA_SUCCESS: {
+    case UsersActionTypes.GET_LOGGED_IN_USER_DATA_SUCCESS: {
       return { ...state, currentUser: action.payload };
     }
-    case UsersActions.UsersActionTypes.GET_APPLICANTS_SUCCESS: {
+    case UsersActionTypes.GET_APPLICANTS_SUCCESS: {
       return { ...state, applicants: action.payload };
     }
-    case UsersActions.UsersActionTypes.GET_RECENT_USERS_COMPLETE: {
+    case UsersActionTypes.GET_RECENT_USERS_COMPLETE: {
       return { ...state, recentUsers: action.payload };
     }
 
-    case UsersActions.UsersActionTypes.ERRORS: {
+    case UsersActionTypes.ERRORS: {
       return { ...state, error: action.payload };
     }
 

@@ -2,14 +2,45 @@
   <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
     <div class="group-form__content" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
       <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-        <input type="text" matInput placeholder="Naziv" formControlName="name" required>
+        <input type="text" matInput placeholder="Naziv" aria-label="Naziv" formControlName="name" required>
+        <mat-error *ngIf="name.touched && name.invalid">
+          {{name.hasError('required') ? 'Ovo polje je obavezno' : name.hasError('maxlength') ? 'Tekst je predug' :''}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-        <input type="color" matInput placeholder="Odaberi boju" formControlName="color" required>
+        <input type="color" matInput placeholder="Boja" aria-label="Boja" formControlName="color" required>
+        <span class="group-form__color-text" matSuffix>{{color?.value}}</span>
       </mat-form-field>
-      <div class="group-form__actions">
-        <button type="submit" mat-raised-button>Spremi</button>
-      </div>
+      <mat-form-field floatLabel="always">
+        <mat-label style="line-height: 1.2em;">Članovi</mat-label>
+        <mat-select placeholder="Odaberi članove" aria-label="Odaberi članove" [formControl]="selectedUsers" multiple>
+          <mat-select-trigger fxLayoutAlign="space-between center">
+            <div class="group-form__user">
+              <span *ngFor="let selectedUser of selectedUsers.value" class="group-form__user-input">
+                {{selectedUser?.firstName + ' ' + selectedUser?.lastName}}
+              </span>
+            </div>
+            <span *ngIf="selectedUsers.value?.length > 1" class="group-form__user-text">
+              (Ukupno: {{selectedUsers.value.length}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let applicant of applicants | async" [value]="applicant">
+            <div class="group-form__user-option" fxLayoutAlign="start center">
+              <div class="group-form__user-initials" fxLayoutAlign="center center">
+                <span>{{ (applicant?.firstName | firstLetter) + (applicant?.lastName | firstLetter) }}</span>
+              </div>
+              <div class="group-form__user-info" fxLayout="column" fxLayoutAlign="center start">
+                <span>{{applicant?.firstName + ' ' + applicant?.lastName}}</span>
+                <small>{{ applicant?.birthdate | age }}</small>
+              </div>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="group-form__action" fxLayoutAlign="space-around center">
+      <button type="button" class="group-form__action-button" (click)="onCancel()">Odustani</button>
+      <button type="submit" class="group-form__action-button">Spremi</button>
     </div>
   </form>
 </div>

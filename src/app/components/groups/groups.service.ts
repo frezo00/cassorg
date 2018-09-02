@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection
+} from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 
 import { IGroup } from '../../models';
@@ -17,7 +20,7 @@ export class GroupsService {
   }
 
   createGroup(groupData: IGroup): Promise<any> {
+    console.log('group in service', groupData);
     return this.groupsCollection.add(groupData);
   }
-
 }

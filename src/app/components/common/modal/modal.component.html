@@ -1,0 +1,11 @@
+<div class="modal__wrapper" *ngIf="(openModal | async)">
+  <div class="modal__container" fxFlex="80%" fxFlex.sm="60%" fxFlex.gt-sm="40%" fxFlex.gt-lg="30%" fxLayout="column" fxLayoutAlign="center strech">
+    <div class="modal__header" fxLayoutAlign="space-between center">
+      <h2 class="modal__title">Odbaci promjene?</h2>
+      <a class="modal__cancel-icon" (click)="onCancel()">
+        <mat-icon>clear</mat-icon>
+      </a>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

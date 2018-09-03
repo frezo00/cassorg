@@ -5,7 +5,7 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { IApplicant, IGroup } from '../../../models';
@@ -16,7 +16,6 @@ import {
   GetApplicantsBegin,
   CreateGroupBegin
 } from '../../../store';
-import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-form',
@@ -53,19 +52,19 @@ export class GroupFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // console.log(this.selectedUsers.value);
     if (this.groupForm.valid) {
       let userIDs: string[] = null;
       if (!!this.selectedUsers.value) {
         userIDs = this.selectedUsers.value.map(user => user.id);
       }
-      console.log('ids', userIDs);
       const newGroupData: IGroup = {
         name: this.name.value.trim(),
         color: this.color.value,
+        dateCreated: new Date().toISOString(),
         users: userIDs
       };
       this.store.dispatch(new CreateGroupBegin(newGroupData));
+      this.groupForm.reset();
     }
   }
 

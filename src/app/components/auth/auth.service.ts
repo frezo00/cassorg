@@ -12,7 +12,10 @@ export class AuthService {
   }
 
   login(loginData: Login): Promise<any> {
-    return this.af.auth.signInWithEmailAndPassword(loginData.email, loginData.password);
+    return this.af.auth.signInWithEmailAndPassword(
+      loginData.email,
+      loginData.password
+    );
   }
 
   register(email: string, password: string): Promise<any> {
@@ -23,7 +26,9 @@ export class AuthService {
     return this.af.auth.signOut();
   }
 
-  updateProfile(firebaseUpdateProfileData: FirebaseUpdateProfile): Promise<any> {
+  updateProfile(
+    firebaseUpdateProfileData: FirebaseUpdateProfile
+  ): Promise<any> {
     return this.af.auth.currentUser.updateProfile(firebaseUpdateProfileData);
   }
 

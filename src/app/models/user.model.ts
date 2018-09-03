@@ -4,10 +4,13 @@ export interface IUserLogin {
   displayName?: string;
 }
 
-export interface IUser extends IUserLogin {
+export interface IUser {
   id?: string;
+  authId?: string;
+  displayName?: string;
   firstName?: string;
   lastName?: string;
+  email?: string;
   gender?: 'male' | 'female' | null;
   phoneNumber?: string;
   birthdate?: string;

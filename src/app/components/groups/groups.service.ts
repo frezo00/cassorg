@@ -20,7 +20,6 @@ export class GroupsService {
   }
 
   createGroup(groupData: IGroup): Promise<any> {
-    console.log('group in service', groupData);
     return this.groupsCollection.add(groupData);
   }
 }

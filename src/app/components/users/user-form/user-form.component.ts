@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { User, IUser, IProjectUser } from '../../../models';
+import { IUser } from '../../../models';
 import * as fromStore from '../store';
 
 @Component({

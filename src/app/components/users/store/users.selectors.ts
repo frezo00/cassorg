@@ -3,6 +3,11 @@ import { UsersState } from './users.reducers';
 
 export const getUsersState = createFeatureSelector<UsersState>('users');
 
+export const getCurrentUser = createSelector(
+  getUsersState,
+  (state: UsersState) => state.currentUser
+);
+
 export const getApplicants = createSelector(
   getUsersState,
   (state: UsersState) => state.applicants

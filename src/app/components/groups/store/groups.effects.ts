@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { DocumentSnapshot } from 'angularfire2/firestore';
 import { Observable, of, from } from 'rxjs';
 import {
   withLatestFrom,
@@ -8,7 +9,8 @@ import {
   switchMap,
   map,
   catchError,
-  mergeMap
+  mergeMap,
+  tap
 } from 'rxjs/operators';
 
 import {
@@ -20,10 +22,11 @@ import {
 } from './groups.actions';
 import { OpenModal } from '../../common/store';
 import { getGroups } from './groups.selectors';
+import { getCurrentUser } from '../../users/store';
 import { AppState } from '../../../store';
+
 import { GroupsService } from '../groups.service';
-import { IGroup } from '../../../models';
-import { DocumentSnapshot } from 'angularfire2/firestore';
+import { IGroup, IUser } from '../../../models';
 
 @Injectable()
 export class GroupsEffects {
@@ -41,9 +44,16 @@ export class GroupsEffects {
   );
 
   @Effect()
-  createGroup$: Observable<Action> = this.actions$.pipe(
+  createGroup$ = this.actions$.pipe(
     ofType(GroupsActionTypes.CREATE_GROUP_BEGIN),
-    map((action: CreateGroupBegin) => action.payload),
+    withLatestFrom(this.store$.select(getCurrentUser)),
+    map(([action, currentUser]: [CreateGroupBegin, IUser]) => [
+      action.payload,
+      currentUser.id
+    ]),
+    map(([groupData, currentUserId]: [IGroup, string]) => {
+      return { ...groupData, createdBy: currentUserId } as IGroup;
+    }),
     switchMap((newGroupData: IGroup) =>
       from(this.groupsService.createGroup(newGroupData)).pipe(
         mergeMap(() => [new OpenModal(false), new CreateGroupSuccess()]),

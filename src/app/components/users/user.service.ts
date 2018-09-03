@@ -20,7 +20,16 @@ export class UsersService {
     console.log('aut', authId);
     return this.afDB
       .collection<IUser>('users', ref => ref.where('authId', '==', authId))
-      .valueChanges();
+      .snapshotChanges().pipe(
+        map(users =>
+          users.map(u => {
+            const data = u.payload.doc.data() as IUser;
+            const id = u.payload.doc.id;
+            console.log('user is', { id, ...data });
+            return { id, ...data } as IUser;
+          })
+        )
+      );
   }
 
   getApplicants(): Observable<IApplicant[]> {

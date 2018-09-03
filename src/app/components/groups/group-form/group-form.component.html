@@ -1,14 +1,16 @@
 <div class="group-form__container">
   <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
     <div class="group-form__content" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
-      <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
+      <mat-form-field floatLabel="always">
         <input type="text" matInput placeholder="Naziv" aria-label="Naziv" formControlName="name" required>
         <mat-error *ngIf="name.touched && name.invalid">
           {{name.hasError('required') ? 'Ovo polje je obavezno' : name.hasError('maxlength') ? 'Tekst je predug' :''}}
         </mat-error>
       </mat-form-field>
-      <mat-form-field floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-        <input type="color" matInput placeholder="Boja" aria-label="Boja" formControlName="color" required>
+      <mat-form-field floatLabel="always">
+        <input matInput placeholder="Boja" aria-label="Boja" [colorPicker]="color.value" (colorPickerChange)="color.setValue($event)"
+          [style.background]="color.value" class="group-form__color-picker" [cpPosition]="'bottom'" [cpAlphaChannel]="'always'"
+          [formControl]="color" required readonly="true">
         <span class="group-form__color-text" matSuffix>{{color?.value}}</span>
       </mat-form-field>
       <mat-form-field floatLabel="always">

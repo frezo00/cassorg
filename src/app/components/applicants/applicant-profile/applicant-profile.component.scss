@@ -1,0 +1,66 @@
+@import '~_variables.scss';
+
+:host {
+  width: 100%;
+}
+
+.applicant-profile {
+  &__content {
+    margin-bottom: 40px;
+  }
+  &__header {
+    &-initials {
+      border-radius: 50%;
+      height: 50px;
+      width: 50px;
+      background-color: #e9e9e9;
+      border: 2px solid color(red-primary);
+      overflow: hidden;
+      text-align: center;
+      margin: 0 8px;
+      & > span {
+        color: color(red-primary);
+        font-weight: 600;
+        font-size: 16px;
+        text-transform: uppercase;
+      }
+    }
+    &-info {
+      padding-left: 8px;
+    }
+    &-full-name {
+      font-size: 18px;
+      line-height: 26px;
+      color: color(red-primary);
+    }
+    &-age {
+      font-size: 14px;
+      color: color(text-05);
+    }
+  }
+  &__data-list {
+    margin: 16px 0;
+  }
+  &__data-item {
+    font-size: 15px;
+    & > h4 {
+      color: color(text-08);
+      padding-left: 8px;
+      margin: 12px 0;
+    }
+    & > p {
+      color: #91979b;
+      padding-left: 8px;
+      margin: 12px 0;
+      min-height: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      &.no-data {
+        font-style: italic;
+        color: rgba($color: #333333, $alpha: 0.2);
+        font-weight: 500;
+      }
+    }
+  }
+}

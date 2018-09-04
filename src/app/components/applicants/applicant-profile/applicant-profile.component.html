@@ -1,0 +1,53 @@
+<div class="applicant-profile__container" fxFlexFill>
+  <app-subheader [title]="'Upisi / ' + applicant?.firstName + ' ' + applicant?.lastName" [showBackButton]="true">
+  </app-subheader>
+  <div class="applicant-profile__content">
+    <mat-card fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
+      <div class="applicant-profile__header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <div class="applicant-profile__header-initials" fxLayoutAlign="center center">
+          <span>{{(applicant?.firstName | firstLetter) + (applicant?.lastName | firstLetter)}}</span>
+        </div>
+        <div class="applicant-profile__header-info" fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="4px">
+          <div class="applicant-profile__header-full-name">
+            <span>{{applicant?.firstName + ' ' + applicant?.lastName}}</span>
+          </div>
+          <div class="applicant-profile__header-age">
+            <span>{{applicant?.birthdate | age}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="applicant-profile__data-list" fxLayout="column" fxLayoutAlign="space-between stretch">
+        <div class="applicant-profile__data-item" fxLayoutAlign="start start">
+          <h4 fxFlex="35%" fxFlex.gt-sm="25%">Ime</h4>
+          <p fxFlex="60%">{{applicant?.firstName}}</p>
+        </div>
+        <div class="applicant-profile__data-item" fxLayoutAlign="start start">
+          <h4 fxFlex="35%" fxFlex.gt-sm="25%">Prezime</h4>
+          <p fxFlex="60%">{{applicant?.lastName}}</p>
+        </div>
+        <div class="applicant-profile__data-item" fxLayoutAlign="start start">
+          <h4 fxFlex="35%" fxFlex.gt-sm="25%">Rođenje</h4>
+          <p fxFlex="60%">{{applicant?.birthdate | date:'dd.MM.yyyy'}}</p>
+        </div>
+        <div class="applicant-profile__data-item" fxLayoutAlign="start start">
+          <h4 fxFlex="35%" fxFlex.gt-sm="25%">Telefon</h4>
+          <p fxFlex="60%">{{applicant?.phoneNumber}}</p>
+        </div>
+        <div class="applicant-profile__data-item" fxLayoutAlign="start start">
+          <h4 fxFlex="35%" fxFlex.gt-sm="25%">Roditelji</h4>
+          <p fxFlex="60%">{{applicant?.parentsNames}}</p>
+        </div>
+        <div class="applicant-profile__data-item" fxLayoutAlign="start start">
+          <h4 fxFlex="35%" fxFlex.gt-sm="25%">Email</h4>
+          <p fxFlex="60%" *ngIf="!!applicant?.email">{{applicant?.email}}</p>
+          <p *ngIf="!applicant?.email" class="no-data">Nema podataka</p>
+        </div>
+        <div class="applicant-profile__data-item" fxLayoutAlign="start start">
+          <h4 fxFlex="35%" fxFlex.gt-sm="25%">Napomena</h4>
+          <p fxFlex="60%" *ngIf="!!applicant?.message">{{applicant?.message}}</p>
+          <p *ngIf="!applicant?.message" class="no-data">Nema podataka</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

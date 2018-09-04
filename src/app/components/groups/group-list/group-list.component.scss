@@ -1,5 +1,9 @@
 @import '~_variables.scss';
 
+:host {
+  width: 100%;
+}
+
 .group-list {
   &__table {
     border-radius: 2px;

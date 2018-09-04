@@ -8,11 +8,6 @@ export const getCurrentUser = createSelector(
   (state: UsersState) => state.currentUser
 );
 
-export const getApplicants = createSelector(
-  getUsersState,
-  (state: UsersState) => state.applicants
-);
-
 export const getAllUsers = createSelector(
   getUsersState,
   (state: UsersState) => state.recentUsers

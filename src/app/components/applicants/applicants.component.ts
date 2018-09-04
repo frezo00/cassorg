@@ -1,9 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
-import { AppState, GetApplicantsBegin } from '../../store';
-import { IApplicant } from '../../models';
 
 @Component({
   selector: 'app-applicants',
@@ -11,21 +6,9 @@ import { IApplicant } from '../../models';
   styleUrls: ['./applicants.component.scss']
 })
 export class ApplicantsComponent implements OnInit {
-  applicants: Observable<IApplicant[]>;
-  activeDetails = -1;
 
-  constructor(private store: Store<AppState>) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.store.dispatch(new GetApplicantsBegin());
-    this.applicants = this.store.select(state => state.users.applicants);
-  }
+  ngOnInit() {}
 
-  showInfo(index: number): void {
-    if (index === this.activeDetails) {
-      this.activeDetails = -1;
-    } else {
-      this.activeDetails = index;
-    }
-  }
 }

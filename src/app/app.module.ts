@@ -13,6 +13,7 @@ import { RouterEffects } from './router/store';
 import { UsersEffects } from './store';
 import { ProjectEffects } from './components/project/store';
 import { GroupsEffects } from './components/groups/store';
+import { ApplicantsEffects } from './components/applicants/store';
 
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
@@ -30,6 +31,7 @@ import { UsersService } from './components/users/user.service';
 import { CommonService } from './components/common/common.service';
 import { ModalService } from './components/common/modal/modal.service';
 import { GroupsService } from './components/groups/groups.service';
+import { ApplicantsService } from './components/applicants/applicants.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,7 +47,8 @@ import { GroupsService } from './components/groups/groups.service';
       RouterEffects,
       UsersEffects,
       ProjectEffects,
-      GroupsEffects
+      GroupsEffects,
+      ApplicantsEffects
     ]),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -57,6 +60,7 @@ import { GroupsService } from './components/groups/groups.service';
     AuthService,
     ProjectService,
     UsersService,
+    ApplicantsService,
     GroupsService,
     CommonService,
     ModalService

@@ -1,0 +1,105 @@
+<div class="applicant-list__container" fxFlexFill>
+  <app-subheader [title]="'Upisi'" [subtitle]="'Ukupno: ' + (applicants | async)?.length"></app-subheader>
+  <div class="applicant-list__content" fxLayoutAlign="center center">
+    <div class="applicant-list__table" fxFlex="100%" fxLayout="column">
+      <div class="applicant-list__row header" fxFlex="100%" fxLayoutAlign="space-around center">
+        <div class="applicant-list__column" fxFlex.xs="65%" fxFlex="100%">
+          <p class="applicant-list__cell">Ime i Prezime</p>
+        </div>
+        <div class="applicant-list__column" fxFlex.xs="35%" fxFlex="100%">
+          <p class="applicant-list__cell">Godine</p>
+        </div>
+        <div class="applicant-list__column" fxHide.xs>
+          <p class="applicant-list__cell">Datum rođenja</p>
+        </div>
+        <div class="applicant-list__column" fxHide.xs>
+          <p class="applicant-list__cell">Imena roditelja</p>
+        </div>
+        <div class="applicant-list__column" fxHide.xs>
+          <p class="applicant-list__cell">Kontakt broj</p>
+        </div>
+      </div>
+      <div *ngFor="let applicant of (applicants | async); let i=index" (click)="showInfo(i)" class="applicant-list__item" fxLayout="column">
+        <a mat-button [routerLink]="[applicant?.id]" class="applicant-list__row" fxFlex="100%" fxLayoutAlign="space-around center">
+          <div class="applicant-list__column" fxFlex.xs="65%" fxFlex="100%" fxLayoutAlign="start center">
+            <div class="applicant-list__initials" fxLayoutAlign="center center">
+              <span>{{ (applicant?.firstName | firstLetter) + (applicant?.lastName | firstLetter) }}</span>
+            </div>
+            <p class="applicant-list__cell name">{{ applicant?.firstName + ' ' + applicant?.lastName }}</p>
+          </div>
+          <div class="applicant-list__column" fxFlex.xs="35%" fxFlex="100%">
+            <p class="applicant-list__cell years">{{ applicant?.birthdate | age }}</p>
+          </div>
+          <div class="applicant-list__column" fxHide.xs>
+            <p class="applicant-list__cell birthdate">{{ applicant?.birthdate | date:'dd.MM.yyyy' }}</p>
+          </div>
+          <div class="applicant-list__column" fxHide.xs>
+            <p class="applicant-list__cell parents">{{ applicant?.parentsNames }}</p>
+          </div>
+          <div class="applicant-list__column" fxHide.xs>
+            <p class="applicant-list__cell contact">{{ applicant?.phoneNumber }}</p>
+          </div>
+        </a>
+        <!-- <div [ngClass]="{'active': activeDetails === i }" class="applicant-list__details__container" fxLayout="column">
+          <div fxFlex="100%" fxLayout.lt-md="column">
+            <div class="applicant-list__details__row" fxFlex="50%">
+              <div class="applicant-list__details__box" fxFlex="50%">
+                <p>Ime</p>
+                <h4 *ngIf="(applicants | async)[i]?.firstName">{{ (applicants | async)[i]?.firstName }}</h4>
+                <h4 class="no-data" *ngIf="!(applicants | async)[i]?.firstName">Nema podataka</h4>
+              </div>
+              <div class="applicant-list__details__box" fxFlex="50%">
+                <p>Prezime</p>
+                <h4 *ngIf="(applicants | async)[i]?.lastName">{{ (applicants | async)[i]?.lastName }}</h4>
+                <h4 class="no-data" *ngIf="!(applicants | async)[i]?.lastName">Nema podataka</h4>
+              </div>
+            </div>
+            <div class="applicant-list__details__row" fxFlex="50%">
+              <div class="applicant-list__details__box" fxFlex="50%">
+                <p>Datum rođenja</p>
+                <h4 *ngIf="(applicants | async)[i]?.birthdate">{{ (applicants | async)[i]?.birthdate | date:'dd.MM.yyyy'
+                  }}
+                </h4>
+                <h4 class="no-data" *ngIf="!(applicants | async)[i]?.birthdate">Nema podataka</h4>
+              </div>
+              <div class="applicant-list__details__box" fxFlex="50%">
+                <p>Broj godina</p>
+                <h4 *ngIf="(applicants | async)[i]?.birthdate">{{ (applicants | async)[i]?.birthdate | age }}</h4>
+                <h4 class="no-data" *ngIf="!(applicants | async)[i]?.birthdate">Nema podataka</h4>
+              </div>
+            </div>
+          </div>
+          <div fxFlex="100%" fxLayout.lt-md="column">
+            <div class="applicant-list__details__row" fxFlex="50%" fxLayout="column">
+              <div class="applicant-list__details__box" fxFlex.xs="100%" [fxFlex.gt-xs]="!!applicant[i]?.parentsNames ? '100%' : '50%'">
+                <p>Imena roditelja</p>
+                <h4 *ngIf="(applicants | async)[i]?.parentsNames">{{ (applicants | async)[i]?.parentsNames }}</h4>
+                <h4 class="no-data" *ngIf="!(applicants | async)[i]?.parentsNames">Nema podataka</h4>
+              </div>
+              <div class="applicant-list__details__box" fxFlex.xs="100%" [fxFlex.gt-xs]="!!applicant[i]?.phoneNumber ? '100%' : '50%'">
+                <p>Kontakt broj</p>
+                <h4 *ngIf="(applicants | async)[i]?.phoneNumber">{{ (applicants | async)[i]?.phoneNumber }}</h4>
+                <h4 class="no-data" *ngIf="!(applicants | async)[i]?.phoneNumber">Nema podataka</h4>
+              </div>
+            </div>
+            <div class="applicant-list__details__row" fxFlex="50%" fxLayout="column">
+              <div class="applicant-list__details__box" fxFlex.xs="100%" [fxFlex.gt-xs]="!!applicant[i]?.email ? '100%' : '50%'">
+                <p>Email</p>
+                <h4 *ngIf="(applicants | async)[i]?.email">{{ (applicants | async)[i]?.email }}</h4>
+                <h4 class="no-data" *ngIf="!(applicants | async)[i]?.email">Nema podataka</h4>
+              </div>
+              <div class="applicant-list__details__box" fxFlex.xs="100%" [fxFlex.gt-xs]="!!applicant[i]?.message ? '100%' : '50%'">
+                <p>Napomena</p>
+                <h4 *ngIf="(applicants | async)[i]?.message">{{ (applicants | async)[i]?.message }}</h4>
+                <h4 class="no-data" *ngIf="!(applicants | async)[i]?.message">Nema podataka</h4>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div *ngIf="!(applicants | async)" class="applicant-list__empty-list">
+        <p>Nema podataka</p>
+      </div>
+    </div>
+  </div>
+</div>

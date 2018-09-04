@@ -11,31 +11,34 @@
     color: #91979b;
   }
   &__search {
-    position: relative;
     width: 100%;
-    & > input {
+    &-box {
+      position: relative;
       width: 100%;
-      font-size: 14px;
-      line-height: 18px;
-      outline: none;
-      background-color: #f5f5f5;
-      border-radius: 18px;
-      border: 1px solid #eee;
-      padding: 8px 8px 8px 34px;
-      -webkit-appearance: none;
-      min-height: 18px;
-      color: #91979b;
-      transition: border-color 0.3s;
-      &::placeholder {
-        color: #ccc;
+      & > input {
+        width: 100%;
+        font-size: 14px;
+        line-height: 18px;
+        outline: none;
+        background-color: #f5f5f5;
+        border-radius: 18px;
+        border: 1px solid #eee;
+        padding: 8px 8px 8px 34px;
+        -webkit-appearance: none;
+        min-height: 18px;
+        color: #91979b;
+        transition: border-color 0.3s;
+        &::placeholder {
+          color: #ccc;
+        }
       }
-    }
-    & > mat-icon {
-      position: absolute;
-      left: 12px;
-      top: 9px;
-      color: #ccc;
-      @include mat-icon-size(20px);
+      & > mat-icon {
+        position: absolute;
+        left: 12px;
+        top: 9px;
+        color: #ccc;
+        @include mat-icon-size(20px);
+      }
     }
   }
   &__initials {

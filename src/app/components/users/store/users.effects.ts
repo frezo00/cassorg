@@ -18,14 +18,12 @@ import {
   GetLoggedInUserDataBegin,
   GetLoggedInUserDataSuccess,
   Errors,
-  GetApplicantsSuccess,
   GetRecentUsersComplete,
   CreateUser,
   CheckIfUserExists,
   PlainAction,
   CreateUserAfterRegisterBegin
 } from './users.actions';
-import { getApplicants } from './users.selectors';
 import * as ProjectActions from '../../project/store';
 import { IUser, IUserLogin, IApplicant } from '../../../models/user.model';
 import { AppState } from '../../../store';
@@ -47,19 +45,6 @@ export class UsersEffects {
             new GetLoggedInUserDataSuccess(userData[0])
           ];
         }),
-        catchError(error => of(new Errors(error)))
-      )
-    )
-  );
-
-  @Effect()
-  getApplicants$: Observable<Action> = this.actions$.pipe(
-    ofType(UsersActionTypes.GET_APPLICANTS_BEGIN),
-    withLatestFrom(this.store$.select(getApplicants)),
-    filter(([action, applicants]) => !applicants), // only continue if applicants don't exist
-    switchMap(() =>
-      this.userService.getApplicants().pipe(
-        map((applicants: IApplicant[]) => new GetApplicantsSuccess(applicants)),
         catchError(error => of(new Errors(error)))
       )
     )

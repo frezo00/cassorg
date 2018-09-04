@@ -18,6 +18,9 @@ import { UserProfileComponent } from '../components/users/user-profile/user-prof
 import { ApplicantsComponent } from '../components/applicants/applicants.component';
 import { GroupListComponent } from '../components/groups/group-list/group-list.component';
 import { GroupAddComponent } from '../components/groups/group-add/group-add.component';
+import { ApplicantListComponent } from '../components/applicants/applicant-list/applicant-list.component';
+import { ApplicantProfileComponent } from '../components/applicants/applicant-profile/applicant-profile.component';
+import { ApplicantUserFormComponent } from '../components/applicants/applicant-user-form/applicant-user-form.component';
 
 const routes: Routes = [
   {
@@ -34,7 +37,15 @@ const routes: Routes = [
           { path: ':id', component: UserProfileComponent }
         ]
       },
-      { path: 'applicants', component: ApplicantsComponent },
+      {
+        path: 'applicants',
+        component: ApplicantsComponent,
+        children: [
+          { path: '', component: ApplicantListComponent },
+          { path: ':id', component: ApplicantProfileComponent },
+          { path: 'user', component: ApplicantUserFormComponent }
+        ]
+      },
       {
         path: 'groups',
         component: GroupsComponent,

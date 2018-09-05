@@ -15,50 +15,41 @@
       0 8px 10px 1px rgba($color: #333333, $alpha: 0.14),
       0 3px 14px 2px rgba($color: #333333, $alpha: 0.12);
   }
-  &__column {
-    width: 100%;
-    overflow: hidden;
-    &.number {
-      max-width: 40px;
-      text-align: center;
-    }
-  }
   &__item {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #eee;
+    padding: 0;
     &:last-child {
       border-bottom: none;
     }
   }
-  &__row {
-    &:not(.header) {
-      border-left: 4px solid #ee3b3b;
-      transition: background-color 0.3s;
-    }
-    &:not(.header):hover {
-      cursor: pointer;
-      background-color: rgba($color: #333333, $alpha: 0.1);
-    }
-    &.header {
-      font-weight: 600;
-      font-size: 14px;
-      border-bottom: 1px solid #ccc;
-    }
-  }
   &__cell {
-    color: color(text-08);
-    &:not(.number) {
-      padding-left: 12px;
-      max-width: 150px;
+    padding-left: 8px;
+    max-width: 150px;
+    &-title {
+      color: #91979b;
+      font-weight: 500;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      padding-left: 12px;
+      text-align: left;
+      line-height: 1.2em;
+      &.header {
+        text-transform: uppercase;
+        font-weight: 600;
+        color: color(text-05);
+        &.accepted {
+          padding-left: 0;
+          text-align: center;
+        }
+      }
     }
-    &.number {
-      text-align: center;
-      font-size: 14px;
-    }
-    &.name {
+  }
+  &__row {
+    &.header {
       font-weight: 600;
+      font-size: 14px;
+      border-bottom: 1px solid #eee;
     }
   }
   &__initials {
@@ -67,7 +58,7 @@
     overflow: hidden;
     background-color: #fafafa;
     border-radius: 50%;
-    border: 1px solid #cccc;
+    border: 1px solid #ccc;
     color: color(red-primary);
     text-align: center;
     margin: 8px;
@@ -76,59 +67,38 @@
       font-weight: 600;
     }
   }
-}
-.applicant-list__details {
-  &__container {
-    // height: 0;
-    opacity: 0;
-    visibility: hidden;
+  &__data {
+    padding-left: 8px;
     overflow: hidden;
-    transition: all 0.3s;
-    &.active {
-      padding: 20px; // height: 340px;
-      overflow: visible;
-      opacity: 1;
-      visibility: visible;
-      border-top: 1px solid #eee;
-      /* @include xsmall {
-        padding: 16px 0;
-      } */
+    text-align: left;
+    &-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: color(text-08);
+      line-height: 1.4em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-    &:not(.active) {
-      height: 0;
+    &-years {
+      font-size: 12px;
+      color: color(text-05);
+      line-height: 1em;
     }
   }
-  /* &__row {
-    border-top: 1px solid #eee;
-  } */
-  &__box {
-    padding: 0px 8px 0 20px;
-    margin: 8px 0px;
-    width: 100%;
-    color: #333;
-    & > p {
-      margin: 0;
-      font-size: 14px;
-      color: rgba($color: #333333, $alpha: 0.7);
-    }
-    & > h4 {
-      margin: 8px 0;
-      min-height: 18px;
-      // font-size: 15px;
-      white-space: pre-wrap;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      &.no-data {
-        font-size: 14px;
-        font-style: italic;
-        color: rgba($color: #333333, $alpha: 0.5);
-        font-weight: 500;
-      }
-    }
+  &__message {
+    color: rgba($color: #91979b, $alpha: 0.7);
+    padding-left: 12px;
+  }
+  &__accepted {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
   }
 }
 
 .applicant-list__empty-list {
   text-align: center;
-  color: rgba($color: #333333, $alpha: 0.5);
+  color: color(text-05);
 }

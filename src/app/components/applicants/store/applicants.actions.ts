@@ -1,10 +1,14 @@
 import { Action } from '@ngrx/store';
-import { IApplicant } from '../../../models';
+import { IApplicant, ISort } from '../../../models';
 
 export enum ApplicantsActionTypes {
   // Get ALL Applicants
   GET_APPLICANTS_BEGIN = '[Applicants] Get Applicants Begin',
   GET_APPLICANTS_SUCCESS = '[Applicants] Get Applicants Success',
+
+  // Sort and Limit Applicants
+  SORT_APPLICANTS = '[Applicants] Sort Applicants',
+  LIMIT_APPLICANTS = '[Applicants] Limit Applicants',
 
   // Get SINGLE Applicant
   GET_SINGLE_APPLICANT_BEGIN = '[Applicants] Get Single Applicant Begin',
@@ -21,6 +25,16 @@ export class GetApplicantsBegin implements Action {
 export class GetApplicantsSuccess implements Action {
   readonly type = ApplicantsActionTypes.GET_APPLICANTS_SUCCESS;
   constructor(public payload: IApplicant[]) {}
+}
+
+// Sort and Limit Applicants
+export class SortApplicants implements Action {
+  readonly type = ApplicantsActionTypes.SORT_APPLICANTS;
+  constructor(public payload: ISort) {}
+}
+export class LimitApplicants implements Action {
+  readonly type = ApplicantsActionTypes.LIMIT_APPLICANTS;
+  constructor(public payload: number) {}
 }
 
 // Get SINGLE Applicant
@@ -42,6 +56,8 @@ export class ApplicantsErrors implements Action {
 export type ApplicantsActions =
   | GetApplicantsBegin
   | GetApplicantsSuccess
+  | SortApplicants
+  | LimitApplicants
   | GetSingleApplicantBegin
   | GetSingleApplicantSuccess
   | ApplicantsErrors;

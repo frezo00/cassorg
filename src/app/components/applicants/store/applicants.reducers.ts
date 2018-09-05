@@ -21,6 +21,19 @@ export function applicantsReducer(
     case ApplicantsActionTypes.GET_APPLICANTS_SUCCESS: {
       return { ...state, applicants: action.payload };
     }
+    case ApplicantsActionTypes.SORT_APPLICANTS: {
+      let sortedApplicants: IApplicant[];
+      sortedApplicants = { ...state }.applicants.slice().sort((a, b) => {
+        if (action.payload.order === 'desc') {
+          return a[action.payload.name] > b[action.payload.name] ? -1 : 1;
+        }
+        return a[action.payload.name] < b[action.payload.name] ? -1 : 1;
+      });
+      return { ...state, applicants: sortedApplicants };
+    }
+    case ApplicantsActionTypes.GET_APPLICANTS_SUCCESS: {
+      return { ...state, applicants: action.payload };
+    }
     case ApplicantsActionTypes.GET_SINGLE_APPLICANT_SUCCESS: {
       return { ...state, currentApplicantProfile: action.payload };
     }

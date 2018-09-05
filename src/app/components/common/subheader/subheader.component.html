@@ -8,7 +8,29 @@
       <p *ngIf="!!subtitle" class="subheader__subtitle">{{ subtitle }}</p>
     </div>
   </div>
-  <a *ngIf="!!actionText" (click)="onAction()" class="subheader__action-button" mat-raised-button>
-    {{ actionText }}
-  </a>
+  <div class="subheader__actions" fxLayoutGap="16px">
+    <a *ngIf="!!actionText" (click)="onAction()" class="subheader__action-button" mat-raised-button>
+      {{ actionText }}
+    </a>
+    <button mat-icon-button class="subheader__filter" [matMenuTriggerFor]="orderByMenu">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+    <button mat-icon-button class="subheader__list-length" [matMenuTriggerFor]="limitMenu">
+      <mat-icon>format_line_spacing</mat-icon>
+    </button>
+  </div>
 </div>
+
+<mat-menu #orderByMenu="matMenu">
+  <button mat-menu-item *ngFor="let order of orderByValues" (click)="onSortChange({name: order?.value, order: order?.direction})">
+    <div class="subheader__menu" fxLayoutAlign="space-between center">
+      <p class="subheader__menu-title">{{order?.title}}</p>
+      <span *ngIf="!!order?.subtitle" class="subheader__menu-subtitle">({{order?.subtitle}})</span>
+    </div>
+  </button>
+</mat-menu>
+<mat-menu #limitMenu="matMenu">
+  <button mat-menu-item *ngFor="let limit of limitValues" (click)="onSortChange({limit: limit})">
+    <span class="subheader__menu-title">{{limit}}</span>
+  </button>
+</mat-menu>

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState, GetApplicantsBegin } from '../../../store';
-import { IApplicant } from '../../../models';
+import { AppState, GetApplicantsBegin, SortApplicants } from '../../../store';
+import { IApplicant, ISort } from '../../../models';
 
 @Component({
   selector: 'app-applicant-list',
@@ -21,11 +21,8 @@ export class ApplicantListComponent implements OnInit {
     this.applicants = this.store.select(state => state.applicants.applicants);
   }
 
-  showInfo(index: number): void {
-    if (index === this.activeDetails) {
-      this.activeDetails = -1;
-    } else {
-      this.activeDetails = index;
-    }
+  setSort(order: ISort) {
+    console.log('order', order);
+    this.store.dispatch(new SortApplicants(order));
   }
 }

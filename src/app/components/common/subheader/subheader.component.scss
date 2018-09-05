@@ -27,6 +27,9 @@
     margin: 0;
     font-size: 14px;
   }
+  &__actions {
+    padding-right: 4px;
+  }
   &__action-button {
     border-radius: 20px !important;
     padding: 0 20px !important;
@@ -36,6 +39,21 @@
     &.outline {
       color: color(red-primary);
       background-color: white;
+    }
+  }
+  &__filter,
+  &__list-length {
+    color: white;
+    background-color: rgba($color: #91979b, $alpha: 0.5);
+  }
+  &__menu {
+    &-title {
+      color: color(text-08);
+    }
+    &-subtitle {
+      color: color(text-05);
+      font-size: 14px;
+      padding-left: 12px;
     }
   }
 }

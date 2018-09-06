@@ -12,7 +12,8 @@ import { IApplicant, ISort } from '../../../models';
 })
 export class ApplicantListComponent implements OnInit {
   applicants: Observable<IApplicant[]>;
-  activeDetails = -1;
+  searchText = '';
+  searchKeys: string[] = ['firstName', 'lastName'];
 
   constructor(private store: Store<AppState>) {}
 
@@ -22,7 +23,6 @@ export class ApplicantListComponent implements OnInit {
   }
 
   setSort(order: ISort) {
-    console.log('order', order);
     this.store.dispatch(new SortApplicants(order));
   }
 }

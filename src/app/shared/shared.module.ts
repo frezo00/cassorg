@@ -11,6 +11,7 @@ import { CreateProjectModalComponent } from './../components/project/create-proj
 import { FirstLetterPipe } from '../pipes/first-letter.pipe';
 import { AgePipe } from '../pipes/age.pipe';
 import { UserSizePipe } from '../pipes/user-size.pipe';
+import { SearchPipe } from '../pipes/search/search.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UserSizePipe } from '../pipes/user-size.pipe';
     CreateProjectModalComponent,
     FirstLetterPipe,
     AgePipe,
-    UserSizePipe
+    UserSizePipe,
+    SearchPipe
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,8 @@ import { UserSizePipe } from '../pipes/user-size.pipe';
     CreateProjectModalComponent,
     FirstLetterPipe,
     AgePipe,
-    UserSizePipe
+    UserSizePipe,
+    SearchPipe
   ],
   providers: [],
   entryComponents: [CreateProjectModalComponent]

@@ -6,21 +6,27 @@
     margin-bottom: 8px;
   }
   &__content {
-    padding-left: 8px;
+    padding-left: 4px;
   }
   &__go_back {
     text-decoration: none;
     color: #91979b;
     transition: color 0.3s;
-    margin-left: -20px !important;
+    margin-left: -12px !important;
     &:hover {
       color: #777;
     }
+  }
+  &__text {
+    overflow: hidden;
   }
   &__title {
     color: color(text-08);
     margin: 0;
     font-size: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   &__subtitle {
     color: color(text-05);

@@ -11,6 +11,8 @@ export class SubheaderComponent implements OnInit {
   @Input()
   showBackButton = false;
   @Input()
+  showSort = false;
+  @Input()
   actionText = '';
   @Input()
   title: string;
@@ -21,7 +23,7 @@ export class SubheaderComponent implements OnInit {
   @Output()
   sortChange: EventEmitter<ISort> = new EventEmitter();
 
-  orderByValues = [
+  sortValues = [
     {
       title: 'Zadano',
       value: 'dateCreated',
@@ -42,15 +44,13 @@ export class SubheaderComponent implements OnInit {
     { title: 'Najstariji prvo', value: 'birthdate', direction: 'asc' },
     { title: 'Najmlađi prvo', value: 'birthdate', direction: 'desc' }
   ];
-  limitValues: number[] = [5, 10, 20, 40];
 
   sort: ISort;
 
   constructor(public location: Location) {
     this.sort = {
-      name: this.orderByValues[0].value,
-      order: 'desc',
-      limit: this.limitValues[1]
+      name: this.sortValues[0].value,
+      order: 'desc'
     };
   }
 
@@ -63,8 +63,7 @@ export class SubheaderComponent implements OnInit {
   onSortChange(newSort: ISort) {
     this.sort = {
       name: !!newSort.name ? newSort.name : this.sort.name,
-      order: !!newSort.order ? newSort.order : this.sort.order,
-      limit: !!newSort.limit ? newSort.limit : this.sort.limit
+      order: !!newSort.order ? newSort.order : this.sort.order
     };
     this.sortChange.emit(this.sort);
   }

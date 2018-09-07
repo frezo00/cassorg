@@ -27,6 +27,10 @@ import { GroupListComponent } from './groups/group-list/group-list.component';
 import { ApplicantListComponent } from './applicants/applicant-list/applicant-list.component';
 import { ApplicantUserFormComponent } from './applicants/applicant-user-form/applicant-user-form.component';
 import { ApplicantProfileComponent } from './applicants/applicant-profile/applicant-profile.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { MembersComponent } from './members/members.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
+import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,11 @@ import { ApplicantProfileComponent } from './applicants/applicant-profile/applic
     GroupListComponent,
     ApplicantListComponent,
     ApplicantUserFormComponent,
-    ApplicantProfileComponent
+    ApplicantProfileComponent,
+    UserListComponent,
+    MembersComponent,
+    MemberListComponent,
+    MemberProfileComponent
   ],
   imports: [
     CommonModule,

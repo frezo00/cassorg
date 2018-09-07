@@ -3,14 +3,21 @@
     <a *ngIf="!!showBackButton" mat-icon-button class="subheader__go_back" (click)="location.back()">
       <mat-icon>arrow_back</mat-icon>
     </a>
-    <div class="subheader__text" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="4px">
+    <div class="subheader__text" fxLayout="column" fxLayoutAlign="center stretch">
       <h2 class="subheader__title">{{ title }}</h2>
       <p *ngIf="!!subtitle" class="subheader__subtitle">{{ subtitle }}</p>
     </div>
   </div>
-  <div *ngIf="!!actionText || !!showSort" class="subheader__actions" fxLayoutGap="16px" fxFlex="30%" fxLayoutAlign="end center">
-    <a *ngIf="!!actionText" (click)="onAction()" class="subheader__action-button" mat-raised-button>
+  <div *ngIf="!!actionText || !!showSort || !!actionIcon" class="subheader__actions" fxLayoutGap="16px" fxFlex="30%"
+    fxLayoutAlign="end center">
+    <a *ngIf="!!actionText" (click)="onAction()" class="subheader__action-button" mat-raised-button fxHide.xs>
       {{ actionText }}
+    </a>
+    <a mat-icon-button *ngIf="!!actionIcon" (click)="onAction()" class="subheader__action-icon" mat-raised-button
+      fxHide.gt-xs fxLayoutAlign="center center">
+      <div class="subheade__action-icon-box" fxLayoutAlign="center center">
+        <mat-icon>{{ actionIcon }}</mat-icon>
+      </div>
     </a>
     <button *ngIf="!!showSort" mat-icon-button class="subheader__filter" [matMenuTriggerFor]="sortMenu">
       <mat-icon>filter_list</mat-icon>

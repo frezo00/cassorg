@@ -12,6 +12,7 @@ import { AuthEffects } from './components/auth/store';
 import { RouterEffects } from './router/store';
 import { UsersEffects } from './store';
 import { ProjectEffects } from './components/project/store';
+import { MembersEffects } from './components/members/store';
 import { GroupsEffects } from './components/groups/store';
 import { ApplicantsEffects } from './components/applicants/store';
 
@@ -32,6 +33,7 @@ import { CommonService } from './components/common/common.service';
 import { ModalService } from './components/common/modal/modal.service';
 import { GroupsService } from './components/groups/groups.service';
 import { ApplicantsService } from './components/applicants/applicants.service';
+import { MembersService } from './components/members/members.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,6 +49,7 @@ import { ApplicantsService } from './components/applicants/applicants.service';
       RouterEffects,
       UsersEffects,
       ProjectEffects,
+      MembersEffects,
       GroupsEffects,
       ApplicantsEffects
     ]),
@@ -61,6 +64,7 @@ import { ApplicantsService } from './components/applicants/applicants.service';
     ProjectService,
     UsersService,
     ApplicantsService,
+    MembersService,
     GroupsService,
     CommonService,
     ModalService

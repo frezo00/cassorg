@@ -15,6 +15,8 @@ export class SubheaderComponent implements OnInit {
   @Input()
   actionText = '';
   @Input()
+  actionIcon = '';
+  @Input()
   title: string;
   @Input()
   subtitle: string;

@@ -5,13 +5,15 @@ export interface IUserLogin {
 }
 
 export interface IUser {
+  dateCreated: string;
+  createdBy: string;
   id?: string;
   authId?: string;
   displayName?: string;
   firstName?: string;
   lastName?: string;
   email?: string;
-  gender?: 'male' | 'female' | null;
+  gender?: 'male' | 'female';
   phoneNumber?: string;
   birthdate?: string;
   address?: string;
@@ -40,6 +42,8 @@ export class User implements IUser {
     public authId: string,
     public displayName: string,
     public email: string,
+    public dateCreated: string,
+    public createdBy: string,
     public id?: string,
     public firstName?: string,
     public lastName?: string,

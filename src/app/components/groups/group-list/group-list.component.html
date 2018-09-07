@@ -1,5 +1,6 @@
 <div class="group-list__container" fxFlexFill>
-  <app-subheader [title]="'Grupe'" [subtitle]="'Ukupno: ' + (groups | async)?.length" [actionText]="'Nova grupa'" (action)="openNewGroupModal()"></app-subheader>
+  <app-subheader [title]="'Grupe'" [subtitle]="'Ukupno: ' + (groups | async)?.length" [actionText]="'Nova grupa'"
+    [actionIcon]="'add'" (action)="openNewGroupModal()"></app-subheader>
   <div class="group-list__content" fxLayoutAlign="center stretch">
     <div class="group-list__table" fxFlex="100%">
       <div class="group-list__row header" fxLayoutAlign="space-between center">

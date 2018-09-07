@@ -24,6 +24,7 @@
     color: color(text-08);
     margin: 0;
     font-size: 24px;
+    line-height: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -32,6 +33,7 @@
     color: color(text-05);
     margin: 0;
     font-size: 14px;
+    line-height: 18px;
   }
   &__actions {
     padding-right: 4px;
@@ -46,6 +48,10 @@
       color: color(red-primary);
       background-color: white;
     }
+  }
+  &__action-icon {
+    background-color: color(red-primary);
+    color: white;
   }
   &__filter,
   &__list-length {

@@ -1,49 +1,32 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { IUser, IUserLogin, IApplicant } from '../../models/user.model';
+import { IUser, IUserLogin, IApplicant, IMember } from '../../models';
 import { ProjectService } from '../project/project.service';
 import { Store } from '@ngrx/store';
 
-import * as fromApp from '../../store';
+import { AppState, getActiveProject } from '../../store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { IProject } from '../../models';
 
 @Injectable()
 export class UsersService {
   constructor(
     private afDB: AngularFirestore,
-    private store: Store<fromApp.AppState>,
+    private store: Store<AppState>,
     public projectService: ProjectService
   ) {}
 
   getUserByAuthId(authId: string): Observable<IUser[]> {
-    console.log('aut', authId);
     return this.afDB
       .collection<IUser>('users', ref => ref.where('authId', '==', authId))
-      .snapshotChanges().pipe(
+      .snapshotChanges()
+      .pipe(
         map(users =>
           users.map(u => {
             const data = u.payload.doc.data() as IUser;
             const id = u.payload.doc.id;
-            console.log('user is', { id, ...data });
             return { id, ...data } as IUser;
-          })
-        )
-      );
-  }
-
-  getApplicants(): Observable<IApplicant[]> {
-    return this.afDB
-      .collection<IApplicant>('applicants', ref =>
-        ref.orderBy('dateCreated', 'desc')
-      )
-      .snapshotChanges()
-      .pipe(
-        map(applicants =>
-          applicants.map(a => {
-            const data = a.payload.doc.data() as IApplicant;
-            const id = a.payload.doc.id;
-            return { id, ...data } as IApplicant;
           })
         )
       );

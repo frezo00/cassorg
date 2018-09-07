@@ -21,6 +21,9 @@ import { GroupAddComponent } from '../components/groups/group-add/group-add.comp
 import { ApplicantListComponent } from '../components/applicants/applicant-list/applicant-list.component';
 import { ApplicantProfileComponent } from '../components/applicants/applicant-profile/applicant-profile.component';
 import { ApplicantUserFormComponent } from '../components/applicants/applicant-user-form/applicant-user-form.component';
+import { MembersComponent } from '../components/members/members.component';
+import { MemberListComponent } from '../components/members/member-list/member-list.component';
+import { MemberProfileComponent } from '../components/members/member-profile/member-profile.component';
 
 const routes: Routes = [
   {
@@ -30,11 +33,11 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       {
-        path: 'users',
+        path: 'members',
+        component: MembersComponent,
         children: [
-          { path: '', component: UsersComponent },
-          { path: 'add', component: UserAddComponent },
-          { path: ':id', component: UserProfileComponent }
+          { path: '', component: MemberListComponent },
+          { path: ':id', component: MemberProfileComponent }
         ]
       },
       {

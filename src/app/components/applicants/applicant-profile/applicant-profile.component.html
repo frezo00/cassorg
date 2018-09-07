@@ -1,8 +1,9 @@
 <div class="applicant-profile__container" fxFlexFill>
   <app-subheader [title]="applicant?.firstName + ' ' + applicant?.lastName" [subtitle]="'Upisan/a: ' + (applicant?.dateCreated | date:'dd.MM.yyyy HH:mm')"
     [showBackButton]="true"></app-subheader>
-  <div class="applicant-profile__content">
-    <mat-card fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
+  <div class="applicant-profile__content mat-elevation-z8" fxLayout="column" fxLayoutAlign="space-between stretch"
+    fxLayoutGap="8px">
+    <div class="applicant-profile__content-wrapper" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
       <div class="applicant-profile__header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
         <div class="applicant-profile__header-initials" fxLayoutAlign="center center">
           <span>{{(applicant?.firstName | firstLetter) + (applicant?.lastName | firstLetter)}}</span>
@@ -48,6 +49,14 @@
           <p *ngIf="!applicant?.message" class="no-data">Nema podataka</p>
         </div>
       </div>
-    </mat-card>
+    </div>
+    <div class="applicant-profile__actions" fxLayoutAlign="space-around center">
+      <button mat-button class="applicant-profile__actions-button outline">
+        <span>Odbaci</span>
+      </button>
+      <button mat-button class="applicant-profile__actions-button">
+        <span>Prihvati</span>
+      </button>
+    </div>
   </div>
 </div>

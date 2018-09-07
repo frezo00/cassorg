@@ -7,6 +7,11 @@
 .applicant-profile {
   &__content {
     margin-bottom: 40px;
+    background-color: white;
+    border-radius: 2px;
+    &-wrapper {
+      padding: 24px 16px 0;
+    }
   }
   &__header {
     &-initials {
@@ -60,6 +65,24 @@
         font-style: italic;
         color: rgba($color: #333333, $alpha: 0.2);
         font-weight: 500;
+      }
+    }
+  }
+  &__actions {
+    border-top: 1px solid #eee;
+    padding: 16px;
+    &-button {
+      background-color: color(red-primary);
+      color: white;
+      font-size: 14px;
+      text-transform: uppercase;
+      border-radius: 20px;
+      border: 1px solid transparent;
+      padding: 0px 28px;
+      &.outline {
+        background-color: white;
+        color: color(red-primary);
+        border-color: color(red-primary);
       }
     }
   }

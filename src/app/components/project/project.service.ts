@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Store } from '@ngrx/store';
 import { AngularFirestore } from 'angularfire2/firestore';
 
+import { AppState } from '../../store';
 import { IProject } from '../../models';
 
 @Injectable()
 export class ProjectService {
-  constructor(public dialog: MatDialog, private afDB: AngularFirestore) {}
+  projectId: string;
+
+  constructor(private afDB: AngularFirestore, private store: Store<AppState>) {
+    this.store
+      .select(state => state.project.activeProject)
+      .subscribe((project: IProject) => {
+        if (!!project) {
+          this.projectId = project.tag;
+        }
+      });
+  }
 
   createProject(project: IProject): Promise<any> {
-    // return this.afDB.collection('projects').add(project);
     return this.afDB
       .collection('projects')
       .doc(project.tag)

@@ -1,15 +1,17 @@
 export interface IMember {
   dateCreated: string;
-  createdBy: string;
   id?: string;
   authId?: string;
+  createdBy?: string;
   firstName?: string;
   lastName?: string;
-  email?: string;
-  gender?: 'male' | 'female';
-  phoneNumber?: string;
   birthdate?: string;
+  phoneNumber?: string;
+  parents?: string;
+  gender?: 'male' | 'female' | null;
+  email?: string;
   address?: string;
   photoURL?: string;
   note?: string;
+  siblings?: string[];
 }

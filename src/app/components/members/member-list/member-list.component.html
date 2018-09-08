@@ -1,5 +1,6 @@
 <div class="member-list__container" fxFlexFill>
-  <app-subheader [title]="'Članovi'" [subtitle]="'Ukupno: ' + (members | async)?.length" [showSort]="true"></app-subheader>
+  <app-subheader [title]="'Članovi'" [subtitle]="'Ukupno: ' + (members | async)?.length" [showSort]="true" [actionText]="'Novi član'"
+    [actionIcon]="'add'" (action)="navigateToForm()"></app-subheader>
   <div class="member-list__content" fxLayoutAlign="center center">
     <div class="member-list__table mat-elevation-z8" fxFlex="100%" fxLayout="column">
       <div class="member-list__row header" fxFlex="100%" fxLayoutAlign="space-between center">

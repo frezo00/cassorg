@@ -24,6 +24,7 @@ import { ApplicantUserFormComponent } from '../components/applicants/applicant-u
 import { MembersComponent } from '../components/members/members.component';
 import { MemberListComponent } from '../components/members/member-list/member-list.component';
 import { MemberProfileComponent } from '../components/members/member-profile/member-profile.component';
+import { MemberNewComponent } from '../components/members/member-new/member-new.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,7 @@ const routes: Routes = [
         component: MembersComponent,
         children: [
           { path: '', component: MemberListComponent },
+          { path: 'new', component: MemberNewComponent },
           { path: ':id', component: MemberProfileComponent }
         ]
       },
@@ -46,7 +48,7 @@ const routes: Routes = [
         children: [
           { path: '', component: ApplicantListComponent },
           { path: ':id', component: ApplicantProfileComponent },
-          { path: 'user', component: ApplicantUserFormComponent }
+          { path: 'new-user', component: ApplicantUserFormComponent }
         ]
       },
       {

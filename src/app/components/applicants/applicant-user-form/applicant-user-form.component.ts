@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IApplicant } from '../../../models';
 
 @Component({
   selector: 'app-applicant-user-form',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./applicant-user-form.component.scss']
 })
 export class ApplicantUserFormComponent implements OnInit {
+  @Input()
+  applicant: IApplicant;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

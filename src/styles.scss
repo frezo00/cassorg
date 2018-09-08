@@ -41,10 +41,13 @@ mat-horizontal-stepper > .mat-horizontal-content-container {
 :-webkit-autofill,
 :-webkit-autofill:hover,
 :-webkit-autofill:focus {
-  -webkit-text-fill-color: color(text);
+  -webkit-text-fill-color: color(text-08);
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   box-shadow: 0 0 0px 1000px white inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+mat-select .mat-select-value {
+  color: color(text-08);
 }
 
 .mat-form-field.ng-touched.ng-dirty.ng-valid {

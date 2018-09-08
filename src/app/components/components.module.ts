@@ -31,6 +31,8 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { MembersComponent } from './members/members.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
+import { MemberFormComponent } from './members/member-form/member-form.component';
+import { MemberNewComponent } from './members/member-new/member-new.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { MemberProfileComponent } from './members/member-profile/member-profile.
     UserListComponent,
     MembersComponent,
     MemberListComponent,
-    MemberProfileComponent
+    MemberProfileComponent,
+    MemberFormComponent,
+    MemberNewComponent
   ],
   imports: [
     CommonModule,

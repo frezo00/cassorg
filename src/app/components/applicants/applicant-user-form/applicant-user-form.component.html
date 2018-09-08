@@ -1,3 +1,7 @@
-<p>
-  applicant-user-form works!
-</p>
+<div class="applicant-user-form__container">
+  <app-subheader [title]="applicant?.firstName + ' ' + applicant?.lastName" [subtitle]="'Upisan/a: ' + (applicant?.dateCreated | date:'dd.MM.yyyy HH:mm')"
+    [showBackButton]="true"></app-subheader>
+  <div class="applicant-user-form__content">
+    <app-member-form [member]=""></app-member-form>
+  </div>
+</div>

@@ -5,6 +5,12 @@ import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { ColorPickerModule } from 'ngx-color-picker';
+import {
+  MatMomentDateModule,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_FORMATS,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS
+} from '@angular/material-moment-adapter';
 
 import { StopPropagationDirective } from '../directives/stop-propagation.directive';
 import { CreateProjectModalComponent } from './../components/project/create-project-modal/create-project-modal.component';
@@ -12,6 +18,11 @@ import { FirstLetterPipe } from '../pipes/first-letter.pipe';
 import { AgePipe } from '../pipes/age.pipe';
 import { UserSizePipe } from '../pipes/user-size.pipe';
 import { SearchPipe } from '../pipes/search/search.pipe';
+import {
+  DateAdapter,
+  MAT_DATE_LOCALE,
+  MAT_DATE_FORMATS
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -29,7 +40,8 @@ import { SearchPipe } from '../pipes/search/search.pipe';
     RouterModule,
     MaterialModule,
     FlexLayoutModule,
-    ColorPickerModule
+    ColorPickerModule,
+    MatMomentDateModule
   ],
   exports: [
     CommonModule,
@@ -39,6 +51,7 @@ import { SearchPipe } from '../pipes/search/search.pipe';
     MaterialModule,
     FlexLayoutModule,
     ColorPickerModule,
+    MatMomentDateModule,
     StopPropagationDirective,
     CreateProjectModalComponent,
     FirstLetterPipe,
@@ -46,7 +59,16 @@ import { SearchPipe } from '../pipes/search/search.pipe';
     UserSizePipe,
     SearchPipe
   ],
-  providers: [],
+  providers: [
+    /* {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE]
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }, */
+    { provide: MAT_DATE_LOCALE, useValue: 'hr-HR' },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+  ],
   entryComponents: [CreateProjectModalComponent]
 })
 export class SharedModule {}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState, GetMembersBegin } from '../../../store';
+import { AppState, GetMembersBegin, Go } from '../../../store';
 import { IMember } from '../../../models';
 
 @Component({
@@ -18,5 +18,9 @@ export class MemberListComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new GetMembersBegin());
     this.members = this.store.select(state => state.members.members);
+  }
+
+  navigateToForm() {
+    this.store.dispatch(new Go({ path: '/members/new' }));
   }
 }

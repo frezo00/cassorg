@@ -1,8 +1,8 @@
 export interface IMember {
-  dateCreated: string;
   id?: string;
   authId?: string;
   createdBy?: string;
+  dateCreated?: string;
   firstName?: string;
   lastName?: string;
   birthdate?: string;
@@ -14,4 +14,5 @@ export interface IMember {
   photoURL?: string;
   note?: string;
   siblings?: string[];
+  applicantId?: string;
 }

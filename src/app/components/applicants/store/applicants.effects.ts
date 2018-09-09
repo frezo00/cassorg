@@ -15,7 +15,9 @@ import {
   GetApplicantsSuccess,
   ApplicantsErrors,
   GetSingleApplicantBegin,
-  GetSingleApplicantSuccess
+  GetSingleApplicantSuccess,
+  UpdateApplicantBegin,
+  UpdateApplicantSuccess
 } from './applicants.actions';
 import { getApplicants } from './applicants.selectors';
 import { AppState } from '../../../store';
@@ -50,7 +52,10 @@ export class ApplicantsEffects {
           ).pipe(
             map(
               (applicant: DocumentSnapshot<IApplicant>) =>
-                new GetSingleApplicantSuccess(applicant.data() as IApplicant)
+                new GetSingleApplicantSuccess({
+                  ...applicant.data(),
+                  id: applicant.id
+                } as IApplicant)
             ),
             catchError(error => of(new ApplicantsErrors(error)))
           );
@@ -61,6 +66,20 @@ export class ApplicantsEffects {
           return of(new GetSingleApplicantSuccess(currentApplicant));
         }
       }
+    )
+  );
+
+  @Effect()
+  updateApplicant$: Observable<Action> = this.actions$.pipe(
+    ofType(ApplicantsActionTypes.UPDATE_APPLICANT_BEGIN),
+    map((action: UpdateApplicantBegin) => action.payload),
+    /* withLatestFrom(this.store$.select(getApplicants)),
+    filter(([action, applicants]) => !applicants), */
+    switchMap((applicantId: string) =>
+      from(this.applicantsService.updateApplicant(applicantId)).pipe(
+        map(() => new UpdateApplicantSuccess()),
+        catchError(error => of(new ApplicantsErrors(error)))
+      )
     )
   );
 

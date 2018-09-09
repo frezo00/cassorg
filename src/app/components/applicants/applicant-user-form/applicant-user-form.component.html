@@ -1,7 +1,7 @@
 <div class="applicant-user-form__container">
-  <app-subheader [title]="applicant?.firstName + ' ' + applicant?.lastName" [subtitle]="'Upisan/a: ' + (applicant?.dateCreated | date:'dd.MM.yyyy HH:mm')"
+  <app-subheader [title]="'Novi član iz upisa'" [subtitle]="'Podaci za: '" [subtitleBold]="applicant?.firstName + ' ' + applicant?.lastName"
     [showBackButton]="true"></app-subheader>
-  <div class="applicant-user-form__content">
-    <app-member-form [member]=""></app-member-form>
+  <div class="applicant-user-form__content mat-elevation-z8">
+    <app-member-form *ngIf="!!member" [member]="member"></app-member-form>
   </div>
 </div>

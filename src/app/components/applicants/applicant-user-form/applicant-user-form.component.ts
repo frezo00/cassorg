@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IApplicant } from '../../../models';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import { AppState, GetSingleApplicantBegin, Go } from '../../../store';
+import { IApplicant, IMember } from '../../../models';
 
 @Component({
   selector: 'app-applicant-user-form',
@@ -7,10 +11,37 @@ import { IApplicant } from '../../../models';
   styleUrls: ['./applicant-user-form.component.scss']
 })
 export class ApplicantUserFormComponent implements OnInit {
-  @Input()
   applicant: IApplicant;
+  member: IMember;
 
-  constructor() {}
+  constructor(private route: ActivatedRoute, private store: Store<AppState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store
+      .select(state => state.applicants.currentApplicantProfile)
+      .subscribe((applicant: IApplicant) => {
+        if (!!applicant) {
+          this.applicant = applicant;
+          this.member = this.applicantToMember(applicant);
+        } else {
+          this.store.dispatch(new Go({ path: '/applicants' }));
+        }
+      });
+    /* this.store.dispatch(
+      new GetSingleApplicantBegin(this.route.snapshot.paramMap.get('id'))
+    ); */
+  }
+
+  applicantToMember(applicant: IApplicant): IMember {
+    return {
+      firstName: applicant.firstName,
+      lastName: applicant.lastName,
+      birthdate: applicant.birthdate,
+      phoneNumber: applicant.phoneNumber,
+      parents: applicant.parentsNames,
+      email: applicant.email,
+      note: applicant.message,
+      applicantId: applicant.id
+    } as IMember;
+  }
 }

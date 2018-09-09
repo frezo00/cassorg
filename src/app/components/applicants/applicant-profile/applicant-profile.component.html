@@ -50,11 +50,11 @@
         </div>
       </div>
     </div>
-    <div class="applicant-profile__actions" fxLayoutAlign="space-around center">
-      <button mat-button class="applicant-profile__actions-button outline">
+    <div class="applicant-profile__actions" fxLayoutAlign="space-around center" fxLayoutGap="16px">
+      <button mat-button type="button" class="applicant-profile__actions-button outline" (click)="removeApplicant()">
         <span>Odbaci</span>
       </button>
-      <button mat-button class="applicant-profile__actions-button">
+      <button mat-button type="button" class="applicant-profile__actions-button" (click)="acceptApplicant()">
         <span>Prihvati</span>
       </button>
     </div>

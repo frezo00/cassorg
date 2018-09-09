@@ -47,8 +47,8 @@ const routes: Routes = [
         component: ApplicantsComponent,
         children: [
           { path: '', component: ApplicantListComponent },
-          { path: ':id', component: ApplicantProfileComponent },
-          { path: 'new-user', component: ApplicantUserFormComponent }
+          { path: 'new-user', component: ApplicantUserFormComponent },
+          { path: ':id', component: ApplicantProfileComponent }
         ]
       },
       {

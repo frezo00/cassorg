@@ -4,9 +4,8 @@
   width: 100%;
 }
 .member-list {
-  &__content {
-    background-color: #f5f5f5;
-    margin-bottom: 40px;
+  &__container {
+    padding-bottom: 40px;
   }
   &__table {
     border-radius: 2px;

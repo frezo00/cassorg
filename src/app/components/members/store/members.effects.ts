@@ -17,10 +17,12 @@ import {
   map,
   catchError,
   tap,
-  combineLatest
+  combineLatest,
+  mergeMap
 } from 'rxjs/operators';
 import { AppState } from '../../../store';
 import { getActiveProject } from '../../project/store';
+import { UpdateApplicantBegin } from '../../applicants/store';
 import { IMember, IProject } from '../../../models';
 import { MembersService } from '../members.service';
 
@@ -67,9 +69,13 @@ export class MembersEffects {
     ]),
     switchMap(([newMember, projectId]: [IMember, string]) =>
       from(this.membersService.createMember(newMember, projectId)).pipe(
-        map(() => {
-          console.log('member created');
-          return new CreateMemberSuccess();
+        mergeMap(() => {
+          const actions: Action[] = [new CreateMemberSuccess()];
+          if (!!newMember.applicantId) {
+            actions.push(new UpdateApplicantBegin(newMember.applicantId));
+          }
+          console.log('member created', newMember);
+          return actions;
         }),
         catchError(error => of(new SetMembersError(error)))
       )

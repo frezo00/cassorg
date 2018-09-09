@@ -4,8 +4,9 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromRouter from './router.actions';
-import { map, tap } from 'rxjs/operators';
+import { RouterActionTypes, Go } from './router.actions';
+import { map, tap, switchMap } from 'rxjs/operators';
+import { IRouter } from '../../models';
 
 @Injectable()
 export class RouterEffects {
@@ -13,8 +14,14 @@ export class RouterEffects {
 
   @Effect({ dispatch: false })
   navigateTo$ = this.actions$.pipe(
-    ofType(fromRouter.RouterActionTypes.GO),
-    map((action: fromRouter.Go) => action.payload),
-    tap(data => this.router.navigate([data.path]))
+    ofType(RouterActionTypes.GO),
+    map((action: Go) => action.payload),
+    map((routerData: IRouter) => {
+      const data = [routerData.path];
+      if (!!routerData.data) {
+        data.push(routerData.data);
+      }
+      return this.router.navigate(data);
+    })
   );
 }

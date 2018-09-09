@@ -1,5 +1,6 @@
-<div class="applicant-list__container" fxFlexFill>
-  <app-subheader [title]="'Upisi'" [subtitle]="'Ukupno: ' + (applicants | async)?.length" [showSort]="true" (sortChange)="setSort($event)"></app-subheader>
+<div class="applicant-list__container">
+  <app-subheader [title]="'Upisi'" [subtitle]="'Ukupno: ' + (applicants | async)?.length" [showSort]="true"
+    (sortChange)="setSort($event)"></app-subheader>
   <div class="applicant-list__content" fxLayoutAlign="center center">
     <div class="applicant-list__table mat-elevation-z8" fxFlex="100%" fxLayout="column">
       <div class="applicant-list__row header" fxFlex="100%" fxLayoutAlign="space-between center">
@@ -14,8 +15,8 @@
         </div>
       </div>
       <div class="applicant-list__search" fxLayoutAlign="start center">
-        <input fxFlex="100%" type="search" class="applicant-list__search-input" placeholder="Pretraži upise..." [(ngModel)]="searchText"
-          autocomplete="off">
+        <input fxFlex="100%" type="search" class="applicant-list__search-input" placeholder="Pretraži upise..."
+          [(ngModel)]="searchText" autocomplete="off">
         <button *ngIf="!!searchText" mat-icon-button class="applicant-list__search-clear" (click)="searchText=''">
           <mat-icon>close</mat-icon>
         </button>
@@ -41,7 +42,7 @@
             <p class="applicant-list__cell-title">{{ applicant?.phoneNumber }}</p>
           </div>
           <div class="applicant-list__cell" fxFlex="25%" fxLayoutAlign="center center">
-            <div class="applicant-list__accepted" [ngClass]="{'positive': applicant?.isMember}"></div>
+            <div class="applicant-list__member" [ngClass]="{'positive': !!applicant?.isMember}"></div>
           </div>
         </div>
       </a>

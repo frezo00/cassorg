@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState, GetMembersBegin, Go } from '../../../store';
-import { IMember } from '../../../models';
+import { IMember, ISort } from '../../../models';
 
 @Component({
   selector: 'app-member-list',
@@ -12,6 +12,8 @@ import { IMember } from '../../../models';
 })
 export class MemberListComponent implements OnInit {
   members: Observable<IMember[]>;
+  searchText: string;
+  searchKeys: string[] = ['firstName', 'lastName'];
 
   constructor(private store: Store<AppState>) {}
 
@@ -22,5 +24,9 @@ export class MemberListComponent implements OnInit {
 
   navigateToForm() {
     this.store.dispatch(new Go({ path: '/members/new' }));
+  }
+
+  setSort(sort: ISort) {
+    console.log(sort);
   }
 }

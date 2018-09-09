@@ -5,7 +5,9 @@
     </a>
     <div class="subheader__text" fxLayout="column" fxLayoutAlign="center stretch">
       <h2 class="subheader__title">{{ title }}</h2>
-      <p *ngIf="!!subtitle" class="subheader__subtitle">{{ subtitle }}</p>
+      <p *ngIf="!!subtitle" class="subheader__subtitle">
+        <span>{{ subtitle }} <b *ngIf="!!subtitleBold">{{ subtitleBold }}</b></span>
+      </p>
     </div>
   </div>
   <div *ngIf="!!actionText || !!showSort || !!actionIcon" class="subheader__actions" fxLayoutGap="16px" fxLayoutAlign="end center">
@@ -14,6 +16,7 @@
     </button>
     <a *ngIf="!!actionText" (click)="onAction()" class="subheader__action-button" mat-raised-button fxHide.xs>
       {{ actionText }}
+
     </a>
     <a mat-icon-button *ngIf="!!actionIcon" (click)="onAction()" class="subheader__action-icon" mat-raised-button
       fxHide.gt-xs fxLayoutAlign="center center">

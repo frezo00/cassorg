@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { IRouter } from '../../models';
 
 export enum RouterActionTypes {
   GO = '[Router] Go',
@@ -10,7 +11,7 @@ export enum RouterActionTypes {
 export class Go implements Action {
   readonly type = RouterActionTypes.GO;
 
-  constructor(public payload: { path: string }) {}
+  constructor(public payload: IRouter) {}
 }
 
 export class Back implements Action {

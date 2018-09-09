@@ -35,6 +35,7 @@ export interface IApplicant {
   email?: string;
   message?: string;
   recaptcha?: string;
+  isMember?: boolean;
 }
 
 export class User implements IUser {

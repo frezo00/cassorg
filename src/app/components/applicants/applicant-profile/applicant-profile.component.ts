@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../store';
+import { AppState, Go } from '../../../store';
 import { GetSingleApplicantBegin } from '../store/applicants.actions';
 import { IApplicant } from '../../../models';
 
@@ -23,5 +23,13 @@ export class ApplicantProfileComponent implements OnInit {
     this.store.dispatch(
       new GetSingleApplicantBegin(this.route.snapshot.paramMap.get('id'))
     );
+  }
+
+  acceptApplicant(): void {
+    this.store.dispatch(new Go({ path: '/applicants/new-user' }));
+  }
+
+  removeApplicant(): void {
+    console.log('remove');
   }
 }

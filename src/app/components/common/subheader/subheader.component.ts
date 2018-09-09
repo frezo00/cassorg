@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 import { ISort } from '../../../models';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store';
 
 @Component({
   selector: 'app-subheader',
@@ -20,6 +22,8 @@ export class SubheaderComponent implements OnInit {
   title: string;
   @Input()
   subtitle: string;
+  @Input()
+  subtitleBold = '';
   @Output()
   action: EventEmitter<any> = new EventEmitter();
   @Output()
@@ -49,7 +53,7 @@ export class SubheaderComponent implements OnInit {
 
   sort: ISort;
 
-  constructor(public location: Location) {
+  constructor(public location: Location, private store: Store<AppState>) {
     this.sort = {
       name: this.sortValues[0].value,
       order: 'desc'

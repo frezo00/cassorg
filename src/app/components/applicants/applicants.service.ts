@@ -35,4 +35,10 @@ export class ApplicantsService {
   getApplicantById(id: string): Promise<any> {
     return this.applicantsCollection.doc<IApplicant>(id).ref.get();
   }
+
+  updateApplicant(id: string): Promise<void> {
+    return this.applicantsCollection
+      .doc<IApplicant>(id)
+      .ref.update({ isMember: true });
+  }
 }

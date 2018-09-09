@@ -14,6 +14,10 @@ export enum ApplicantsActionTypes {
   GET_SINGLE_APPLICANT_BEGIN = '[Applicants] Get Single Applicant Begin',
   GET_SINGLE_APPLICANT_SUCCESS = '[Applicants] Get Single Applicant Success',
 
+  // Update Applicant
+  UPDATE_APPLICANT_BEGIN = '[Applicants] Update Applicant Begin',
+  UPDATE_APPLICANT_SUCCESS = '[Applicants] Update Applicant Success',
+
   // Errors
   APPLICANTS_ERRORS = '[Applicants] Applicants Errors'
 }
@@ -47,6 +51,15 @@ export class GetSingleApplicantSuccess implements Action {
   constructor(public payload: IApplicant) {}
 }
 
+// Update Applicant
+export class UpdateApplicantBegin implements Action {
+  readonly type = ApplicantsActionTypes.UPDATE_APPLICANT_BEGIN;
+  constructor(public payload: string) {}
+}
+export class UpdateApplicantSuccess implements Action {
+  readonly type = ApplicantsActionTypes.UPDATE_APPLICANT_SUCCESS;
+}
+
 // Errors
 export class ApplicantsErrors implements Action {
   readonly type = ApplicantsActionTypes.APPLICANTS_ERRORS;
@@ -60,4 +73,6 @@ export type ApplicantsActions =
   | LimitApplicants
   | GetSingleApplicantBegin
   | GetSingleApplicantSuccess
+  | UpdateApplicantBegin
+  | UpdateApplicantSuccess
   | ApplicantsErrors;

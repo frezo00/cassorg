@@ -3,3 +3,8 @@ export interface ISort {
   order: 'asc' | 'desc';
   limit?: number;
 }
+
+export interface IRouter {
+  path: string;
+  data?: any;
+}

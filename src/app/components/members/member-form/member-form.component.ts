@@ -6,6 +6,8 @@ import { Validators } from '../../common/validators';
 import { AppState, CreateMemberBegin } from '../../../store';
 import { IMember } from '../../../models';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-member-form',
   templateUrl: './member-form.component.html',
@@ -33,6 +35,7 @@ export class MemberFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     if (!!this.member) {
+      console.log('mem', this.member);
       this.setFormData(this.member);
     }
   }
@@ -80,7 +83,7 @@ export class MemberFormComponent implements OnInit {
   setFormData(member: IMember): void {
     this.firstName.setValue(member.firstName);
     this.lastName.setValue(member.lastName);
-    this.birthdate.setValue(member.birthdate);
+    this.birthdate.setValue(moment(member.birthdate));
     this.phoneNumber.setValue(member.phoneNumber);
     this.gender.setValue(member.gender);
     this.parents.setValue(member.parents);
@@ -92,8 +95,6 @@ export class MemberFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.memberForm.value);
-    console.log(this.birthdate.value._d.toISOString());
     const memberData = {
       dateCreated: new Date().toISOString(),
       firstName: this.firstName.value.trim(),
@@ -108,7 +109,8 @@ export class MemberFormComponent implements OnInit {
       address: !!this.address.value ? this.address.value.trim() : '',
       photoURL: !!this.photoURL.value ? this.photoURL.value : null,
       note: !!this.note.value ? this.note.value.trim() : '',
-      siblings: !!this.siblings.value ? this.siblings.value : null
+      siblings: !!this.siblings.value ? this.siblings.value : null,
+      applicantId: !!this.member ? this.member.applicantId : ''
     } as IMember;
     this.store.dispatch(new CreateMemberBegin(memberData));
   }

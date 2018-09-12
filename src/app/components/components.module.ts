@@ -21,7 +21,6 @@ import { UserFormComponent } from './users/user-form/user-form.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { AlertBarComponent } from './alert-bar/alert-bar.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
-import { GroupAddComponent } from './groups/group-add/group-add.component';
 import { GroupFormComponent } from './groups/group-form/group-form.component';
 import { GroupListComponent } from './groups/group-list/group-list.component';
 import { ApplicantListComponent } from './applicants/applicant-list/applicant-list.component';
@@ -33,6 +32,8 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 import { MemberFormComponent } from './members/member-form/member-form.component';
 import { MemberNewComponent } from './members/member-new/member-new.component';
+import { GroupNewComponent } from './groups/group-new/group-new.component';
+import { MemberInfoComponent } from './members/member-profile/member-info/member-info.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,6 @@ import { MemberNewComponent } from './members/member-new/member-new.component';
     UserProfileComponent,
     AlertBarComponent,
     ApplicantsComponent,
-    GroupAddComponent,
     GroupFormComponent,
     GroupListComponent,
     ApplicantListComponent,
@@ -63,7 +63,9 @@ import { MemberNewComponent } from './members/member-new/member-new.component';
     MemberListComponent,
     MemberProfileComponent,
     MemberFormComponent,
-    MemberNewComponent
+    MemberNewComponent,
+    GroupNewComponent,
+    MemberInfoComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-<div class="applicant-profile__container" fxFlexFill>
+<div class="applicant-profile__container">
   <app-subheader [title]="applicant?.firstName + ' ' + applicant?.lastName" [subtitle]="'Upisan/a: ' + (applicant?.dateCreated | date:'dd.MM.yyyy HH:mm')"
     [showBackButton]="true"></app-subheader>
   <div class="applicant-profile__content mat-elevation-z8" fxLayout="column" fxLayoutAlign="space-between stretch"
@@ -50,13 +50,20 @@
         </div>
       </div>
     </div>
-    <div class="applicant-profile__actions" fxLayoutAlign="space-around center" fxLayoutGap="16px">
+    <div *ngIf="!applicant?.isMember" class="applicant-profile__actions" fxLayoutAlign="space-around center"
+      fxLayoutGap="16px">
       <button mat-button type="button" class="applicant-profile__actions-button outline" (click)="removeApplicant()">
         <span>Odbaci</span>
       </button>
       <button mat-button type="button" class="applicant-profile__actions-button" (click)="acceptApplicant()">
         <span>Prihvati</span>
       </button>
+    </div>
+    <div *ngIf="!!applicant?.isMember" class="applicant-profile__member" fxLayoutAlign="center center">
+      <p class="applicant-profile__member-message" fxLayoutAlign="center center" fxLayoutGap="8px">
+        <span>Već je član</span>
+        <mat-icon>how_to_reg</mat-icon>
+      </p>
     </div>
   </div>
 </div>

@@ -11,7 +11,6 @@ export class MembersService {
   constructor(private afs: AngularFirestore) {}
 
   getMembers(projectId: string): Observable<IMember[]> {
-    console.log('pid', projectId);
     return this.afs
       .collection<IMember>(`projects/${projectId}/members`, ref =>
         ref.orderBy('dateCreated', 'desc')
@@ -29,11 +28,17 @@ export class MembersService {
   }
 
   createMember(newMember: IMember, projectId: string): Promise<any> {
-    console.log('newmem', newMember);
     return this.afs
       .collection<IMember>(`projects/${projectId}/members`, ref =>
         ref.orderBy('dateCreated', 'desc')
       )
       .add(newMember);
+  }
+
+  getMember(memberId: string, projectId: string): Promise<any> {
+    console.log('pid', projectId, 'memid', memberId);
+    return this.afs
+      .doc<IMember>(`projects/${projectId}/members/${memberId}`)
+      .ref.get();
   }
 }

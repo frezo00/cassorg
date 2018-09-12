@@ -3,7 +3,7 @@ export interface IGroup {
   color: string;
   dateCreated: string;
   createdBy?: string;
-  users?: string[];
+  members?: string[];
   activities?: string[];
 }
 
@@ -13,7 +13,7 @@ export class Group implements IGroup {
     public color: string,
     public dateCreated: string,
     public createdBy?: string,
-    public users?: string[],
+    public members?: string[],
     public activities?: string[]
   ) {}
 }

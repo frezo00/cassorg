@@ -1,3 +1,31 @@
-<p>
-  member-profile works!
-</p>
+<div class="member-profile__container" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="40px">
+  <app-subheader [title]="member?.firstName + ' ' + member?.lastName" [subtitle]="'Član od: ' + (member?.dateCreated | date:'dd.MM.yyyy HH:mm')"
+    [showBackButton]="true" [actionIcon]="'add'" (action)="someMethod()"></app-subheader>
+  <div class="member-profile__content mat-elevation-z8" fxLayout="column" fxLayoutAlign="space-between stretch"
+    fxLayoutGap="8px">
+    <div class="member-profile__content-wrapper" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
+      <div class="member-profile__header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <div class="member-profile__header-photo">
+          <div *ngIf="!member?.photoURL" class="member-profile__header-initials mat-elevation-z2" fxLayoutAlign="center center">
+            <span>{{(member?.firstName | firstLetter) + (member?.lastName | firstLetter)}}</span>
+          </div>
+        </div>
+        <div class="member-profile__header-info" fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="4px">
+          <div class="member-profile__header-full-name">
+            <span>{{member?.firstName + ' ' + member?.lastName}}</span>
+          </div>
+          <div class="member-profile__header-age">
+            <span>{{member?.birthdate | age}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-tab-group dynamicHeight>
+      <mat-tab label="Informacije">
+        <app-member-info *ngIf="!!member" [member]="member"></app-member-info>
+      </mat-tab>
+      <mat-tab label="Second"> Content 2 </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

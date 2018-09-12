@@ -21,7 +21,7 @@
           <mat-icon>close</mat-icon>
         </button>
       </div>
-      <a mat-button [routerLink]="[member?.id]" *ngFor="let member of (members | async) | search:searchText:searchKeys"
+      <a mat-button (click)="navigateToProfile(member?.id)" *ngFor="let member of (members | async) | search:searchText:searchKeys"
         class="member-list__item">
         <div class="member-list__row" fxFlex="100%" fxLayoutAlign="space-between center">
           <div class="member-list__cell" fxFlex="50%" fxFlex.xs="75%" fxLayoutAlign="space-between center">

@@ -7,7 +7,8 @@ import {
   OpenModal,
   getOpenModal,
   getGroups,
-  GetGroupsBegin
+  GetGroupsBegin,
+  Go
 } from '../../../store';
 import { ModalService } from '../../common/modal/modal.service';
 import { GroupFormComponent } from '../group-form/group-form.component';
@@ -40,5 +41,9 @@ export class GroupListComponent implements OnInit, OnDestroy {
 
   openNewGroupModal() {
     this.store.dispatch(new OpenModal(true));
+  }
+
+  toToNewGroup() {
+    this.store.dispatch(new Go({ path: '/groups/new' }));
   }
 }

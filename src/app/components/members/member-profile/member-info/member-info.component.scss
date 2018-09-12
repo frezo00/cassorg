@@ -1,0 +1,31 @@
+@import '~_variables.scss';
+
+:host {
+  display: flex;
+}
+.member-info {
+  &__container {
+    padding: 20px 12px;
+  }
+  &__item {
+    padding: 0 8px;
+    &-text {
+      & > small {
+        color: color(text-05);
+        font-size: 12px;
+        line-height: 1.4em;
+      }
+      & > span {
+        color: color(text-08);
+        line-height: 1.2em;
+        min-height: 24px;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+    }
+    &-action {
+      color: color(success-08);
+    }
+  }
+}

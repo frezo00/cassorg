@@ -3,7 +3,6 @@
 .group-form {
   &__content {
     padding: 24px 20px;
-    border-top: 1px solid #ccc;
   }
   &__color {
     &-picker {
@@ -20,7 +19,7 @@
       padding-left: 8px;
     }
   }
-  &__user {
+  &__member {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -64,27 +63,27 @@
       }
     }
   }
-  &__action-button {
-    background-color: transparent;
-    border: none;
-    font-size: 16px;
-    width: 100%;
+  &__action {
+    border-top: 1px solid #eee;
     padding: 16px;
-    color: color(text-08);
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s;
-
-    &:focus {
-      outline: none;
-    }
-    &:first-child:hover {
-      background-color: rgba($color: color(text), $alpha: 0.05);
-    }
-    &:last-child {
-      color: color(red-primary);
-      &:hover {
-        background-color: rgba($color: color(red-primary), $alpha: 0.1);
+    &-button {
+      background-color: color(red-primary);
+      color: white;
+      font-size: 12px;
+      text-transform: uppercase;
+      border-radius: 20px;
+      border: 1px solid color(red-primary);
+      padding: 0px 28px;
+      width: 100%;
+      max-width: 150px;
+      transition: all 0.3s;
+      &.outline {
+        background-color: white;
+        color: color(red-primary);
+      }
+      &[disabled] {
+        background-color: rgba($color: color(red-primary), $alpha: 0.8);
+        border-color: rgba($color: color(red-primary), $alpha: 0.2);
       }
     }
   }

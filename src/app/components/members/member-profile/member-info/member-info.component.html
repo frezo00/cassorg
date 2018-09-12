@@ -1,0 +1,56 @@
+<div class="member-info__container" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="12px">
+  <div *ngIf="!!member?.birthdate" class="member-info__item" fxLayoutAlign="space-between center">
+    <div class="member-info__item-text" fxLayout="column" fxLayoutAlign="start stretch">
+      <small>Rođenje</small>
+      <span fxLayoutAlign="start center" fxLayoutGap="12px">{{member?.birthdate | date:'dd.MM.yyyy.'}}</span>
+    </div>
+    <a class="member-info__item-action" mat-icon-button disabled>
+      <mat-icon>cake</mat-icon>
+    </a>
+  </div>
+  <div *ngIf="!!member?.gender" class="member-info__item" fxLayoutAlign="space-between center">
+    <div class="member-info__item-text" fxLayout="column" fxLayoutAlign="start stretch">
+      <small>Spol</small>
+      <span fxLayoutAlign="start center" fxLayoutGap="12px">{{member?.gender === 'male' ? 'Muško' : 'Žensko'}}</span>
+    </div>
+    <a class="member-info__item-action" mat-icon-button disabled>
+      <mat-icon [svgIcon]="(member?.gender === 'male') ? 'human-male' : 'human-female'" aria-hidden="true"></mat-icon>
+    </a>
+  </div>
+  <div *ngIf="!!member?.parents" class="member-info__item" fxLayoutAlign="space-between center">
+    <div class="member-info__item-text" fxLayout="column" fxLayoutAlign="start stretch">
+      <small>Roditelji</small>
+      <span fxLayoutAlign="start center" fxLayoutGap="12px">{{member?.parents}}</span>
+    </div>
+    <a class="member-info__item-action" mat-icon-button disabled>
+      <mat-icon svgIcon="human-male-female" aria-hidden="true"></mat-icon>
+    </a>
+  </div>
+  <div *ngIf="!!member?.phoneNumber" class="member-info__item" fxLayoutAlign="space-between center">
+    <div class="member-info__item-text" fxLayout="column" fxLayoutAlign="start stretch">
+      <small>Telefon</small>
+      <span fxLayoutAlign="start center" fxLayoutGap="12px">{{member?.phoneNumber}}</span>
+    </div>
+    <a [href]="'tel:' + member?.phoneNumber" class="member-info__item-action" mat-icon-button>
+      <mat-icon>phone</mat-icon>
+    </a>
+  </div>
+  <div *ngIf="!!member?.email" class="member-info__item" fxLayoutAlign="space-between center">
+    <div class="member-info__item-text" fxLayout="column" fxLayoutAlign="start stretch">
+      <small>Email</small>
+      <span fxLayoutAlign="start center" fxLayoutGap="12px">{{member?.email}}</span>
+    </div>
+    <a [href]="'mailto:' + member?.email" class="member-info__item-action" mat-icon-button>
+      <mat-icon>email</mat-icon>
+    </a>
+  </div>
+  <div *ngIf="!!member?.note" class="member-info__item" fxLayoutAlign="space-between start">
+    <div class="member-info__item-text" fxLayout="column" fxLayoutAlign="start stretch">
+      <small>Napomena</small>
+      <span fxLayoutAlign="start center" fxLayoutGap="12px">{{member?.note}}</span>
+    </div>
+    <a class="member-info__item-action" mat-icon-button disabled>
+      <mat-icon>announcement</mat-icon>
+    </a>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="group-list__container" fxFlexFill>
   <app-subheader [title]="'Grupe'" [subtitle]="'Ukupno: ' + (groups | async)?.length" [actionText]="'Nova grupa'"
-    [actionIcon]="'add'" (action)="openNewGroupModal()"></app-subheader>
+    [actionIcon]="'add'" (action)="toToNewGroup()"></app-subheader>
   <div class="group-list__content" fxLayoutAlign="center stretch">
     <div class="group-list__table" fxFlex="100%">
       <div class="group-list__row header" fxLayoutAlign="space-between center">
@@ -14,7 +14,7 @@
       <div class="group-list__row" fxLayoutAlign="space-between center" *ngFor="let group of groups | async">
         <div class="group-list__cell" fxFlex="50%" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="8px">
           <p class="group-list__cell-title">{{group?.name}}</p>
-          <h5 class="group-list__cell-subtitle">{{group?.users?.length}} {{group?.users?.length | userSize}}</h5>
+          <h5 class="group-list__cell-subtitle">{{group?.members?.length}} {{group?.members?.length | userSize}}</h5>
         </div>
         <div class="group-list__cell" fxFlex="50%">
           <p class="group-list__cell-color" [ngStyle]="{'background-color': group?.color}"></p>

@@ -31,9 +31,6 @@ export function applicantsReducer(
       });
       return { ...state, applicants: sortedApplicants };
     }
-    case ApplicantsActionTypes.GET_APPLICANTS_SUCCESS: {
-      return { ...state, applicants: action.payload };
-    }
     case ApplicantsActionTypes.GET_SINGLE_APPLICANT_SUCCESS: {
       return { ...state, currentApplicantProfile: action.payload };
     }

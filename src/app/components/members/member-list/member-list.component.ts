@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState, GetMembersBegin, Go } from '../../../store';
+import { AppState, GetMembersBegin, Go, SortMembers } from '../../../store';
 import { IMember, ISort } from '../../../models';
 
 @Component({
@@ -22,11 +22,15 @@ export class MemberListComponent implements OnInit {
     this.members = this.store.select(state => state.members.members);
   }
 
-  navigateToForm() {
+  navigateToForm(): void {
     this.store.dispatch(new Go({ path: '/members/new' }));
   }
 
-  setSort(sort: ISort) {
-    console.log(sort);
+  navigateToProfile(id: string): void {
+    this.store.dispatch(new Go({ path: `/members/${id}` }));
+  }
+
+  setSort(sort: ISort): void {
+    this.store.dispatch(new SortMembers(sort));
   }
 }

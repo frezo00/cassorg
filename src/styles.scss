@@ -49,6 +49,13 @@ mat-horizontal-stepper > .mat-horizontal-content-container {
 mat-select .mat-select-value {
   color: color(text-08);
 }
+mat-tab-group .mat-tab-labels {
+  justify-content: space-evenly;
+  align-items: center;
+  & .mat-tab-label {
+    width: 100%;
+  }
+}
 
 .mat-form-field.ng-touched.ng-dirty.ng-valid {
   & .mat-form-field-underline {

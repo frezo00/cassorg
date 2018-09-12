@@ -8,6 +8,11 @@ export const getMembers = createSelector(
   (state: MembersState) => state.members
 );
 
+export const getCurrentMemberProfile = createSelector(
+  getMembersState,
+  (state: MembersState) => state.currentMemberProfile
+);
+
 export const getMembersError = createSelector(
   getMembersState,
   (state: MembersState) => state.error

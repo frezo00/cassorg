@@ -87,4 +87,18 @@
       }
     }
   }
+  &__member {
+    border-top: 1px solid #eee;
+    padding: 16px;
+    &-message {
+      color: color(text-05);
+      margin: 0;
+      width: 100%;
+      line-height: 30px;
+      & mat-icon {
+        @include mat-icon-size(30px);
+        color: color(success-08);
+      }
+    }
+  }
 }

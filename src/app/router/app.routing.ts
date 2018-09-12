@@ -17,7 +17,7 @@ import { UserAddComponent } from '../components/users/user-add/user-add.componen
 import { UserProfileComponent } from '../components/users/user-profile/user-profile.component';
 import { ApplicantsComponent } from '../components/applicants/applicants.component';
 import { GroupListComponent } from '../components/groups/group-list/group-list.component';
-import { GroupAddComponent } from '../components/groups/group-add/group-add.component';
+import { GroupNewComponent } from '../components/groups/group-new/group-new.component';
 import { ApplicantListComponent } from '../components/applicants/applicant-list/applicant-list.component';
 import { ApplicantProfileComponent } from '../components/applicants/applicant-profile/applicant-profile.component';
 import { ApplicantUserFormComponent } from '../components/applicants/applicant-user-form/applicant-user-form.component';
@@ -56,7 +56,7 @@ const routes: Routes = [
         component: GroupsComponent,
         children: [
           { path: '', component: GroupListComponent },
-          { path: 'new', component: GroupAddComponent }
+          { path: 'new', component: GroupNewComponent }
         ]
       },
       { path: 'activities', component: ActivitiesComponent },

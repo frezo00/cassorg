@@ -1,0 +1,56 @@
+@import '~_variables.scss';
+
+:host {
+  width: 100%;
+}
+
+.member-profile {
+  &__content {
+    position: relative;
+    background-color: white;
+    border-radius: 2px;
+    &-wrapper {
+      padding: 24px 16px 0;
+    }
+  }
+  &__header {
+    &-photo {
+      position: absolute;
+      top: -50px;
+      left: 0;
+      right: 0;
+    }
+    &-initials {
+      border-radius: 50%;
+      height: 100px;
+      width: 100px;
+      background-color: #91979b;
+      overflow: hidden;
+      text-align: center;
+      margin: 0 auto;
+      & > span {
+        color: white;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 1.5em;
+        padding: 0 18px;
+        letter-spacing: 2px;
+      }
+    }
+    &-info {
+      // padding-left: 8px;
+      width: 100%;
+      text-align: center;
+      margin-top: 40px;
+    }
+    &-full-name {
+      font-size: 24px;
+      line-height: 40px;
+      color: color(text-08);
+    }
+    &-age {
+      font-size: 16px;
+      color: color(text-05);
+    }
+  }
+}

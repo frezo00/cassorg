@@ -8,7 +8,9 @@ import {
   GetMembersSuccess,
   SetMembersError,
   CreateMemberBegin,
-  CreateMemberSuccess
+  CreateMemberSuccess,
+  GetSingleMemberSuccess,
+  GetSingleMemberBegin
 } from './members.actions';
 import {
   withLatestFrom,
@@ -21,10 +23,11 @@ import {
   mergeMap
 } from 'rxjs/operators';
 import { AppState } from '../../../store';
-import { getActiveProject } from '../../project/store';
 import { UpdateApplicantBegin } from '../../applicants/store';
+import { getActiveProject } from '../../project/store';
 import { IMember, IProject } from '../../../models';
 import { MembersService } from '../members.service';
+import { DocumentSnapshot } from 'angularfire2/firestore';
 
 @Injectable()
 export class MembersEffects {
@@ -48,6 +51,37 @@ export class MembersEffects {
         catchError(error => of(new SetMembersError(error)))
       )
     )
+  );
+
+  @Effect()
+  getSingleMember$: Observable<Action> = this.actions$.pipe(
+    ofType(MembersActionTypes.GET_SINGLE_MEMBER_BEGIN),
+    combineLatest(this.store$.select(getActiveProject)),
+    filter(([action, project]: [GetSingleMemberBegin, IProject]) => !!project),
+    withLatestFrom(
+      this.store$.select(state => state.members.members),
+      ([action, project], members) => [action.payload, project.tag, members]
+    ),
+    tap(data => console.log('single member data', data)),
+    switchMap(([memberId, projectId, members]: [string, string, IMember[]]) => {
+      if (!members) {
+        return from(this.membersService.getMember(memberId, projectId)).pipe(
+          map(
+            (member: DocumentSnapshot<IMember>) =>
+              new GetSingleMemberSuccess({
+                ...member.data(),
+                id: member.id
+              } as IMember)
+          ),
+          catchError(error => of(new SetMembersError(error)))
+        );
+      } else {
+        const currentMember: IMember = members.find(
+          member => member.id === memberId
+        );
+        return of(new GetSingleMemberSuccess(currentMember));
+      }
+    })
   );
 
   @Effect()

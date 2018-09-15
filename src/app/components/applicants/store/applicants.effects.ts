@@ -23,7 +23,7 @@ import { getApplicants } from './applicants.selectors';
 import { AppState } from '../../../store';
 import { ApplicantsService } from '../applicants.service';
 import { IApplicant } from '../../../models';
-import { DocumentSnapshot } from 'angularfire2/firestore';
+import { DocumentSnapshot } from '@angular/fire/firestore';
 
 @Injectable()
 export class ApplicantsEffects {

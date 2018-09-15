@@ -30,7 +30,7 @@ import { UpdateApplicantBegin } from '../../applicants/store';
 import { getActiveProject } from '../../project/store';
 import { IMember, IProject } from '../../../models';
 import { MembersService } from '../members.service';
-import { DocumentSnapshot } from 'angularfire2/firestore';
+import { DocumentSnapshot } from '@angular/fire/firestore';
 
 @Injectable()
 export class MembersEffects {

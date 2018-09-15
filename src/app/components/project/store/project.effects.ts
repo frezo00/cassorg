@@ -4,7 +4,7 @@ import {
   AngularFirestore,
   DocumentReference,
   DocumentSnapshot
-} from 'angularfire2/firestore';
+} from '@angular/fire/firestore';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {

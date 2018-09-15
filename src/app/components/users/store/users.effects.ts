@@ -1,6 +1,6 @@
 import { Observable, from, of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentSnapshot } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {

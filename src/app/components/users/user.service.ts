@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { IUser, IUserLogin, IApplicant, IMember } from '../../models';
 import { ProjectService } from '../project/project.service';
 import { Store } from '@ngrx/store';

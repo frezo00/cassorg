@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { DocumentSnapshot } from 'angularfire2/firestore';
+import { DocumentSnapshot } from '@angular/fire/firestore';
 import { Observable, of, from } from 'rxjs';
 import {
   withLatestFrom,

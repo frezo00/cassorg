@@ -20,9 +20,10 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { AppRoutingModule } from './router/app.routing';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 import { reducers } from './store/app.reducers';
@@ -55,6 +56,7 @@ import { MembersService } from './components/members/members.service';
     ]),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFireStorageModule,
     AngularFirestoreModule,
     ComponentsModule,
     !environment.production ? StoreDevtoolsModule.instrument() : []

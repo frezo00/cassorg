@@ -17,6 +17,10 @@ export enum MembersActionTypes {
   CREATE_MEMBER_BEGIN = '[Members] Create Member Begin',
   CREATE_MEMBER_SUCCESS = '[Members] Create Member Success',
 
+  // Update
+  UPDATE_MEMBER_BEGIN = '[Members] Update Member Begin',
+  UPDATE_MEMBER_SUCCESS = '[Members] Update Member Success',
+
   // Error
   SET_MEMBERS_ERROR = '[Members] Set Members Error'
 }
@@ -55,6 +59,15 @@ export class CreateMemberSuccess implements Action {
   readonly type = MembersActionTypes.CREATE_MEMBER_SUCCESS;
 }
 
+// Update
+export class UpdateMemberBegin implements Action {
+  readonly type = MembersActionTypes.UPDATE_MEMBER_BEGIN;
+  constructor(public payload: { id: string; memberData: IMember }) {}
+}
+export class UpdateMemberSuccess implements Action {
+  readonly type = MembersActionTypes.UPDATE_MEMBER_SUCCESS;
+}
+
 // Error
 export class SetMembersError implements Action {
   readonly type = MembersActionTypes.SET_MEMBERS_ERROR;
@@ -69,4 +82,6 @@ export type MembersActions =
   | GetSingleMemberSuccess
   | CreateMemberBegin
   | CreateMemberSuccess
+  | UpdateMemberBegin
+  | UpdateMemberSuccess
   | SetMembersError;

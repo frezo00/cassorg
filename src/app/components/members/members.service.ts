@@ -36,9 +36,18 @@ export class MembersService {
   }
 
   getMember(memberId: string, projectId: string): Promise<any> {
-    console.log('pid', projectId, 'memid', memberId);
     return this.afs
       .doc<IMember>(`projects/${projectId}/members/${memberId}`)
       .ref.get();
+  }
+
+  updateMember(
+    memberId: string,
+    memberData: IMember,
+    projectId: string
+  ): Promise<void> {
+    return this.afs
+      .doc<IMember>(`projects/${projectId}/members/${memberId}`)
+      .ref.set(memberData);
   }
 }

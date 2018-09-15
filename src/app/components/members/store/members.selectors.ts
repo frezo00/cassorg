@@ -17,3 +17,11 @@ export const getMembersError = createSelector(
   getMembersState,
   (state: MembersState) => state.error
 );
+
+export const getAllMembersExceptOne = (id: string) =>
+  createSelector(getMembersState, (state: MembersState) => {
+    if (!!state.members) {
+      return state.members.filter(m => m.id !== id);
+    }
+    return state.members;
+  });

@@ -1,22 +1,25 @@
 <div class="subheader__container" fxLayoutAlign="space-between stretch">
   <div class="subheader__content" fxLayoutAlign="start center" fxLayoutGap="12px">
-    <a *ngIf="!!showBackButton" mat-icon-button class="subheader__go_back" (click)="location.back()">
+    <a *ngIf="!!backButtonLink" mat-icon-button class="subheader__go_back" (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </a>
-    <div class="subheader__text" fxLayout="column" fxLayoutAlign="center stretch">
+    <div *ngIf="!!title && !!subtitle" class="subheader__text" fxLayout="column" fxLayoutAlign="center stretch">
       <h2 class="subheader__title">{{ title }}</h2>
-      <p *ngIf="!!subtitle" class="subheader__subtitle">
+      <p class="subheader__subtitle">
         <span>{{ subtitle }} <b *ngIf="!!subtitleBold">{{ subtitleBold }}</b></span>
       </p>
     </div>
   </div>
-  <div *ngIf="!!actionText || !!showSort || !!actionIcon" class="subheader__actions" fxLayoutGap="16px" fxLayoutAlign="end center">
+  <div *ngIf="!!actionText || !!showSort || !!showOptions || !!actionIcon" class="subheader__actions" fxLayoutGap="16px"
+    fxLayoutAlign="end center">
     <button *ngIf="!!showSort" mat-icon-button class="subheader__filter" [matMenuTriggerFor]="sortMenu">
       <mat-icon>filter_list</mat-icon>
     </button>
+    <button *ngIf="!!showOptions" mat-icon-button class="subheader__options" [matMenuTriggerFor]="optionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
     <a *ngIf="!!actionText" (click)="onAction()" class="subheader__action-button" mat-raised-button fxHide.xs>
       {{ actionText }}
-
     </a>
     <a mat-icon-button *ngIf="!!actionIcon" (click)="onAction()" class="subheader__action-icon" mat-raised-button
       fxHide.gt-xs fxLayoutAlign="center center">
@@ -36,8 +39,7 @@
   </button>
 </mat-menu>
 
-<mat-menu #memberMenu="matMenu">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
-  <button mat-menu-item>Item 3</button>
+<mat-menu #optionsMenu="matMenu">
+  <button mat-menu-item (click)="onOptions('edit')">Uredi</button>
+  <button mat-menu-item (click)="onOptions('delete')">Izbriši</button>
 </mat-menu>

@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
-
-import { AppState, GetSingleMemberBegin, Go } from '../../../store';
+import { AppState, GetSingleMemberBegin } from '../../../store';
 import { IMember } from '../../../models';
 
 @Component({
-  selector: 'app-member-profile',
-  templateUrl: './member-profile.component.html',
-  styleUrls: ['./member-profile.component.scss']
+  selector: 'app-member-edit',
+  templateUrl: './member-edit.component.html',
+  styleUrls: ['./member-edit.component.scss']
 })
-export class MemberProfileComponent implements OnInit {
+export class MemberEditComponent implements OnInit {
   member: IMember;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {
@@ -23,11 +22,5 @@ export class MemberProfileComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.store.dispatch(new GetSingleMemberBegin(params.get('id')));
     });
-  }
-
-  optionsAction(action: string): void {
-    if (action === 'edit') {
-      this.store.dispatch(new Go({ path: `/members/edit/${this.member.id}` }));
-    }
   }
 }

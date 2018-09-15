@@ -10,7 +10,9 @@ import {
   CreateMemberBegin,
   CreateMemberSuccess,
   GetSingleMemberSuccess,
-  GetSingleMemberBegin
+  GetSingleMemberBegin,
+  UpdateMemberBegin,
+  UpdateMemberSuccess
 } from './members.actions';
 import {
   withLatestFrom,
@@ -23,6 +25,7 @@ import {
   mergeMap
 } from 'rxjs/operators';
 import { AppState } from '../../../store';
+import { Go } from '../../../router/store';
 import { UpdateApplicantBegin } from '../../applicants/store';
 import { getActiveProject } from '../../project/store';
 import { IMember, IProject } from '../../../models';
@@ -44,10 +47,7 @@ export class MembersEffects {
     map(([projectId, members]: [string, IMember[]]) => projectId),
     switchMap((projectId: string) =>
       this.membersService.getMembers(projectId).pipe(
-        map((members: IMember[]) => {
-          console.log('members', members);
-          return new GetMembersSuccess(members);
-        }),
+        map((members: IMember[]) => new GetMembersSuccess(members)),
         catchError(error => of(new SetMembersError(error)))
       )
     )
@@ -62,24 +62,28 @@ export class MembersEffects {
       this.store$.select(state => state.members.members),
       ([action, project], members) => [action.payload, project.tag, members]
     ),
-    tap(data => console.log('single member data', data)),
     switchMap(([memberId, projectId, members]: [string, string, IMember[]]) => {
       if (!members) {
         return from(this.membersService.getMember(memberId, projectId)).pipe(
-          map(
-            (member: DocumentSnapshot<IMember>) =>
-              new GetSingleMemberSuccess({
+          map((member: DocumentSnapshot<IMember>) => {
+            if (!!member.exists) {
+              return new GetSingleMemberSuccess({
                 ...member.data(),
                 id: member.id
-              } as IMember)
-          ),
+              } as IMember);
+            }
+            return new Go({ path: '/members' });
+          }),
           catchError(error => of(new SetMembersError(error)))
         );
       } else {
         const currentMember: IMember = members.find(
           member => member.id === memberId
         );
-        return of(new GetSingleMemberSuccess(currentMember));
+        if (!!currentMember) {
+          return of(new GetSingleMemberSuccess(currentMember));
+        }
+        return of(new Go({ path: '/members' }));
       }
     })
   );
@@ -104,13 +108,38 @@ export class MembersEffects {
     switchMap(([newMember, projectId]: [IMember, string]) =>
       from(this.membersService.createMember(newMember, projectId)).pipe(
         mergeMap(() => {
-          const actions: Action[] = [new CreateMemberSuccess()];
+          const actions: Action[] = [
+            new CreateMemberSuccess(),
+            new Go({ path: '/members' })
+          ];
           if (!!newMember.applicantId) {
             actions.push(new UpdateApplicantBegin(newMember.applicantId));
           }
-          console.log('member created', newMember);
           return actions;
         }),
+        catchError(error => of(new SetMembersError(error)))
+      )
+    )
+  );
+
+  @Effect()
+  updateMember$: Observable<Action> = this.actions$.pipe(
+    ofType(MembersActionTypes.UPDATE_MEMBER_BEGIN),
+    combineLatest(this.store$.select(getActiveProject)),
+    filter(([action, project]: [UpdateMemberBegin, IProject]) => !!project),
+    map(([action, project]: [UpdateMemberBegin, IProject]) => [
+      action.payload.id,
+      action.payload.memberData,
+      project.tag
+    ]),
+    switchMap(([memberId, memberData, projectId]: [string, IMember, string]) =>
+      from(
+        this.membersService.updateMember(memberId, memberData, projectId)
+      ).pipe(
+        mergeMap(() => [
+          new UpdateMemberSuccess(),
+          new Go({ path: `/members/${memberId}` })
+        ]),
         catchError(error => of(new SetMembersError(error)))
       )
     )

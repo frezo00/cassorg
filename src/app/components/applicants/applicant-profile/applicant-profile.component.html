@@ -1,6 +1,6 @@
 <div class="applicant-profile__container">
   <app-subheader [title]="applicant?.firstName + ' ' + applicant?.lastName" [subtitle]="'Upisan/a: ' + (applicant?.dateCreated | date:'dd.MM.yyyy HH:mm')"
-    [showBackButton]="true"></app-subheader>
+    [backButtonLink]="'/applicants'"></app-subheader>
   <div class="applicant-profile__content mat-elevation-z8" fxLayout="column" fxLayoutAlign="space-between stretch"
     fxLayoutGap="8px">
     <div class="applicant-profile__content-wrapper" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">

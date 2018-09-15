@@ -57,6 +57,10 @@ mat-tab-group .mat-tab-labels {
   }
 }
 
+.member-profile__coming-soon svg {
+  transform: scale(3);
+}
+
 .mat-form-field.ng-touched.ng-dirty.ng-valid {
   & .mat-form-field-underline {
     background-color: color(success-05) !important;

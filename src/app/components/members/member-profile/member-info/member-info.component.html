@@ -1,4 +1,4 @@
-<div class="member-info__container" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="12px">
+<div class="member-info__container" fxFlex="100%" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="12px">
   <div *ngIf="!!member?.birthdate" class="member-info__item" fxLayoutAlign="space-between center">
     <div class="member-info__item-text" fxLayout="column" fxLayoutAlign="start stretch">
       <small>Rođenje</small>
@@ -43,6 +43,40 @@
     <a [href]="'mailto:' + member?.email" class="member-info__item-action" mat-icon-button>
       <mat-icon>email</mat-icon>
     </a>
+  </div>
+  <div *ngIf="!!member?.siblings && !!(siblings$ | async)" class="member-info__item" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="member-info_item-wrapper" fxLayoutAlign="space-between start">
+      <div class="member-info__item-text" fxLayout="column" fxLayoutAlign="start stretch">
+        <small>Braća i sestre ({{member?.siblings.length}})</small>
+        <div class="member-info__siblings" fxLayoutGap="4px">
+          <span *ngFor="let sibling of getSiblingsData() | async">{{sibling?.firstName}}</span>
+        </div>
+        <div class="member-info__siblings-more" fxLayoutAlign="start center" (click)="showSiblings = !showSiblings">
+          <span>{{!showSiblings ? 'Prikaži' : 'Sakrij'}}</span>
+          <mat-icon>{{!showSiblings ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}}</mat-icon>
+        </div>
+      </div>
+      <a class="member-info__item-action" mat-icon-button disabled>
+        <mat-icon>face</mat-icon>
+      </a>
+    </div>
+    <div [ngClass]="{'active': !!showSiblings}" class="member-info__siblings-list" fxLayout="column" fxLayoutAlign="start stretch">
+      <a mat-button class="member-info__siblings-item" *ngFor="let sibling of getSiblingsData() | async" (click)="goToSibling(sibling?.id)">
+        <div class="member-info_siblings-item-wrapper" fxLayoutAlign="space-between center">
+          <div class="member-info__siblings-data" fxLayoutAlign="start center">
+            <div class="member-info__siblings-item-initials" fxLayoutAlign="center center">
+              <span>{{(sibling?.firstName | firstLetter) + (sibling?.lastName | firstLetter)}}</span>
+            </div>
+            <div class="member-info__siblings-item-name">
+              <span>{{sibling?.firstName + ' ' + sibling?.lastName}}</span>
+            </div>
+          </div>
+          <div class="member-info__siblings-item-action" fxLayoutAlign="center center">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </div>
+        </div>
+      </a>
+    </div>
   </div>
   <div *ngIf="!!member?.note" class="member-info__item" fxLayoutAlign="space-between start">
     <div class="member-info__item-text" fxLayout="column" fxLayoutAlign="start stretch">

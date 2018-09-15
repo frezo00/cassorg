@@ -1,0 +1,7 @@
+<div class="member-edit__container">
+  <app-subheader [title]="'Uredi člana'" [subtitle]="'Podaci za: '" [subtitleBold]="member?.firstName + ' ' + member?.lastName"
+    [backButtonLink]="'/members/' + member?.id"></app-subheader>
+  <div class="member-edit__content mat-elevation-z8">
+    <app-member-form *ngIf="!!member" [member]="member"></app-member-form>
+  </div>
+</div>

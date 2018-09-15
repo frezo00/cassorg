@@ -1,0 +1,14 @@
+:host {
+  width: 100%;
+}
+
+.member-edit {
+  &__container {
+    padding-bottom: 40px;
+  }
+  &__content {
+    background-color: white;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+}

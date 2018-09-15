@@ -1,10 +1,9 @@
-<div class="member-profile__container" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="40px">
-  <app-subheader [title]="member?.firstName + ' ' + member?.lastName" [subtitle]="'Član od: ' + (member?.dateCreated | date:'dd.MM.yyyy HH:mm')"
-    [showBackButton]="true" [actionIcon]="'add'" (action)="someMethod()"></app-subheader>
+<div class="member-profile__container" fxLayout="column" fxLayoutAlign="start stretch">
+  <app-subheader [backButtonLink]="'/members'" [showOptions]="true" (options)="optionsAction($event)"></app-subheader>
   <div class="member-profile__content mat-elevation-z8" fxLayout="column" fxLayoutAlign="space-between stretch"
-    fxLayoutGap="8px">
+    fxLayoutGap="24px">
     <div class="member-profile__content-wrapper" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
-      <div class="member-profile__header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+      <div class="member-profile__header" fxLayout="row" fxLayoutAlign="start center">
         <div class="member-profile__header-photo">
           <div *ngIf="!member?.photoURL" class="member-profile__header-initials mat-elevation-z2" fxLayoutAlign="center center">
             <span>{{(member?.firstName | firstLetter) + (member?.lastName | firstLetter)}}</span>
@@ -21,11 +20,30 @@
       </div>
     </div>
     <mat-tab-group dynamicHeight>
-      <mat-tab label="Informacije">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon svgIcon="information-outline" aria-hidden="true"></mat-icon>
+        </ng-template>
         <app-member-info *ngIf="!!member" [member]="member"></app-member-info>
       </mat-tab>
-      <mat-tab label="Second"> Content 2 </mat-tab>
-      <mat-tab label="Third"> Content 3 </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon svgIcon="account-group" aria-hidden="true"></mat-icon>
+        </ng-template>
+        <div class="member-profile__coming-soon" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px">
+          <mat-icon svgIcon="airballoon" aria-hidden="true" fxLayoutAlign="center center"></mat-icon>
+          <h4>Uskoro više...</h4>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon svgIcon="checkbox-multiple-marked-outline" aria-hidden="true"></mat-icon>
+        </ng-template>
+        <div class="member-profile__coming-soon" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px">
+          <mat-icon svgIcon="airballoon" aria-hidden="true" fxLayoutAlign="center center"></mat-icon>
+          <h4>Uskoro više...</h4>
+        </div>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </div>

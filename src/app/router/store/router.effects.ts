@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { RouterActionTypes, Go } from './router.actions';
+import { RouterActionTypes, Go, Back } from './router.actions';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { IRouter } from '../../models';
 
 @Injectable()
 export class RouterEffects {
-  constructor(private actions$: Actions, private router: Router) {}
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    private location: Location
+  ) {}
 
   @Effect({ dispatch: false })
   navigateTo$ = this.actions$.pipe(
@@ -23,5 +28,11 @@ export class RouterEffects {
       }
       return this.router.navigate(data);
     })
+  );
+
+  @Effect({ dispatch: false })
+  goBack$ = this.actions$.pipe(
+    ofType(RouterActionTypes.BACK),
+    map(() => this.location.back())
   );
 }

@@ -25,6 +25,7 @@ import { MembersComponent } from '../components/members/members.component';
 import { MemberListComponent } from '../components/members/member-list/member-list.component';
 import { MemberProfileComponent } from '../components/members/member-profile/member-profile.component';
 import { MemberNewComponent } from '../components/members/member-new/member-new.component';
+import { MemberEditComponent } from '../components/members/member-edit/member-edit.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
         children: [
           { path: '', component: MemberListComponent },
           { path: 'new', component: MemberNewComponent },
+          { path: 'edit/:id', component: MemberEditComponent },
           { path: ':id', component: MemberProfileComponent }
         ]
       },

@@ -38,7 +38,6 @@
       }
     }
     &-info {
-      // padding-left: 8px;
       width: 100%;
       text-align: center;
       margin-top: 40px;
@@ -51,6 +50,18 @@
     &-age {
       font-size: 16px;
       color: color(text-05);
+    }
+  }
+  &__coming-soon {
+    & > mat-icon {
+      @include mat-icon-size(80px);
+      margin-top: 20px;
+      color: color(text-08);
+    }
+
+    & > h4 {
+      color: color(text-05);
+      margin-top: 8px;
     }
   }
 }

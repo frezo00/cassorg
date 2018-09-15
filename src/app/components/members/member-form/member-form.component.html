@@ -50,7 +50,7 @@
         </mat-form-field>
         <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
           <mat-select placeholder="Spol" name="gender" [formControl]="gender">
-            <mat-option>--</mat-option>
+            <mat-option [value]="null">--</mat-option>
             <mat-option value="male">Muško</mat-option>
             <mat-option value="female">Žensko</mat-option>
           </mat-select>
@@ -75,28 +75,27 @@
         <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
           <mat-label style="line-height: 1.2em;">Braća i sestre</mat-label>
           <mat-select [formControl]="siblings" name="siblings" multiple>
-            <mat-option>--</mat-option>
-            <!-- <mat-select-trigger fxLayoutAlign="space-between center">
-                    <div class="group-form__user">
-                      <span *ngFor="let selectedUser of selectedUsers.value" class="group-form__user-input">
-                        {{selectedUser?.firstName + ' ' + selectedUser?.lastName}}
-                      </span>
-                    </div>
-                    <span *ngIf="selectedUsers.value?.length > 1" class="group-form__user-text">
-                      (Ukupno: {{selectedUsers.value.length}})
-                    </span>
-                  </mat-select-trigger>
-                  <mat-option *ngFor="let applicant of applicants | async" [value]="applicant">
-                    <div class="group-form__user-option" fxLayoutAlign="start center">
-                      <div class="group-form__user-initials" fxLayoutAlign="center center">
-                        <span>{{ (applicant?.firstName | firstLetter) + (applicant?.lastName | firstLetter) }}</span>
-                      </div>
-                      <div class="group-form__user-info" fxLayout="column" fxLayoutAlign="center start">
-                        <span>{{applicant?.firstName + ' ' + applicant?.lastName}}</span>
-                        <small>{{ applicant?.birthdate | age }}</small>
-                      </div>
-                    </div>
-                  </mat-option> -->
+            <mat-select-trigger fxLayoutAlign="space-between center">
+              <div class="member-form__sibling">
+                <span *ngFor="let sibling of getSiblingsData() | async" class="member-form__sibling-input">
+                  {{sibling?.firstName + ' ' + sibling?.lastName}}
+                </span>
+              </div>
+              <span *ngIf="siblings.value?.length > 1" class="member-form__sibling-text">
+                (Ukupno: {{siblings.value.length}})
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let sibling$ of siblings$ | async" [value]="sibling$.id">
+              <div class="member-form__sibling-option" fxLayoutAlign="start center">
+                <div class="member-form__sibling-initials" fxLayoutAlign="center center">
+                  <span>{{ (sibling$?.firstName | firstLetter) + (sibling$?.lastName | firstLetter) }}</span>
+                </div>
+                <div class="member-form__sibling-info" fxLayout="column" fxLayoutAlign="center start">
+                  <span>{{sibling$?.firstName + ' ' + sibling$?.lastName}}</span>
+                  <small>{{ sibling$?.birthdate | age }}</small>
+                </div>
+              </div>
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">

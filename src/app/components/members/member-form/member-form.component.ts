@@ -3,10 +3,20 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Validators } from '../../common/validators';
 
-import { AppState, CreateMemberBegin } from '../../../store';
+import {
+  AppState,
+  CreateMemberBegin,
+  UpdateMemberBegin,
+  Back,
+  getMembers,
+  getAllMembersExceptOne,
+  GetMembersBegin
+} from '../../../store';
 import { IMember } from '../../../models';
 
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-member-form',
@@ -16,6 +26,7 @@ import * as moment from 'moment';
 export class MemberFormComponent implements OnInit {
   @Input()
   member: IMember;
+  siblings$: Observable<IMember[]>;
 
   memberForm: FormGroup;
   firstName: FormControl;
@@ -33,14 +44,16 @@ export class MemberFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
+    this.store.dispatch(new GetMembersBegin());
     this.initForm();
     if (!!this.member) {
-      console.log('mem', this.member);
       this.setFormData(this.member);
     }
   }
 
   initForm(): void {
+    this.siblings$ = this.store.select(getMembers);
+
     this.firstName = new FormControl('', [
       Validators.required,
       Validators.maxLength(30)
@@ -81,6 +94,8 @@ export class MemberFormComponent implements OnInit {
   }
 
   setFormData(member: IMember): void {
+    this.siblings$ = this.store.select(getAllMembersExceptOne(this.member.id));
+
     this.firstName.setValue(member.firstName);
     this.lastName.setValue(member.lastName);
     this.birthdate.setValue(moment(member.birthdate));
@@ -94,8 +109,16 @@ export class MemberFormComponent implements OnInit {
     this.siblings.setValue(member.siblings);
   }
 
-  onSubmit() {
-    const memberData = {
+  onSubmit(): void {
+    if (!!this.member) {
+      this.updateMember();
+    } else {
+      this.createMember();
+    }
+  }
+
+  createMember(): void {
+    const newMemberData = {
       dateCreated: new Date().toISOString(),
       firstName: this.firstName.value.trim(),
       lastName: this.lastName.value.trim(),
@@ -112,10 +135,90 @@ export class MemberFormComponent implements OnInit {
       siblings: !!this.siblings.value ? this.siblings.value : null,
       applicantId: !!this.member ? this.member.applicantId : ''
     } as IMember;
-    this.store.dispatch(new CreateMemberBegin(memberData));
+    this.store.dispatch(new CreateMemberBegin(newMemberData));
   }
 
-  onCancel() {
-    console.log('cancel');
+  updateMember(): void {
+    if (
+      !!this.memberForm.valid &&
+      (!!this.memberForm.dirty || !!this.memberForm.touched)
+    ) {
+      const editMemberData = {
+        ...this.member,
+        lastUpdated: new Date().toISOString(),
+        firstName:
+          !!this.firstName.valid &&
+          (!!this.firstName.dirty || !!this.firstName.touched)
+            ? this.firstName.value.trim()
+            : this.member.firstName,
+        lastName:
+          !!this.lastName.valid &&
+          (!!this.lastName.dirty || !!this.lastName.touched)
+            ? this.lastName.value.trim()
+            : this.member.lastName,
+        birthdate:
+          !!this.birthdate.valid &&
+          (!!this.birthdate.dirty || !!this.birthdate.touched)
+            ? moment(this.birthdate.value).toISOString()
+            : moment(this.member.birthdate).toISOString(),
+        phoneNumber:
+          !!this.phoneNumber.valid &&
+          (!!this.phoneNumber.dirty || !!this.phoneNumber.touched)
+            ? this.phoneNumber.value.trim()
+            : this.member.phoneNumber,
+        gender:
+          !!this.gender.valid && (!!this.gender.dirty || !!this.gender.touched)
+            ? this.gender.value
+            : this.member.gender,
+        parents:
+          !!this.parents.valid &&
+          (!!this.parents.dirty || !!this.parents.touched)
+            ? this.parents.value.trim()
+            : this.member.parents,
+        email:
+          !!this.email.valid && (!!this.email.dirty || !!this.email.touched)
+            ? this.email.value.trim()
+            : this.member.email,
+        address:
+          !!this.address.valid &&
+          (!!this.address.dirty || !!this.address.touched)
+            ? this.address.value.trim()
+            : this.member.address,
+        photoURL:
+          !!this.photoURL.valid &&
+          (!!this.photoURL.dirty || !!this.photoURL.touched)
+            ? this.photoURL.value.trim()
+            : this.member.photoURL,
+        note:
+          !!this.note.valid && (!!this.note.dirty || !!this.note.touched)
+            ? this.note.value.trim()
+            : this.member.note,
+        siblings:
+          !!this.siblings.valid &&
+          (!!this.siblings.dirty || !!this.siblings.touched)
+            ? this.siblings.value
+            : this.member.siblings
+      } as IMember;
+      const { id, ...memberData } = editMemberData;
+      this.store.dispatch(new UpdateMemberBegin({ id, memberData }));
+    } else {
+      this.onCancel();
+    }
+  }
+
+  onCancel(): void {
+    this.store.dispatch(new Back());
+  }
+
+  getSiblingsData(): Observable<IMember[]> {
+    if (!!this.siblings.value) {
+      return this.siblings$.pipe(
+        map((siblings: IMember[]) =>
+          siblings.filter((sibling: IMember) =>
+            this.siblings.value.find((s: string) => s === sibling.id)
+          )
+        )
+      );
+    }
   }
 }

@@ -3,7 +3,6 @@
 .subheader {
   &__container {
     padding: 16px 0;
-    margin-bottom: 8px;
   }
   &__content {
     padding-left: 4px;
@@ -14,6 +13,7 @@
     color: #91979b;
     transition: color 0.3s;
     margin-left: -12px !important;
+    z-index: 2;
     &:hover {
       color: #777;
     }
@@ -38,6 +38,7 @@
   }
   &__actions {
     padding-right: 4px;
+    z-index: 2;
   }
   &__action-button {
     border-radius: 20px !important;
@@ -68,5 +69,8 @@
       font-size: 14px;
       padding-left: 12px;
     }
+  }
+  &__options {
+    color: color(text-05);
   }
 }

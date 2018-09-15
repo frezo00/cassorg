@@ -10,6 +10,7 @@
   &__item {
     padding: 0 8px;
     &-text {
+      overflow: hidden;
       & > small {
         color: color(text-05);
         font-size: 12px;
@@ -26,6 +27,74 @@
     }
     &-action {
       color: color(success-08);
+    }
+  }
+  &__siblings {
+    color: color(text-08);
+    line-height: 1.2em;
+    min-height: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    & > span:not(:last-child)::after {
+      content: ',';
+    }
+    &-more {
+      align-self: flex-start;
+      font-size: 12px;
+      color: color(success-08);
+      cursor: pointer;
+      & mat-icon {
+        @include mat-icon-size(16px);
+      }
+    }
+    &-list {
+      height: 0;
+      max-height: 140px;
+      border: 1px solid transparent;
+      overflow-y: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      &.active {
+        border-color: #eee;
+        border-radius: 2px;
+        margin: 8px 0;
+        height: auto;
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    &-item {
+      padding: 4px 8px;
+      border-bottom: 1px solid #eee;
+      &:last-child {
+        border-bottom: none;
+      }
+      &-initials {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
+        border-radius: 50%;
+        color: color(text-05);
+        background-color: #fafafa;
+        border: 1px solid #eee;
+        font-size: 12px;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      &-name {
+        color: color(text-08);
+        padding-left: 10px;
+        line-height: 1.4em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      &-action {
+        color: color(text-05);
+      }
     }
   }
 }

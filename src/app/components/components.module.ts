@@ -34,6 +34,7 @@ import { MemberFormComponent } from './members/member-form/member-form.component
 import { MemberNewComponent } from './members/member-new/member-new.component';
 import { GroupNewComponent } from './groups/group-new/group-new.component';
 import { MemberInfoComponent } from './members/member-profile/member-info/member-info.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { MemberInfoComponent } from './members/member-profile/member-info/member
     MemberFormComponent,
     MemberNewComponent,
     GroupNewComponent,
-    MemberInfoComponent
+    MemberInfoComponent,
+    MemberEditComponent
   ],
   imports: [
     CommonModule,

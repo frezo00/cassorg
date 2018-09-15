@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 import { ISort } from '../../../models';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../store';
+import { AppState, Go } from '../../../store';
 
 @Component({
   selector: 'app-subheader',
@@ -11,23 +11,27 @@ import { AppState } from '../../../store';
 })
 export class SubheaderComponent implements OnInit {
   @Input()
-  showBackButton = false;
+  backButtonLink = '';
   @Input()
   showSort = false;
+  @Input()
+  showOptions = false;
   @Input()
   actionText = '';
   @Input()
   actionIcon = '';
   @Input()
-  title: string;
+  title = '';
   @Input()
-  subtitle: string;
+  subtitle = '';
   @Input()
   subtitleBold = '';
   @Output()
   action: EventEmitter<any> = new EventEmitter();
   @Output()
   sortChange: EventEmitter<ISort> = new EventEmitter();
+  @Output()
+  options: EventEmitter<string> = new EventEmitter();
 
   sortValues = [
     {
@@ -62,11 +66,19 @@ export class SubheaderComponent implements OnInit {
 
   ngOnInit() {}
 
-  onAction() {
+  goBack() {
+    this.store.dispatch(new Go({ path: this.backButtonLink }));
+  }
+
+  onAction(): void {
     this.action.emit();
   }
 
-  onSortChange(newSort: ISort) {
+  onOptions(value: string): void {
+    this.options.emit(value);
+  }
+
+  onSortChange(newSort: ISort): void {
     this.sort = {
       name: !!newSort.name ? newSort.name : this.sort.name,
       order: !!newSort.order ? newSort.order : this.sort.order

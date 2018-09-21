@@ -84,7 +84,8 @@
     min-height: 40px;
     min-width: 40px;
     overflow: hidden;
-    background-color: #fafafa;
+    background: #fafafa center center no-repeat;
+    background-size: cover;
     border-radius: 50%;
     border: 1px solid #ccc;
     color: color(red-primary);

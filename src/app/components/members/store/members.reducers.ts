@@ -4,12 +4,16 @@ import { IMember } from '../../../models';
 export interface MembersState {
   members: IMember[];
   currentMemberProfile: IMember;
-  error: null;
+  imagePath: string;
+  tempProfileImage: any;
+  error: any;
 }
 
 const initialState: MembersState = {
   members: null,
   currentMemberProfile: null,
+  imagePath: '',
+  tempProfileImage: null,
   error: null
 };
 
@@ -33,6 +37,9 @@ export function membersReducer(
     }
     case MembersActionTypes.GET_SINGLE_MEMBER_SUCCESS: {
       return { ...state, currentMemberProfile: action.payload };
+    }
+    case MembersActionTypes.UPLOAD_PROFILE_IMAGE_SUCCESS: {
+      return { ...state, imagePath: action.payload };
     }
 
     default: {

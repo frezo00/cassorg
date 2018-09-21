@@ -21,6 +21,14 @@ export enum MembersActionTypes {
   UPDATE_MEMBER_BEGIN = '[Members] Update Member Begin',
   UPDATE_MEMBER_SUCCESS = '[Members] Update Member Success',
 
+  // Upload Profile Image
+  UPLOAD_PROFILE_IMAGE_BEGIN = '[Members] Upload Profile Image Begin',
+  UPLOAD_PROFILE_IMAGE_SUCCESS = '[Members] Upload Profile Image Success',
+
+  // Update Member Profile Image
+  UPDATE_MEMBER_PROFILE_IMAGE_BEGIN = '[Members] Update Member Profile Image Begin',
+  UPDATE_MEMBER_PROFILE_IMAGE_SUCCESS = '[Members] Update Member Profile Image Success',
+
   // Error
   SET_MEMBERS_ERROR = '[Members] Set Members Error'
 }
@@ -53,7 +61,7 @@ export class GetSingleMemberSuccess implements Action {
 // Create
 export class CreateMemberBegin implements Action {
   readonly type = MembersActionTypes.CREATE_MEMBER_BEGIN;
-  constructor(public payload: IMember) {}
+  constructor(public payload: { member: IMember; hasImage?: boolean }) {}
 }
 export class CreateMemberSuccess implements Action {
   readonly type = MembersActionTypes.CREATE_MEMBER_SUCCESS;
@@ -62,10 +70,31 @@ export class CreateMemberSuccess implements Action {
 // Update
 export class UpdateMemberBegin implements Action {
   readonly type = MembersActionTypes.UPDATE_MEMBER_BEGIN;
-  constructor(public payload: { id: string; memberData: IMember }) {}
+  constructor(
+    public payload: { id: string; memberData: IMember; hasImage?: boolean }
+  ) {}
 }
 export class UpdateMemberSuccess implements Action {
   readonly type = MembersActionTypes.UPDATE_MEMBER_SUCCESS;
+}
+
+// Upload Profile Image
+export class UploadProfileImageBegin implements Action {
+  readonly type = MembersActionTypes.UPLOAD_PROFILE_IMAGE_BEGIN;
+  constructor(public payload: any) {}
+}
+export class UploadProfileImageSuccess implements Action {
+  readonly type = MembersActionTypes.UPLOAD_PROFILE_IMAGE_SUCCESS;
+  constructor(public payload: string) {}
+}
+
+// Update Member Profile Image
+export class UpdateMemberProfileImageBegin implements Action {
+  readonly type = MembersActionTypes.UPDATE_MEMBER_PROFILE_IMAGE_BEGIN;
+  constructor(public payload: { id: string; photoURL: string }) {}
+}
+export class UpdateMemberProfileImageSuccess implements Action {
+  readonly type = MembersActionTypes.UPDATE_MEMBER_PROFILE_IMAGE_SUCCESS;
 }
 
 // Error
@@ -84,4 +113,8 @@ export type MembersActions =
   | CreateMemberSuccess
   | UpdateMemberBegin
   | UpdateMemberSuccess
+  | UploadProfileImageBegin
+  | UploadProfileImageSuccess
+  | UpdateMemberProfileImageBegin
+  | UpdateMemberProfileImageSuccess
   | SetMembersError;

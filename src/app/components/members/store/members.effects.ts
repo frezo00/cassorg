@@ -12,8 +12,15 @@ import {
   GetSingleMemberSuccess,
   GetSingleMemberBegin,
   UpdateMemberBegin,
-  UpdateMemberSuccess
+  UpdateMemberSuccess,
+  UploadProfileImageBegin,
+  UpdateMemberProfileImageBegin,
+  UpdateMemberProfileImageSuccess
 } from './members.actions';
+import {
+  getCurrentMemberProfileUsername,
+  getImagePath
+} from './members.selectors';
 import {
   withLatestFrom,
   switchMap,
@@ -30,7 +37,7 @@ import { UpdateApplicantBegin } from '../../applicants/store';
 import { getActiveProject } from '../../project/store';
 import { IMember, IProject } from '../../../models';
 import { MembersService } from '../members.service';
-import { DocumentSnapshot } from '@angular/fire/firestore';
+import { DocumentSnapshot, DocumentReference } from '@angular/fire/firestore';
 
 @Injectable()
 export class MembersEffects {
@@ -94,24 +101,23 @@ export class MembersEffects {
     combineLatest(this.store$.select(getActiveProject)),
     filter(([action, project]: [CreateMemberBegin, IProject]) => !!project),
     withLatestFrom(
+      // TODO: Change the way getting current logged in user
       this.store$.select(state => state.users.currentUser),
       ([action, project], currentUser) => [
-        action.payload,
+        { ...action.payload.member, createdBy: currentUser.id } as IMember,
         project.tag,
-        currentUser.id
+        action.payload.hasImage
       ]
     ),
-    map(([memberData, projectId, currentUserId]: [IMember, string, string]) => [
-      { ...memberData, createdBy: currentUserId } as IMember,
-      projectId
-    ]),
-    switchMap(([newMember, projectId]: [IMember, string]) =>
+    switchMap(([newMember, projectId, hasImage]: [IMember, string, boolean]) =>
       from(this.membersService.createMember(newMember, projectId)).pipe(
-        mergeMap(() => {
-          const actions: Action[] = [
-            new CreateMemberSuccess(),
-            new Go({ path: '/members' })
-          ];
+        mergeMap((memberRef: DocumentReference) => {
+          const actions: Action[] = [new CreateMemberSuccess()];
+          if (!!hasImage) {
+            actions.push(new UploadProfileImageBegin(memberRef.id));
+          } else {
+            actions.push(new Go({ path: '/members' }));
+          }
           if (!!newMember.applicantId) {
             actions.push(new UpdateApplicantBegin(newMember.applicantId));
           }
@@ -130,14 +136,72 @@ export class MembersEffects {
     map(([action, project]: [UpdateMemberBegin, IProject]) => [
       action.payload.id,
       action.payload.memberData,
+      project.tag,
+      action.payload.hasImage
+    ]),
+    switchMap(
+      ([memberId, memberData, projectId, hasImage]: [
+        string,
+        IMember,
+        string,
+        boolean
+      ]) =>
+        from(
+          this.membersService.updateMember(memberId, memberData, projectId)
+        ).pipe(
+          mergeMap(() => {
+            const actions: Action[] = [new UpdateMemberSuccess()];
+            if (!!hasImage) {
+              actions.push(new UploadProfileImageBegin(memberId));
+            } else {
+              actions.push(new Go({ path: `/members/${memberId}` }));
+            }
+            return actions;
+          }),
+          catchError(error => of(new SetMembersError(error)))
+        )
+    )
+  );
+
+  @Effect({ dispatch: false })
+  uploadProfileImage$ = this.actions$.pipe(
+    ofType(MembersActionTypes.UPLOAD_PROFILE_IMAGE_BEGIN),
+    combineLatest(this.store$.select(getActiveProject)),
+    filter(
+      ([action, project]: [UploadProfileImageBegin, IProject]) => !!project
+    ),
+    map(([action, project]: [UploadProfileImageBegin, IProject]) => [
+      action.payload,
       project.tag
     ]),
-    switchMap(([memberId, memberData, projectId]: [string, IMember, string]) =>
+    switchMap(([memberId, projectId]: [string, string]) =>
+      this.membersService.uploadProfileImage(memberId, projectId)
+    )
+  );
+
+  @Effect()
+  updateMemberProfileImage$: Observable<Action> = this.actions$.pipe(
+    ofType(MembersActionTypes.UPDATE_MEMBER_PROFILE_IMAGE_BEGIN),
+    combineLatest(this.store$.select(getActiveProject)),
+    filter(
+      ([action, project]: [UpdateMemberProfileImageBegin, IProject]) =>
+        !!project
+    ),
+    map(([action, project]: [UpdateMemberProfileImageBegin, IProject]) => [
+      action.payload.id,
+      action.payload.photoURL,
+      project.tag
+    ]),
+    switchMap(([memberId, photoURL, projectId]: [string, string, string]) =>
       from(
-        this.membersService.updateMember(memberId, memberData, projectId)
+        this.membersService.updateMemberProfileImage(
+          memberId,
+          photoURL,
+          projectId
+        )
       ).pipe(
         mergeMap(() => [
-          new UpdateMemberSuccess(),
+          new UpdateMemberProfileImageSuccess(),
           new Go({ path: `/members/${memberId}` })
         ]),
         catchError(error => of(new SetMembersError(error)))

@@ -26,8 +26,9 @@
         <div class="member-list__row" fxFlex="100%" fxLayoutAlign="space-between center">
           <div class="member-list__cell" fxFlex="50%" fxFlex.xs="75%" fxLayoutAlign="space-between center">
             <div fxLayoutAlign="start center" [fxFlex]="!!member?.message ? '80%' : '100%'">
-              <div class="member-list__initials" fxLayoutAlign="center center">
-                <span>{{ (member?.firstName | firstLetter) + (member?.lastName | firstLetter) }}</span>
+              <div class="member-list__initials" fxLayoutAlign="center center" [style.background-image]="!!member?.photoURL ? 'url(' + member?.photoURL + ')' : 'none'">
+                <span *ngIf="!member?.photoURL">{{(member?.firstName | firstLetter) + (member?.lastName |
+                  firstLetter)}}</span>
               </div>
               <div class="member-list__data" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="4px">
                 <span class="member-list__data-name">{{ member?.firstName + ' ' + member?.lastName }}</span>

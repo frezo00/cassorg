@@ -19,7 +19,7 @@ export class MemberInfoComponent implements OnInit {
   @Input()
   member: IMember;
   siblings$: Observable<IMember[]>;
-  showSiblings: false;
+  showSiblings = false;
 
   constructor(private store: Store<AppState>) {}
 

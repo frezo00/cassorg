@@ -1,0 +1,32 @@
+@import '~_variables.scss';
+
+.member-image {
+  width: 100px;
+  height: 100px;
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 50%;
+  color: #f5f5f5;
+  border: 1px solid #eee;
+  background-color: rgba($color: #91979b, $alpha: 0.8);
+  margin-bottom: 16px;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.3s;
+  &:hover {
+    color: white;
+  }
+  &__input {
+    display: none;
+  }
+  &__icon {
+    & mat-icon {
+      @include mat-icon-size(28px);
+    }
+  }
+  &__photo {
+    background: center center no-repeat;
+    background-size: cover;
+    height: 100%;
+  }
+}

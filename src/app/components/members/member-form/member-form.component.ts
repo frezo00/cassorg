@@ -10,13 +10,16 @@ import {
   Back,
   getMembers,
   getAllMembersExceptOne,
-  GetMembersBegin
+  GetMembersBegin,
+  UploadProfileImageBegin,
+  getImagePath
 } from '../../../store';
 import { IMember } from '../../../models';
 
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MembersService } from '../members.service';
 
 @Component({
   selector: 'app-member-form',
@@ -27,6 +30,7 @@ export class MemberFormComponent implements OnInit {
   @Input()
   member: IMember;
   siblings$: Observable<IMember[]>;
+  photoURL: any;
 
   memberForm: FormGroup;
   firstName: FormControl;
@@ -37,11 +41,14 @@ export class MemberFormComponent implements OnInit {
   parents: FormControl;
   email: FormControl;
   address: FormControl;
-  photoURL: FormControl;
   note: FormControl;
   siblings: FormControl;
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+    private membersService: MembersService
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(new GetMembersBegin());
@@ -52,6 +59,7 @@ export class MemberFormComponent implements OnInit {
   }
 
   initForm(): void {
+    this.membersService.tempProfileImage = null;
     this.siblings$ = this.store.select(getMembers);
 
     this.firstName = new FormControl('', [
@@ -74,7 +82,6 @@ export class MemberFormComponent implements OnInit {
       Validators.maxLength(40)
     ]);
     this.address = new FormControl('', Validators.maxLength(100));
-    this.photoURL = new FormControl('');
     this.note = new FormControl('', Validators.maxLength(500));
     this.siblings = new FormControl(null);
 
@@ -87,7 +94,6 @@ export class MemberFormComponent implements OnInit {
       gender: this.gender,
       email: this.email,
       address: this.address,
-      photoURL: this.photoURL,
       note: this.note,
       siblings: this.siblings
     });
@@ -104,7 +110,6 @@ export class MemberFormComponent implements OnInit {
     this.parents.setValue(member.parents);
     this.email.setValue(member.email);
     this.address.setValue(member.address);
-    this.photoURL.setValue(member.photoURL);
     this.note.setValue(member.note);
     this.siblings.setValue(member.siblings);
   }
@@ -130,18 +135,23 @@ export class MemberFormComponent implements OnInit {
       parents: !!this.parents.value ? this.parents.value.trim() : '',
       email: !!this.email.value ? this.email.value.trim() : '',
       address: !!this.address.value ? this.address.value.trim() : '',
-      photoURL: !!this.photoURL.value ? this.photoURL.value : null,
       note: !!this.note.value ? this.note.value.trim() : '',
       siblings: !!this.siblings.value ? this.siblings.value : null,
       applicantId: !!this.member ? this.member.applicantId : ''
     } as IMember;
-    this.store.dispatch(new CreateMemberBegin(newMemberData));
+    this.store.dispatch(
+      new CreateMemberBegin({
+        member: newMemberData,
+        hasImage: !!this.membersService.tempProfileImage
+      })
+    );
   }
 
   updateMember(): void {
     if (
-      !!this.memberForm.valid &&
-      (!!this.memberForm.dirty || !!this.memberForm.touched)
+      !!this.membersService.tempProfileImage ||
+      (!!this.memberForm.valid &&
+        (!!this.memberForm.dirty || !!this.memberForm.touched))
     ) {
       const editMemberData = {
         ...this.member,
@@ -184,11 +194,6 @@ export class MemberFormComponent implements OnInit {
           (!!this.address.dirty || !!this.address.touched)
             ? this.address.value.trim()
             : this.member.address,
-        photoURL:
-          !!this.photoURL.valid &&
-          (!!this.photoURL.dirty || !!this.photoURL.touched)
-            ? this.photoURL.value.trim()
-            : this.member.photoURL,
         note:
           !!this.note.valid && (!!this.note.dirty || !!this.note.touched)
             ? this.note.value.trim()
@@ -200,7 +205,13 @@ export class MemberFormComponent implements OnInit {
             : this.member.siblings
       } as IMember;
       const { id, ...memberData } = editMemberData;
-      this.store.dispatch(new UpdateMemberBegin({ id, memberData }));
+      this.store.dispatch(
+        new UpdateMemberBegin({
+          id,
+          memberData,
+          hasImage: !!this.membersService.tempProfileImage
+        })
+      );
     } else {
       this.onCancel();
     }
@@ -208,6 +219,11 @@ export class MemberFormComponent implements OnInit {
 
   onCancel(): void {
     this.store.dispatch(new Back());
+  }
+
+  onImageChange(profileImage: File): void {
+    console.log('profileImage', profileImage);
+    this.membersService.saveTempImage(profileImage);
   }
 
   getSiblingsData(): Observable<IMember[]> {

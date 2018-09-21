@@ -1,13 +1,7 @@
 <div class="member-form__container">
   <form [formGroup]="memberForm" (ngSubmit)="onSubmit()" fxLayout="column">
     <div class="member-form__content" fxLayout="column" fxLayoutGap="8px">
-      <div fxLayoutAlign="center center">
-        <div class="member-form__image">
-          <div class="member-form__image-overlay" fxLayoutAlign="center center">
-            <span>Dodaj sliku</span>
-          </div>
-        </div>
-      </div>
+      <app-member-image [photoURL]="!!member?.photoURL ? member.photoURL : null" (imageChanged)="onImageChange($event)"></app-member-image>
       <div fxLayout.xs="column" fxLayoutGap.xs="8px" fxLayoutGap.gt-xs="16px">
         <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
           <input type="text" matInput placeholder="Ime" name="firstName" [formControl]="firstName" required>
@@ -75,7 +69,7 @@
         <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
           <mat-label style="line-height: 1.2em;">Braća i sestre</mat-label>
           <mat-select [formControl]="siblings" name="siblings" multiple>
-            <mat-select-trigger fxLayoutAlign="space-between center">
+            <mat-select-trigger *ngIf="!!(siblings$ | async)" fxLayoutAlign="space-between center">
               <div class="member-form__sibling">
                 <span *ngFor="let sibling of getSiblingsData() | async" class="member-form__sibling-input">
                   {{sibling?.firstName + ' ' + sibling?.lastName}}

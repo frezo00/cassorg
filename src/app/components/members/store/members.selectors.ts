@@ -13,6 +13,29 @@ export const getCurrentMemberProfile = createSelector(
   (state: MembersState) => state.currentMemberProfile
 );
 
+export const getCurrentMemberProfileUsername = createSelector(
+  getMembersState,
+  (state: MembersState) => {
+    if (!!state.currentMemberProfile) {
+      const firstName = state.currentMemberProfile.firstName
+        .toLowerCase()
+        .replace(/ /g, '')
+        .trim();
+      const lastName = state.currentMemberProfile.lastName
+        .toLowerCase()
+        .replace(/ /g, '')
+        .trim();
+      return firstName + lastName;
+    }
+    return null;
+  }
+);
+
+export const getImagePath = createSelector(
+  getMembersState,
+  (state: MembersState) => state.imagePath
+);
+
 export const getMembersError = createSelector(
   getMembersState,
   (state: MembersState) => state.error

@@ -5,8 +5,9 @@
     <div class="member-profile__content-wrapper" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
       <div class="member-profile__header" fxLayout="row" fxLayoutAlign="start center">
         <div class="member-profile__header-photo">
-          <div *ngIf="!member?.photoURL" class="member-profile__header-initials mat-elevation-z2" fxLayoutAlign="center center">
-            <span>{{(member?.firstName | firstLetter) + (member?.lastName | firstLetter)}}</span>
+          <div class="member-profile__header-initials mat-elevation-z2" fxLayoutAlign="center center"
+            [style.background-image]="!!member?.photoURL ? 'url(' + member?.photoURL + ')' : 'none'">
+            <span *ngIf="!member?.photoURL">{{(member?.firstName | firstLetter) + (member?.lastName | firstLetter)}}</span>
           </div>
         </div>
         <div class="member-profile__header-info" fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="4px">

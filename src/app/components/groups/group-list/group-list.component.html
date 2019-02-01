@@ -1,6 +1,11 @@
 <div class="group-list__container" fxFlexFill>
-  <app-subheader [title]="'Grupe'" [subtitle]="'Ukupno: ' + (groups | async)?.length" [actionText]="'Nova grupa'"
-    [actionIcon]="'add'" (action)="toToNewGroup()"></app-subheader>
+  <app-subheader
+    [title]="'Grupe'"
+    [subtitle]="'Ukupno: ' + (groups | async)?.length"
+    [actionText]="'Nova grupa'"
+    [actionIcon]="'add'"
+    (action)="toToNewGroup()"
+  ></app-subheader>
   <div class="group-list__content" fxLayoutAlign="center stretch">
     <div class="group-list__table" fxFlex="100%">
       <div class="group-list__row header" fxLayoutAlign="space-between center">
@@ -11,17 +16,44 @@
           <p class="group-list__cell-title header">Boja</p>
         </div>
       </div>
-      <div class="group-list__row" fxLayoutAlign="space-between center" *ngFor="let group of groups | async">
-        <div class="group-list__cell" fxFlex="50%" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="8px">
-          <p class="group-list__cell-title">{{group?.name}}</p>
-          <h5 class="group-list__cell-subtitle">{{group?.members?.length}} {{group?.members?.length | userSize}}</h5>
+      <div class="group-list__data" fxLayout="column">
+        <a
+          mat-button
+          [routerLink]="[group?.id]"
+          *ngFor="let group of (groups | async)"
+          class="group-list__item"
+        >
+          <div
+            class="group-list__row"
+            fxFlex="100%"
+            fxLayoutAlign="space-between center"
+          >
+            <div
+              class="group-list__cell"
+              fxFlex="50%"
+              fxLayout="column"
+              fxLayoutAlign="center start"
+            >
+              <span class="group-list__cell-title">{{ group?.name }}</span>
+              <small class="group-list__cell-subtitle">
+                {{ getGroupMembersLength(group?.members) | userSize }}
+              </small>
+            </div>
+            <div
+              class="group-list__cell"
+              fxFlex="50%"
+              fxLayoutAlign="start center"
+            >
+              <div
+                class="group-list__cell-color"
+                [ngStyle]="{ 'background-color': group?.color }"
+              ></div>
+            </div>
+          </div>
+        </a>
+        <div *ngIf="(groups | async)?.length === 0" class="group-list__empty">
+          <p>Nema podataka</p>
         </div>
-        <div class="group-list__cell" fxFlex="50%">
-          <p class="group-list__cell-color" [ngStyle]="{'background-color': group?.color}"></p>
-        </div>
-      </div>
-      <div *ngIf="(groups | async)?.length === 0" class="group-list__empty">
-        <p>Nema podataka</p>
       </div>
     </div>
   </div>

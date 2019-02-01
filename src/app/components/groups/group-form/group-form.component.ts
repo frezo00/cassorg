@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,15 +8,14 @@ import {
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { IApplicant, IGroup, IMember } from '../../../models';
+import { IGroup, IMember } from '../../../models';
 import {
-  getApplicants,
   AppState,
   OpenModal,
-  GetApplicantsBegin,
   CreateGroupBegin,
-  GetMembersBegin,
-  getMembers
+  getMembers,
+  getGroupMembers,
+  UpdateGroupBegin
 } from '../../../store';
 
 @Component({
@@ -25,6 +24,7 @@ import {
   styleUrls: ['./group-form.component.scss']
 })
 export class GroupFormComponent implements OnInit {
+  @Input() group: IGroup;
   groupForm: FormGroup;
   name: FormControl;
   color: FormControl;
@@ -35,7 +35,9 @@ export class GroupFormComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.store.dispatch(new GetMembersBegin());
+    if (!!this.group) {
+      this.setFormData(this.group);
+    }
     this.members = this.store.select(getMembers);
   }
 
@@ -53,17 +55,72 @@ export class GroupFormComponent implements OnInit {
     });
   }
 
+  setFormData(group: IGroup): void {
+    this.name.setValue(group.name);
+    this.color.setValue(group.color);
+    this.store
+      .select(getGroupMembers(group.members))
+      .subscribe((groupMembers: IMember[]) =>
+        this.selectedMembers.setValue(groupMembers)
+      );
+  }
+
   onSubmit(): void {
+    if (!!this.group) {
+      this.updateMember();
+    } else {
+      this.createMember();
+    }
+  }
+
+  updateMember(): void {
+    if (
+      this.groupForm.valid &&
+      (!!this.groupForm.dirty || !!this.groupForm.touched)
+    ) {
+      const groupMembers = {};
+      this.selectedMembers.value
+        .map((m: IMember) => m.id)
+        .forEach((mID: string) => {
+          groupMembers[mID] = true;
+        });
+      const editGroupData: IGroup = {
+        ...this.group,
+        lastUpdated: new Date().toISOString(),
+        name:
+          !!this.name.valid && (!!this.name.dirty || !!this.name.touched)
+            ? this.name.value.trim()
+            : this.group.name,
+        color:
+          !!this.color.valid && (!!this.color.dirty || !!this.color.touched)
+            ? this.color.value.trim()
+            : this.group.color,
+        members:
+          !!this.selectedMembers.valid &&
+          !!this.selectedMembers.value &&
+          (!!this.selectedMembers.dirty || !!this.selectedMembers.touched)
+            ? groupMembers
+            : this.group.members
+      };
+      const { id, ...groupData } = editGroupData;
+      this.store.dispatch(new UpdateGroupBegin({ id, groupData }));
+      this.groupForm.reset();
+    }
+  }
+
+  createMember(): void {
     if (this.groupForm.valid) {
-      let memberIDs: string[] = null;
-      if (!!this.selectedMembers.value) {
-        memberIDs = this.selectedMembers.value.map(user => user.id);
-      }
+      const groupMembers = {};
+      this.selectedMembers.value
+        .map((m: IMember) => m.id)
+        .forEach((mID: string) => {
+          groupMembers[mID] = true;
+        });
       const newGroupData: IGroup = {
         name: this.name.value.trim(),
         color: this.color.value,
         dateCreated: new Date().toISOString(),
-        members: memberIDs
+        members: !!this.selectedMembers.value ? groupMembers : null
       };
       this.store.dispatch(new CreateGroupBegin(newGroupData));
       this.groupForm.reset();

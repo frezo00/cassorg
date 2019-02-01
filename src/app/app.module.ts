@@ -21,7 +21,10 @@ import { ComponentsModule } from './components/components.module';
 import { AppRoutingModule } from './router/app.routing';
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {
+  AngularFirestoreModule,
+  FirestoreSettingsToken
+} from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -69,7 +72,8 @@ import { MembersService } from './components/members/members.service';
     MembersService,
     GroupsService,
     CommonService,
-    ModalService
+    ModalService,
+    { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,48 +1,147 @@
 <div class="member-form__container">
   <form [formGroup]="memberForm" (ngSubmit)="onSubmit()" fxLayout="column">
     <div class="member-form__content" fxLayout="column" fxLayoutGap="8px">
-      <app-member-image [photoURL]="!!member?.photoURL ? member.photoURL : null" (imageChanged)="onImageChange($event)"></app-member-image>
+      <app-member-image
+        [photoURL]="!!member?.photoURL ? member.photoURL : null"
+        (imageChanged)="onImageChange($event)"
+      ></app-member-image>
       <div fxLayout.xs="column" fxLayoutGap.xs="8px" fxLayoutGap.gt-xs="16px">
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-          <input type="text" matInput placeholder="Ime" name="firstName" [formControl]="firstName" required>
-          <mat-error *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)">
-            {{firstName.hasError('required') ? 'Ovo polje je obavezno' : firstName.hasError('maxlength') ? 'Tekst je
-            predug' :''}}
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
+          <input
+            type="text"
+            matInput
+            placeholder="Ime"
+            name="firstName"
+            [formControl]="firstName"
+            required
+          />
+          <mat-error
+            *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)"
+          >
+            {{
+              firstName.hasError('required')
+                ? 'Ovo polje je obavezno'
+                : firstName.hasError('maxlength')
+                ? 'Tekst je
+            predug'
+                : ''
+            }}
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-          <input type="text" matInput placeholder="Prezime" name="lastName" [formControl]="lastName" required>
-          <mat-error *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
-            {{lastName.hasError('required') ? 'Ovo polje je obavezno' : lastName.hasError('maxlength') ? 'Tekst je
-            predug' :''}}
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
+          <input
+            type="text"
+            matInput
+            placeholder="Prezime"
+            name="lastName"
+            [formControl]="lastName"
+            required
+          />
+          <mat-error
+            *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)"
+          >
+            {{
+              lastName.hasError('required')
+                ? 'Ovo polje je obavezno'
+                : lastName.hasError('maxlength')
+                ? 'Tekst je
+            predug'
+                : ''
+            }}
           </mat-error>
         </mat-form-field>
       </div>
       <div fxLayout.xs="column" fxLayoutGap.xs="8px" fxLayoutGap.gt-xs="16px">
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-          <input matInput [matDatepicker]="picker" placeholder="Datum rođenja" name="birthdate" [formControl]="birthdate"
-            (focus)="picker.open()" required readonly>
-          <mat-error *ngIf="birthdate.invalid && (birthdate.touched || birthdate.dirty)">
-            {{birthdate.hasError('required') ? 'Ovo polje je obavezno' : ''}}
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Datum rođenja"
+            name="birthdate"
+            [formControl]="birthdate"
+            (focus)="picker.open()"
+            required
+            readonly
+          />
+          <mat-error
+            *ngIf="birthdate.invalid && (birthdate.touched || birthdate.dirty)"
+          >
+            {{ birthdate.hasError('required') ? 'Ovo polje je obavezno' : '' }}
           </mat-error>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker></mat-datepicker>
         </mat-form-field>
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-          <input type="tel" matInput placeholder="Telefon" name="phoneNumber" [formControl]="phoneNumber" required>
-          <mat-error *ngIf="phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)">
-            {{phoneNumber.hasError('required') ? 'Ovo polje je obavezno' : 'Neispravan format telefonskog broja'}}
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
+          <input
+            type="tel"
+            matInput
+            placeholder="Telefon"
+            name="phoneNumber"
+            [formControl]="phoneNumber"
+            required
+          />
+          <mat-error
+            *ngIf="
+              phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)
+            "
+          >
+            {{
+              phoneNumber.hasError('required')
+                ? 'Ovo polje je obavezno'
+                : 'Neispravan format telefonskog broja'
+            }}
           </mat-error>
         </mat-form-field>
       </div>
       <div fxLayout.xs="column" fxLayoutGap.xs="8px" fxLayoutGap.gt-xs="16px">
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-          <input type="text" matInput placeholder="Roditelji" name="parents" [formControl]="parents">
-          <mat-error *ngIf="parents.invalid && (parents.touched || parents.dirty)">
-            {{parents.hasError('maxlength') ? 'Text je predug' : ''}}
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
+          <input
+            type="text"
+            matInput
+            placeholder="Roditelji"
+            name="parents"
+            [formControl]="parents"
+          />
+          <mat-error
+            *ngIf="parents.invalid && (parents.touched || parents.dirty)"
+          >
+            {{ parents.hasError('maxlength') ? 'Text je predug' : '' }}
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
           <mat-select placeholder="Spol" name="gender" [formControl]="gender">
             <mat-option [value]="null">--</mat-option>
             <mat-option value="male">Muško</mat-option>
@@ -51,59 +150,200 @@
         </mat-form-field>
       </div>
       <div fxLayout.xs="column" fxLayoutGap.xs="8px" fxLayoutGap.gt-xs="16px">
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-          <input type="email" matInput placeholder="Email" name="email" [formControl]="email">
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
+          <input
+            type="email"
+            matInput
+            placeholder="Email"
+            name="email"
+            [formControl]="email"
+          />
           <mat-error *ngIf="email.invalid && (email.touched || email.dirty)">
-            {{email.hasError('email') ? 'Neispravan email format' : email.hasError('maxlength') ? 'Tekst je
-            predug' :''}}
+            {{
+              email.hasError('email')
+                ? 'Neispravan email format'
+                : email.hasError('maxlength')
+                ? 'Tekst je
+            predug'
+                : ''
+            }}
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-          <input type="text" matInput placeholder="Adresa" name="address" [formControl]="address">
-          <mat-error *ngIf="address.invalid && (address.touched || address.dirty)">
-            {{address.hasError('maxlength') ? 'Tekst je predug' : ''}}
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
+          <input
+            type="text"
+            matInput
+            placeholder="Adresa"
+            name="address"
+            [formControl]="address"
+          />
+          <mat-error
+            *ngIf="address.invalid && (address.touched || address.dirty)"
+          >
+            {{ address.hasError('maxlength') ? 'Tekst je predug' : '' }}
           </mat-error>
         </mat-form-field>
       </div>
       <div fxLayout.xs="column" fxLayoutGap.xs="8px" fxLayoutGap.gt-xs="16px">
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
           <mat-label style="line-height: 1.2em;">Braća i sestre</mat-label>
           <mat-select [formControl]="siblings" name="siblings" multiple>
-            <mat-select-trigger *ngIf="!!(siblings$ | async)" fxLayoutAlign="space-between center">
+            <mat-select-trigger
+              *ngIf="!!(siblings$ | async)"
+              fxLayoutAlign="space-between center"
+            >
               <div class="member-form__sibling">
-                <span *ngFor="let sibling of getSiblingsData() | async" class="member-form__sibling-input">
-                  {{sibling?.firstName + ' ' + sibling?.lastName}}
+                <span
+                  *ngFor="let sibling of (getSiblingsData() | async)"
+                  class="member-form__sibling-input"
+                >
+                  {{ sibling?.firstName + ' ' + sibling?.lastName }}
                 </span>
               </div>
-              <span *ngIf="siblings.value?.length > 1" class="member-form__sibling-text">
-                (Ukupno: {{siblings.value.length}})
+              <span
+                *ngIf="siblings.value?.length > 1"
+                class="member-form__sibling-text"
+              >
+                (Ukupno: {{ siblings.value.length }})
               </span>
             </mat-select-trigger>
-            <mat-option *ngFor="let sibling$ of siblings$ | async" [value]="sibling$.id">
-              <div class="member-form__sibling-option" fxLayoutAlign="start center">
-                <div class="member-form__sibling-initials" fxLayoutAlign="center center">
-                  <span>{{ (sibling$?.firstName | firstLetter) + (sibling$?.lastName | firstLetter) }}</span>
+            <mat-option
+              *ngFor="let sibling$ of (siblings$ | async)"
+              [value]="sibling$.id"
+            >
+              <div
+                class="member-form__sibling-option"
+                fxLayoutAlign="start center"
+              >
+                <div
+                  class="member-form__sibling-initials"
+                  fxLayoutAlign="center center"
+                >
+                  <span>{{
+                    (sibling$?.firstName | firstLetter) +
+                      (sibling$?.lastName | firstLetter)
+                  }}</span>
                 </div>
-                <div class="member-form__sibling-info" fxLayout="column" fxLayoutAlign="center start">
-                  <span>{{sibling$?.firstName + ' ' + sibling$?.lastName}}</span>
+                <div
+                  class="member-form__sibling-info"
+                  fxLayout="column"
+                  fxLayoutAlign="center start"
+                >
+                  <span>{{
+                    sibling$?.firstName + ' ' + sibling$?.lastName
+                  }}</span>
                   <small>{{ sibling$?.birthdate | age }}</small>
                 </div>
               </div>
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="member-form__field" floatLabel="always" fxFlex.xs="100%" fxFlex.gt-xs="50%">
-          <textarea matInput placeholder="Napomena" name="note" [formControl]="note" style="height: 19px;"></textarea>
-          <mat-hint align="end">{{note.value?.length || 0}}/500</mat-hint>
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex.xs="100%"
+          fxFlex.gt-xs="50%"
+        >
+          <textarea
+            matInput
+            placeholder="Napomena"
+            name="note"
+            [formControl]="note"
+            style="height: 19px;"
+          ></textarea>
+          <mat-hint align="end">{{ note.value?.length || 0 }}/500</mat-hint>
           <mat-error *ngIf="note.invalid && (note.touched || note.dirty)">
-            {{note.hasError('maxlength') ? 'Tekst je predug' : ''}}
+            {{ note.hasError('maxlength') ? 'Tekst je predug' : '' }}
           </mat-error>
         </mat-form-field>
       </div>
+      <div fxLayout.xs="column" fxLayoutGap.xs="8px" fxLayoutGap.gt-xs="16px">
+        <mat-form-field
+          class="member-form__field"
+          floatLabel="always"
+          fxFlex="100%"
+        >
+          <mat-label style="line-height: 1.2em;">Grupe</mat-label>
+          <mat-select [formControl]="groups" name="groups" multiple>
+            <mat-select-trigger
+              *ngIf="!!(groups$ | async)"
+              fxLayoutAlign="space-between center"
+            >
+              <div class="member-form__group">
+                <span
+                  *ngFor="let group of (getGroupsData() | async)"
+                  class="member-form__group-input"
+                >
+                  {{ group?.name }}
+                </span>
+              </div>
+              <span
+                *ngIf="groups.value?.length > 1"
+                class="member-form__group-text"
+              >
+                (Ukupno: {{ groups.value.length }})
+              </span>
+            </mat-select-trigger>
+            <mat-option
+              *ngFor="let group of (groups$ | async)"
+              [value]="group.id"
+            >
+              <div
+                class="member-form__group-option"
+                fxLayoutAlign="start center"
+              >
+                <div
+                  class="member-form__group-color"
+                  [ngStyle]="{ 'background-color': group?.color }"
+                ></div>
+                <div
+                  class="member-form__group-info"
+                  fxLayoutAlign="start center"
+                >
+                  <span>{{ group?.name }}</span>
+                </div>
+              </div>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
-    <div class="member-form__action" fxLayoutAlign="space-around center" fxLayoutGap="16px">
-      <button mat-button type="button" class="member-form__action-button outline" (click)="onCancel()">Odustani</button>
-      <button mat-button type="submit" class="member-form__action-button" [disabled]="memberForm.invalid">Spremi</button>
+    <div
+      class="member-form__action"
+      fxLayoutAlign="space-around center"
+      fxLayoutGap="16px"
+    >
+      <button
+        mat-button
+        type="button"
+        class="member-form__action-button outline"
+        (click)="onCancel()"
+      >
+        Odustani
+      </button>
+      <button
+        mat-button
+        type="submit"
+        class="member-form__action-button"
+        [disabled]="memberForm.invalid"
+      >
+        Spremi
+      </button>
     </div>
   </form>
 </div>

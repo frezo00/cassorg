@@ -1,0 +1,58 @@
+@import '~_variables.scss';
+
+:host {
+  width: 100%;
+}
+
+.group-details {
+  &__content {
+    background-color: white;
+    border-radius: 2px;
+    &-wrapper {
+      padding: 24px 16px 0;
+    }
+  }
+  &__list {
+    padding: 16px;
+  }
+  &__list-item {
+    font-size: 15px;
+    & > h4 {
+      color: color(text-08);
+      padding-left: 8px;
+      margin: 12px 0;
+    }
+    & > p {
+      color: #91979b;
+      padding-left: 8px;
+      margin: 12px 0;
+      min-height: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      &.no-data {
+        font-style: italic;
+        color: rgba($color: #333333, $alpha: 0.2);
+        font-weight: 500;
+      }
+      & > i {
+        width: 100%;
+        height: 20px;
+        margin-left: 12px;
+      }
+    }
+  }
+  &__members-list {
+    margin: 6px 0;
+  }
+  &__member {
+    display: flex;
+    padding: 0 8px;
+    color: #91979b;
+    border-top: 1px solid #eee;
+    border-radius: 0px;
+    &:last-child {
+      border-bottom: 1px solid #eee;
+    }
+  }
+}

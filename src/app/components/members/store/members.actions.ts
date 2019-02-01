@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IMember, ISort } from '../../../models';
+import { IMember, ISort, IGroup } from '../../../models';
 
 export enum MembersActionTypes {
   // Get
@@ -36,6 +36,7 @@ export enum MembersActionTypes {
 // Get
 export class GetMembersBegin implements Action {
   readonly type = MembersActionTypes.GET_MEMBERS_BEGIN;
+  constructor(public payload: string) {}
 }
 export class GetMembersSuccess implements Action {
   readonly type = MembersActionTypes.GET_MEMBERS_SUCCESS;
@@ -61,7 +62,13 @@ export class GetSingleMemberSuccess implements Action {
 // Create
 export class CreateMemberBegin implements Action {
   readonly type = MembersActionTypes.CREATE_MEMBER_BEGIN;
-  constructor(public payload: { member: IMember; hasImage?: boolean }) {}
+  constructor(
+    public payload: {
+      member: IMember;
+      hasImage?: boolean;
+      memberGroups?: { [id: string]: boolean };
+    }
+  ) {}
 }
 export class CreateMemberSuccess implements Action {
   readonly type = MembersActionTypes.CREATE_MEMBER_SUCCESS;
@@ -71,7 +78,12 @@ export class CreateMemberSuccess implements Action {
 export class UpdateMemberBegin implements Action {
   readonly type = MembersActionTypes.UPDATE_MEMBER_BEGIN;
   constructor(
-    public payload: { id: string; memberData: IMember; hasImage?: boolean }
+    public payload: {
+      id: string;
+      memberData: IMember;
+      hasImage?: boolean;
+      memberGroups?: { [id: string]: boolean };
+    }
   ) {}
 }
 export class UpdateMemberSuccess implements Action {

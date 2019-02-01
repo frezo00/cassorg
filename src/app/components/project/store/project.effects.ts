@@ -1,10 +1,6 @@
 import { Observable, from, of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  DocumentReference,
-  DocumentSnapshot
-} from '@angular/fire/firestore';
+import { DocumentSnapshot } from '@angular/fire/firestore';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
@@ -17,8 +13,9 @@ import {
 } from 'rxjs/operators';
 
 import * as ProjectActions from './project.actions';
-import * as UserActions from '../../users/store/users.actions';
-import { IProject, Project } from '../../../models';
+import * as MemberActions from '../../members/store/members.actions';
+import * as GroupActions from '../../groups/store/groups.actions';
+import { IProject } from '../../../models';
 import { AppState } from '../../../store';
 import { ProjectService } from '../project.service';
 
@@ -56,16 +53,18 @@ export class ProjectEffects {
     )
   );
 
+  /* Get project with its Groups and Members */
   @Effect()
   getProjectBegin$: Observable<Action> = this.actions$.pipe(
     ofType(ProjectActions.ProjectActionTypes.GET_PROJECT_BEGIN),
     map((action: ProjectActions.GetProjectBegin) => action.payload),
     switchMap((projectId: string) =>
       from(this.projectService.getProject(projectId)).pipe(
-        map(
-          (projectData: DocumentSnapshot<IProject>) =>
-            new ProjectActions.GetProjectSuccess(projectData.data() as IProject)
-        ),
+        mergeMap((projectData: DocumentSnapshot<IProject>) => [
+          new ProjectActions.GetProjectSuccess(projectData.data() as IProject),
+          new GroupActions.GetGroupsBegin(projectId),
+          new MemberActions.GetMembersBegin(projectId)
+        ]),
         catchError(err => {
           console.error('error: ', err);
           return of(new ProjectActions.ProjectErrors(err));

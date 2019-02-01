@@ -2,16 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import {
-  AppState,
-  OpenModal,
-  getOpenModal,
-  getGroups,
-  GetGroupsBegin,
-  Go
-} from '../../../store';
-import { ModalService } from '../../common/modal/modal.service';
-import { GroupFormComponent } from '../group-form/group-form.component';
+import { AppState, getGroups, GetGroupsBegin, Go } from '../../../store';
 import { IGroup } from '../../../models';
 
 @Component({
@@ -20,27 +11,22 @@ import { IGroup } from '../../../models';
   styleUrls: ['./group-list.component.scss']
 })
 export class GroupListComponent implements OnInit, OnDestroy {
-  openModal: Observable<boolean>;
   groups: Observable<IGroup[]>;
 
-  constructor(
-    private store: Store<AppState>,
-    private modalService: ModalService
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.openModal = this.store.select(getOpenModal);
+    // this.store.dispatch(new GetGroupsBegin());
     this.groups = this.store.select(getGroups);
-    this.store.dispatch(new GetGroupsBegin());
-    this.modalService.addDynamicComponent(GroupFormComponent);
+    // this.modalService.addDynamicComponent(GroupFormComponent);
   }
 
   ngOnDestroy() {
-    this.modalService.removeDynamicComponent();
+    // this.modalService.removeDynamicComponent();
   }
 
-  openNewGroupModal() {
-    this.store.dispatch(new OpenModal(true));
+  getGroupMembersLength(groupMembersObj: any): number {
+    return Object.keys(groupMembersObj).length;
   }
 
   toToNewGroup() {

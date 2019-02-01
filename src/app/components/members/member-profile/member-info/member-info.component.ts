@@ -16,16 +16,16 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./member-info.component.scss']
 })
 export class MemberInfoComponent implements OnInit {
-  @Input()
-  member: IMember;
+  @Input() member: IMember;
   siblings$: Observable<IMember[]>;
-  showSiblings = false;
+  showSiblings: boolean;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
+    this.showSiblings = false;
     if (!!this.member && !!this.member.siblings) {
-      this.store.dispatch(new GetMembersBegin());
+      // this.store.dispatch(new GetMembersBegin());
       this.siblings$ = this.store.select(
         getAllMembersExceptOne(this.member.id)
       );

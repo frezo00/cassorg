@@ -17,10 +17,7 @@ import {
   UpdateMemberProfileImageBegin,
   UpdateMemberProfileImageSuccess
 } from './members.actions';
-import {
-  getCurrentMemberProfileUsername,
-  getImagePath
-} from './members.selectors';
+import { getMembers } from './members.selectors';
 import {
   withLatestFrom,
   switchMap,
@@ -32,10 +29,11 @@ import {
   mergeMap
 } from 'rxjs/operators';
 import { AppState } from '../../../store';
-import { Go } from '../../../router/store';
+import { Go, Back } from '../../../router/store';
+import { UpdateGroupMembersBegin } from '../../groups/store';
 import { UpdateApplicantBegin } from '../../applicants/store';
 import { getActiveProject } from '../../project/store';
-import { IMember, IProject } from '../../../models';
+import { IMember, IProject, IGroup } from '../../../models';
 import { MembersService } from '../members.service';
 import { DocumentSnapshot, DocumentReference } from '@angular/fire/firestore';
 
@@ -44,17 +42,15 @@ export class MembersEffects {
   @Effect()
   getMembers$: Observable<Action> = this.actions$.pipe(
     ofType(MembersActionTypes.GET_MEMBERS_BEGIN),
-    combineLatest(this.store$.select(getActiveProject)),
-    filter(([action, project]: [GetMembersBegin, IProject]) => !!project),
-    withLatestFrom(
-      this.store$.select(state => state.members.members),
-      ([action, project], members) => [project.tag, members]
-    ),
-    filter(([projectId, members]: [string, IMember[]]) => !members),
-    map(([projectId, members]: [string, IMember[]]) => projectId),
+    combineLatest(this.store$.select(getMembers)),
+    filter(([action, members]: [GetMembersBegin, IMember[]]) => !members),
+    map(([action, members]: [GetMembersBegin, IMember[]]) => action.payload),
     switchMap((projectId: string) =>
       this.membersService.getMembers(projectId).pipe(
-        map((members: IMember[]) => new GetMembersSuccess(members)),
+        mergeMap((members: IMember[]) => [
+          new GetMembersSuccess(members)
+          // new GetMembersGroupsBegin()
+        ]),
         catchError(error => of(new SetMembersError(error)))
       )
     )
@@ -106,25 +102,46 @@ export class MembersEffects {
       ([action, project], currentUser) => [
         { ...action.payload.member, createdBy: currentUser.id } as IMember,
         project.tag,
-        action.payload.hasImage
+        action.payload.hasImage,
+        action.payload.memberGroups
       ]
     ),
-    switchMap(([newMember, projectId, hasImage]: [IMember, string, boolean]) =>
-      from(this.membersService.createMember(newMember, projectId)).pipe(
-        mergeMap((memberRef: DocumentReference) => {
-          const actions: Action[] = [new CreateMemberSuccess()];
-          if (!!hasImage) {
-            actions.push(new UploadProfileImageBegin(memberRef.id));
-          } else {
-            actions.push(new Go({ path: '/members' }));
-          }
-          if (!!newMember.applicantId) {
-            actions.push(new UpdateApplicantBegin(newMember.applicantId));
-          }
-          return actions;
-        }),
-        catchError(error => of(new SetMembersError(error)))
-      )
+    switchMap(
+      ([newMember, projectId, hasImage, memberGroups]: [
+        IMember,
+        string,
+        boolean,
+        { [id: string]: boolean }
+      ]) =>
+        from(this.membersService.createMember(newMember, projectId)).pipe(
+          mergeMap((memberRef: DocumentReference) => {
+            const actions: Action[] = [new CreateMemberSuccess()];
+            if (!!hasImage) {
+              actions.push(new UploadProfileImageBegin(memberRef.id));
+            } else {
+              // actions.push(new Go({ path: '/members' }));
+              actions.push(new Back());
+            }
+            if (!!newMember.applicantId) {
+              actions.push(new UpdateApplicantBegin(newMember.applicantId));
+            }
+            if (!!memberGroups) {
+              Object.keys(memberGroups).forEach((gID: string) =>
+                actions.push(
+                  new UpdateGroupMembersBegin({
+                    groupId: gID,
+                    memberObj: {
+                      mId: memberRef.id,
+                      set: memberGroups[gID]
+                    }
+                  })
+                )
+              );
+            }
+            return actions;
+          }),
+          catchError(error => of(new SetMembersError(error)))
+        )
     )
   );
 
@@ -137,14 +154,16 @@ export class MembersEffects {
       action.payload.id,
       action.payload.memberData,
       project.tag,
-      action.payload.hasImage
+      action.payload.hasImage,
+      action.payload.memberGroups
     ]),
     switchMap(
-      ([memberId, memberData, projectId, hasImage]: [
+      ([memberId, memberData, projectId, hasImage, memberGroups]: [
         string,
         IMember,
         string,
-        boolean
+        boolean,
+        { [id: string]: boolean }
       ]) =>
         from(
           this.membersService.updateMember(memberId, memberData, projectId)
@@ -154,7 +173,21 @@ export class MembersEffects {
             if (!!hasImage) {
               actions.push(new UploadProfileImageBegin(memberId));
             } else {
-              actions.push(new Go({ path: `/members/${memberId}` }));
+              // actions.push(new Go({ path: `/members/${memberId}` }));
+              actions.push(new Back());
+            }
+            if (!!memberGroups) {
+              Object.keys(memberGroups).forEach((gID: string) =>
+                actions.push(
+                  new UpdateGroupMembersBegin({
+                    groupId: gID,
+                    memberObj: {
+                      mId: memberId,
+                      set: memberGroups[gID]
+                    }
+                  })
+                )
+              );
             }
             return actions;
           }),
@@ -202,7 +235,8 @@ export class MembersEffects {
       ).pipe(
         mergeMap(() => [
           new UpdateMemberProfileImageSuccess(),
-          new Go({ path: `/members/${memberId}` })
+          // new Go({ path: `/members/${memberId}` })
+          new Back()
         ]),
         catchError(error => of(new SetMembersError(error)))
       )

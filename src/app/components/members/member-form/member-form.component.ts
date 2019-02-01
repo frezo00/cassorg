@@ -12,9 +12,11 @@ import {
   getAllMembersExceptOne,
   GetMembersBegin,
   UploadProfileImageBegin,
-  getImagePath
+  getImagePath,
+  getGroups,
+  getMemberGroups
 } from '../../../store';
-import { IMember } from '../../../models';
+import { IMember, IGroup } from '../../../models';
 
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
@@ -27,9 +29,10 @@ import { MembersService } from '../members.service';
   styleUrls: ['./member-form.component.scss']
 })
 export class MemberFormComponent implements OnInit {
-  @Input()
-  member: IMember;
+  @Input() member: IMember;
   siblings$: Observable<IMember[]>;
+  groups$: Observable<IGroup[]>;
+  memberGroupsIDs: string[];
   photoURL: any;
 
   memberForm: FormGroup;
@@ -43,6 +46,7 @@ export class MemberFormComponent implements OnInit {
   address: FormControl;
   note: FormControl;
   siblings: FormControl;
+  groups: FormControl;
 
   constructor(
     private fb: FormBuilder,
@@ -50,12 +54,12 @@ export class MemberFormComponent implements OnInit {
     private membersService: MembersService
   ) {}
 
-  ngOnInit() {
-    this.store.dispatch(new GetMembersBegin());
+  ngOnInit(): void {
     this.initForm();
     if (!!this.member) {
       this.setFormData(this.member);
     }
+    this.groups$ = this.store.select(getGroups);
   }
 
   initForm(): void {
@@ -84,6 +88,7 @@ export class MemberFormComponent implements OnInit {
     this.address = new FormControl('', Validators.maxLength(100));
     this.note = new FormControl('', Validators.maxLength(500));
     this.siblings = new FormControl(null);
+    this.groups = new FormControl(null);
 
     this.memberForm = this.fb.group({
       firstName: this.firstName,
@@ -95,12 +100,19 @@ export class MemberFormComponent implements OnInit {
       email: this.email,
       address: this.address,
       note: this.note,
-      siblings: this.siblings
+      siblings: this.siblings,
+      groups: this.groups
     });
   }
 
   setFormData(member: IMember): void {
     this.siblings$ = this.store.select(getAllMembersExceptOne(this.member.id));
+    this.store
+      .select(getMemberGroups(member.id))
+      .subscribe((groups: IGroup[]) => {
+        this.memberGroupsIDs = groups.map((g: IGroup) => g.id);
+        this.groups.setValue(this.memberGroupsIDs);
+      });
 
     this.firstName.setValue(member.firstName);
     this.lastName.setValue(member.lastName);
@@ -139,10 +151,16 @@ export class MemberFormComponent implements OnInit {
       siblings: !!this.siblings.value ? this.siblings.value : null,
       applicantId: !!this.member ? this.member.applicantId : ''
     } as IMember;
+
+    this.memberGroupsIDs = !!this.groups.value ? this.groups.value : null;
+    const memberGroups: { [id: string]: boolean } = {};
+    this.memberGroupsIDs.forEach((gID: string) => (memberGroups[gID] = true));
+
     this.store.dispatch(
       new CreateMemberBegin({
         member: newMemberData,
-        hasImage: !!this.membersService.tempProfileImage
+        hasImage: !!this.membersService.tempProfileImage,
+        memberGroups: memberGroups
       })
     );
   }
@@ -204,12 +222,25 @@ export class MemberFormComponent implements OnInit {
             ? this.siblings.value
             : this.member.siblings
       } as IMember;
+
+      const memberGroups: { [id: string]: boolean } = {};
+      if (
+        !!this.groups.value &&
+        (!!this.groups.dirty || !!this.groups.touched)
+      ) {
+        this.groups.value.forEach((gId: string) => (memberGroups[gId] = true));
+        this.memberGroupsIDs
+          .filter((gID: string) => !this.groups.value.includes(gID))
+          .forEach((gId: string) => (memberGroups[gId] = false));
+      }
+
       const { id, ...memberData } = editMemberData;
       this.store.dispatch(
         new UpdateMemberBegin({
           id,
           memberData,
-          hasImage: !!this.membersService.tempProfileImage
+          hasImage: !!this.membersService.tempProfileImage,
+          memberGroups: !!memberGroups ? memberGroups : null
         })
       );
     } else {
@@ -232,6 +263,17 @@ export class MemberFormComponent implements OnInit {
         map((siblings: IMember[]) =>
           siblings.filter((sibling: IMember) =>
             this.siblings.value.find((s: string) => s === sibling.id)
+          )
+        )
+      );
+    }
+  }
+  getGroupsData(): Observable<IGroup[]> {
+    if (!!this.groups.value) {
+      return this.groups$.pipe(
+        map((groups: IGroup[]) =>
+          groups.filter((group: IGroup) =>
+            this.groups.value.find((g: string) => g === group.id)
           )
         )
       );

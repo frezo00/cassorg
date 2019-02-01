@@ -1,28 +1,71 @@
 <div class="subheader__container" fxLayoutAlign="space-between stretch">
-  <div class="subheader__content" fxLayoutAlign="start center" fxLayoutGap="12px">
-    <a *ngIf="!!backButtonLink" mat-icon-button class="subheader__go_back" (click)="goBack()">
+  <div
+    class="subheader__content"
+    fxLayoutAlign="start center"
+    fxLayoutGap="12px"
+  >
+    <a
+      *ngIf="showBackButton"
+      mat-icon-button
+      class="subheader__go_back"
+      (click)="goBack()"
+    >
       <mat-icon>arrow_back</mat-icon>
     </a>
-    <div *ngIf="!!title && !!subtitle" class="subheader__text" fxLayout="column" fxLayoutAlign="center stretch">
+    <div
+      *ngIf="!!title && !!subtitle"
+      class="subheader__text"
+      fxLayout="column"
+      fxLayoutAlign="center stretch"
+    >
       <h2 class="subheader__title">{{ title }}</h2>
       <p class="subheader__subtitle">
-        <span>{{ subtitle }} <b *ngIf="!!subtitleBold">{{ subtitleBold }}</b></span>
+        <span
+          >{{ subtitle }} <b *ngIf="!!subtitleBold">{{ subtitleBold }}</b></span
+        >
       </p>
     </div>
   </div>
-  <div *ngIf="!!actionText || !!showSort || !!showOptions || !!actionIcon" class="subheader__actions" fxLayoutGap="16px"
-    fxLayoutAlign="end center">
-    <button *ngIf="!!showSort" mat-icon-button class="subheader__filter" [matMenuTriggerFor]="sortMenu">
+  <div
+    *ngIf="!!actionText || !!showSort || !!showOptions || !!actionIcon"
+    class="subheader__actions"
+    fxLayoutGap="16px"
+    fxLayoutAlign="end center"
+  >
+    <button
+      *ngIf="!!showSort"
+      mat-icon-button
+      class="subheader__filter"
+      [matMenuTriggerFor]="sortMenu"
+    >
       <mat-icon>filter_list</mat-icon>
     </button>
-    <button *ngIf="!!showOptions" mat-icon-button class="subheader__options" [matMenuTriggerFor]="optionsMenu">
+    <button
+      *ngIf="!!showOptions"
+      mat-icon-button
+      class="subheader__options"
+      [matMenuTriggerFor]="optionsMenu"
+    >
       <mat-icon>more_vert</mat-icon>
     </button>
-    <a *ngIf="!!actionText" (click)="onAction()" class="subheader__action-button" mat-raised-button fxHide.xs>
+    <a
+      *ngIf="!!actionText"
+      (click)="onAction()"
+      class="subheader__action-button"
+      mat-raised-button
+      fxHide.xs
+    >
       {{ actionText }}
     </a>
-    <a mat-icon-button *ngIf="!!actionIcon" (click)="onAction()" class="subheader__action-icon" mat-raised-button
-      fxHide.gt-xs fxLayoutAlign="center center">
+    <a
+      mat-icon-button
+      *ngIf="!!actionIcon"
+      (click)="onAction()"
+      class="subheader__action-icon"
+      mat-raised-button
+      fxHide.gt-xs
+      fxLayoutAlign="center center"
+    >
       <div class="subheade__action-icon-box" fxLayoutAlign="center center">
         <mat-icon>{{ actionIcon }}</mat-icon>
       </div>
@@ -31,10 +74,16 @@
 </div>
 
 <mat-menu #sortMenu="matMenu">
-  <button mat-menu-item *ngFor="let sort of sortValues" (click)="onSortChange({name: sort?.value, order: sort?.direction})">
+  <button
+    mat-menu-item
+    *ngFor="let sort of sortValues"
+    (click)="onSortChange({ name: sort?.value, order: sort?.direction })"
+  >
     <div class="subheader__menu" fxLayoutAlign="space-between center">
-      <p class="subheader__menu-title">{{sort?.title}}</p>
-      <span *ngIf="!!sort?.subtitle" class="subheader__menu-subtitle">({{sort?.subtitle}})</span>
+      <p class="subheader__menu-title">{{ sort?.title }}</p>
+      <span *ngIf="!!sort?.subtitle" class="subheader__menu-subtitle"
+        >({{ sort?.subtitle }})</span
+      >
     </div>
   </button>
 </mat-menu>

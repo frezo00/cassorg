@@ -1,20 +1,31 @@
 <mat-drawer-container class="admin__container" fxFlexFill autosize>
-
-  <mat-drawer #sidenav [mode]="tabletQuery.matches ? 'over' : 'side'" [opened]="tabletQuery.matches ? 'false' : 'true'" style="width: 280px;">
-    <app-side-menu (toggleSide)="tabletQuery.matches ? sidenav.toggle() : null" fxFlexFill fxLayout="column"></app-side-menu>
+  <mat-drawer
+    #sidenav
+    [mode]="tabletQuery.matches ? 'over' : 'side'"
+    [opened]="tabletQuery.matches ? 'false' : 'true'"
+    style="width: 280px;"
+  >
+    <app-side-menu
+      (toggleSide)="tabletQuery.matches ? sidenav.toggle() : null"
+      fxLayout="column"
+    ></app-side-menu>
   </mat-drawer>
 
-  <mat-drawer-content class="admin__content" fxLayout="column" fxLayoutAlign="start stretch">
-    <app-top-navbar [isMobile]="mobileQuery.matches" (toggleSide)="sidenav.toggle()"></app-top-navbar>
+  <mat-drawer-content
+    class="admin__content"
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+  >
+    <app-top-navbar
+      [isMobile]="mobileQuery.matches"
+      (toggleSide)="sidenav.toggle()"
+    ></app-top-navbar>
 
     <div class="admin__content-box" fxFlex="100%">
       <!-- <app-alert-bar></app-alert-bar> -->
       <router-outlet></router-outlet>
     </div>
   </mat-drawer-content>
-
 </mat-drawer-container>
 
-<app-modal>
-  <ng-template #modal></ng-template>
-</app-modal>
+<app-modal> <ng-template #modal></ng-template> </app-modal>

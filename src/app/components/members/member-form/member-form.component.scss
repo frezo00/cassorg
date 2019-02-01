@@ -32,7 +32,7 @@
       }
     }
   }
-  &__sibling {
+  &__sibling, &__group {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -62,6 +62,13 @@
         color: #91979b;
       }
     }
+    &-color {
+        width: 20px;
+        min-width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
+      }
     &-info {
       line-height: 1em;
       padding-left: 12px;

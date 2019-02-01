@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { IMember } from '../../models';
+import { IMember, IGroup } from '../../models';
 import { map, finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -98,6 +98,15 @@ export class MembersService {
     return this.af
       .doc<IMember>(`projects/${projectId}/members/${memberId}`)
       .ref.update({ photoURL: photoURL });
+  }
+
+  getMemberGroups(memberId: string, projectId: string): Observable<IGroup[]> {
+    console.log('memid:', memberId);
+    return this.af
+      .collection<IGroup>(`projects/${projectId}/groups`, ref =>
+        ref.where(`members.${memberId}`, '==', true)
+      )
+      .valueChanges();
   }
 
   saveTempImage(image: File): void {

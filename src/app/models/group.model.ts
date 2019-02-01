@@ -1,10 +1,19 @@
 export interface IGroup {
+  id?: string;
   name: string;
   color: string;
   dateCreated: string;
   createdBy?: string;
-  members?: string[];
+  members?: any;
   activities?: string[];
+  lastUpdated?: string;
+}
+
+export interface IMemberGroup {
+  id: string;
+  name: string;
+  color: string;
+  memberCount: string;
 }
 
 export class Group implements IGroup {
@@ -12,8 +21,10 @@ export class Group implements IGroup {
     public name: string,
     public color: string,
     public dateCreated: string,
+    public id?: string,
     public createdBy?: string,
-    public members?: string[],
-    public activities?: string[]
+    public members?: any,
+    public activities?: string[],
+    public lastUpdated?: string
   ) {}
 }

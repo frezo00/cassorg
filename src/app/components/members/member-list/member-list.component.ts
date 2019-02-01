@@ -2,7 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState, GetMembersBegin, Go, SortMembers } from '../../../store';
+import {
+  AppState,
+  GetMembersBegin,
+  Go,
+  SortMembers,
+  getMembers,
+  getMembersGroups
+} from '../../../store';
 import { IMember, ISort } from '../../../models';
 
 @Component({
@@ -11,15 +18,14 @@ import { IMember, ISort } from '../../../models';
   styleUrls: ['./member-list.component.scss']
 })
 export class MemberListComponent implements OnInit {
-  members: Observable<IMember[]>;
+  members$: Observable<IMember[]>;
   searchText: string;
   searchKeys: string[] = ['firstName', 'lastName'];
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new GetMembersBegin());
-    this.members = this.store.select(state => state.members.members);
+    this.members$ = this.store.select(getMembersGroups);
   }
 
   navigateToForm(): void {

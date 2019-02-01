@@ -16,4 +16,5 @@ export interface IMember {
   siblings?: string[];
   applicantId?: string;
   lastUpdated?: string;
+  groups?: any;
 }

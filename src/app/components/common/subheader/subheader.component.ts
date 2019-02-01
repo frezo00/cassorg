@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 import { ISort } from '../../../models';
 import { Store } from '@ngrx/store';
-import { AppState, Go } from '../../../store';
+import { AppState, Go, Back } from '../../../store';
 
 @Component({
   selector: 'app-subheader',
@@ -10,28 +10,17 @@ import { AppState, Go } from '../../../store';
   styleUrls: ['./subheader.component.scss']
 })
 export class SubheaderComponent implements OnInit {
-  @Input()
-  backButtonLink = '';
-  @Input()
-  showSort = false;
-  @Input()
-  showOptions = false;
-  @Input()
-  actionText = '';
-  @Input()
-  actionIcon = '';
-  @Input()
-  title = '';
-  @Input()
-  subtitle = '';
-  @Input()
-  subtitleBold = '';
-  @Output()
-  action: EventEmitter<any> = new EventEmitter();
-  @Output()
-  sortChange: EventEmitter<ISort> = new EventEmitter();
-  @Output()
-  options: EventEmitter<string> = new EventEmitter();
+  @Input() showBackButton = false;
+  @Input() showSort = false;
+  @Input() showOptions = false;
+  @Input() actionText = '';
+  @Input() actionIcon = '';
+  @Input() title = '';
+  @Input() subtitle = '';
+  @Input() subtitleBold = '';
+  @Output() action: EventEmitter<any> = new EventEmitter();
+  @Output() sortChange: EventEmitter<ISort> = new EventEmitter();
+  @Output() options: EventEmitter<string> = new EventEmitter();
 
   sortValues = [
     {
@@ -66,8 +55,8 @@ export class SubheaderComponent implements OnInit {
 
   ngOnInit() {}
 
-  goBack() {
-    this.store.dispatch(new Go({ path: this.backButtonLink }));
+  goBack(): void {
+    this.store.dispatch(new Back());
   }
 
   onAction(): void {

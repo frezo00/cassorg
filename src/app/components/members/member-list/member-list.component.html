@@ -1,9 +1,24 @@
 <div class="member-list__container">
-  <app-subheader [title]="'Članovi'" [subtitle]="'Ukupno: ' + (members | async)?.length" [showSort]="true" [actionText]="'Novi član'"
-    [actionIcon]="'add'" (action)="navigateToForm()" (sortChange)="setSort($event)"></app-subheader>
+  <app-subheader
+    [title]="'Članovi'"
+    [subtitle]="'Ukupno: ' + (members$ | async)?.length"
+    [showSort]="true"
+    [actionText]="'Novi član'"
+    [actionIcon]="'add'"
+    (action)="navigateToForm()"
+    (sortChange)="setSort($event)"
+  ></app-subheader>
   <div class="member-list__content" fxLayoutAlign="center center">
-    <div class="member-list__table mat-elevation-z8" fxFlex="100%" fxLayout="column">
-      <div class="member-list__row header" fxFlex="100%" fxLayoutAlign="space-between center">
+    <div
+      class="member-list__table mat-elevation-z8"
+      fxFlex="100%"
+      fxLayout="column"
+    >
+      <div
+        class="member-list__row header"
+        fxFlex="100%"
+        fxLayoutAlign="space-between center"
+      >
         <div class="member-list__cell" fxFlex="50%" fxFlex.xs="75%">
           <p class="member-list__cell-title header">Ime i Prezime</p>
         </div>
@@ -11,43 +26,105 @@
           <p class="member-list__cell-title header">Kontakt</p>
         </div>
         <div class="member-list__cell" fxFlex="25%">
-          <p class="member-list__cell-title header accepted">Član</p>
+          <p class="member-list__cell-title header accepted">Grupe</p>
         </div>
       </div>
       <div class="member-list__search" fxLayoutAlign="start center">
-        <input fxFlex="100%" type="search" class="member-list__search-input" placeholder="Pretraži članove..."
-          [(ngModel)]="searchText" autocomplete="off">
-        <button *ngIf="!!searchText" mat-icon-button class="member-list__search-clear" (click)="searchText=''">
+        <input
+          fxFlex="100%"
+          type="search"
+          class="member-list__search-input"
+          placeholder="Pretraži članove..."
+          [(ngModel)]="searchText"
+          autocomplete="off"
+        />
+        <button
+          *ngIf="!!searchText"
+          mat-icon-button
+          class="member-list__search-clear"
+          (click)="searchText = ''"
+        >
           <mat-icon>close</mat-icon>
         </button>
       </div>
-      <a mat-button (click)="navigateToProfile(member?.id)" *ngFor="let member of (members | async) | search:searchText:searchKeys"
-        class="member-list__item">
-        <div class="member-list__row" fxFlex="100%" fxLayoutAlign="space-between center">
-          <div class="member-list__cell" fxFlex="50%" fxFlex.xs="75%" fxLayoutAlign="space-between center">
-            <div fxLayoutAlign="start center" [fxFlex]="!!member?.message ? '80%' : '100%'">
-              <div class="member-list__initials" fxLayoutAlign="center center" [style.background-image]="!!member?.photoURL ? 'url(' + member?.photoURL + ')' : 'none'">
-                <span *ngIf="!member?.photoURL">{{(member?.firstName | firstLetter) + (member?.lastName |
-                  firstLetter)}}</span>
+      <a
+        mat-button
+        (click)="navigateToProfile(member?.id)"
+        *ngFor="
+          let member of (members$ | async | search: searchText:searchKeys)
+        "
+        class="member-list__item"
+      >
+        <div
+          class="member-list__row"
+          fxFlex="100%"
+          fxLayoutAlign="space-between center"
+        >
+          <div
+            class="member-list__cell"
+            fxFlex="50%"
+            fxFlex.xs="75%"
+            fxLayoutAlign="space-between center"
+          >
+            <div
+              fxLayoutAlign="start center"
+              [fxFlex]="!!member?.message ? '80%' : '100%'"
+            >
+              <div
+                class="member-list__initials"
+                fxLayoutAlign="center center"
+                [style.background-image]="
+                  !!member?.photoURL ? 'url(' + member?.photoURL + ')' : 'none'
+                "
+              >
+                <span *ngIf="!member?.photoURL">{{
+                  (member?.firstName | firstLetter) +
+                    (member?.lastName | firstLetter)
+                }}</span>
               </div>
-              <div class="member-list__data" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="4px">
-                <span class="member-list__data-name">{{ member?.firstName + ' ' + member?.lastName }}</span>
-                <small class="member-list__data-years">{{ member?.birthdate | age }}</small>
+              <div
+                class="member-list__data"
+                fxLayout="column"
+                fxLayoutAlign="start stretch"
+                fxLayoutGap="4px"
+              >
+                <span class="member-list__data-name">{{
+                  member?.firstName + ' ' + member?.lastName
+                }}</span>
+                <small class="member-list__data-years">{{
+                  member?.birthdate | age
+                }}</small>
               </div>
             </div>
-            <div *ngIf="!!member?.message" class="member-list__message" fxLayoutAlign="center center" fxFlex="20%">
+            <div
+              *ngIf="!!member?.message"
+              class="member-list__message"
+              fxLayoutAlign="center center"
+              fxFlex="20%"
+            >
               <mat-icon>message</mat-icon>
             </div>
           </div>
           <div class="member-list__cell" fxFlex="25%" fxHide.xs>
             <p class="member-list__cell-title">{{ member?.phoneNumber }}</p>
           </div>
-          <div class="member-list__cell" fxFlex="25%" fxLayoutAlign="center center">
-            <div class="member-list__accepted" [ngClass]="{'positive': member?.isMember}"></div>
+          <div
+            class="member-list__cell groups"
+            fxFlex="25%"
+            fxLayoutAlign="start center"
+          >
+            <div
+              *ngFor="let group of member?.groups"
+              class="member-list__groups"
+              [ngStyle]="{ 'background-color': group?.color }"
+            ></div>
           </div>
         </div>
       </a>
-      <div *ngIf="!(members | async) || (members | async)?.length === 0" class="member-list__empty-list">
+      <div
+        *ngIf="!(members$ | async) || (members$ | async)?.length === 0"
+        class="member-list__empty-list"
+      >
         <p>Nema podataka</p>
       </div>
     </div>

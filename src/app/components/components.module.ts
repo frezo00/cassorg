@@ -35,7 +35,10 @@ import { MemberNewComponent } from './members/member-new/member-new.component';
 import { GroupNewComponent } from './groups/group-new/group-new.component';
 import { MemberInfoComponent } from './members/member-profile/member-info/member-info.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
-import { MemberImageComponent } from './members/member-image/member-image.component';
+import { MemberImageComponent } from './members/member-form/member-image/member-image.component';
+import { GroupDetailsComponent } from './groups/group-details/group-details.component';
+import { GroupEditComponent } from './groups/group-edit/group-edit.component';
+import { MemberGroupsComponent } from './members/member-profile/member-groups/member-groups.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,10 @@ import { MemberImageComponent } from './members/member-image/member-image.compon
     GroupNewComponent,
     MemberInfoComponent,
     MemberEditComponent,
-    MemberImageComponent
+    MemberImageComponent,
+    GroupDetailsComponent,
+    GroupEditComponent,
+    MemberGroupsComponent
   ],
   imports: [
     CommonModule,

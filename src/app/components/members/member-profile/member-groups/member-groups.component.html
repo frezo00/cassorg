@@ -1,0 +1,28 @@
+<div
+  class="member-groups__container"
+  fxFlex="100%"
+  fxLayout="column"
+  fxLayoutAlign="space-between stretch"
+>
+  <a
+    mat-button
+    *ngFor="let group of memberGroups"
+    class="member-groups__item"
+    fxFlex="100%"
+    (click)="goToGroup(group.id)"
+  >
+    <div class="member-groups__item-box" fxLayoutAlign="space-between center">
+      <div
+        class="member-groups__item-text"
+        fxLayout="column"
+        fxLayoutAlign="center start"
+      >
+        <small>{{ getGroupMembersLength(group?.members) | userSize }}</small>
+        <span>{{ group?.name }}</span>
+      </div>
+      <div class="member-groups__item-action" fxLayoutAlign="start center">
+        <div [ngStyle]="{ 'background-color': group?.color }"></div>
+      </div>
+    </div>
+  </a>
+</div>

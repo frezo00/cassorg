@@ -19,7 +19,7 @@ export class ProjectService {
       });
   }
 
-  createProject(project: IProject): Promise<any> {
+  createProject(project: IProject): Promise<void> {
     return this.afDB
       .collection('projects')
       .doc(project.tag)

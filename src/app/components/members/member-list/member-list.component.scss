@@ -52,7 +52,10 @@
   }
   &__cell {
     padding-left: 8px;
-    max-width: 150px;
+    // max-width: 150px;
+    &.groups {
+      flex-wrap: nowrap;
+    }
     &-title {
       color: #91979b;
       font-weight: 500;
@@ -68,7 +71,6 @@
         color: color(text-05);
         &.accepted {
           padding-left: 0;
-          text-align: center;
         }
       }
     }
@@ -119,14 +121,13 @@
     color: rgba($color: #91979b, $alpha: 0.7);
     padding-left: 12px;
   }
-  &__accepted {
-    width: 20px;
-    height: 20px;
+  &__groups {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
     border-radius: 50%;
-    background-color: color(danger);
-    &.positive {
-      background-color: color(success);
-    }
+    margin-right: -8px;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
   }
   &__empty-list {
     text-align: center;

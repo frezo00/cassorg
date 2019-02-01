@@ -13,15 +13,27 @@
       0 8px 10px 1px rgba($color: #333333, $alpha: 0.14),
       0 3px 14px 2px rgba($color: #333333, $alpha: 0.12);
   }
-  &__row {
-    &.header {
-      border-bottom: 1px solid #eee;
+  &__data {
+    border-top: 1px solid #ccc;
+  }
+  &__item {
+    border-bottom: 1px solid #eee;
+    border-radius: 0px;
+    padding: 0;
+    width: 100%;
+    &:last-child {
+      border-bottom: none;
     }
   }
   &__cell {
-    padding-left: 20px;
+    padding: 0.7em 1.5em;
+    line-height: 1.5em;
+    &.header {
+      padding: 0 1.2em;
+    }
     &-title {
       color: color(text-08);
+      font-size: 16px;
       font-weight: 600;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -30,10 +42,10 @@
         color: color(text-05);
         text-transform: uppercase;
         font-size: 12px;
+        margin: 0.8em 0;
       }
     }
     &-subtitle {
-      margin: 0 0 16px;
       font-size: 12px;
       font-weight: 500;
       color: color(text-05);

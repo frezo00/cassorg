@@ -1,0 +1,46 @@
+<div *ngIf="(group$ | async) as group" class="group-details__container" fxFlexFill>
+  <app-subheader
+    [title]="group?.name"
+    [subtitle]="'Kreirana: ' + (group?.dateCreated | date: 'dd.MM.yyyy HH:mm')"
+    [showBackButton]="true"
+    [showOptions]="true"
+    (options)="optionsAction($event)"
+  ></app-subheader>
+  <div
+    class="group-details__content mat-elevation-z8"
+    fxLayout="column"
+    fxLayoutAlign="space-between stretch"
+    fxLayoutGap="8px"
+  >
+    <div
+      class="group-details__list"
+      fxLayout="column"
+      fxLayoutAlign="start stretch"
+    >
+      <div class="group-details__list-item" fxLayoutAlign="start start">
+        <h4 fxFlex="35%" fxFlex.gt-sm="25%">Naziv</h4>
+        <p fxFlex="60%">{{ group?.name }}</p>
+      </div>
+      <div class="group-details__list-item" fxLayoutAlign="start start">
+        <h4 fxFlex="35%" fxFlex.gt-sm="25%">Boja</h4>
+        <p fxFlex="60%" fxLayoutAlign="space-between center">
+          <span>{{ group?.color }}</span>
+          <i [ngStyle]="{ 'background-color': group?.color }"></i>
+        </p>
+      </div>
+      <div class="group-details__list-item" fxLayoutAlign="start start">
+        <h4 fxFlex="35%" fxFlex.gt-sm="25%">Članovi</h4>
+        <div class="group-details__members-list" fxFlex="60%">
+          <a
+            mat-button
+            [routerLink]="['/members/' + member?.id]"
+            class="group-details__member"
+            *ngFor="let member of (groupMembers$ | async)"
+          >
+            {{ member?.firstName + ' ' + member?.lastName }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

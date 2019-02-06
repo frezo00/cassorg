@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
+import { GroupFormComponent } from '../group-form/group-form.component';
 import { AppState, getSingleGroup, GetSingleGroupBegin } from '../../../store';
 import { IGroup } from '../../../models';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-group-edit',
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./group-edit.component.scss']
 })
 export class GroupEditComponent implements OnInit {
+  @ViewChild(GroupFormComponent) form: GroupFormComponent;
   group$: Observable<IGroup>;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {}

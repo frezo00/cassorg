@@ -1,17 +1,15 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import * as fromCommon from './common.reducers';
+import { CommonState } from './common.reducers';
 
-export const getCommonState = createFeatureSelector<fromCommon.CommonState>(
-  'common'
-);
+export const getCommonState = createFeatureSelector<CommonState>('common');
 
 export const getShowLoading = createSelector(
   getCommonState,
-  (state: fromCommon.CommonState) => state.showLoading
+  (state: CommonState) => state.showLoading
 );
 
-export const getOpenModal = createSelector(
+export const getModal = createSelector(
   getCommonState,
-  (state: fromCommon.CommonState) => state.openModal
+  (state: CommonState) => state.modal
 );

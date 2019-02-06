@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
 
   goToRegister() {
     this.loginForm.reset();
-    this.store.dispatch(new Go({ path: '/auth/register' }));
+    this.store.dispatch(new Go('/auth/register'));
     this.store.dispatch(new RemoveErrors());
   }
 }

@@ -77,7 +77,7 @@ export class AuthEffects {
     mergeMap(() => [
       new AuthActions.SaveUserLoginDataBegin(),
       new CommonActions.ShowLoading(false),
-      new RouterActions.Go({ path: '/' })
+      new RouterActions.Go('/')
     ]),
     catchError((error: FirebaseAuthError) =>
       from([
@@ -127,7 +127,7 @@ export class AuthEffects {
     mergeMap(() => [
       new AuthActions.SaveUserLoginDataBegin(),
       new CommonActions.ShowLoading(false),
-      new RouterActions.Go({ path: '/' })
+      new RouterActions.Go('/')
     ]),
     catchError((error: FirebaseAuthError) =>
       from([
@@ -154,7 +154,7 @@ export class AuthEffects {
     ofType(AuthActions.AuthActionTypes.LOGOUT_BEGIN),
     switchMap(() =>
       from(this.authService.signOut()).pipe(
-        map(() => new RouterActions.Go({ path: '/auth/login' })),
+        map(() => new RouterActions.Go('/auth/login')),
         catchError(error => of(new AuthActions.SetErrors(error)))
       )
     )

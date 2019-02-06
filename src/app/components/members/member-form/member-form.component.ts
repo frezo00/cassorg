@@ -7,14 +7,11 @@ import {
   AppState,
   CreateMemberBegin,
   UpdateMemberBegin,
-  Back,
   getMembers,
   getAllMembersExceptOne,
-  GetMembersBegin,
-  UploadProfileImageBegin,
-  getImagePath,
   getGroups,
-  getMemberGroups
+  getMemberGroups,
+  Go
 } from '../../../store';
 import { IMember, IGroup } from '../../../models';
 
@@ -30,6 +27,7 @@ import { MembersService } from '../members.service';
 })
 export class MemberFormComponent implements OnInit {
   @Input() member: IMember;
+  @Input() isApplicant = false;
   siblings$: Observable<IMember[]>;
   groups$: Observable<IGroup[]>;
   memberGroupsIDs: string[];
@@ -127,7 +125,7 @@ export class MemberFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!!this.member) {
+    if (!!this.member && !this.isApplicant) {
       this.updateMember();
     } else {
       this.createMember();
@@ -249,7 +247,11 @@ export class MemberFormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.store.dispatch(new Back());
+    if (!!this.member) {
+      this.store.dispatch(new Go(`/members/${this.member.id}`));
+    } else {
+      this.store.dispatch(new Go('/members'));
+    }
   }
 
   onImageChange(profileImage: File): void {

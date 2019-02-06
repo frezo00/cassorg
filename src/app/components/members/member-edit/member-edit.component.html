@@ -4,6 +4,7 @@
     [subtitle]="'Podaci za: '"
     [subtitleBold]="member?.firstName + ' ' + member?.lastName"
     [showBackButton]="true"
+    [backButtonLink]="'/members/' + member?.id"
   ></app-subheader>
   <div class="member-edit__content mat-elevation-z8">
     <app-member-form *ngIf="!!member" [member]="member"></app-member-form>

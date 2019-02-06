@@ -32,6 +32,6 @@ export class MemberGroupsComponent implements OnInit {
   }
 
   goToGroup(groupId: string): void {
-    this.store.dispatch(new Go({ path: `/groups/${groupId}` }));
+    this.store.dispatch(new Go(`/groups/${groupId}`));
   }
 }

@@ -43,6 +43,6 @@ export class MemberInfoComponent implements OnInit {
   }
 
   goToSibling(siblingId: string): void {
-    this.store.dispatch(new Go({ path: `/members/${siblingId}` }));
+    this.store.dispatch(new Go(`/members/${siblingId}`));
   }
 }

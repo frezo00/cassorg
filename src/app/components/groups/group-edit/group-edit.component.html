@@ -1,6 +1,12 @@
-<div class="group-edit__container">
-  <app-subheader [title]="'Uredi grupu'" [subtitle]="'Podaci za: '" [subtitleBold]="(group$ | async)?.name" [showBackButton]="true"></app-subheader>
+<div *ngIf="(group$ | async) as group" class="group-edit__container">
+  <app-subheader
+    [title]="'Uredi grupu'"
+    [subtitle]="'Podaci za: '"
+    [subtitleBold]="group?.name"
+    [showBackButton]="true"
+    [backButtonLink]="'/groups/' + group?.id"
+  ></app-subheader>
   <div class="group-edit__content mat-elevation-z8">
-    <app-group-form *ngIf="!!(group$ | async)" [group]="(group$ | async)"></app-group-form>
+    <app-group-form [group]="group"></app-group-form>
   </div>
 </div>

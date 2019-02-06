@@ -26,7 +26,7 @@ export class GroupDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.store.dispatch(new GetSingleGroupBegin(params['id']));
       this.group$ = this.store.select(getSingleGroup(params['id']));
@@ -41,12 +41,12 @@ export class GroupDetailsComponent implements OnInit {
   optionsAction(action: string): void {
     this.group$.subscribe((group: IGroup) => {
       if (action === 'edit') {
-        this.store.dispatch(
-          new Go({
-            path: `/groups/edit/${group.id}`
-          })
-        );
+        this.store.dispatch(new Go(`/groups/edit/${group.id}`));
       }
     });
+  }
+
+  goToMember(memberId: string): void {
+    this.store.dispatch(new Go(`/members/${memberId}`));
   }
 }

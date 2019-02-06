@@ -8,3 +8,9 @@ export interface IRouter {
   path: string;
   data?: any;
 }
+
+export interface IModal {
+  nextUrl: string;
+  title: string;
+  content: string;
+}

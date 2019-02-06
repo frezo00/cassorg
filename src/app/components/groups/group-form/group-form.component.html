@@ -1,39 +1,89 @@
 <div class="group-form__container">
-  <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
-    <div class="group-form__content" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+  <form #form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+    <div
+      class="group-form__content"
+      fxLayout="column"
+      fxLayoutAlign="start stretch"
+      fxLayoutGap="12px"
+    >
       <mat-form-field floatLabel="always">
-        <input type="text" matInput placeholder="Naziv" aria-label="Naziv" [formControl]="name" required>
+        <input
+          type="text"
+          matInput
+          placeholder="Naziv"
+          aria-label="Naziv"
+          [formControl]="name"
+          required
+        />
         <mat-error *ngIf="name.invalid && (name.touched || name.dirty)">
-          {{name.hasError('required') ? 'Ovo polje je obavezno' : name.hasError('maxlength') ? 'Tekst je
-          predug' :''}}
+          {{
+            name.hasError('required')
+              ? 'Ovo polje je obavezno'
+              : name.hasError('maxlength')
+              ? 'Tekst je
+          predug'
+              : ''
+          }}
         </mat-error>
       </mat-form-field>
       <mat-form-field floatLabel="always">
-        <input matInput placeholder="Boja" aria-label="Boja" [colorPicker]="color.value" (colorPickerChange)="color.setValue($event)"
-          [style.background]="color.value" class="group-form__color-picker" [cpPosition]="'bottom'" [cpAlphaChannel]="'always'"
-          [formControl]="color" required readonly="true">
-        <span class="group-form__color-text" matSuffix>{{color?.value}}</span>
+        <input
+          matInput
+          placeholder="Boja"
+          aria-label="Boja"
+          [colorPicker]="color.value"
+          (colorPickerChange)="color.setValue($event)"
+          [style.background]="color.value"
+          class="group-form__color-picker"
+          [cpPosition]="'bottom'"
+          [cpAlphaChannel]="'always'"
+          [formControl]="color"
+          required
+          readonly="true"
+        />
+        <span class="group-form__color-text" matSuffix>{{ color?.value }}</span>
       </mat-form-field>
       <mat-form-field floatLabel="always">
         <mat-label style="line-height: 1.2em;">Članovi</mat-label>
-        <mat-select placeholder="Odaberi članove" aria-label="Odaberi članove" [formControl]="selectedMembers" multiple>
+        <mat-select
+          placeholder="Odaberi članove"
+          aria-label="Odaberi članove"
+          [formControl]="selectedMembers"
+          multiple
+        >
           <mat-select-trigger fxLayoutAlign="space-between center">
             <div class="group-form__member">
-              <span *ngFor="let selectedUser of selectedMembers.value" class="group-form__member-input">
-                {{selectedUser?.firstName + ' ' + selectedUser?.lastName}}
+              <span
+                *ngFor="let selectedUser of selectedMembers.value"
+                class="group-form__member-input"
+              >
+                {{ selectedUser?.firstName + ' ' + selectedUser?.lastName }}
               </span>
             </div>
-            <span *ngIf="selectedMembers.value?.length > 1" class="group-form__member-text">
-              (Ukupno: {{selectedMembers.value.length}})
+            <span
+              *ngIf="selectedMembers.value?.length > 1"
+              class="group-form__member-text"
+            >
+              (Ukupno: {{ selectedMembers.value.length }})
             </span>
           </mat-select-trigger>
-          <mat-option *ngFor="let member of members | async" [value]="member">
+          <mat-option *ngFor="let member of (members | async)" [value]="member">
             <div class="group-form__member-option" fxLayoutAlign="start center">
-              <div class="group-form__member-initials" fxLayoutAlign="center center">
-                <span>{{ (member?.firstName | firstLetter) + (member?.lastName | firstLetter) }}</span>
+              <div
+                class="group-form__member-initials"
+                fxLayoutAlign="center center"
+              >
+                <span>{{
+                  (member?.firstName | firstLetter) +
+                    (member?.lastName | firstLetter)
+                }}</span>
               </div>
-              <div class="group-form__member-info" fxLayout="column" fxLayoutAlign="center start">
-                <span>{{member?.firstName + ' ' + member?.lastName}}</span>
+              <div
+                class="group-form__member-info"
+                fxLayout="column"
+                fxLayoutAlign="center start"
+              >
+                <span>{{ member?.firstName + ' ' + member?.lastName }}</span>
                 <small>{{ member?.birthdate | age }}</small>
               </div>
             </div>
@@ -41,9 +91,27 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="group-form__action" fxLayoutAlign="space-around center" fxLayoutGap="16px">
-      <button mat-button type="button" class="group-form__action-button outline" (click)="onCancel()">Odustani</button>
-      <button mat-button type="submit" class="group-form__action-button" [disabled]="groupForm.invalid">Spremi</button>
+    <div
+      class="group-form__action"
+      fxLayoutAlign="space-around center"
+      fxLayoutGap="16px"
+    >
+      <button
+        mat-button
+        type="button"
+        class="group-form__action-button outline"
+        (click)="onCancel()"
+      >
+        Odustani
+      </button>
+      <button
+        mat-button
+        type="submit"
+        class="group-form__action-button"
+        [disabled]="groupForm.invalid"
+      >
+        Spremi
+      </button>
     </div>
   </form>
 </div>

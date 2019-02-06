@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MemberFormComponent } from '../member-form/member-form.component';
 
 @Component({
   selector: 'app-member-new',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./member-new.component.scss']
 })
 export class MemberNewComponent implements OnInit {
+  @ViewChild(MemberFormComponent) form: MemberFormComponent;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

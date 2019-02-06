@@ -1,11 +1,28 @@
-<div class="modal__wrapper" *ngIf="(openModal | async)">
-  <div class="modal__container" fxFlex="80%" fxFlex.sm="60%" fxFlex.gt-sm="40%" fxFlex.gt-lg="30%" fxLayout="column" fxLayoutAlign="center strech">
-    <div class="modal__header" fxLayoutAlign="space-between center">
-      <h2 class="modal__title">Odbaci promjene?</h2>
-      <a class="modal__cancel-icon" (click)="onCancel()">
-        <mat-icon>clear</mat-icon>
-      </a>
-    </div>
-    <ng-content></ng-content>
+<div class="modal__container" fxLayout="column" fxLayoutAlign="center stretch">
+  <div class="modal__header" fxLayoutAlign="space-between center">
+    <h2 mat-dialog-title class="modal__title">{{ data?.title }}</h2>
+    <a class="modal__cancel-icon" (click)="onCancel()">
+      <mat-icon>clear</mat-icon>
+    </a>
+  </div>
+  <div mat-dialog-content class="modal__content">
+    <p>{{ data?.content }}</p>
+    <!-- <div class="modal__message">
+      <span>Imate nespremljene promjene na ovoj stranici.</span>
+      <p>Jeste sigurni da ih želite odbaciti?</p>
+    </div> -->
+  </div>
+  <div mat-dialog-actions class="modal__action">
+    <button mat-button class="modal__action-button" (click)="onCancel()">
+      Odustani
+    </button>
+    <button
+      mat-button
+      class="modal__action-button"
+      [mat-dialog-close]="data?.nextUrl"
+      cdkFocusInitial
+    >
+      Odbaci
+    </button>
   </div>
 </div>

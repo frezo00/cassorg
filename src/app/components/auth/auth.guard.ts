@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { take, map } from 'rxjs/operators';
 
 import { AppState } from '../../store';
-import { Go } from '../../router/store/router.actions';
+import { Go } from '../../router/store/navigation.actions';
 import { SaveUserLoginDataBegin } from '../auth/store/auth.actions';
 import { AuthService } from './auth.service';
 
@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate, CanLoad {
       take(1),
       map(isAuth => {
         if (!isAuth) {
-          this.store.dispatch(new Go({ path: '/auth/login' }));
+          this.store.dispatch(new Go('/auth/login'));
           return false;
         }
         this.store.dispatch(new SaveUserLoginDataBegin());
@@ -44,7 +44,7 @@ export class AuthGuard implements CanActivate, CanLoad {
       take(1),
       map(isAuth => {
         if (!isAuth) {
-          this.store.dispatch(new Go({ path: '/auth/login' }));
+          this.store.dispatch(new Go('/auth/login'));
           return false;
         }
         this.store.dispatch(new SaveUserLoginDataBegin());

@@ -29,11 +29,11 @@ export class MemberListComponent implements OnInit {
   }
 
   navigateToForm(): void {
-    this.store.dispatch(new Go({ path: '/members/new' }));
+    this.store.dispatch(new Go('/members/new'));
   }
 
   navigateToProfile(id: string): void {
-    this.store.dispatch(new Go({ path: `/members/${id}` }));
+    this.store.dispatch(new Go(`/members/${id}`));
   }
 
   setSort(sort: ISort): void {

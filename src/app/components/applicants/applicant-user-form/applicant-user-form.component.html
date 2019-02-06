@@ -4,8 +4,13 @@
     [subtitle]="'Podaci za: '"
     [subtitleBold]="applicant?.firstName + ' ' + applicant?.lastName"
     [showBackButton]="true"
+    [backButtonLink]="'/applicants/' + applicant?.id"
   ></app-subheader>
   <div class="applicant-user-form__content mat-elevation-z8">
-    <app-member-form *ngIf="!!member" [member]="member"></app-member-form>
+    <app-member-form
+      *ngIf="!!member"
+      [member]="member"
+      [isApplicant]="true"
+    ></app-member-form>
   </div>
 </div>

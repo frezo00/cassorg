@@ -28,6 +28,7 @@ import { MemberListComponent } from '../components/members/member-list/member-li
 import { MemberProfileComponent } from '../components/members/member-profile/member-profile.component';
 import { MemberNewComponent } from '../components/members/member-new/member-new.component';
 import { MemberEditComponent } from '../components/members/member-edit/member-edit.component';
+import { CheckFormGuard } from '../guards/check-form.guard';
 
 const routes: Routes = [
   {
@@ -41,8 +42,16 @@ const routes: Routes = [
         component: MembersComponent,
         children: [
           { path: '', component: MemberListComponent },
-          { path: 'new', component: MemberNewComponent },
-          { path: 'edit/:id', component: MemberEditComponent },
+          {
+            path: 'new',
+            component: MemberNewComponent,
+            canDeactivate: [CheckFormGuard]
+          },
+          {
+            path: 'edit/:id',
+            component: MemberEditComponent,
+            canDeactivate: [CheckFormGuard]
+          },
           { path: ':id', component: MemberProfileComponent }
         ]
       },
@@ -60,8 +69,16 @@ const routes: Routes = [
         component: GroupsComponent,
         children: [
           { path: '', component: GroupListComponent },
-          { path: 'new', component: GroupNewComponent },
-          { path: 'edit/:id', component: GroupEditComponent },
+          {
+            path: 'new',
+            component: GroupNewComponent,
+            canDeactivate: [CheckFormGuard]
+          },
+          {
+            path: 'edit/:id',
+            component: GroupEditComponent,
+            canDeactivate: [CheckFormGuard]
+          },
           { path: ':id', component: GroupDetailsComponent }
         ]
       },

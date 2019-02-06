@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { DocumentSnapshot } from '@angular/fire/firestore';
-import { Observable, of, from, forkJoin } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import {
   withLatestFrom,
   filter,
@@ -33,7 +32,7 @@ import { getActiveProject } from '../../project/store';
 import { AppState } from '../../../store';
 
 import { GroupsService } from '../groups.service';
-import { IGroup, IUser, IProject } from '../../../models';
+import { IGroup, IProject } from '../../../models';
 
 @Injectable()
 export class GroupsEffects {
@@ -70,7 +69,7 @@ export class GroupsEffects {
       from(this.groupsService.createGroup(newGroup, projectId)).pipe(
         mergeMap(() => [
           new CreateGroupSuccess(),
-          new Go({ path: '/groups/' })
+          new Go('/groups/')
         ]),
         catchError(error => of(new GroupErrors(error)))
       )
@@ -91,7 +90,7 @@ export class GroupsEffects {
       from(this.groupsService.updateGroup(groupId, groupData, projectId)).pipe(
         mergeMap(() => [
           new UpdateGroupSuccess(groupData),
-          new Go({ path: `/groups/${groupId}` })
+          new Go(`/groups/${groupId}`)
         ]),
         catchError(error => of(new GroupErrors(error)))
       )

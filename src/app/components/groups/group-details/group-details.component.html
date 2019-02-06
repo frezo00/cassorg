@@ -1,4 +1,8 @@
-<div *ngIf="(group$ | async) as group" class="group-details__container" fxFlexFill>
+<div
+  *ngIf="(group$ | async) as group"
+  class="group-details__container"
+  fxFlexFill
+>
   <app-subheader
     [title]="group?.name"
     [subtitle]="'Kreirana: ' + (group?.dateCreated | date: 'dd.MM.yyyy HH:mm')"
@@ -33,9 +37,9 @@
         <div class="group-details__members-list" fxFlex="60%">
           <a
             mat-button
-            [routerLink]="['/members/' + member?.id]"
             class="group-details__member"
             *ngFor="let member of (groupMembers$ | async)"
+            (click)="goToMember(member?.id)"
           >
             {{ member?.firstName + ' ' + member?.lastName }}
           </a>

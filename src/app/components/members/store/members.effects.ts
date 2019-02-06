@@ -75,7 +75,7 @@ export class MembersEffects {
                 id: member.id
               } as IMember);
             }
-            return new Go({ path: '/members' });
+            return new Go('/members');
           }),
           catchError(error => of(new SetMembersError(error)))
         );
@@ -86,7 +86,7 @@ export class MembersEffects {
         if (!!currentMember) {
           return of(new GetSingleMemberSuccess(currentMember));
         }
-        return of(new Go({ path: '/members' }));
+        return of(new Go('/members'));
       }
     })
   );

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { GroupFormComponent } from '../group-form/group-form.component';
 
 @Component({
   selector: 'app-group-new',
@@ -6,10 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./group-new.component.scss']
 })
 export class GroupNewComponent implements OnInit {
+  @ViewChild(GroupFormComponent) form: GroupFormComponent;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

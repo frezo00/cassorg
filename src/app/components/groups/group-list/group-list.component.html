@@ -19,9 +19,9 @@
       <div class="group-list__data" fxLayout="column">
         <a
           mat-button
-          [routerLink]="[group?.id]"
           *ngFor="let group of (groups | async)"
           class="group-list__item"
+          (click)="goToGroup(group?.id)"
         >
           <div
             class="group-list__row"

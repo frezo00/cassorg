@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState, GetSingleMemberBegin } from '../../../store';
 import { IMember } from '../../../models';
+import { MemberFormComponent } from '../member-form/member-form.component';
 
 @Component({
   selector: 'app-member-edit',
@@ -10,6 +11,7 @@ import { IMember } from '../../../models';
   styleUrls: ['./member-edit.component.scss']
 })
 export class MemberEditComponent implements OnInit {
+  @ViewChild(MemberFormComponent) form: MemberFormComponent;
   member: IMember;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {

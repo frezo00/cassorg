@@ -25,7 +25,7 @@ export class EmailConfirmationComponent implements OnInit {
   }
 
   checkEmailConfirmation() {
-    this.store.dispatch(new Go({ path: '/auth/login' }));
+    this.store.dispatch(new Go('/auth/login'));
   }
 
   resendEmail() {

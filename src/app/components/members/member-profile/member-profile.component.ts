@@ -27,7 +27,7 @@ export class MemberProfileComponent implements OnInit {
 
   optionsAction(action: string): void {
     if (action === 'edit') {
-      this.store.dispatch(new Go({ path: `/members/edit/${this.member.id}` }));
+      this.store.dispatch(new Go(`/members/edit/${this.member.id}`));
     }
   }
 }

@@ -8,13 +8,6 @@ import { MatIconRegistry } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AuthEffects } from './components/auth/store';
-import { RouterEffects } from './router/store';
-import { UsersEffects } from './store';
-import { ProjectEffects } from './components/project/store';
-import { MembersEffects } from './components/members/store';
-import { GroupsEffects } from './components/groups/store';
-import { ApplicantsEffects } from './components/applicants/store';
 
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
@@ -29,15 +22,19 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
-import { reducers } from './store/app.reducers';
+import { reducers, effects } from './store';
 import { AuthService } from './components/auth/auth.service';
 import { ProjectService } from './components/project/project.service';
 import { UsersService } from './components/users/user.service';
 import { CommonService } from './components/common/common.service';
-import { ModalService } from './components/common/modal/modal.service';
 import { GroupsService } from './components/groups/groups.service';
 import { ApplicantsService } from './components/applicants/applicants.service';
 import { MembersService } from './components/members/members.service';
+import {
+  StoreRouterConnectingModule,
+  NavigationActionTiming
+} from '@ngrx/router-store';
+import { CustomSerializer } from './router/store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,20 +45,16 @@ import { MembersService } from './components/members/members.service';
     RouterModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([
-      AuthEffects,
-      RouterEffects,
-      UsersEffects,
-      ProjectEffects,
-      MembersEffects,
-      GroupsEffects,
-      ApplicantsEffects
-    ]),
+    EffectsModule.forRoot(effects),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
     ComponentsModule,
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomSerializer,
+      navigationActionTiming: NavigationActionTiming.PostActivation
+    }),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
@@ -72,7 +65,6 @@ import { MembersService } from './components/members/members.service';
     MembersService,
     GroupsService,
     CommonService,
-    ModalService,
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]

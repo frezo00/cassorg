@@ -3,12 +3,15 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  OnDestroy
+  OnDestroy,
+  Inject
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { CommonState, OpenModal, getOpenModal } from '../store';
+import { CommonState, CloseModal } from '../store';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { IModal } from '../../../models';
 
 @Component({
   selector: 'app-modal',
@@ -16,22 +19,26 @@ import { CommonState, OpenModal, getOpenModal } from '../store';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-  @Output()
-  confirm: EventEmitter<boolean> = new EventEmitter();
-  openModal: Observable<boolean>;
+  @Output() confirm: EventEmitter<boolean> = new EventEmitter();
+  // openModal: Observable<boolean>;
 
-  constructor(private store: Store<CommonState>) {}
+  constructor(
+    private store: Store<CommonState>,
+    public dialogRef: MatDialogRef<ModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: IModal
+  ) {}
 
   ngOnInit() {
-    this.openModal = this.store.select(getOpenModal);
+    // this.openModal = this.store.select(getOpenModal);
   }
 
   onCancel() {
-    this.store.dispatch(new OpenModal(false));
+    // this.store.dispatch(new CloseModal(false));
+    this.dialogRef.close();
   }
 
   onConfirm() {
-    this.store.dispatch(new OpenModal(false));
-    this.confirm.emit();
+    // this.store.dispatch(new CloseModal(true));
+    // this.confirm.emit();
   }
 }

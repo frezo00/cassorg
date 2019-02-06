@@ -39,6 +39,7 @@ import { MemberImageComponent } from './members/member-form/member-image/member-
 import { GroupDetailsComponent } from './groups/group-details/group-details.component';
 import { GroupEditComponent } from './groups/group-edit/group-edit.component';
 import { MemberGroupsComponent } from './members/member-profile/member-groups/member-groups.component';
+import { ModalComponent } from './common/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,6 @@ import { MemberGroupsComponent } from './members/member-profile/member-groups/me
   ],
   exports: [],
   providers: [],
-  entryComponents: [GroupFormComponent]
+  entryComponents: [ModalComponent]
 })
 export class ComponentsModule {}

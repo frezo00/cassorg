@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState, GetApplicantsBegin, SortApplicants } from '../../../store';
+import {
+  AppState,
+  GetApplicantsBegin,
+  SortApplicants,
+  Go
+} from '../../../store';
 import { IApplicant, ISort } from '../../../models';
 
 @Component({
@@ -17,12 +22,15 @@ export class ApplicantListComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.store.dispatch(new GetApplicantsBegin());
     this.applicants = this.store.select(state => state.applicants.applicants);
   }
 
-  setSort(order: ISort) {
+  setSort(order: ISort): void {
     this.store.dispatch(new SortApplicants(order));
+  }
+  goToApplicant(applicantId: string): void {
+    this.store.dispatch(new Go(`/applicants/${applicantId}`));
   }
 }

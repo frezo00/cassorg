@@ -22,17 +22,18 @@
     }
     &-initials {
       border-radius: 50%;
+      border: 1px solid #ccc;
       height: 100px;
       width: 100px;
-      background: #91979b center center no-repeat;
+      background: #fafafa center center no-repeat;
       background-size: cover;
       overflow: hidden;
       text-align: center;
       margin: 0 auto;
       & > span {
-        color: white;
+        color: color(red-primary);
         font-weight: 500;
-        font-size: 24px;
+        font-size: 32px;
         line-height: 1.5em;
         padding: 0 18px;
         letter-spacing: 2px;

@@ -11,11 +11,11 @@ import { Store } from '@ngrx/store';
 import { IGroup, IMember } from '../../../models';
 import {
   AppState,
-  OpenModal,
   CreateGroupBegin,
   getMembers,
   getGroupMembers,
-  UpdateGroupBegin
+  UpdateGroupBegin,
+  Go
 } from '../../../store';
 
 @Component({
@@ -33,7 +33,7 @@ export class GroupFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
     if (!!this.group) {
       this.setFormData(this.group);
@@ -127,7 +127,11 @@ export class GroupFormComponent implements OnInit {
     }
   }
 
-  onCancel() {
-    this.store.dispatch(new OpenModal(false));
+  onCancel(): void {
+    if (!!this.group) {
+      this.store.dispatch(new Go(`/groups/${this.group.id}`));
+    } else {
+      this.store.dispatch(new Go(`/groups`));
+    }
   }
 }

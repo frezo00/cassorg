@@ -26,7 +26,7 @@ export class ApplicantProfileComponent implements OnInit {
   }
 
   acceptApplicant(): void {
-    this.store.dispatch(new Go({ path: '/applicants/new-user' }));
+    this.store.dispatch(new Go('/applicants/new-user'));
   }
 
   removeApplicant(): void {

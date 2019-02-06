@@ -11,6 +11,7 @@ import { AppState, Go, Back } from '../../../store';
 })
 export class SubheaderComponent implements OnInit {
   @Input() showBackButton = false;
+  @Input() backButtonLink = '';
   @Input() showSort = false;
   @Input() showOptions = false;
   @Input() actionText = '';
@@ -56,7 +57,11 @@ export class SubheaderComponent implements OnInit {
   ngOnInit() {}
 
   goBack(): void {
-    this.store.dispatch(new Back());
+    if (!!this.backButtonLink) {
+      this.store.dispatch(new Go(this.backButtonLink));
+    } else {
+      this.store.dispatch(new Back());
+    }
   }
 
   onAction(): void {

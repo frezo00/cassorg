@@ -24,7 +24,7 @@ export class ApplicantUserFormComponent implements OnInit {
           this.applicant = applicant;
           this.member = this.applicantToMember(applicant);
         } else {
-          this.store.dispatch(new Go({ path: '/applicants' }));
+          this.store.dispatch(new Go('/applicants'));
         }
       });
     /* this.store.dispatch(

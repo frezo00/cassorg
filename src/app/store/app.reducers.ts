@@ -1,4 +1,5 @@
 import { ActionReducerMap } from '@ngrx/store';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 
 import * as fromAuth from '../components/auth/store';
 import * as fromUsers from '../components/users/store';
@@ -16,6 +17,7 @@ export interface AppState {
   members: fromMembers.MembersState;
   groups: fromGroups.GroupsState;
   common: fromCommon.CommonState;
+  router: RouterReducerState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -25,5 +27,6 @@ export const reducers: ActionReducerMap<AppState> = {
   applicants: fromApplicants.applicantsReducer,
   members: fromMembers.membersReducer,
   groups: fromGroups.groupsReducer,
-  common: fromCommon.commonReducer
+  common: fromCommon.commonReducer,
+  router: routerReducer
 };

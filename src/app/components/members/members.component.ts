@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../store';
 
 @Component({
   selector: 'app-members',
-  templateUrl: './members.component.html',
-  styleUrls: ['./members.component.scss']
+  template: `
+    <div class="module-container">
+      <router-outlet></router-outlet>
+    </div>
+  `
 })
 export class MembersComponent implements OnInit {
-  constructor(private store: Store<AppState>) {}
+  constructor() {}
 
   ngOnInit() {}
 }

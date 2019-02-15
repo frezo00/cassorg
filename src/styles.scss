@@ -12,6 +12,9 @@ body {
   height: 100%;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+* {
+  box-sizing: border-box;
+}
 button.mat-menu-item {
   line-height: 24px !important;
 }
@@ -48,6 +51,7 @@ mat-horizontal-stepper > .mat-horizontal-content-container {
 }
 mat-select .mat-select-value {
   color: color(text-08);
+  line-height: 1.2em;
 }
 mat-tab-group .mat-tab-labels {
   justify-content: space-evenly;
@@ -70,6 +74,12 @@ mat-tab-group .mat-tab-labels {
     color: color(success-05);
   }
 }
-mat-dialog-container.mat-dialog-container {
+/* mat-dialog-container.mat-dialog-container {
   padding: 0;
+} */
+
+/* General CSS Styling */
+.module-container {
+  width: 100%;
+  padding-bottom: 40px;
 }

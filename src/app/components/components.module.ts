@@ -40,6 +40,9 @@ import { GroupDetailsComponent } from './groups/group-details/group-details.comp
 import { GroupEditComponent } from './groups/group-edit/group-edit.component';
 import { MemberGroupsComponent } from './members/member-profile/member-groups/member-groups.component';
 import { ModalComponent } from './common/modal/modal.component';
+import { ActivityListComponent } from './activities/activity-list/activity-list.component';
+import { ActivityNewComponent } from './activities/activity-new/activity-new.component';
+import { ActivityFormComponent } from './activities/activity-form/activity-form.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +79,10 @@ import { ModalComponent } from './common/modal/modal.component';
     MemberImageComponent,
     GroupDetailsComponent,
     GroupEditComponent,
-    MemberGroupsComponent
+    MemberGroupsComponent,
+    ActivityListComponent,
+    ActivityNewComponent,
+    ActivityFormComponent
   ],
   imports: [
     CommonModule,

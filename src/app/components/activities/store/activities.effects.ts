@@ -14,69 +14,68 @@ import {
 } from 'rxjs/operators';
 
 import {
-  GroupsActionTypes,
-  GetGroupsSuccess,
-  GroupErrors,
-  CreateGroupBegin,
-  CreateGroupSuccess,
-  UpdateGroupBegin,
-  UpdateGroupSuccess,
-  GetGroupsBegin,
-  UpdateGroupMembersSuccess,
-  UpdateGroupMembersBegin
-} from './groups.actions';
-import { getGroups } from './groups.selectors';
+  ActivitiesActionTypes,
+  GetActivitiesSuccess,
+  GetActivitiesBegin,
+  ActivityErrors,
+  CreateActivityBegin,
+  CreateActivitySuccess
+} from './activities.actions';
+import { getActivities } from './activities.selectors';
 import { Go } from '../../../router/store';
 import { getCurrentUser } from '../../users/store';
 import { getActiveProject } from '../../project/store';
 import { AppState } from '../../../store';
 
-import { GroupsService } from '../groups.service';
-import { IGroup, IProject } from '../../../models';
+import { ActivitiesService } from '../../../services';
+import { IGroup, IProject, IActivity } from '../../../models';
 
 @Injectable()
-export class GroupsEffects {
+export class ActivitiesEffects {
   @Effect()
-  getGroups$: Observable<Action> = this.actions$.pipe(
-    ofType(GroupsActionTypes.GET_GROUPS_BEGIN),
-    withLatestFrom(this.store$.select(getGroups)),
+  getActivities$: Observable<Action> = this.actions$.pipe(
+    ofType(ActivitiesActionTypes.GET_ACTIVITIES_BEGIN),
+    withLatestFrom(this.store$.select(getActivities)),
     filter(
-      ([action, groups]: [GetGroupsBegin, IGroup[]]) =>
-        !groups || !groups.length
-    ), // only continue if groups don't exist
-    map(([action, groups]: [GetGroupsBegin, IGroup[]]) => action.payload),
+      ([action, activities]: [GetActivitiesBegin, IActivity[]]) =>
+        !activities || !activities.length
+    ), // only continue if activities don't exist
+    map(
+      ([action, activities]: [GetActivitiesBegin, IActivity[]]) =>
+        action.payload
+    ),
     switchMap((projectId: string) =>
-      this.groupsService.getGroups(projectId).pipe(
-        map((groups: IGroup[]) => new GetGroupsSuccess(groups)),
-        catchError(error => of(new GroupErrors(error)))
+      this.activitiesService.getActivities(projectId).pipe(
+        map((activities: IActivity[]) => new GetActivitiesSuccess(activities)),
+        catchError(error => of(new ActivityErrors(error)))
       )
     )
   );
 
   @Effect()
-  createGroup$: Observable<Action> = this.actions$.pipe(
-    ofType(GroupsActionTypes.CREATE_GROUP_BEGIN),
+  createActivity$: Observable<Action> = this.actions$.pipe(
+    ofType(ActivitiesActionTypes.CREATE_ACTIVITY_BEGIN),
     withLatestFrom(this.store$.select(getActiveProject)),
-    filter(([action, project]: [CreateGroupBegin, IProject]) => !!project),
+    filter(([action, project]: [CreateActivityBegin, IProject]) => !!project),
     withLatestFrom(
       this.store$.select(getCurrentUser),
       ([action, project], currentUser) => [
-        { ...action.payload, createdBy: currentUser.id } as IGroup,
+        { ...action.payload, createdBy: currentUser.id } as IActivity,
         project.tag
       ]
     ),
-    switchMap(([newGroup, projectId]: [IGroup, string]) =>
-      from(this.groupsService.createGroup(newGroup, projectId)).pipe(
-        mergeMap(() => [new CreateGroupSuccess(), new Go('/groups')]),
-        catchError(error => of(new GroupErrors(error)))
+    switchMap(([newActivity, projectId]: [IActivity, string]) =>
+      from(this.activitiesService.createActivity(newActivity, projectId)).pipe(
+        mergeMap(() => [new CreateActivitySuccess(), new Go('/activities')]),
+        catchError(error => of(new ActivityErrors(error)))
       )
     )
   );
 
-  @Effect()
+  /* @Effect()
   updateGroup$: Observable<Action> = this.actions$.pipe(
-    ofType(GroupsActionTypes.UPDATE_GROUP_BEGIN),
-    withLatestFrom(this.store$.select(getActiveProject)),
+    ofType(ActivitiesActionTypes.UPDATE_GROUP_BEGIN),
+    combineLatest(this.store$.select(getActiveProject)),
     filter(([action, project]: [UpdateGroupBegin, IProject]) => !!project),
     map(([action, project]: [UpdateGroupBegin, IProject]) => [
       action.payload.id,
@@ -96,8 +95,8 @@ export class GroupsEffects {
 
   @Effect({ dispatch: false })
   updateGroupMembers$ = this.actions$.pipe(
-    ofType(GroupsActionTypes.UPDATE_GROUP_MEMBERS_BEGIN),
-    withLatestFrom(this.store$.select(getActiveProject)),
+    ofType(ActivitiesActionTypes.UPDATE_GROUP_MEMBERS_BEGIN),
+    combineLatest(this.store$.select(getActiveProject)),
     filter(
       ([action, project]: [UpdateGroupMembersBegin, IProject]) => !!project
     ),
@@ -120,11 +119,11 @@ export class GroupsEffects {
           catchError(error => of(new GroupErrors(error)))
         )
     )
-  );
+  ); */
 
   constructor(
     private actions$: Actions,
     private store$: Store<AppState>,
-    private groupsService: GroupsService
+    private activitiesService: ActivitiesService
   ) {}
 }

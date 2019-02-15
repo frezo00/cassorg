@@ -1,13 +1,35 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { MembersState } from './members.reducers';
+import { MembersState, membersAdapter } from './members.reducers';
 import { IMember, IGroup } from '../../../models';
-import { getGroupsState, GroupsState } from '../../groups/store';
+import { getGroupsState, GroupsState, getGroups } from '../../groups/store';
 
 export const getMembersState = createFeatureSelector<MembersState>('members');
 
-export const getMembers = createSelector(
+/** Helper Entity Selectors for Members **/
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal
+} = membersAdapter.getSelectors();
+
+export const selectAllMembers = createSelector(
   getMembersState,
-  (state: MembersState) => state.members
+  selectAll
+);
+export const selectTotalMembers = createSelector(
+  getMembersState,
+  selectTotal
+);
+export const selectIdsMembers = createSelector(
+  getMembersState,
+  selectIds
+);
+
+/** Helper Entity Selectors for Members **/
+export const getMembers = createSelector(
+  selectAllMembers,
+  (members: IMember[]) => members
 );
 
 export const getCurrentMemberProfile = createSelector(
@@ -45,30 +67,28 @@ export const getMembersError = createSelector(
 
 export const getAllMembersExceptOne = (id: string) =>
   createSelector(
-    getMembersState,
-    (state: MembersState): IMember[] =>
-      !!state.members ? state.members.filter((m: IMember) => m.id !== id) : null
+    getMembers,
+    (members: IMember[]): IMember[] =>
+      !!members ? members.filter((m: IMember) => m.id !== id) : null
   );
 
 export const getGroupMembers = (membersObj: object) =>
   createSelector(
-    getMembersState,
-    (state: MembersState): IMember[] =>
-      !!state.members
+    getMembers,
+    (members: IMember[]): IMember[] =>
+      !!members
         ? Object.keys(membersObj).map((id: string) =>
-            state.members.find((m: IMember) => m.id === id)
+            members.find((m: IMember) => m.id === id)
           )
         : null
   );
 
 export const getMembersGroups = createSelector(
-  getMembersState,
-  getGroupsState,
-  (membersState: MembersState, groupsState: GroupsState): IMember[] =>
-    !!membersState.members && !!groupsState.groups
-      ? membersState.members.map((m: IMember) =>
-          findMemberGroups(m, groupsState.groups)
-        )
+  getMembers,
+  getGroups,
+  (members: IMember[], groups: IGroup[]): IMember[] =>
+    !!members && !!groups
+      ? members.map((m: IMember) => findMemberGroups(m, groups))
       : null
 );
 

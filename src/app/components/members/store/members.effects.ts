@@ -25,7 +25,6 @@ import {
   map,
   catchError,
   tap,
-  combineLatest,
   mergeMap
 } from 'rxjs/operators';
 import { AppState } from '../../../store';
@@ -42,8 +41,11 @@ export class MembersEffects {
   @Effect()
   getMembers$: Observable<Action> = this.actions$.pipe(
     ofType(MembersActionTypes.GET_MEMBERS_BEGIN),
-    combineLatest(this.store$.select(getMembers)),
-    filter(([action, members]: [GetMembersBegin, IMember[]]) => !members),
+    withLatestFrom(this.store$.select(getMembers)),
+    filter(
+      ([action, members]: [GetMembersBegin, IMember[]]) =>
+        !members || !members.length
+    ),
     map(([action, members]: [GetMembersBegin, IMember[]]) => action.payload),
     switchMap((projectId: string) =>
       this.membersService.getMembers(projectId).pipe(
@@ -59,10 +61,10 @@ export class MembersEffects {
   @Effect()
   getSingleMember$: Observable<Action> = this.actions$.pipe(
     ofType(MembersActionTypes.GET_SINGLE_MEMBER_BEGIN),
-    combineLatest(this.store$.select(getActiveProject)),
+    withLatestFrom(this.store$.select(getActiveProject)),
     filter(([action, project]: [GetSingleMemberBegin, IProject]) => !!project),
     withLatestFrom(
-      this.store$.select(state => state.members.members),
+      this.store$.select(getMembers),
       ([action, project], members) => [action.payload, project.tag, members]
     ),
     switchMap(([memberId, projectId, members]: [string, string, IMember[]]) => {
@@ -94,7 +96,7 @@ export class MembersEffects {
   @Effect()
   createMember$: Observable<Action> = this.actions$.pipe(
     ofType(MembersActionTypes.CREATE_MEMBER_BEGIN),
-    combineLatest(this.store$.select(getActiveProject)),
+    withLatestFrom(this.store$.select(getActiveProject)),
     filter(([action, project]: [CreateMemberBegin, IProject]) => !!project),
     withLatestFrom(
       // TODO: Change the way getting current logged in user
@@ -148,7 +150,7 @@ export class MembersEffects {
   @Effect()
   updateMember$: Observable<Action> = this.actions$.pipe(
     ofType(MembersActionTypes.UPDATE_MEMBER_BEGIN),
-    combineLatest(this.store$.select(getActiveProject)),
+    withLatestFrom(this.store$.select(getActiveProject)),
     filter(([action, project]: [UpdateMemberBegin, IProject]) => !!project),
     map(([action, project]: [UpdateMemberBegin, IProject]) => [
       action.payload.id,
@@ -199,7 +201,7 @@ export class MembersEffects {
   @Effect({ dispatch: false })
   uploadProfileImage$ = this.actions$.pipe(
     ofType(MembersActionTypes.UPLOAD_PROFILE_IMAGE_BEGIN),
-    combineLatest(this.store$.select(getActiveProject)),
+    withLatestFrom(this.store$.select(getActiveProject)),
     filter(
       ([action, project]: [UploadProfileImageBegin, IProject]) => !!project
     ),
@@ -215,7 +217,7 @@ export class MembersEffects {
   @Effect()
   updateMemberProfileImage$: Observable<Action> = this.actions$.pipe(
     ofType(MembersActionTypes.UPDATE_MEMBER_PROFILE_IMAGE_BEGIN),
-    combineLatest(this.store$.select(getActiveProject)),
+    withLatestFrom(this.store$.select(getActiveProject)),
     filter(
       ([action, project]: [UpdateMemberProfileImageBegin, IProject]) =>
         !!project

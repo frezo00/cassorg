@@ -15,6 +15,7 @@ import {
 import * as ProjectActions from './project.actions';
 import * as MemberActions from '../../members/store/members.actions';
 import * as GroupActions from '../../groups/store/groups.actions';
+import * as ActivitiesActions from '../../activities/store/activities.actions';
 import { IProject } from '../../../models';
 import { AppState } from '../../../store';
 import { ProjectService } from '../project.service';
@@ -63,7 +64,8 @@ export class ProjectEffects {
         mergeMap((projectData: DocumentSnapshot<IProject>) => [
           new ProjectActions.GetProjectSuccess(projectData.data() as IProject),
           new GroupActions.GetGroupsBegin(projectId),
-          new MemberActions.GetMembersBegin(projectId)
+          new MemberActions.GetMembersBegin(projectId),
+          new ActivitiesActions.GetActivitiesBegin(projectId)
         ]),
         catchError(err => {
           console.error('error: ', err);

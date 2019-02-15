@@ -1,0 +1,60 @@
+<div class="activity-list__container">
+  <app-subheader
+    [title]="'Aktivnosti'"
+    [subtitle]="'Ukupno: ' + (activitiesTotal$ | async)"
+    [actionText]="'Dodaj aktivnost'"
+    [actionIcon]="'add'"
+    (action)="goToNewActivity()"
+  >
+  </app-subheader>
+
+  <div class="activity-list__groups">
+    <div class="activity-list__groups-wrapper">
+      <button
+        *ngFor="let group of (sortingGroups$ | async)"
+        [ngClass]="{ active: (activeGroup$ | async) === group?.id }"
+        (click)="setActiveGroup(group?.id)"
+      >
+        <i
+          *ngIf="!!group?.color"
+          [ngStyle]="{ 'background-color': group?.color }"
+        ></i>
+        <span>{{ group?.name }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="activity-list__content">
+    <div
+      *ngFor="let activity of (activities$ | async)"
+      class="activity-list__item mat-elevation-z4"
+    >
+      <div class="activity-list__item-container">
+        <div
+          *ngIf="activity?.group as actGroup"
+          class="activity-list__item-group"
+        >
+          <i [ngStyle]="{ 'background-color': actGroup.color }"></i>
+          <span>{{ actGroup.name }}</span>
+        </div>
+        <div class="activity-list__item-content">
+          <h3>{{ activity?.title }}</h3>
+          <p>{{ activity?.description }}</p>
+        </div>
+        <div class="activity-list__item-footer">
+          <div class="activity-list__item-members">
+            <div class="activity-list__item-members-initials">
+              <span>MK</span>
+            </div>
+            <div class="activity-list__item-members-initials">
+              <span>MK</span>
+            </div>
+          </div>
+          <div class="activity-list__item-date">
+            <span>{{ activity?.date | date: 'dd.MM.yyyy. HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

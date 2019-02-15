@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState, getGroups, Go } from '../../../store';
+import { AppState, getGroups, Go, selectAllGroups } from '../../../store';
 import { IGroup } from '../../../models';
 
 @Component({
@@ -17,13 +17,16 @@ export class GroupListComponent implements OnInit {
 
   ngOnInit(): void {
     this.groups = this.store.select(getGroups);
+    this.store
+      .select(selectAllGroups)
+      .subscribe(data => console.log('data:', data));
   }
 
   getGroupMembersLength(groupMembersObj: any): number {
     return Object.keys(groupMembersObj).length;
   }
 
-  toToNewGroup(): void {
+  goToNewGroup(): void {
     this.store.dispatch(new Go('/groups/new'));
   }
 

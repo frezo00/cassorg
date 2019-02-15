@@ -1,0 +1,129 @@
+@import '~_variables.scss';
+
+.activity-list {
+  &__item {
+    width: 100%;
+    background-color: white;
+    /* border-top: 1px solid #ccc; */
+    border-radius: 2px;
+    margin-top: 0.8em;
+    padding: 0 0.8em;
+    font-size: 0.8em;
+    &:first-child {
+      border-top: none;
+    }
+    &-container {
+      padding: 1em 0;
+    }
+    &-group {
+      display: flex;
+      align-items: center;
+      & > i {
+        display: block;
+        width: 1.4em;
+        max-width: 1.4em;
+        height: 1.4em;
+        border-radius: 50%;
+      }
+      & > span {
+        color: color(text-05);
+        padding-left: 0.3em;
+        font-size: 1em;
+        line-height: 1.3em;
+      }
+    }
+    &-content {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      padding: 1em 0;
+      & > h3 {
+        margin: 0 0 0.6em;
+        line-height: 1.2em;
+        font-size: 1.5em;
+        color: color(text);
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+      & > p {
+        margin: 0;
+        color: color(text-08);
+        font-weight: 400;
+        @include multiLineEllipsis(
+          $lineHeight: 1.3em,
+          $lineCount: 2,
+          $bgColor: white
+        );
+      }
+    }
+    &-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &-members {
+      display: flex;
+      align-items: center;
+      &-initials {
+        width: 2em;
+        min-width: 2em;
+        height: 2em;
+        min-height: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        background-color: #fafafa;
+        margin-right: -0.4em;
+        & > span {
+          font-size: 0.8em;
+          line-height: 1.5em;
+          color: color(red-primary);
+          font-weight: 600;
+        }
+      }
+    }
+    &-date {
+      color: color(text-05);
+      line-height: 1.8em;
+    }
+  }
+  &__groups {
+    overflow-x: auto;
+    &-wrapper {
+      display: flex;
+      white-space: nowrap;
+      padding: 0.5em 0.2em;
+    }
+    & button {
+      display: flex;
+      align-items: center;
+      outline: none;
+      border: none;
+      border-radius: 1.4em;
+      background-color: transparent;
+      margin-right: 0.3em;
+      padding: 0.5em 1.2em;
+      color: color(text-08);
+      font-size: 0.9em;
+      font-weight: 500;
+      line-height: 1.4em;
+      cursor: pointer;
+      transition: all 0.3s;
+      &.active {
+        background-color: white;
+        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
+      }
+      & > i {
+        width: 1em;
+        max-width: 1em;
+        height: 1em;
+        max-height: 1em;
+        border-radius: 50%;
+        margin-right: 0.4em;
+      }
+    }
+  }
+}

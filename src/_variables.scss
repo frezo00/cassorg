@@ -32,3 +32,31 @@ $theme-colors: (
   width: $size !important;
   line-height: $size !important;
 }
+
+/* mixin for multiline */
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white) {
+  overflow: hidden;
+  white-space: pre-line;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  text-align: justify;
+  /* margin-right: -1em;
+  padding-right: 1em; */
+  &:before {
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: $bgColor;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: $bgColor;
+  }
+}

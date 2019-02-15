@@ -1,21 +1,26 @@
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { MembersActions, MembersActionTypes } from './members.actions';
 import { IMember } from '../../../models';
 
-export interface MembersState {
-  members: IMember[];
+export interface MembersState extends EntityState<IMember> {
+  // members: IMember[];
   currentMemberProfile: IMember;
   imagePath: string;
   tempProfileImage: any;
   error: any;
 }
 
-const initialState: MembersState = {
-  members: null,
+export const membersAdapter: EntityAdapter<IMember> = createEntityAdapter<
+  IMember
+>();
+
+const initialState: MembersState = membersAdapter.getInitialState({
+  // additional entity state properties
   currentMemberProfile: null,
   imagePath: '',
   tempProfileImage: null,
   error: null
-};
+});
 
 export function membersReducer(
   state = initialState,
@@ -23,9 +28,9 @@ export function membersReducer(
 ): MembersState {
   switch (action.type) {
     case MembersActionTypes.GET_MEMBERS_SUCCESS: {
-      return { ...state, members: action.payload };
+      return membersAdapter.addAll(action.payload, state);
     }
-    case MembersActionTypes.SORT_MEMBERS: {
+    /* case MembersActionTypes.SORT_MEMBERS: {
       let sortedMembers: IMember[];
       sortedMembers = { ...state }.members.slice().sort((a, b) => {
         if (action.payload.order === 'desc') {
@@ -34,7 +39,7 @@ export function membersReducer(
         return a[action.payload.name] < b[action.payload.name] ? -1 : 1;
       });
       return { ...state, members: sortedMembers };
-    }
+    } */
     case MembersActionTypes.GET_SINGLE_MEMBER_SUCCESS: {
       return { ...state, currentMemberProfile: action.payload };
     }

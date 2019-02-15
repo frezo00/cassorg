@@ -8,6 +8,7 @@ import * as fromMembers from '../components/members/store';
 import * as fromGroups from '../components/groups/store';
 import * as fromProject from '../components/project/store';
 import * as fromCommon from '../components/common/store';
+import * as fromActivities from '../components/activities/store';
 
 export interface AppState {
   auth: fromAuth.AuthState;
@@ -17,6 +18,7 @@ export interface AppState {
   members: fromMembers.MembersState;
   groups: fromGroups.GroupsState;
   common: fromCommon.CommonState;
+  activities: fromActivities.ActivitiesState;
   router: RouterReducerState;
 }
 
@@ -28,5 +30,6 @@ export const reducers: ActionReducerMap<AppState> = {
   members: fromMembers.membersReducer,
   groups: fromGroups.groupsReducer,
   common: fromCommon.commonReducer,
+  activities: fromActivities.activitiesReducer,
   router: routerReducer
 };

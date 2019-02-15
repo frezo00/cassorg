@@ -1,0 +1,184 @@
+<div class="activity-form__container">
+  <form [formGroup]="activityForm" (ngSubmit)="onSubmit()">
+    <div class="activity-form__content" fxLayout="column" fxLayoutGap="8px">
+      <mat-form-field
+        class="activity-form__field"
+        floatLabel="always"
+        fxFlex.xs="100%"
+        fxFlex.gt-xs="50%"
+      >
+        <input
+          type="text"
+          matInput
+          placeholder="Naslov"
+          name="title"
+          [formControl]="title"
+          required
+        />
+        <mat-error *ngIf="title.invalid && (title.touched || title.dirty)">
+          {{
+            title.hasError('required')
+              ? 'Ovo polje je obavezno'
+              : title.hasError('maxlength')
+              ? 'Tekst je
+                  predug'
+              : ''
+          }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field
+        class="activity-form__field"
+        floatLabel="always"
+        fxFlex.xs="100%"
+        fxFlex.gt-xs="50%"
+      >
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="2"
+          cdkAutosizeMaxRows="5"
+          placeholder="Opis"
+          name="description"
+          [formControl]="description"
+          (change)="triggerResize()"
+          required
+        ></textarea>
+        <mat-hint align="end">
+          {{ description.value?.length || 0 }}/500
+        </mat-hint>
+        <mat-error
+          *ngIf="
+            description.invalid && (description.touched || description.dirty)
+          "
+        >
+          {{
+            description.hasError('required')
+              ? 'Ovo polje je obavezno'
+              : description.hasError('maxlength')
+              ? 'Tekst je predug'
+              : ''
+          }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field
+        class="activity-form__field"
+        floatLabel="always"
+        fxFlex.xs="100%"
+        fxFlex.gt-xs="50%"
+      >
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Datum"
+          name="date"
+          [formControl]="date"
+          (focus)="picker.open()"
+          required
+          readonly
+        />
+        <mat-error *ngIf="date.invalid && (date.touched || date.dirty)">
+          {{ date.hasError('required') ? 'Ovo polje je obavezno' : '' }}
+        </mat-error>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field
+        class="activity-form__field"
+        floatLabel="always"
+        fxFlex="100%"
+      >
+        <mat-label style="line-height: 1.2em;">Grupa</mat-label>
+        <mat-select [formControl]="group" name="group" required>
+          <mat-select-trigger
+            *ngIf="!!(groups$ | async)"
+            fxLayoutAlign="space-between center"
+          >
+            <div
+              *ngIf="(getGroupData() | async) as selectedGroup"
+              class="activity-form__group"
+              fxLayoutAlign="start center"
+            >
+              <i
+                class="activity-form__group-color"
+                [ngStyle]="{ 'background-color': selectedGroup?.color }"
+              ></i>
+              <span class="activity-form__group-name">
+                {{ selectedGroup?.name }}
+              </span>
+            </div>
+          </mat-select-trigger>
+          <mat-option
+            *ngFor="let group of (groups$ | async)"
+            [value]="group.id"
+          >
+            <div
+              class="activity-form__group-option"
+              fxLayoutAlign="start center"
+            >
+              <div
+                class="activity-form__group-color"
+                [ngStyle]="{ 'background-color': group?.color }"
+              ></div>
+              <div
+                class="activity-form__group-info"
+                fxLayoutAlign="start center"
+              >
+                <span>{{ group?.name }}</span>
+              </div>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <mat-form-field floatLabel="always">
+        <mat-label style="line-height: 1.2em;">Članovi</mat-label>
+        <mat-select placeholder="Odaberi članove" aria-label="Odaberi članove" [formControl]="selectedMembers" multiple>
+          <mat-select-trigger fxLayoutAlign="space-between center">
+            <div class="activity-form__member">
+              <span *ngFor="let selectedUser of selectedMembers.value" class="activity-form__member-input">
+                {{ selectedUser?.firstName + ' ' + selectedUser?.lastName }}
+              </span>
+            </div>
+            <span *ngIf="selectedMembers.value?.length > 1" class="activity-form__member-text">
+              (Ukupno: {{ selectedMembers.value.length }})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let member of (members | async)" [value]="member">
+            <div class="activity-form__member-option" fxLayoutAlign="start center">
+              <div class="activity-form__member-initials" fxLayoutAlign="center center">
+                <span>
+                  {{
+                        (member?.firstName | firstLetter) +
+                          (member?.lastName | firstLetter)
+                      }}
+                </span>
+              </div>
+              <div class="activity-form__member-info" fxLayout="column" fxLayoutAlign="center start">
+                <span>{{ member?.firstName + ' ' + member?.lastName }}</span>
+                <small>{{ member?.birthdate | age }}</small>
+              </div>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+    </div>
+    <div class="activity-form__action">
+      <button
+        mat-button
+        type="button"
+        class="activity-form__action-button outline"
+        (click)="onCancel()"
+      >
+        Odustani
+      </button>
+      <button
+        mat-button
+        type="submit"
+        class="activity-form__action-button"
+        [disabled]="activityForm.invalid"
+      >
+        Spremi
+      </button>
+    </div>
+  </form>
+</div>

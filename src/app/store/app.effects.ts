@@ -5,7 +5,8 @@ import { ProjectEffects } from '../components/project/store';
 import { MembersEffects } from '../components/members/store';
 import { GroupsEffects } from '../components/groups/store';
 import { ApplicantsEffects } from '../components/applicants/store';
-import { CommonEffects } from '../components/common/store/common.effects';
+import { CommonEffects } from '../components/common/store';
+import { ActivitiesEffects } from '../components/activities/store';
 
 export const effects: any[] = [
   AuthEffects,
@@ -15,5 +16,6 @@ export const effects: any[] = [
   MembersEffects,
   GroupsEffects,
   ApplicantsEffects,
-  CommonEffects
+  CommonEffects,
+  ActivitiesEffects
 ];

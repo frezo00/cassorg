@@ -1,26 +1,46 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { GroupsState } from './groups.reducers';
+import { GroupsState, groupsAdapter } from './groups.reducers';
 import { IGroup } from '../../../models';
 
 export const getGroupsState = createFeatureSelector<GroupsState>('groups');
 
-export const getGroups = createSelector(
+/** Helper Entity Selectors for Groups **/
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal
+} = groupsAdapter.getSelectors();
+
+export const selectAllGroups = createSelector(
   getGroupsState,
-  (state: GroupsState) => state.groups
+  selectAll
+);
+export const selectTotalGroups = createSelector(
+  getGroupsState,
+  selectTotal
+);
+export const selectIdsGroups = createSelector(
+  getGroupsState,
+  selectIds
+);
+
+/** Custom Selectors for Groups **/
+export const getGroups = createSelector(
+  selectAllGroups,
+  (groups: IGroup[]) => groups
 );
 
 export const getSingleGroup = (id: string) =>
   createSelector(
-    getGroupsState,
-    (state: GroupsState): IGroup =>
-      !!state.groups ? state.groups.find(g => g.id === id) : null
+    selectAllGroups,
+    (groups: IGroup[]): IGroup =>
+      !!groups ? groups.find((g: IGroup) => g.id === id) : null
   );
 
 export const getMemberGroups = (memberId: string) =>
   createSelector(
-    getGroupsState,
-    (state: GroupsState): IGroup[] =>
-      !!state.groups
-        ? state.groups.filter(g => g.members[memberId] === true)
-        : null
+    selectAllGroups,
+    (groups: IGroup[]): IGroup[] =>
+      !!groups ? groups.filter(g => g.members[memberId] === true) : null
   );

@@ -67,13 +67,13 @@ export class GroupFormComponent implements OnInit {
 
   onSubmit(): void {
     if (!!this.group) {
-      this.updateMember();
+      this.updateGroup();
     } else {
-      this.createMember();
+      this.createGroup();
     }
   }
 
-  updateMember(): void {
+  updateGroup(): void {
     if (
       this.groupForm.valid &&
       (!!this.groupForm.dirty || !!this.groupForm.touched)
@@ -108,7 +108,7 @@ export class GroupFormComponent implements OnInit {
     }
   }
 
-  createMember(): void {
+  createGroup(): void {
     if (this.groupForm.valid) {
       const groupMembers = {};
       this.selectedMembers.value

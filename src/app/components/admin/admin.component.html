@@ -11,19 +11,17 @@
     ></app-side-menu>
   </mat-drawer>
 
-  <mat-drawer-content
-    class="admin__content"
-    fxLayout="column"
-    fxLayoutAlign="start stretch"
-  >
+  <mat-drawer-content class="admin__content">
     <app-top-navbar
       [isMobile]="mobileQuery.matches"
       (toggleSide)="sidenav.toggle()"
     ></app-top-navbar>
 
-    <div class="admin__content-box" fxFlex="100%">
+    <div class="admin__content-box">
       <!-- <app-alert-bar></app-alert-bar> -->
-      <router-outlet></router-outlet>
+      <div class="admin__content-wrapper">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>

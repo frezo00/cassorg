@@ -2,12 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IMember } from '../../../../models';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import {
-  AppState,
-  getAllMembersExceptOne,
-  GetMembersBegin,
-  Go
-} from '../../../../store';
+import { AppState, getAllMembersExceptOne, Go } from '../../../../store';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -25,7 +20,6 @@ export class MemberInfoComponent implements OnInit {
   ngOnInit() {
     this.showSiblings = false;
     if (!!this.member && !!this.member.siblings) {
-      // this.store.dispatch(new GetMembersBegin());
       this.siblings$ = this.store.select(
         getAllMembersExceptOne(this.member.id)
       );

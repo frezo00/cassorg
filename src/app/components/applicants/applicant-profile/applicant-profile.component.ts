@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState, Go } from '../../../store';
-import { GetSingleApplicantBegin } from '../store/applicants.actions';
+import { AppState, Go, GetSingleApplicantBegin } from '../../../store';
 import { IApplicant } from '../../../models';
 
 @Component({

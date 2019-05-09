@@ -10,9 +10,8 @@ import {
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { AppState, getGroups, Go } from '../../../store';
+import { AppState, getGroups, Go, CreateActivityBegin } from '../../../store';
 import { IGroup, IActivity } from '../../../models';
-import { CreateActivityBegin } from '../store';
 
 @Component({
   selector: 'app-activity-form',

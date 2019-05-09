@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  template: `
+    <p>project works!</p>
+  `
 })
 export class ProjectComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

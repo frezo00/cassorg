@@ -7,13 +7,10 @@ import {
   getSingleGroup,
   GetSingleGroupBegin,
   Go,
-  getMembers,
-  getGroupMembers,
-  GetMembersBegin
+  getGroupMembers
 } from '../../../store';
 import { IGroup, IMember } from '../../../models';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-details',

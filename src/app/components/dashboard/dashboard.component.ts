@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromApp from '../../store';
-import { CommonService } from '../common/common.service';
+import { CommonService } from '../../services';
 
 @Component({
   selector: 'app-dashboard',

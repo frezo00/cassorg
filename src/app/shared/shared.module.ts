@@ -17,7 +17,7 @@ import { CreateProjectModalComponent } from './../components/project/create-proj
 import { FirstLetterPipe } from '../pipes/first-letter.pipe';
 import { AgePipe } from '../pipes/age.pipe';
 import { UserSizePipe } from '../pipes/user-size.pipe';
-import { SearchPipe } from '../pipes/search/search.pipe';
+import { SearchPipe } from '../pipes/search.pipe';
 import {
   DateAdapter,
   MAT_DATE_LOCALE,

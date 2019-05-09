@@ -2,14 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import {
-  AppState,
-  GetMembersBegin,
-  Go,
-  SortMembers,
-  getMembers,
-  getMembersGroups
-} from '../../../store';
+import { AppState, Go, SortMembers, getMembersGroups } from '../../../store';
 import { IMember, ISort } from '../../../models';
 
 @Component({

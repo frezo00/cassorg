@@ -7,9 +7,8 @@ import {
   FormArray
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as fromProject from '../store';
-
-import { IProject, Project } from '../../../models';
+import { ProjectState } from '../../../store/reducers';
+import { CreateProject } from '../../../store/actions';
 
 @Component({
   selector: 'app-create-project-modal',
@@ -25,10 +24,7 @@ export class CreateProjectModalComponent implements OnInit {
   categoryForm: FormGroup;
   categoryArray: FormArray;
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<fromProject.ProjectState>
-  ) {}
+  constructor(private fb: FormBuilder, private store: Store<ProjectState>) {}
 
   ngOnInit() {
     this.initProjectForm();
@@ -79,7 +75,7 @@ export class CreateProjectModalComponent implements OnInit {
     console.log('project form: ', this.projectForm.value);
     if (this.projectForm.valid) {
       this.store.dispatch(
-        new fromProject.CreateProject({
+        new CreateProject({
           name: this.projectName.value.trim(),
           tag: this.getProjectTagName()
         })
@@ -92,15 +88,15 @@ export class CreateProjectModalComponent implements OnInit {
     return this.projectName.hasError('required')
       ? 'Please, enter a value'
       : this.projectName.hasError('maxlength')
-        ? 'Maximum name length is 20 characters'
-        : '';
+      ? 'Maximum name length is 20 characters'
+      : '';
   }
 
   getCategoryErrorMessage(category: FormControl) {
     return category.hasError('required')
       ? 'Please, enter a value'
       : category.hasError('maxlength')
-        ? 'Maximum name length is 20 characters'
-        : '';
+      ? 'Maximum name length is 20 characters'
+      : '';
   }
 }

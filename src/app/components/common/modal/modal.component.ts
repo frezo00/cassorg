@@ -9,7 +9,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { CommonState, CloseModal } from '../store';
+import { CommonState, CloseModal } from '../../../store';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IModal } from '../../../models';
 

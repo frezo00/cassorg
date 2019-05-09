@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Validators } from '../../common/validators';
+import { Validators } from '../../../shared/validators';
 
 import {
   AppState,
@@ -18,7 +18,7 @@ import { IMember, IGroup } from '../../../models';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MembersService } from '../members.service';
+import { MembersService } from '../../../services';
 
 @Component({
   selector: 'app-member-form',

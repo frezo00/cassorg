@@ -6,10 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./member-image.component.scss']
 })
 export class MemberImageComponent implements OnInit {
-  @Input()
-  photoURL: string;
-  @Output()
-  imageChanged: EventEmitter<any> = new EventEmitter();
+  @Input() photoURL: string;
+  @Output() imageChanged: EventEmitter<any> = new EventEmitter();
   tempImage: any;
 
   constructor() {}

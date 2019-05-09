@@ -3,8 +3,13 @@ import { Store } from '@ngrx/store';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AppState, Go, getGroups } from '../../../store';
-import { getActivities, selectTotalActivities } from '../store';
+import {
+  AppState,
+  Go,
+  getGroups,
+  getActivities,
+  selectTotalActivities
+} from '../../../store';
 import { IActivity, IGroup } from '../../../models';
 
 @Component({

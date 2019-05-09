@@ -8,7 +8,7 @@ import {
 import { Store } from '@ngrx/store';
 
 import { IUser } from '../../../models';
-import * as fromStore from '../store';
+import * as fromStore from '../../../store';
 
 @Component({
   selector: 'app-user-form',

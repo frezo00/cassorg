@@ -1,12 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators
-} from '@angular/forms';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Validators } from '../../../shared/validators';
+import { Observable } from 'rxjs';
 
 import { IGroup, IMember } from '../../../models';
 import {

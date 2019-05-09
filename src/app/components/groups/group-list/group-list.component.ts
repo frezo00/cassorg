@@ -17,9 +17,6 @@ export class GroupListComponent implements OnInit {
 
   ngOnInit(): void {
     this.groups = this.store.select(getGroups);
-    this.store
-      .select(selectAllGroups)
-      .subscribe(data => console.log('data:', data));
   }
 
   getGroupMembersLength(groupMembersObj: any): number {

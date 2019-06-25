@@ -1,0 +1,50 @@
+// --------------------------------------------------------------------------------------------
+//    TEXT SIZE CLASSES - creates utility classes based on keys of the $font-sizes map
+//      Example:
+//        .u-text-size--xlarge {
+//          font-size: ['rem' value of 'xlarge' key] !important;
+//        }
+// --------------------------------------------------------------------------------------------
+.#{$u}text-size {
+  @include set-modifier($font-sizes, font-size);
+}
+
+// --------------------------------------------------------------------------------------------
+//    TEXT WEIGHT CLASSES - creates utility classes based on keys of the $font-weights map
+//      Example:
+//        .u-text-weight--bold {
+//          font-weight: ['number' value of 'bold' key] !important;
+//        }
+// --------------------------------------------------------------------------------------------
+.#{$u}text-weight {
+  @include set-modifier($font-weights, font-weight);
+}
+
+// --------------------------------------------------------------------------------------------
+//    TEXT COLOR CLASSES - creates utility classes based on keys of the $font-colors map
+//      Example:
+//        .u-text-color--primary {
+//          color: ['hexa' value of 'primary' key] !important;
+//        }
+// --------------------------------------------------------------------------------------------
+.#{$u}text-color {
+  @include set-modifier($font-colors, color);
+}
+
+// --------------------------------------------------------------------------------------------
+//    TEXT ALIGN CLASSES - creates utility classes based on keys of the $font-alignments map
+//      Example:
+//        .u-text-align--center {
+//          text-align: center !important;
+//        }
+// --------------------------------------------------------------------------------------------
+.#{$u}text-align {
+  @include set-modifier($font-alignments, text-align);
+}
+
+// --------------------------------------------------------------------------------------------
+//    TEXT TRUNCATE CLASS - creates utility class for truncated text
+// --------------------------------------------------------------------------------------------
+.#{$u}text--truncate {
+  @include truncate;
+}

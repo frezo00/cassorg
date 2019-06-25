@@ -1,0 +1,28 @@
+// ========================================================================================
+//    LIST CONTAINS FUNCTION - checks if an '$item' is contained inside the '$list' list
+// ========================================================================================
+@function list-contains($list, $item) {
+  @if index($list, $item) {
+    @return $item;
+  }
+  @warn "Unknown `#{$item}` in the `#{$list}` list.";
+  @return null;
+}
+
+// ===================================================================================
+//    MAP CONTAINS FUNCTION - checks if a '$key' is contained inside the '$map' map
+// ===================================================================================
+@function map-contains($map, $key) {
+  @if map-has-key($map, $key) {
+    @return map-get($map, $key);
+  }
+  @warn "Unknown `#{$key}` in the `#{$map}` map.";
+  @return null;
+}
+
+// =============================================================
+//    SET MODIFIER FUNCTION - sets modifier classes based on  if correct side-name is entered
+// =============================================================
+// @function set-modifier($side-name) {
+//   @return list-contains($sides, $side-name);
+// }

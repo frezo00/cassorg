@@ -1,0 +1,27 @@
+// -----------------------------------------------------------------
+//    THEME COLORS - variables for various colors used in the app
+// -----------------------------------------------------------------
+$color-theme-brand: #ee3b3b;
+$color-theme-background: #f5f5f5;
+$color-theme-primary: darken($color-theme-brand, 20%); // #b11b1b
+$color-theme-secondary: darken($color-theme-brand, 25%); // #9c0e0e
+$color-theme-success: #1d8037;
+$color-theme-warning: #a36100;
+$color-theme-error: #d2190b;
+$color-theme-white: #ffffff;
+
+$theme-colors: (
+  primary: $color-theme-primary,
+  secondary: $color-theme-secondary,
+  success: $color-theme-success,
+  warning: $color-theme-warning,
+  error: $color-theme-error,
+  brand: $color-theme-brand,
+  white: $color-theme-white,
+  background: $color-theme-background
+);
+
+// Returns 'hexa' value for THEME color name
+@function theme-color($color-name) {
+  @return map-contains($theme-colors, $color-name);
+}

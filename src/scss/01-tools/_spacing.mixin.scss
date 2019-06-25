@@ -1,0 +1,34 @@
+// -------------------------------------------
+//    SPACING MIXIN - set padding or margin
+// -------------------------------------------
+@mixin spacing($type: padding, $values: $spacing-base, $position: false) {
+  @if $type != padding and $type != margin {
+    @error "Type `#{$type}` is invalid";
+  }
+  @if length($values) > 4 {
+    @error "There are too many values: `#{$values}`";
+  }
+  @if length($position) > 1 {
+    @error "There are too many positions: `#{$position}`";
+  }
+
+  // Check if there are any values from $spacings map
+  @each $value in $values {
+    @if unit($value) == x {
+      $new-value: spacing-name($value); // get 'px' value from function
+      $i: index($values, $value); // get index
+      $values: set-nth($values, $i, $new-value); // set new value at index
+    }
+  }
+  @if $position {
+    $position: list-contains(top right bottom left, $position);
+  }
+
+  @if $position and length($values) == 1 {
+    #{$type}-#{$position}: $values;
+  } @else if $position and length($values) > 1 {
+    @warn "Property `#{$type}-#{$position}` can\'t have multiple values";
+  } @else {
+    #{$type}: $values;
+  }
+}

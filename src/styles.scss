@@ -83,3 +83,6 @@ mat-tab-group .mat-tab-labels {
   width: 100%;
   padding-bottom: 40px;
 }
+
+// Include global ITCSS stylings
+@import './scss/styles';

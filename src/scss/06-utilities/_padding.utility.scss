@@ -1,0 +1,26 @@
+// ----------------------------------------------------------------------------------
+//    PADDING CLASSES - creates utility classes based on keys of the $spacings map
+//      Example:
+//        .u-padding--2x {
+//          padding: ['px' value of '2x' key] !important;
+//        }
+// ----------------------------------------------------------------------------------
+.#{$u}padding {
+  @include set-modifier($spacings, padding);
+}
+
+.#{$u}padding-top {
+  @include set-modifier($spacings, padding-top);
+}
+
+.#{$u}padding-right {
+  @include set-modifier($spacings, padding-right);
+}
+
+.#{$u}padding-bottom {
+  @include set-modifier($spacings, padding-bottom);
+}
+
+.#{$u}padding-left {
+  @include set-modifier($spacings, padding-left);
+}

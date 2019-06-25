@@ -1,0 +1,16 @@
+// -----------------------------------------------------------------------
+//    MEDIA QUERY MIXIN - enables using styling for specific braeakpoint
+// -----------------------------------------------------------------------
+@mixin media($breakpoint-name, $type: min) {
+  $breakpoint-pixels: map-contains($breakpoints, $breakpoint-name);
+
+  @if $breakpoint-pixels {
+    @if $type == max {
+      $breakpoint-pixels: $breakpoint-pixels - 1px;
+    }
+
+    @media only screen and (#{$type}-width: $breakpoint-pixels) {
+      @content;
+    }
+  }
+}

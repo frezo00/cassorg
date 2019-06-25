@@ -1,0 +1,8 @@
+// -------------------------------------------------------------------------------------------
+//    PSEUDO MIXIN - sets common stylings for pseudo-elements like "::before" and "::after"
+// -------------------------------------------------------------------------------------------
+@mixin pseudo($display: block, $position: absolute, $content: '') {
+  display: $display;
+  content: $content;
+  position: $position;
+}

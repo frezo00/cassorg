@@ -1,0 +1,25 @@
+// ----------------------------------------------
+//    Z-INDEX - variables for z-index property
+// ----------------------------------------------
+$z-index-0: 0;
+$z-index-1: 1;
+$z-index-2: 2;
+$z-index-3: 3;
+$z-index-4: 4;
+
+$z-indices: (
+  0: $z-index-0,
+  1: $z-index-1,
+  2: $z-index-2,
+  3: $z-index-3,
+  4: $z-index-4
+);
+
+// Returns 'number' value for the Z-INDEX
+@function z-index($number) {
+  @if type-of($number) == number {
+    @return map-contains($z-indices, $number);
+  }
+  @warn "'z-index' value: `#{$number}` must be a number";
+  @return null;
+}

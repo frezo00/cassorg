@@ -1,0 +1,10 @@
+// -----------------------------------------------------------------------------------
+//    Z-INDEX CLASSES - creates utility classes based on keys of the $z-indices map
+//      Example:
+//        .u-z-index--2 {
+//          z-index: 2;
+//        }
+// -----------------------------------------------------------------------------------
+.#{$u}z-index {
+  @include set-modifier($z-indices, z-index);
+}

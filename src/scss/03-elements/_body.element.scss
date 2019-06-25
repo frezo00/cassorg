@@ -1,0 +1,13 @@
+// ------------------------------------------------
+//    BODY - default stylings for <body> element
+// ------------------------------------------------
+body {
+  @include font();
+  font-family: $font-family;
+  height: 100vh;
+  overflow: hidden;
+
+  // for Google Fonts
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

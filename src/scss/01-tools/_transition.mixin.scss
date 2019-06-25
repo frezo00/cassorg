@@ -1,0 +1,24 @@
+// ----------------------
+//    TRANSITION MIXIN
+// ----------------------
+$duration: $transition-duration;
+$timing: $transition-timing;
+$delay: $transition-delay;
+$defaults: $duration $timing $delay;
+
+@mixin transition($args...) {
+  // Declare empty list and fill it in the loop
+  $props: ();
+  @each $prop in $args {
+    @if type-of($prop) == string {
+      $props: append($props, $prop $defaults, 'comma');
+    } @else {
+      $props: append($props, $prop, 'comma');
+    }
+  }
+
+  -webkit-transition: $props;
+  -moz-transition: $props;
+  -o-transition: $props;
+  transition: $props;
+}

@@ -1,0 +1,26 @@
+// ---------------------------------------------------------------------------------
+//    MARGIN CLASSES - creates utility classes based on keys of the $spacings map
+//      Example:
+//        .u-margin--2x {
+//          margin: ['px' value of '2x' key] !important;
+//        }
+// ---------------------------------------------------------------------------------
+.#{$u}margin {
+  @include set-modifier($spacings, margin);
+}
+
+.#{$u}margin-top {
+  @include set-modifier($spacings, margin-top);
+}
+
+.#{$u}margin-right {
+  @include set-modifier($spacings, margin-right);
+}
+
+.#{$u}margin-bottom {
+  @include set-modifier($spacings, margin-bottom);
+}
+
+.#{$u}margin-left {
+  @include set-modifier($spacings, margin-left);
+}

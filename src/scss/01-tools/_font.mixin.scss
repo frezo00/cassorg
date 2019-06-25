@@ -1,0 +1,32 @@
+// -----------------------------------------------------------------------
+//    FONT MIXIN - set size, weight, line-height and color for the text
+// -----------------------------------------------------------------------
+@mixin font($size: false, $weight: false, $color: false, $line-height: false) {
+  // Set 'font-size'
+  @if $size {
+    font-size: font-size($size);
+  } @else {
+    font-size: font-size(normal);
+  }
+
+  // Set 'font-weight'
+  @if $weight {
+    font-weight: font-weight($weight);
+  } @else {
+    font-weight: font-weight(normal);
+  }
+
+  // Set 'color'
+  @if $color {
+    color: font-color($color);
+  } @else {
+    color: font-color(primary);
+  }
+
+  // Set 'line-height'
+  @if $line-height {
+    line-height: $line-height;
+  } @else {
+    line-height: $line-height-default;
+  }
+}

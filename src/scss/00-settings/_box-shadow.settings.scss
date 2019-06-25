@@ -1,0 +1,9 @@
+// --------------------------------------------
+//    BOX SHADOW - settings for 'box-shadow'
+// --------------------------------------------
+$box-shadow-x: 0;
+$box-shadow-y: 2px;
+$box-shadow-blur: 4px;
+$box-shadow-color: rgba(#000000, 0.06);
+
+$box-shadow-default: $box-shadow-x $box-shadow-y $box-shadow-blur $box-shadow-color;

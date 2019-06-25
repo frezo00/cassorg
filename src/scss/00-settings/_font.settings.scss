@@ -1,0 +1,104 @@
+// ============================================================================
+//    FONTS - variables, maps and functions for font family, size and weight
+// ============================================================================
+
+// -----------------
+//    FONT FAMILY
+// -----------------
+$font-family: 'PT Sans', sans-serif !default;
+
+// -----------------
+//    LINE HEIGHT
+// -----------------
+$line-height-default: 1.25em !default;
+
+// ---------------
+//    FONT SIZE
+// ---------------
+$font-size-xxxlarge: 1.875rem; // 30px
+$font-size-xxlarge: 1.5rem; // 24px
+$font-size-xlarge: 1.25rem; // 20px
+$font-size-large: 1.125rem; // 18px
+$font-size-normal: 1rem; // 16px (base)
+$font-size-medium: 0.875rem; // 14px
+$font-size-small: 0.75rem; // 12px
+$font-size-xsmall: 0.6875rem; // 11px
+$font-size-xxsmall: 0.625rem; // 10px
+
+$font-sizes: (
+  xxxlarge: $font-size-xxxlarge,
+  xxlarge: $font-size-xxlarge,
+  xlarge: $font-size-xlarge,
+  large: $font-size-large,
+  normal: $font-size-normal,
+  medium: $font-size-medium,
+  small: $font-size-small,
+  xsmall: $font-size-xsmall,
+  xxsmall: $font-size-xxsmall
+);
+
+// Returns 'rem' value for the FONT SIZE name
+@function font-size($size-name) {
+  @return map-contains($font-sizes, $size-name);
+}
+$font-size-base: font-size(normal) !default;
+
+// ------------------
+//    FONT WEIGHTS
+// ------------------
+$font-weight-lighter: 300;
+$font-weight-light: 400;
+$font-weight-normal: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+
+$font-weights: (
+  lighter: $font-weight-lighter,
+  light: $font-weight-light,
+  normal: $font-weight-normal,
+  semi-bold: $font-weight-semi-bold,
+  bold: $font-weight-bold
+);
+
+// Returns 'number' value for the FONT WEIGHT name
+@function font-weight($weight-name) {
+  @return map-contains($font-weights, $weight-name);
+}
+$font-weight-base: font-weight(normal) !default;
+
+// -----------------
+//    FONT COLORS
+// -----------------
+$font-color-primary: #3c3c3c;
+$font-color-secondary: lighten($font-color-primary, 20%); // #6f6f6f
+$font-color-link: #3d76bd;
+$font-color-white: #ffffff;
+$font-color-whiter: rgba($font-color-white, 0.8);
+
+$font-colors: (
+  primary: $font-color-primary,
+  secondary: $font-color-secondary,
+  light: $font-color-white,
+  lighter: $font-color-whiter,
+  link: $font-color-link
+);
+
+// Returns 'hexa' value for the FONT COLOR name
+@function font-color($color-name) {
+  @return map-contains($font-colors, $color-name);
+}
+$font-color-base: font-color(primary) !default;
+
+// ----------------
+//    FONT ALIGN
+// ----------------
+$font-alignments: (
+  left: left,
+  center: center,
+  right: right
+);
+
+// Returns 'string' value for the FONT ALIGN name
+@function font-align($align-name) {
+  @return map-contains($font-alignments, $align-name);
+}

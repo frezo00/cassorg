@@ -1,0 +1,23 @@
+// ------------------------------------------------------------------------------------
+//    HEADINGS - default stylings for <h1>, <h2>, <h3>, <h4>, <h5> and <h6> elements
+// ------------------------------------------------------------------------------------
+%base-heading {
+  @include spacing(margin, 1em 0);
+}
+
+$headings: (
+  xxxlarge: bold /* h1 */,
+  xxlarge: bold /* h2 */,
+  large: bold /* h3 */,
+  normal: semi-bold /* h4 */,
+  small: semi-bold /* h5 */,
+  xxsmall: semi-bold /* h6 */
+);
+
+@each $size, $weight in $headings {
+  $i: index($headings, $size $weight);
+  h#{$i} {
+    @extend %base-heading;
+    @include font($size, $weight);
+  }
+}

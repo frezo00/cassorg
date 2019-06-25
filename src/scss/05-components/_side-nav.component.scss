@@ -1,0 +1,12 @@
+// ------------------------------------------------------
+//    SIDE NAV COMPONENT - breaks overlapping text words
+// ------------------------------------------------------
+.#{$c}side-nav {
+  @include flex-box(column, flex-start, flex-start);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  max-width: 300px;
+  min-width: 60px;
+}

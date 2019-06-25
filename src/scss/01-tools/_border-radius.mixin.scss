@@ -1,0 +1,8 @@
+// -------------------------
+//    BORDER RADIUS MIXIN
+// -------------------------
+@mixin border-radius($size: $border-radius) {
+  -webkit-border-radius: $size;
+  -moz-border-radius: $size;
+  border-radius: $size;
+}

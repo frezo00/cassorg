@@ -1,0 +1,22 @@
+// -------------------
+//    FLEXBOX MIXIN
+// -------------------
+@mixin flex-box($direction: false, $justify: false, $align: false, $gsb: false) {
+  display: flex;
+
+  @if $direction {
+    flex-direction: $direction;
+  }
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+
+  @if $gsb {
+    flex: $gsb;
+  }
+}

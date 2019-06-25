@@ -1,0 +1,9 @@
+// -------------------------------------------
+//    TRANSITION - variables for transition
+// -------------------------------------------
+$transition-property: background-color;
+$transition-duration: 0.3s;
+$transition-timing: ease-out;
+$transition-delay: 0s;
+
+$transition-default: $transition-property $transition-duration $transition-timing $transition-delay;

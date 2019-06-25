@@ -1,0 +1,9 @@
+// -------------------------------------------------------
+//    TRUNCATE MIXIN - sets stylings for truncated text
+// -------------------------------------------------------
+@mixin truncate($boundary: 100%) {
+  max-width: $boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

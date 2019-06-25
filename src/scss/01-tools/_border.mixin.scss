@@ -1,0 +1,10 @@
+// ------------------
+//    BORDER MIXIN
+// ------------------
+@mixin border($data: $border-default, $position: false) {
+  @if $position and list-contains(top right bottom left, $position) {
+    border-#{$position}: $data;
+  } @else {
+    border: $data;
+  }
+}

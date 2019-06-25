@@ -1,36 +1,20 @@
-import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-
+import { RouterModule, Routes } from '@angular/router';
+import { ActivitiesModule } from '../components/activities/activities.module';
 import { AdminComponent } from '../components/admin/admin.component';
-import { DashboardComponent } from '../components/dashboard/dashboard.component';
-import { UsersComponent } from '../components/users/users.component';
-import { GroupsComponent } from '../components/groups/groups.component';
-import { ActivitiesComponent } from '../components/activities/activities.component';
-import { StatisticsComponent } from '../components/statistics/statistics.component';
-import { AuthComponent } from '../components/auth/auth.component';
-
-import { authRoutes } from './auth.routing';
-import { ProjectComponent } from '../components/project/project.component';
-import { UserAddComponent } from '../components/users/user-add/user-add.component';
-import { UserProfileComponent } from '../components/users/user-profile/user-profile.component';
-import { ApplicantsComponent } from '../components/applicants/applicants.component';
-import { GroupListComponent } from '../components/groups/group-list/group-list.component';
-import { GroupNewComponent } from '../components/groups/group-new/group-new.component';
-import { GroupEditComponent } from '../components/groups/group-edit/group-edit.component';
-import { GroupDetailsComponent } from '../components/groups/group-details/group-details.component';
 import { ApplicantListComponent } from '../components/applicants/applicant-list/applicant-list.component';
 import { ApplicantProfileComponent } from '../components/applicants/applicant-profile/applicant-profile.component';
 import { ApplicantUserFormComponent } from '../components/applicants/applicant-user-form/applicant-user-form.component';
-import { MembersComponent } from '../components/members/members.component';
-import { MemberListComponent } from '../components/members/member-list/member-list.component';
-import { MemberProfileComponent } from '../components/members/member-profile/member-profile.component';
-import { MemberNewComponent } from '../components/members/member-new/member-new.component';
-import { MemberEditComponent } from '../components/members/member-edit/member-edit.component';
-import { CheckFormGuard } from '../guards/check-form.guard';
-import { ActivityListComponent } from '../components/activities/activity-list/activity-list.component';
-import { ActivityNewComponent } from '../components/activities/activity-new/activity-new.component';
-import { AuthGuard } from '../guards/auth.guard';
+import { ApplicantsComponent } from '../components/applicants/applicants.component';
+import { AuthComponent } from '../components/auth/auth.component';
 import { PageNotFoundComponent } from '../components/common/page-not-found/page-not-found.component';
+import { DashboardComponent } from '../components/dashboard/dashboard.component';
+import { GroupsModule } from '../components/groups/groups.module';
+import { MembersModule } from '../components/members/members.module';
+import { ProjectComponent } from '../components/project/project.component';
+import { StatisticsComponent } from '../components/statistics/statistics.component';
+import { AuthGuard } from '../guards/auth.guard';
+import { authRoutes } from './auth.routing';
 
 const routes: Routes = [
   {
@@ -39,25 +23,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
+      { path: 'members', loadChildren: () => MembersModule },
+      { path: 'groups', loadChildren: () => GroupsModule },
+      { path: 'activities', loadChildren: () => ActivitiesModule },
+      { path: 'statistics', component: StatisticsComponent },
       {
-        path: 'members',
-        component: MembersComponent,
-        children: [
-          { path: '', component: MemberListComponent },
-          {
-            path: 'new',
-            component: MemberNewComponent,
-            canDeactivate: [CheckFormGuard]
-          },
-          {
-            path: 'edit/:id',
-            component: MemberEditComponent,
-            canDeactivate: [CheckFormGuard]
-          },
-          { path: ':id', component: MemberProfileComponent }
-        ]
-      },
-      {
+        // TODO: Remove applicants to be submodule of the 'MembersModule'
         path: 'applicants',
         component: ApplicantsComponent,
         children: [
@@ -65,44 +36,7 @@ const routes: Routes = [
           { path: 'new-user', component: ApplicantUserFormComponent },
           { path: ':id', component: ApplicantProfileComponent }
         ]
-      },
-      {
-        path: 'groups',
-        component: GroupsComponent,
-        children: [
-          { path: '', component: GroupListComponent },
-          {
-            path: 'new',
-            component: GroupNewComponent,
-            canDeactivate: [CheckFormGuard]
-          },
-          {
-            path: 'edit/:id',
-            component: GroupEditComponent,
-            canDeactivate: [CheckFormGuard]
-          },
-          { path: ':id', component: GroupDetailsComponent }
-        ]
-      },
-      {
-        path: 'activities',
-        component: ActivitiesComponent,
-        children: [
-          { path: '', component: ActivityListComponent },
-          {
-            path: 'new',
-            component: ActivityNewComponent
-            // canDeactivate: [CheckFormGuard]
-          }
-          /* {
-            path: 'edit/:id',
-            component: GroupEditComponent,
-            canDeactivate: [CheckFormGuard]
-          },
-          { path: ':id', component: GroupDetailsComponent } */
-        ]
-      },
-      { path: 'statistics', component: StatisticsComponent }
+      }
     ]
   },
   { path: 'auth', component: AuthComponent, children: authRoutes },
@@ -111,9 +45,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })
-  ],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule],
   providers: [AuthGuard]
 })

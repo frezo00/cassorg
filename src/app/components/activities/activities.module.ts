@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonComponentsModule } from '../common/common-components.module';
-
 import { ActivitiesComponent } from './activities.component';
+import { ActivitiesRoutingModule } from './activities.routing';
+import { ActivityFormComponent } from './activity-form/activity-form.component';
 import { ActivityListComponent } from './activity-list/activity-list.component';
 import { ActivityNewComponent } from './activity-new/activity-new.component';
-import { ActivityFormComponent } from './activity-form/activity-form.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,7 @@ import { ActivityFormComponent } from './activity-form/activity-form.component';
     ActivityNewComponent,
     ActivityFormComponent
   ],
-  imports: [CommonModule, SharedModule, CommonComponentsModule],
+  imports: [CommonModule, ActivitiesRoutingModule, SharedModule, CommonComponentsModule],
   exports: [],
   providers: []
 })

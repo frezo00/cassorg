@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-
-import { Go, AppState } from '../../../store';
+import { Observable } from 'rxjs';
+import { IUserLogin } from '../../../models';
+import { AppState, getUserLoginData, Go } from '../../../store';
 
 @Component({
   selector: 'app-side-menu',
@@ -11,7 +12,7 @@ import { Go, AppState } from '../../../store';
 export class SideMenuComponent implements OnInit {
   @Output() toggleSide = new EventEmitter();
   url: string;
-
+  loggedInUser$: Observable<IUserLogin>;
   navList: Array<{ title: string; icon: string; link: string }>;
 
   constructor(private store: Store<AppState>) {}
@@ -26,6 +27,7 @@ export class SideMenuComponent implements OnInit {
       { title: 'Aktivnosti', icon: 'assessment', link: '/activities' },
       { title: 'Statistika', icon: 'trending_up', link: '/statistics' }
     ];
+    this.loggedInUser$ = this.store.select(getUserLoginData);
   }
 
   isActive(): void {

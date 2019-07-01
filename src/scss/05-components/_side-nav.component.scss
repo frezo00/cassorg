@@ -1,12 +1,47 @@
-// ------------------------------------------------------
-//    SIDE NAV COMPONENT - breaks overlapping text words
-// ------------------------------------------------------
+// -------------------------------------------------------
+//    SIDE NAV COMPONENT - stylings for side navigation
+// -------------------------------------------------------
 .#{$c}side-nav {
-  @include flex-box(column, flex-start, flex-start);
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   max-width: 300px;
   min-width: 60px;
+}
+
+.#{$c}side-nav__header {
+  @include border(1px solid border-color(light), bottom);
+}
+
+.#{$c}side-nav__user {
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.#{$c}side-nav__link {
+  @include border(1px solid border-color(light), bottom);
+  @include spacing(padding, 0 1x);
+  @include transition(background-color, border-left);
+  height: 50px;
+  cursor: pointer;
+
+  &:not(&--active):hover {
+    background-color: rgba(theme-color(black), 0.05);
+  }
+
+  &--active {
+    @include border(3px solid theme-color(primary), left);
+    background-color: rgba(theme-color(black), 0.05);
+  }
+
+  &-icon {
+    height: 100%;
+  }
+
+  &-text {
+    @include spacing(padding, 3x 4x);
+    flex-grow: 1;
+    height: 100%;
+  }
 }

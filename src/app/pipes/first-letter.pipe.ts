@@ -4,10 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'firstLetter'
 })
 export class FirstLetterPipe implements PipeTransform {
-  transform(value: any, args?: any): any {
-    if (value !== '' && !!value) {
-      return value.charAt(0);
-    }
-    return null;
+  transform(value: string): string {
+    return value && value.trim() ? value.charAt(0).toUpperCase() : '';
   }
 }

@@ -1,0 +1,18 @@
+// ---------------------------------------------------------------------
+//    FLEX CLASSES - creates utility classes for common flex-box usage
+// ---------------------------------------------------------------------
+.#{$u}flex-x {
+  @include flex-box(row);
+}
+
+.#{$u}flex-x-center {
+  @include flex-box(row, flex-start, center);
+}
+
+.#{$u}flex-y {
+  @include flex-box(column);
+}
+
+.#{$u}flex-both-center {
+  @include flex-box(column, center, center);
+}

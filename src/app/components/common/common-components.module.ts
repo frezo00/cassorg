@@ -9,6 +9,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { AlertBarComponent } from './alert-bar/alert-bar.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AvatarComponent } from './avatar/avatar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     LoadingComponent,
     SubheaderComponent,
     ModalComponent,
-    PaginationComponent
+    PaginationComponent,
+    AvatarComponent
   ],
   imports: [CommonModule, SharedModule],
   exports: [
@@ -28,7 +30,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     LoadingComponent,
     SubheaderComponent,
     ModalComponent,
-    PaginationComponent
+    PaginationComponent,
+    AvatarComponent
   ],
   providers: [],
   entryComponents: [ModalComponent]

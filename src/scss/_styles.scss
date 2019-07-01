@@ -52,11 +52,14 @@
 // --------------------------------------------------------------------------------
 //    05 COMPONENTS - specific UI components (majority of the code)
 // --------------------------------------------------------------------------------
+@import './05-components/avatar.component';
 @import './05-components/side-nav.component';
 
 // --------------------------------------------------------------------------------
 //    06 UTILITIES - utilities and helper classes with ability to override
 // --------------------------------------------------------------------------------
+@import './06-utilities/border.utility';
+@import './06-utilities/flex.utility';
 @import './06-utilities/margin.utility';
 @import './06-utilities/padding.utility';
 @import './06-utilities/text.utility';

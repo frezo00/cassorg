@@ -1,0 +1,19 @@
+// -------------------------------------------------------
+//    SIDE NAV COMPONENT - stylings for side navigation
+// -------------------------------------------------------
+.#{$c}avatar {
+  @include border(1px solid border-color(light));
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  &--image {
+    background: theme-color(primary) center center no-repeat;
+    background-size: 100% 100%;
+  }
+
+  &--initials {
+    @include font(normal, light, light, 1.5);
+    background-color: theme-color(primary);
+  }
+}

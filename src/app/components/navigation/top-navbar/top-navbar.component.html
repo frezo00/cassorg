@@ -1,4 +1,8 @@
-<mat-toolbar class="top-navigation__container" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+<mat-toolbar
+  class="top-navigation__container"
+  fxLayoutAlign="space-between center"
+  fxLayoutGap="12px"
+>
   <div class="top-navigation__search" fxLayoutAlign="start center" fxLayoutGap="12px">
     <button mat-icon-button (click)="toggleSidenav()">
       <mat-icon>menu</mat-icon>
@@ -11,16 +15,8 @@
   <div class="top-navigation_nav" fxLayoutAlign="end center" fxLayoutGap.gt-xs="8px">
     <a mat-icon-button><mat-icon matBadge="5" matBadgeColor="warn">notifications</mat-icon></a>
     <!-- <a mat-icon-button><mat-icon>settings</mat-icon></a> -->
-    <button mat-button>
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="top-navigation__initials" fxLayoutAlign="center center">
-          <p>{{ (user | async)?.displayName | firstLetter}}</p>
-        </div>
-        <span *ngIf="!isMobile" class="top-navigation__display-name">{{ (user | async)?.displayName }}</span>
-      </div>
-    </button>
-    <a mat-icon-button class="top-navigation__logout" (click)="logout()">
+    <!-- <a mat-icon-button class="top-navigation__logout" (click)="logout()">
       <mat-icon>power_settings_new</mat-icon>
-    </a>
+    </a> -->
   </div>
 </mat-toolbar>

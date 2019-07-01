@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-
+import { CommonComponentsModule } from '../common/common-components.module';
 import { SideMenuComponent } from './side-menu/side-menu.component';
-import { SideTopHeaderComponent } from './side-menu/side-top-header/side-top-header.component';
 import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 
 @NgModule({
-  declarations: [SideMenuComponent, SideTopHeaderComponent, TopNavbarComponent],
-  imports: [CommonModule, SharedModule],
+  declarations: [SideMenuComponent, TopNavbarComponent],
+  imports: [CommonModule, SharedModule, CommonComponentsModule],
   exports: [SideMenuComponent, TopNavbarComponent],
   providers: []
 })

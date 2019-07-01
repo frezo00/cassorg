@@ -1,27 +1,30 @@
-<div class="side-navigation__container" fxFlex="100%">
-  <app-side-top-header></app-side-top-header>
-  <mat-nav-list class="side-navigation__list" fxLayout="column">
+<section class="c-side-nav__container u-flex-y">
+  <header
+    *ngIf="loggedInUser$ | async as loggedInUser"
+    class="c-side-nav__header u-flex-x-center u-padding--3x"
+  >
+    <app-avatar
+      class="u-padding-left--1x u-padding-right--3x"
+      [firstName]="loggedInUser?.displayName"
+    ></app-avatar>
+    <div class="c-side-nav__user u-flex-y">
+      <h4 class="u-margin--clear u-text--truncate">{{ loggedInUser?.displayName }}</h4>
+      <small class="u-text-color--secondary u-text--truncate">{{ loggedInUser?.email }}</small>
+    </div>
+    <mat-icon class="u-text-color--secondary">more_vert</mat-icon>
+  </header>
+
+  <nav class="u-flex-y">
     <a
       *ngFor="let nav of navList"
-      class="side-navigation__item"
-      mat-list-item
-      [ngClass]="{ active: nav.link === url }"
+      class="c-side-nav__link u-flex-x-center u-text-color--primary"
+      [ngClass]="{ 'c-side-nav__link--active': nav.link === url }"
       (click)="goTo(nav.link)"
     >
-      <mat-icon mat-list-icon>{{ nav.icon }}</mat-icon>
-      <h4 class="side-navigation__item-title" mat-line>{{ nav.title }}</h4>
-      <button
-        *ngIf="nav.title === 'Groups'"
-        [ngClass]="{ 'opened-nav-button': nav.title === 'Groups' }"
-        mat-icon-button
-        mat-list-option
-        appStopPropagation
-        (click)="isGroupOpened = !isGroupOpened"
-      >
-        <mat-icon>{{
-          !isGroupOpened ? 'keyboard_arrow_down' : 'keyboard_arrow_up'
-        }}</mat-icon>
-      </button>
+      <i class="c-side-nav__link-icon u-padding--3x">
+        <mat-icon>{{ nav.icon }}</mat-icon>
+      </i>
+      <span class="c-side-nav__link-text u-flex-x-center">{{ nav.title }}</span>
     </a>
-  </mat-nav-list>
-</div>
+  </nav>
+</section>

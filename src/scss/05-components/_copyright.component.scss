@@ -1,0 +1,46 @@
+// ------------------------------------------------------
+//    COPYRIGHT COMPONENT:
+//      .c-copyright
+//        .c-copyright__links
+//        .c-copyright__link
+// ------------------------------------------------------
+.#{$c}copyright {
+  @include spacing(padding, 10x 2x 5x);
+  margin-top: auto;
+  opacity: 0.75;
+}
+
+.#{$c}copyright__links {
+  @include spacing(padding, 1x 0);
+  width: 100%;
+}
+
+.#{$c}copyright__link {
+  @include font(small, light, secondary);
+  @include spacing(padding, 0 2x);
+  @include transition(color);
+  text-align: font-align(center);
+  position: relative;
+  text-decoration: none;
+
+  &:hover {
+    color: font-color(primary);
+    text-decoration: underline;
+  }
+
+  &:not(:last-of-type)::after {
+    @include border-radius(50%);
+    @include pseudo;
+    @include transform(translateY(-50%));
+    background-color: font-color(secondary);
+    width: 4px;
+    height: 4px;
+    right: -3px;
+    top: 50%;
+  }
+}
+
+.#{$c}copyright__rights {
+  @include font(small, light, secondary);
+  text-align: font-align(center);
+}

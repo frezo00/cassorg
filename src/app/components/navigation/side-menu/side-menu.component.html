@@ -1,12 +1,9 @@
-<section class="c-side-nav__container u-flex-y">
+<section class="c-side-nav__container u-flex-y u-flex-grow">
   <header
     *ngIf="loggedInUser$ | async as loggedInUser"
     class="c-side-nav__header u-flex-x-center u-padding--3x"
   >
-    <app-avatar
-      class="u-padding-left--1x u-padding-right--3x"
-      [firstName]="loggedInUser?.displayName"
-    ></app-avatar>
+    <app-avatar class="u-padding-right--4x" [firstName]="loggedInUser?.displayName"></app-avatar>
     <div class="c-side-nav__user u-flex-y">
       <h4 class="u-margin--clear u-text--truncate">{{ loggedInUser?.displayName }}</h4>
       <small class="u-text-color--secondary u-text--truncate">{{ loggedInUser?.email }}</small>
@@ -26,5 +23,19 @@
       </i>
       <span class="c-side-nav__link-text u-flex-x-center">{{ nav.title }}</span>
     </a>
+    <!-- <mat-icon class="u-text-color--secondary">first_page</mat-icon> -->
   </nav>
+
+  <footer class="c-copyright u-flex-both-center">
+    <div class="c-copyright__links u-flex-x-center">
+      <a href="#" class="c-copyright__link u-flex-grow">Uvjeti korištenja</a>
+      <a href="#" class="c-copyright__link u-flex-grow">Privatnost</a>
+      <a href="#" class="c-copyright__link u-flex-grow">Kontakt</a>
+    </div>
+    <small
+      class="c-copyright__rights u-text-color--secondary u-text-size--small u-text-align--center"
+    >
+      Sva prava pridržana &copy; 2019 <b>Cassorg</b>
+    </small>
+  </footer>
 </section>

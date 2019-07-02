@@ -21,18 +21,33 @@
 
 .#{$c}side-nav__link {
   @include border(1px solid border-color(light), bottom);
-  @include spacing(padding, 0 1x);
-  @include transition(background-color, border-left);
+  @include spacing(padding, 0 2x);
+  @include transition(background-color);
   height: 50px;
   cursor: pointer;
 
   &:not(&--active):hover {
-    background-color: rgba(theme-color(black), 0.05);
+    background-color: rgba(theme-color(black), 0.03);
+  }
+
+  &::before {
+    @include pseudo;
+    @include transition(width);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
   }
 
   &--active {
-    @include border(3px solid theme-color(primary), left);
-    background-color: rgba(theme-color(black), 0.05);
+    position: relative;
+    background-color: rgba(theme-color(black), 0.06);
+
+    &::before {
+      @include pseudo;
+      width: 3px;
+      background-color: theme-color(primary);
+    }
   }
 
   &-icon {
@@ -40,7 +55,7 @@
   }
 
   &-text {
-    @include spacing(padding, 3x 4x);
+    @include spacing(padding, 3x);
     flex-grow: 1;
     height: 100%;
   }

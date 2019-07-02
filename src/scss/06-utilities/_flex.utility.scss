@@ -16,3 +16,7 @@
 .#{$u}flex-both-center {
   @include flex-box(column, center, center);
 }
+
+.#{$u}flex-grow {
+  flex-grow: 1;
+}

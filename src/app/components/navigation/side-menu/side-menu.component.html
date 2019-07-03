@@ -4,7 +4,7 @@
     class="c-side-nav__header u-flex-x-center u-padding--3x"
   >
     <app-avatar class="u-padding-right--4x" [firstName]="loggedInUser?.displayName"></app-avatar>
-    <div class="c-side-nav__user u-flex-y">
+    <div class="c-side-nav__user u-flex-y u-flex-grow">
       <h4 class="u-margin--clear u-text--truncate">{{ loggedInUser?.displayName }}</h4>
       <small class="u-text-color--secondary u-text--truncate">{{ loggedInUser?.email }}</small>
     </div>
@@ -21,7 +21,7 @@
       <i class="c-side-nav__link-icon u-padding--3x">
         <mat-icon>{{ nav.icon }}</mat-icon>
       </i>
-      <span class="c-side-nav__link-text u-flex-x-center">{{ nav.title }}</span>
+      <span class="c-side-nav__link-text u-flex-x-center u-flex-grow">{{ nav.title }}</span>
     </a>
     <!-- <mat-icon class="u-text-color--secondary">first_page</mat-icon> -->
   </nav>

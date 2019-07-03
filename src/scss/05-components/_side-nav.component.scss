@@ -2,12 +2,9 @@
 //    SIDE NAV COMPONENT - stylings for side navigation
 // -------------------------------------------------------
 .#{$c}side-nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  max-width: 300px;
-  min-width: 60px;
+  @include border(1px solid border-color(light), right);
+  height: 100vh;
+  overflow: hidden;
 }
 
 .#{$c}side-nav__header {
@@ -16,7 +13,6 @@
 
 .#{$c}side-nav__user {
   overflow: hidden;
-  flex-grow: 1;
 }
 
 .#{$c}side-nav__link {
@@ -56,7 +52,6 @@
 
   &-text {
     @include spacing(padding, 3x);
-    flex-grow: 1;
     height: 100%;
   }
 }

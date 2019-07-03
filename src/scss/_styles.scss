@@ -43,6 +43,7 @@
 // --------------------------------------------------------------------------------
 @import './03-elements/body.element';
 @import './03-elements/heading.elements';
+@import './03-elements/router-outlet.element';
 
 // --------------------------------------------------------------------------------
 //    04 OBJECTS - class-based selectors which define undecorated design patterns
@@ -52,6 +53,7 @@
 // --------------------------------------------------------------------------------
 //    05 COMPONENTS - specific UI components (majority of the code)
 // --------------------------------------------------------------------------------
+@import './05-components/admin.component';
 @import './05-components/avatar.component';
 @import './05-components/copyright.component';
 @import './05-components/side-nav.component';

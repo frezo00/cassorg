@@ -1,0 +1,11 @@
+// ---------------------------------------------------------
+//    ADMIN COMPONENT - stylings for <app-admin> component
+// ---------------------------------------------------------
+app-admin {
+  display: flex;
+}
+
+.#{$c}admin__content {
+  overflow-y: auto;
+  background-color: theme-color(background);
+}

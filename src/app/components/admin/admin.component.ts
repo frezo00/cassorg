@@ -1,14 +1,16 @@
-import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { toggleSideMenu } from '../../animations/side-menu.animation';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  animations: [toggleSideMenu]
 })
 export class AdminComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   tabletQuery: MediaQueryList;
+  toggleMenu: boolean;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 599px)');
@@ -20,7 +22,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   private _mobileQueryListener: () => void;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.toggleMenu = true;
+  }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

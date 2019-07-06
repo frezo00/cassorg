@@ -1,0 +1,31 @@
+// -------------------------------------------------------------------------------------
+//    BORDER CLASSES - creates utility classes based on keys of the $border-colors map
+//      Example:
+//        .u-border--light {
+//          border: 1px solid ['hexa' value of 'light' key] !important;
+//        }
+// -------------------------------------------------------------------------------------
+.#{$u}border {
+  @include set-modifier($border-colors, border-color);
+  border: 1px solid;
+}
+
+.#{$u}border-top {
+  @include set-modifier($border-colors, border-top-color);
+  border-top: 1px solid;
+}
+
+.#{$u}border-right {
+  @include set-modifier($border-colors, border-right-color);
+  border-right: 1px solid;
+}
+
+.#{$u}border-bottom {
+  @include set-modifier($border-colors, border-bottom-color);
+  border-bottom: 1px solid;
+}
+
+.#{$u}border-left {
+  @include set-modifier($border-colors, border-left-color);
+  border-left: 1px solid;
+}

@@ -29,10 +29,17 @@
 <div class="c-admin__wrapper u-flex-x u-flex-grow">
   <!-- SIDE Navigation -->
   <app-side-menu
+    *ngIf="!tabletQuery.matches"
     class="c-side-nav u-flex-y"
     [@toggleSideMenu]="toggleMenu ? 'wide' : 'shrink'"
     (toggleSide)="(tabletQuery.matches ? null : null)"
   ></app-side-menu>
+
+  <!-- BOTTOM Navigation -->
+  <app-bottom-navigation
+    *ngIf="tabletQuery.matches"
+    class="c-bottom-nav u-flex-x u-z-index--4"
+  ></app-bottom-navigation>
 
   <div class="c-admin__container u-flex-y u-flex-grow">
     <!-- TOP Navigation -->

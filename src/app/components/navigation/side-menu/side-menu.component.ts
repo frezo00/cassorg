@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { INavigationList } from '../../../models/navigation.model';
 import { IUserLogin } from '../../../models';
 import { AppState, getUserLoginData, Go } from '../../../store';
+import { navigationList } from '../navigation.constants';
 
 @Component({
   selector: 'app-side-menu',
@@ -13,20 +15,13 @@ export class SideMenuComponent implements OnInit {
   @Output() toggleSide = new EventEmitter();
   url: string;
   loggedInUser$: Observable<IUserLogin>;
-  navList: Array<{ title: string; icon: string; link: string }>;
+  navList: INavigationList[];
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.isActive();
-    this.navList = [
-      { title: 'Početna', icon: 'home', link: '/' },
-      { title: 'Upisi', icon: 'how_to_vote', link: '/applicants' },
-      { title: 'Članovi', icon: 'people', link: '/members' },
-      { title: 'Grupe', icon: 'group_work', link: '/groups' },
-      { title: 'Aktivnosti', icon: 'assessment', link: '/activities' },
-      { title: 'Statistika', icon: 'trending_up', link: '/statistics' }
-    ];
+    this.navList = navigationList;
     this.loggedInUser$ = this.store.select(getUserLoginData);
   }
 

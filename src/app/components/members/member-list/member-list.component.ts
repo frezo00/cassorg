@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-import { AppState, Go, SortMembers, getMembersGroups } from '../../../store';
 import { IMember, ISort } from '../../../models';
+import { getMembersGroups, Go, MembersState, SortMembers } from '../../../store';
 
 @Component({
   selector: 'app-member-list',
@@ -15,10 +14,11 @@ export class MemberListComponent implements OnInit {
   searchText: string;
   searchKeys: string[] = ['firstName', 'lastName'];
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<MembersState>) {}
 
   ngOnInit() {
     this.members$ = this.store.select(getMembersGroups);
+    this.members$.subscribe(m => console.log('members', m));
   }
 
   navigateToForm(): void {
@@ -31,5 +31,9 @@ export class MemberListComponent implements OnInit {
 
   setSort(sort: ISort): void {
     this.store.dispatch(new SortMembers(sort));
+  }
+
+  onSearchChange(searchValue: string) {
+    this.searchText = searchValue;
   }
 }

@@ -44,12 +44,14 @@
 // --------------------------------------------------------------------------------
 @import './03-elements/body.element';
 @import './03-elements/heading.elements';
+@import './03-elements/input.element';
 @import './03-elements/router-outlet.element';
 
 // --------------------------------------------------------------------------------
 //    04 OBJECTS - class-based selectors which define undecorated design patterns
 // --------------------------------------------------------------------------------
 @import './04-objects/icon.object';
+@import './04-objects/section.object';
 @import './04-objects/text.object';
 
 // --------------------------------------------------------------------------------
@@ -59,6 +61,7 @@
 @import './05-components/avatar.component';
 @import './05-components/bottom-nav.component';
 @import './05-components/copyright.component';
+@import './05-components/search.component';
 @import './05-components/side-nav.component';
 @import './05-components/top-nav.component';
 

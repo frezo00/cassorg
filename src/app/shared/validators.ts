@@ -1,18 +1,10 @@
-import {
-  ValidatorFn,
-  AsyncValidatorFn,
-  Validators as V,
-  FormControl
-} from '@angular/forms';
+import { AsyncValidatorFn, FormControl, ValidatorFn, Validators as V } from '@angular/forms';
 
 // the need in this validators is the non-trimming angular standard behavior
 // see https://github.com/angular/angular/issues/8503
 export class Validators {
   public static required(control: FormControl) {
-    if (
-      !control.value ||
-      (typeof control.value === 'string' && !control.value.trim())
-    ) {
+    if (!control.value || (typeof control.value === 'string' && !control.value.trim())) {
       return {
         required: true
       };
@@ -25,8 +17,7 @@ export class Validators {
     return (control: FormControl) => {
       if (
         !control.value ||
-        (typeof control.value === 'string' &&
-          control.value.trim().length < length)
+        (typeof control.value === 'string' && control.value.trim().length < length)
       ) {
         return {
           minlength: true
@@ -92,10 +83,7 @@ export class Validators {
   public static email(control: FormControl) {
     /* tslint:disable-next-line */
     let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (
-      !control.value ||
-      (typeof control.value === 'string' && !control.value.trim())
-    ) {
+    if (!control.value || (typeof control.value === 'string' && !control.value.trim())) {
       return null;
     }
     return emailRegex.test(control.value)

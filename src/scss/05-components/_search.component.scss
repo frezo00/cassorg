@@ -1,0 +1,19 @@
+// ------------------------------------------------------
+//    SEARCH COMPONENT - stylings for search component
+// ------------------------------------------------------
+
+.#{$c}search__container {
+  @include spacing(padding, 2x 4x);
+  height: 100%;
+}
+
+.#{$c}search__wrapper {
+  @include spacing(margin, 3x, right);
+  flex-grow: 1;
+}
+
+.#{$c}search {
+  @include border(1px solid border-color(light), bottom);
+  @include spacing(padding, 3x 4x);
+  width: 100%;
+}

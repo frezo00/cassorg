@@ -1,6 +1,6 @@
-import { INavigationList } from '../../models/navigation.model';
+import { INavigation } from '../../models/navigation.model';
 
-export const navigationList: INavigationList[] = [
+export const navigationList: INavigation[] = [
   { title: 'Početna', icon: 'home', link: '/' },
   { title: 'Upisi', icon: 'how_to_vote', link: '/applicants' },
   { title: 'Članovi', icon: 'people', link: '/members' },

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { INavigationList } from '../../../models/navigation.model';
+import { INavigation } from '../../../models/navigation.model';
 import { AppState, getActiveRoute, Go } from '../../../store';
 import { navigationList } from '../navigations.constants';
 
@@ -10,7 +10,7 @@ import { navigationList } from '../navigations.constants';
   templateUrl: './bottom-navigation.component.html'
 })
 export class BottomNavigationComponent implements OnInit {
-  navList: INavigationList[];
+  navList: INavigation[];
   activeUrl$: Observable<string>;
 
   constructor(private store: Store<AppState>) {}

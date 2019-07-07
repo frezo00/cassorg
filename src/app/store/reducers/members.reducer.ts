@@ -1,6 +1,6 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { MembersActions, MembersActionTypes } from '../actions';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IMember } from '../../models';
+import { MembersActions, MembersActionTypes } from '../actions';
 
 export interface MembersState extends EntityState<IMember> {
   // members: IMember[];
@@ -10,9 +10,7 @@ export interface MembersState extends EntityState<IMember> {
   error: any;
 }
 
-export const membersAdapter: EntityAdapter<IMember> = createEntityAdapter<
-  IMember
->();
+export const membersAdapter: EntityAdapter<IMember> = createEntityAdapter<IMember>();
 
 const initialState: MembersState = membersAdapter.getInitialState({
   // additional entity state properties
@@ -22,10 +20,7 @@ const initialState: MembersState = membersAdapter.getInitialState({
   error: null
 });
 
-export function membersReducer(
-  state = initialState,
-  action: MembersActions
-): MembersState {
+export function membersReducer(state = initialState, action: MembersActions): MembersState {
   switch (action.type) {
     case MembersActionTypes.GET_MEMBERS_SUCCESS: {
       return membersAdapter.addAll(action.payload, state);

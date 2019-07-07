@@ -9,7 +9,6 @@ import { TopNavigationComponent } from './top-navigation/top-navigation.componen
 @NgModule({
   declarations: [TopNavigationComponent, SideNavigationComponent, BottomNavigationComponent],
   imports: [CommonModule, SharedModule, CommonComponentsModule],
-  exports: [TopNavigationComponent, SideNavigationComponent, BottomNavigationComponent],
-  providers: []
+  exports: [TopNavigationComponent, SideNavigationComponent, BottomNavigationComponent]
 })
 export class NavigationsModule {}

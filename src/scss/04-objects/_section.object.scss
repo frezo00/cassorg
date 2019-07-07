@@ -1,0 +1,16 @@
+// --------------------------------------------------------------------
+//    SECTION CLASS - default stylings for <section> and its content
+// --------------------------------------------------------------------
+.#{$o}section {
+  @include flex-box(column, flex-start, stretch, 1);
+  height: 100vh;
+}
+
+.#{$o}section__content {
+  @include flex-box(column, flex-start, stretch, 1);
+  overflow-y: auto;
+  background-color: theme-color(background);
+
+  /* for Firefox scroll */
+  min-height: 0px;
+}

@@ -1,16 +1,36 @@
-<header class="c-top-nav__wrapper u-flex-x-center">
-  <div class="o-icon__container u-margin-right--3x">
+<header *ngIf="!activeSearch" class="c-top-nav__wrapper u-flex-x-center">
+  <div *ngIf="backLink" class="o-icon__container u-margin-right--3x">
     <mat-icon class="o-icon">arrow_back</mat-icon>
   </div>
+
   <div class="c-top-nav__text u-flex-y u-flex-grow u-margin-right--3x">
     <h4 class="u-text-color--primary u-text-size--large u-margin--clear u-text--truncate">
-      Naslov
+      {{ title }}
     </h4>
-    <small class="u-text-color--secondary u-text-size--small u-text--truncate">
-      Podnaslov
+    <small *ngIf="subtitle" class="u-text-color--secondary u-text-size--small u-text--truncate">
+      {{ subtitle }}
     </small>
   </div>
-  <div class="o-icon__container">
-    <mat-icon class="o-icon">notifications</mat-icon>
+
+  <div *ngIf="showSearch" class="o-icon__container">
+    <mat-icon class="o-icon" (click)="onToggleSearch(true)">search</mat-icon>
   </div>
 </header>
+
+<!-- TODO: Create a component for this search -->
+<div *ngIf="activeSearch" class="c-search__container u-flex-x-center">
+  <div class="c-search__wrapper">
+    <input
+      class="c-search"
+      type="search"
+      name="header-search"
+      id="header-search"
+      placeholder="Pretraži"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearchChange($event)"
+    />
+  </div>
+  <div class="o-icon__container">
+    <mat-icon class="o-icon" (click)="onToggleSearch(false)">close</mat-icon>
+  </div>
+</div>

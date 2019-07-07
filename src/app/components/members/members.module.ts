@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonComponentsModule } from '../common/common-components.module';
+import { NavigationsModule } from '../navigations/navigations.module';
 import { MemberEditComponent } from './member-edit/member-edit.component';
 import { MemberFormComponent } from './member-form/member-form.component';
 import { MemberImageComponent } from './member-form/member-image/member-image.component';
@@ -25,7 +26,13 @@ import { MembersRoutingModule } from './members.routing';
     MemberGroupsComponent,
     MemberInfoComponent
   ],
-  imports: [CommonModule, MembersRoutingModule, SharedModule, CommonComponentsModule],
+  imports: [
+    CommonModule,
+    MembersRoutingModule,
+    SharedModule,
+    CommonComponentsModule,
+    NavigationsModule
+  ],
   exports: [MemberFormComponent],
   providers: []
 })

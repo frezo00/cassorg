@@ -1,4 +1,4 @@
-export interface INavigationList {
+export interface INavigation {
   title: string;
   icon: string;
   link: string;

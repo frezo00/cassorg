@@ -1,18 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { MembersState, membersAdapter, GroupsState } from '../reducers';
-import { getGroupsState, getGroups } from '../selectors/groups.selectors';
-
-import { IMember, IGroup } from '../../models';
+import { IGroup, IMember } from '../../models';
+import { membersAdapter, MembersState } from '../reducers';
+import { getGroups } from '../selectors/groups.selectors';
 
 export const getMembersState = createFeatureSelector<MembersState>('members');
 
 /** Helper Entity Selectors for Members **/
-const {
-  selectIds,
-  selectEntities,
-  selectAll,
-  selectTotal
-} = membersAdapter.getSelectors();
+const { selectIds, selectEntities, selectAll, selectTotal } = membersAdapter.getSelectors();
 
 export const selectAllMembers = createSelector(
   getMembersState,
@@ -78,9 +72,7 @@ export const getGroupMembers = (membersObj: object) =>
     getMembers,
     (members: IMember[]): IMember[] =>
       !!members
-        ? Object.keys(membersObj).map((id: string) =>
-            members.find((m: IMember) => m.id === id)
-          )
+        ? Object.keys(membersObj).map((id: string) => members.find((m: IMember) => m.id === id))
         : null
   );
 
@@ -88,18 +80,14 @@ export const getMembersGroups = createSelector(
   getMembers,
   getGroups,
   (members: IMember[], groups: IGroup[]): IMember[] =>
-    !!members && !!groups
-      ? members.map((m: IMember) => findMemberGroups(m, groups))
-      : null
+    !!members && !!groups ? members.map((m: IMember) => findMemberGroups(m, groups)) : null
 );
 
 function findMemberGroups(m: IMember, groups: IGroup[]): IMember {
   return {
     ...m,
     groups: groups
-      .filter((group: IGroup) =>
-        !!group.members ? group.members[m.id] === true : null
-      )
+      .filter((group: IGroup) => (!!group.members ? group.members[m.id] === true : null))
       .filter((g: IGroup) => !!g)
       .map((g: IGroup) => {
         return {

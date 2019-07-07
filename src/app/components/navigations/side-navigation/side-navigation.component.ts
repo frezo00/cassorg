@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IUserLogin } from '../../../models';
-import { INavigationList } from '../../../models/navigation.model';
+import { INavigation } from '../../../models/navigation.model';
 import { AppState, getActiveRoute, getUserLoginData, Go } from '../../../store';
 import { navigationList } from '../navigations.constants';
 
@@ -11,7 +11,7 @@ import { navigationList } from '../navigations.constants';
   templateUrl: './side-navigation.component.html'
 })
 export class SideNavigationComponent implements OnInit {
-  navList: INavigationList[];
+  navList: INavigation[];
   activeUrl$: Observable<string>;
   loggedInUser$: Observable<IUserLogin>;
 

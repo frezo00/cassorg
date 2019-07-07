@@ -15,8 +15,8 @@
     <a
       *ngFor="let nav of navList"
       class="c-side-nav__link u-flex-x-center u-text-color--primary"
-      [ngClass]="{ 'c-side-nav__link--active': nav.link === url }"
-      (click)="goTo(nav.link)"
+      [ngClass]="{ 'c-side-nav__link--active': nav.link === (activeUrl$ | async) }"
+      (click)="onLinkClick(nav.link)"
     >
       <i class="c-side-nav__link-icon u-padding--3x">
         <mat-icon>{{ nav.icon }}</mat-icon>

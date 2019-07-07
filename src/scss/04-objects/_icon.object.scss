@@ -1,0 +1,22 @@
+// ----------------------------------------------------------------
+//    ICON CLASS - default stylings for icon and icon containers
+// ----------------------------------------------------------------
+.#{$o}icon {
+  @include mat-icon(xxlarge);
+
+  &--dark {
+    color: font-color(primary);
+  }
+
+  &--light {
+    color: theme-color(light);
+  }
+
+  &--themed {
+    color: theme-color(primary);
+  }
+}
+
+.#{$o}icon__container {
+  @include flex-box(row, flex-end, center);
+}

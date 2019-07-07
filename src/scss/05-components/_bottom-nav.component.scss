@@ -2,12 +2,12 @@
 //    BOTTOM NAV COMPONENT - stylings for mobile bottom navigation
 // -----------------------------------------------------------------
 .#{$c}bottom-nav {
-  @include border(1px solid border-color(light), top);
+  @include unselectable;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: theme-color(white);
+  background-color: theme-color(primary);
   overflow: hidden;
 }
 
@@ -16,15 +16,30 @@
 }
 
 .#{$c}bottom-nav__link {
-  &--active {
-    background-color: rgba(theme-color(black), 0.06);
-  }
-
-  &-icon {
-    height: 100%;
-  }
+  @include spacing(padding, 2x 0);
+  @include transition(background-color, opacity);
+  color: font-color(light);
+  opacity: 0.5;
+  background-color: transparent;
+  height: 100%;
+  width: 20%;
 
   &-text {
-    height: 100%;
+    @include transition(height, visibility, opacity);
+    color: font-color(lighter);
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.#{$c}bottom-nav__link--active {
+  opacity: 1;
+  background-color: rgba(theme-color(dark), 0.06);
+
+  .#{$c}bottom-nav__link-text {
+    height: auto;
+    visibility: visible;
+    opacity: 1;
   }
 }

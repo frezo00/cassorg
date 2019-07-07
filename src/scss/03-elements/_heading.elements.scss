@@ -2,7 +2,7 @@
 //    HEADINGS - default stylings for <h1>, <h2>, <h3>, <h4>, <h5> and <h6> elements
 // ------------------------------------------------------------------------------------
 %base-heading {
-  @include spacing(margin, 1em 0);
+  @include spacing(margin, 0.5em 0);
 }
 
 $headings: (

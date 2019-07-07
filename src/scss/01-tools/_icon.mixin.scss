@@ -1,0 +1,12 @@
+// -------------------------
+//    MATERIAL ICON MIXIN
+// -------------------------
+@mixin mat-icon($icon-size: normal) {
+  $size: $icon-size;
+  @if type-of($size) != 'number' {
+    $size: font-size($size);
+  }
+  font-size: $size !important;
+  height: $size !important;
+  width: $size !important;
+}

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { INavigationList } from '../../../models/navigation.model';
-import { AppState, Go } from '../../../store';
-import { navigationList } from '../navigation.constants';
+import { AppState, getActiveRoute, Go } from '../../../store';
+import { navigationList } from '../navigations.constants';
 
 @Component({
   selector: 'app-bottom-navigation',
@@ -10,25 +11,16 @@ import { navigationList } from '../navigation.constants';
 })
 export class BottomNavigationComponent implements OnInit {
   navList: INavigationList[];
-  activeUrl: string;
+  activeUrl$: Observable<string>;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.navList = navigationList;
-    this.getActiveUrl();
+    this.activeUrl$ = this.store.select(getActiveRoute);
   }
 
-  getActiveUrl(): void {
-    this.store
-      .select(state => state.router.state.url)
-      .subscribe((url: string) => {
-        const index = url.indexOf('/', url.indexOf('/') + 1);
-        this.activeUrl = index > 0 ? url.slice(0, index) : url;
-      });
-  }
-
-  onNavClick(link: string): void {
+  onLinkClick(link: string): void {
     this.store.dispatch(new Go(link));
   }
 }

@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonComponentsModule } from '../common/common-components.module';
 import { BottomNavigationComponent } from './bottom-navigation/bottom-navigation.component';
-import { SideMenuComponent } from './side-menu/side-menu.component';
-import { TopNavbarComponent } from './top-navbar/top-navbar.component';
+import { SideNavigationComponent } from './side-navigation/side-navigation.component';
+import { TopNavigationComponent } from './top-navigation/top-navigation.component';
 
 @NgModule({
-  declarations: [SideMenuComponent, TopNavbarComponent, BottomNavigationComponent],
+  declarations: [TopNavigationComponent, SideNavigationComponent, BottomNavigationComponent],
   imports: [CommonModule, SharedModule, CommonComponentsModule],
-  exports: [SideMenuComponent, TopNavbarComponent, BottomNavigationComponent],
+  exports: [TopNavigationComponent, SideNavigationComponent, BottomNavigationComponent],
   providers: []
 })
-export class NavigationModule {}
+export class NavigationsModule {}

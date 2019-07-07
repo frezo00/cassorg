@@ -6,6 +6,13 @@ app-admin {
 }
 
 .#{$c}admin__content {
+  height: 100vh;
+}
+
+.#{$c}admin__content {
   overflow-y: auto;
   background-color: theme-color(background);
+
+  /* for Firefox scroll */
+  min-height: 0px;
 }

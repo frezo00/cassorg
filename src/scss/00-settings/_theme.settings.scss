@@ -8,8 +8,8 @@ $color-theme-secondary: darken($color-theme-brand, 25%); // #9c0e0e
 $color-theme-success: #1d8037;
 $color-theme-warning: #a36100;
 $color-theme-error: #d2190b;
-$color-theme-black: #000000;
-$color-theme-white: #ffffff;
+$color-theme-dark: #3c3c3c;
+$color-theme-light: #ffffff;
 
 $theme-colors: (
   primary: $color-theme-primary,
@@ -18,8 +18,8 @@ $theme-colors: (
   warning: $color-theme-warning,
   error: $color-theme-error,
   brand: $color-theme-brand,
-  black: $color-theme-black,
-  white: $color-theme-white,
+  dark: $color-theme-dark,
+  light: $color-theme-light,
   background: $color-theme-background
 );
 

@@ -1,5 +1,5 @@
 import { Params, RouterStateSnapshot } from '@angular/router';
-import { RouterStateSerializer, RouterReducerState } from '@ngrx/router-store';
+import { RouterReducerState, RouterStateSerializer } from '@ngrx/router-store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface RouterStateUrl {
@@ -8,9 +8,7 @@ export interface RouterStateUrl {
   queryParams: Params;
 }
 
-export const getRouterState = createFeatureSelector<
-  RouterReducerState<RouterStateUrl>
->('router');
+export const getRouterState = createFeatureSelector<RouterReducerState<RouterStateUrl>>('router');
 
 export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
   serialize(routerState: RouterStateSnapshot): RouterStateUrl {
@@ -31,3 +29,12 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
     return { url, params, queryParams };
   }
 }
+
+export const getActiveRoute = createSelector(
+  getRouterState,
+  (routerState: RouterReducerState<RouterStateUrl>) => {
+    const activeUrl: string = routerState.state.url;
+    const index = activeUrl.indexOf('/', activeUrl.indexOf('/') + 1);
+    return index > 0 ? activeUrl.slice(0, index) : activeUrl;
+  }
+);

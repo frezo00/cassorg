@@ -9,6 +9,7 @@
 
 .#{$c}side-nav__header {
   @include border(1px solid border-color(light), bottom);
+  height: 68px;
 }
 
 .#{$c}side-nav__user {
@@ -23,7 +24,7 @@
   cursor: pointer;
 
   &:not(&--active):hover {
-    background-color: rgba(theme-color(black), 0.03);
+    background-color: rgba(theme-color(dark), 0.03);
   }
 
   &::before {
@@ -37,7 +38,7 @@
 
   &--active {
     position: relative;
-    background-color: rgba(theme-color(black), 0.06);
+    background-color: rgba(theme-color(dark), 0.06);
 
     &::before {
       @include pseudo;

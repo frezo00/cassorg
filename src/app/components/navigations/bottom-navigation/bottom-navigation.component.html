@@ -1,0 +1,15 @@
+<nav class="c-bottom-nav__wrapper u-flex-x-center u-flex-grow">
+  <a
+    *ngFor="let nav of navList"
+    class="c-bottom-nav__link u-flex-both-center u-flex-grow"
+    [ngClass]="{ 'c-bottom-nav__link--active': nav.link === (activeUrl$ | async) }"
+    (click)="onLinkClick(nav.link)"
+  >
+    <i class="c-bottom-nav__link-icon u-flex-both-center">
+      <mat-icon class="o-icon o-icon--light">{{ nav.icon }}</mat-icon>
+    </i>
+    <span class="c-bottom-nav__link-text u-text-size--small u-text-align--center">
+      {{ nav.title }}
+    </span>
+  </a>
+</nav>

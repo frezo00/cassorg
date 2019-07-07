@@ -27,27 +27,19 @@
 </mat-drawer-container> -->
 
 <div class="c-admin__wrapper u-flex-x u-flex-grow">
-  <!-- SIDE Navigation -->
-  <app-side-menu
+  <app-side-navigation
     *ngIf="!tabletQuery.matches"
     class="c-side-nav u-flex-y"
     [@toggleSideMenu]="toggleMenu ? 'wide' : 'shrink'"
-    (toggleSide)="(tabletQuery.matches ? null : null)"
-  ></app-side-menu>
+  ></app-side-navigation>
 
-  <!-- BOTTOM Navigation -->
   <app-bottom-navigation
     *ngIf="tabletQuery.matches"
     class="c-bottom-nav u-flex-x u-z-index--4"
   ></app-bottom-navigation>
 
   <div class="c-admin__container u-flex-y u-flex-grow">
-    <!-- TOP Navigation -->
-    <app-top-navbar
-      class="c-top-nav"
-      [isMobile]="mobileQuery.matches"
-      (toggleSide)="toggleMenu = !toggleMenu"
-    ></app-top-navbar>
+    <app-top-navigation class="c-top-nav"></app-top-navigation>
 
     <div class="c-admin__content u-flex-y u-flex-grow">
       <router-outlet></router-outlet>

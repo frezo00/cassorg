@@ -22,6 +22,7 @@
 @import './01-tools/box-shadow.mixin';
 @import './01-tools/flex.mixin';
 @import './01-tools/font.mixin';
+@import './01-tools/icon.mixin';
 @import './01-tools/media-query.mixin';
 @import './01-tools/placeholder.mixin';
 @import './01-tools/psuedo.mixin';
@@ -48,6 +49,7 @@
 // --------------------------------------------------------------------------------
 //    04 OBJECTS - class-based selectors which define undecorated design patterns
 // --------------------------------------------------------------------------------
+@import './04-objects/icon.object';
 @import './04-objects/text.object';
 
 // --------------------------------------------------------------------------------
@@ -58,6 +60,7 @@
 @import './05-components/bottom-nav.component';
 @import './05-components/copyright.component';
 @import './05-components/side-nav.component';
+@import './05-components/top-nav.component';
 
 // --------------------------------------------------------------------------------
 //    06 UTILITIES - utilities and helper classes with ability to override

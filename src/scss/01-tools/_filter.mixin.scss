@@ -1,0 +1,10 @@
+// ----------------------
+//    FILTER MIXIN
+// ----------------------
+@mixin filter($args...) {
+  -webkit-filter: $args;
+  -moz-filter: $args;
+  -ms-filter: $args;
+  -o-filter: $args;
+  filter: $args;
+}

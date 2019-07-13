@@ -8,16 +8,16 @@ import {
   AfterViewInit
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../store';
+import { AppState } from '../../../../store';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-top-navigation',
-  templateUrl: './top-navigation.component.html',
+  selector: 'app-header-basic',
+  templateUrl: './header-basic.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopNavigationComponent implements OnInit, AfterViewInit {
+export class HeaderBasicComponent implements OnInit, AfterViewInit {
   @Input() title: string;
   @Input() subtitle: string;
   @Input() backLink: string;
@@ -44,6 +44,7 @@ export class TopNavigationComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // TODO: Try to create common 'search' Subject in the ngrx store to reuse it for other searches
     this.searchTermChanged
       .pipe(
         debounceTime(500),
@@ -60,8 +61,6 @@ export class TopNavigationComponent implements OnInit, AfterViewInit {
   }
 
   onSearchChange(searchValue: string): void {
-    console.log('vale', searchValue);
-    console.log('search', this.searchTerm);
     this.searchTermChanged.next(searchValue);
   }
 }

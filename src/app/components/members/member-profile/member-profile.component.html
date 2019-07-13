@@ -1,8 +1,10 @@
-<div
-  class="member-profile__container"
-  fxLayout="column"
-  fxLayoutAlign="start stretch"
->
+<div class="o-section">
+  <app-header-expanded
+    [title]="member?.firstName + ' ' + member?.lastName"
+    [imageUrl]="member?.photoURL"
+    class="c-header-expanded"
+  ></app-header-expanded>
+
   <app-subheader
     [showBackButton]="true"
     [showOptions]="true"
@@ -21,24 +23,15 @@
       fxLayoutAlign="space-between stretch"
       fxLayoutGap="8px"
     >
-      <div
-        class="member-profile__header"
-        fxLayout="row"
-        fxLayoutAlign="start center"
-      >
+      <div class="member-profile__header" fxLayout="row" fxLayoutAlign="start center">
         <div class="member-profile__header-photo">
           <div
             class="member-profile__header-initials mat-elevation-z2"
             fxLayoutAlign="center center"
-            [style.background-image]="
-              !!member?.photoURL ? 'url(' + member?.photoURL + ')' : 'none'
-            "
+            [style.background-image]="!!member?.photoURL ? 'url(' + member?.photoURL + ')' : 'none'"
           >
             <span *ngIf="!member?.photoURL">
-              {{
-                (member?.firstName | firstLetter) +
-                  (member?.lastName | firstLetter)
-              }}
+              {{ (member?.firstName | firstLetter) + (member?.lastName | firstLetter) }}
             </span>
           </div>
         </div>
@@ -74,10 +67,7 @@
       </mat-tab>
       <mat-tab>
         <ng-template mat-tab-label>
-          <mat-icon
-            svgIcon="checkbox-multiple-marked-outline"
-            aria-hidden="true"
-          ></mat-icon>
+          <mat-icon svgIcon="checkbox-multiple-marked-outline" aria-hidden="true"></mat-icon>
         </ng-template>
         <div
           class="member-profile__coming-soon"

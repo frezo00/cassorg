@@ -1,0 +1,22 @@
+<header class="c-header-expanded__wrapper">
+  <div
+    class="c-header-expanded__bg-image"
+    [ngStyle]="{ 'background-image': imageUrl ? 'url(' + imageUrl + ')' : 'none' }"
+  ></div>
+
+  <div class="o-icon__container u-text-color--lighter u-z-index--1">
+    <mat-icon class="o-icon u-margin-right--auto">arrow_back</mat-icon>
+    <mat-icon class="o-icon u-margin-right--3x">create</mat-icon>
+    <mat-icon class="o-icon">delete</mat-icon>
+  </div>
+
+  <div class="c-header-expanded__info u-z-index--1">
+    <div class="c-header-expanded__image-container">
+      <img [src]="imageUrl" [alt]="title + ' image'" class="c-header-expanded__image" />
+    </div>
+    <h2 class="u-text-color--light u-margin-bottom--clear u-margin-top--4x u-text--truncate">
+      {{ title }}
+    </h2>
+    <small class="u-text-color--lighter">Some small text</small>
+  </div>
+</header>

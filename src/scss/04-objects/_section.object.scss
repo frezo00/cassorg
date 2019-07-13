@@ -8,6 +8,7 @@
 
 .#{$o}section__content {
   @include flex-box(column, flex-start, stretch, 1);
+  @include spacing(padding, 1x 0 120px);
   overflow-y: auto;
   background-color: theme-color(background);
 

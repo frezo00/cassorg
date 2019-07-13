@@ -1,0 +1,85 @@
+// =======================================================================================
+//    HEADERS COMPONENTS - stylings for <header-basic> and <header-expanded> components
+// =======================================================================================
+
+// --------------------------------------------------------------------
+//    HEADER BASIC COMPONENT - stylings for <header-basic> component
+// --------------------------------------------------------------------
+.#{$c}header-basic {
+  @include border(1px solid border-color(light), bottom);
+  @include unselectable;
+  background-color: theme-color(light);
+  height: 68px;
+}
+
+.#{$c}header-basic__wrapper {
+  @include spacing(padding, 2x 4x);
+  justify-content: space-between !important;
+  height: 100%;
+}
+
+.#{$c}header-basic__text {
+  width: 0;
+}
+
+// --------------------------------------------------------------------------
+//    HEADER EXPANDED COMPONENT - stylings for <header-expanded> component
+// --------------------------------------------------------------------------
+.#{$c}header-expanded {
+  position: relative;
+  min-height: 300px;
+  max-height: 400px;
+  overflow: hidden;
+
+  &::after {
+    @include pseudo;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      rgba(theme-color(dark), 0.15) 0%,
+      rgba(theme-color(dark), 0.3) 50%,
+      rgba(theme-color(dark), 0.6) 100%
+    );
+  }
+}
+
+.#{$c}header-expanded__wrapper {
+  @include flex-box(column);
+  @include spacing(padding, 4x);
+  height: 100%;
+}
+
+.#{$c}header-expanded__bg-image {
+  @include filter(blur(12px));
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  // background: linear-gradient(darken(theme-color(primary), 20%) 100%, theme-color(primary) 0%);
+  background: lighten(theme-color(primary), 50%) center center no-repeat;
+  background-size: cover;
+  z-index: -1;
+}
+
+.#{$c}header-expanded__info {
+  @include flex-box(column, center, center, 1);
+}
+
+.#{$c}header-expanded__image-container {
+  @include border(1px solid lighten(theme-color(primary), 60%));
+  @include border-radius(50%);
+  @include box-shadow();
+  @include flex-box(column, center, center);
+  width: 160px;
+  height: 160px;
+  overflow: hidden;
+  background-color: lighten(theme-color(primary), 60%);
+}
+
+.#{$c}header-expanded__image {
+  width: 100%;
+  margin: 0 auto;
+}

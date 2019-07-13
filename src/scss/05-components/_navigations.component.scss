@@ -1,0 +1,108 @@
+// ===============================================================================================
+//    NAVIGATIONS COMPONENT - stylings for <side-navigation> and <bottom-navigation> components
+// ===============================================================================================
+
+// -------------------------------------------------------------------
+//    SIDE NAV COMPONENT - stylings for <side-navigation> component
+// -------------------------------------------------------------------
+.#{$c}side-nav {
+  @include border(1px solid border-color(light), right);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.#{$c}side-nav__header {
+  @include border(1px solid border-color(light), bottom);
+  height: 68px;
+}
+
+.#{$c}side-nav__user {
+  overflow: hidden;
+}
+
+.#{$c}side-nav__link {
+  @include border(1px solid border-color(light), bottom);
+  @include spacing(padding, 0 2x);
+  @include transition(background-color);
+  height: 50px;
+  cursor: pointer;
+
+  &:not(&--active):hover {
+    background-color: rgba(theme-color(dark), 0.03);
+  }
+
+  &::before {
+    @include pseudo;
+    @include transition(width);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+  }
+}
+
+.#{$c}side-nav__link--active {
+  position: relative;
+  background-color: rgba(theme-color(dark), 0.06);
+
+  &::before {
+    @include pseudo;
+    width: 3px;
+    background-color: theme-color(primary);
+  }
+}
+
+.#{$c}side-nav__link-icon {
+  height: 100%;
+}
+
+.#{$c}side-nav__link-text {
+  @include spacing(padding, 3x);
+  height: 100%;
+}
+
+// ------------------------------------------------------------------------------
+//    BOTTOM NAV COMPONENT - stylings for mobile <bottom-navigation> component
+// ------------------------------------------------------------------------------
+.#{$c}bottom-nav {
+  @include unselectable;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: theme-color(primary);
+  overflow: hidden;
+}
+
+.#{$c}bottom-nav__wrapper {
+  justify-content: space-between;
+}
+
+.#{$c}bottom-nav__link {
+  @include spacing(padding, 2x 0);
+  @include transition(background-color, opacity);
+  color: font-color(light);
+  opacity: 0.5;
+  background-color: transparent;
+  height: 100%;
+  width: 20%;
+}
+
+.#{$c}bottom-nav__link--active {
+  opacity: 1;
+  background-color: rgba(theme-color(dark), 0.06);
+
+  .#{$c}bottom-nav__link-text {
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.#{$c}bottom-nav__link-text {
+  @include transition(height, visibility, opacity);
+  color: font-color(lighter);
+  height: 0;
+  visibility: hidden;
+  opacity: 0;
+}

@@ -15,7 +15,6 @@ $spacing-9x: $spacing-base * 9; // 36px
 $spacing-10x: $spacing-base * 10; // 40px
 
 $spacings: (
-  clear: 0,
   1x: $spacing-1x,
   2x: $spacing-2x,
   3x: $spacing-3x,
@@ -25,7 +24,9 @@ $spacings: (
   7x: $spacing-7x,
   8x: $spacing-8x,
   9x: $spacing-9x,
-  10x: $spacing-10x
+  10x: $spacing-10x,
+  auto: auto,
+  clear: 0
 );
 
 // Returns 'px' value for the SPACING NAME

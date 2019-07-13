@@ -8,53 +8,34 @@
     (action)="navigateToForm()"
     (sortChange)="setSort($event)"
   ></app-subheader> -->
-  <app-top-navigation
+  <app-header-basic
     *ngIf="members.length"
-    class="c-top-nav"
     [title]="'Članovi'"
     [subtitle]="'Ukupno: ' + members?.length"
     [showSearch]="true"
     (searchChange)="onSearchChange($event)"
-  ></app-top-navigation>
+    class="c-header-basic"
+  ></app-header-basic>
 
   <div class="o-section__content">
-    <div class="member-list__table mat-elevation-z8 u-flex-y">
-      <div class="member-list__row header" fxFlex="100%" fxLayoutAlign="space-between center">
-        <div class="member-list__cell" fxFlex="50%" fxFlex.xs="75%">
-          <p class="member-list__cell-title header">Ime i Prezime</p>
-        </div>
-        <div class="member-list__cell" fxFlex="25%" fxHide.xs>
-          <p class="member-list__cell-title header">Kontakt</p>
-        </div>
-        <div class="member-list__cell" fxFlex="25%">
-          <p class="member-list__cell-title header accepted">Grupe</p>
-        </div>
-      </div>
-      <div class="member-list__search" fxLayoutAlign="start center">
-        <input
-          fxFlex="100%"
-          type="search"
-          class="member-list__search-input"
-          placeholder="Pretraži članove..."
-          [(ngModel)]="searchText"
-          autocomplete="off"
-        />
-        <button
-          *ngIf="!!searchText"
-          mat-icon-button
-          class="member-list__search-clear"
-          (click)="searchText = ''"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
-      <a
-        mat-button
-        (click)="navigateToProfile(member?.id)"
+    <table class="o-table">
+      <tr
         *ngFor="let member of members | search: searchText:searchKeys"
-        class="member-list__item"
+        (click)="navigateToProfile(member?.id)"
+        class="o-table__row"
       >
-        <div class="member-list__row" fxFlex="100%" fxLayoutAlign="space-between center">
+        <td class="o-table__cell">
+          <app-avatar
+            [firstName]="member?.firstName"
+            [lastName]="member?.lastName"
+            [avatarUrl]="member?.photoURL"
+          ></app-avatar>
+        </td>
+
+        <td class="o-table__cell o-table__cell--contain o-table__cell--separate">
+          <span class="u-text--truncate">{{ member?.firstName + ' ' + member?.lastName }}</span>
+        </td>
+        <!-- <div class="member-list__row" fxFlex="100%" fxLayoutAlign="space-between center">
           <div
             class="member-list__cell"
             fxFlex="50%"
@@ -104,11 +85,11 @@
               [ngStyle]="{ 'background-color': group?.color }"
             ></div>
           </div>
-        </div>
-      </a>
-      <div *ngIf="!members || members?.length === 0" class="member-list__empty-list">
+        </div> -->
+      </tr>
+      <tr *ngIf="!members || members?.length === 0" class="member-list__empty-list">
         <p>Nema podataka</p>
-      </div>
-    </div>
+      </tr>
+    </table>
   </div>
 </section>

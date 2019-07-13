@@ -1,28 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './material.module';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { RouterModule } from '@angular/router';
-import { ColorPickerModule } from 'ngx-color-picker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material';
 import {
   MatMomentDateModule,
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_FORMATS,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS
 } from '@angular/material-moment-adapter';
-
+import { RouterModule } from '@angular/router';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { StopPropagationDirective } from '../directives/stop-propagation.directive';
-import { CreateProjectModalComponent } from './../components/project/create-project-modal/create-project-modal.component';
-import { FirstLetterPipe } from '../pipes/first-letter.pipe';
 import { AgePipe } from '../pipes/age.pipe';
-import { UserSizePipe } from '../pipes/user-size.pipe';
+import { FirstLetterPipe } from '../pipes/first-letter.pipe';
 import { SearchPipe } from '../pipes/search.pipe';
-import {
-  DateAdapter,
-  MAT_DATE_LOCALE,
-  MAT_DATE_FORMATS
-} from '@angular/material';
+import { UserSizePipe } from '../pipes/user-size.pipe';
+import { CreateProjectModalComponent } from './../components/project/create-project-modal/create-project-modal.component';
+import { HeaderBasicComponent } from './components/headers/header-basic/header-basic.component';
+import { HeaderExpandedComponent } from './components/headers/header-expanded/header-expanded.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +26,9 @@ import {
     FirstLetterPipe,
     AgePipe,
     UserSizePipe,
-    SearchPipe
+    SearchPipe,
+    HeaderBasicComponent,
+    HeaderExpandedComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +54,9 @@ import {
     FirstLetterPipe,
     AgePipe,
     UserSizePipe,
-    SearchPipe
+    SearchPipe,
+    HeaderBasicComponent,
+    HeaderExpandedComponent
   ],
   providers: [
     /* {

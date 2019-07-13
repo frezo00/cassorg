@@ -1,0 +1,32 @@
+// --------------------------------------------------------------------
+//    TABLE CLASS - default stylings for <table> and its content
+// --------------------------------------------------------------------
+.#{$o}table {
+  @include box-shadow();
+  @include flex-box(column);
+}
+
+.#{$o}table__row {
+  @include flex-box();
+  background-color: theme-color(light);
+
+  &:last-of-type {
+    .#{$o}table__cell--separate {
+      @include border(none, bottom);
+    }
+  }
+}
+
+.#{$o}table__cell {
+  @include flex-box(row, flex-start, center);
+  @include spacing(padding, 2x 3x);
+}
+
+.#{$o}table__cell--contain {
+  width: 0;
+  flex-grow: 1;
+}
+
+.#{$o}table__cell--separate {
+  @include border(1px solid border-color(light), bottom);
+}

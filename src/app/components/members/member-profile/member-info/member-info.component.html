@@ -1,4 +1,4 @@
-<div
+<!-- <div
   class="member-info__container"
   fxFlex="100%"
   fxLayout="column"
@@ -203,4 +203,84 @@
       <mat-icon>announcement</mat-icon>
     </a>
   </div>
-</div>
+</div> -->
+
+<table *ngIf="member" class="c-member-info__table">
+  <tr *ngIf="member?.birthdate" class="c-member-info__row">
+    <td class="c-member-info__cell c-member-info__cell--full">
+      <label class="c-member-info__label">Rođenje</label>
+      <span class="u-text-color--primary">{{ member.birthdate | date: 'dd.MM.yyyy.' }}</span>
+    </td>
+    <td class="o-icon__container u-padding--2x">
+      <mat-icon class="o-icon">cake</mat-icon>
+    </td>
+  </tr>
+
+  <tr *ngIf="member?.gender" class="c-member-info__row">
+    <td class="c-member-info__cell c-member-info__cell--full">
+      <label class="c-member-info__label">Spol</label>
+      <span class="u-text-color--primary">{{ member.gender === 'male' ? 'Muško' : 'Žensko' }}</span>
+    </td>
+    <td class="o-icon__container u-padding--2x">
+      <mat-icon
+        [svgIcon]="member.gender === 'male' ? 'gender-male' : 'gender-female'"
+        aria-hidden="true"
+        class="o-icon"
+      ></mat-icon>
+    </td>
+  </tr>
+
+  <tr *ngIf="member?.parents" class="c-member-info__row">
+    <td class="c-member-info__cell c-member-info__cell--full">
+      <label class="c-member-info__label">Roditelji</label>
+      <span class="u-text-color--primary">{{ member.parents }}</span>
+    </td>
+    <td class="o-icon__container u-padding--2x">
+      <mat-icon class="o-icon" svgIcon="human-male-female" aria-hidden="true"></mat-icon>
+    </td>
+  </tr>
+
+  <tr *ngIf="member?.phoneNumber" class="c-member-info__row">
+    <td class="c-member-info__cell c-member-info__cell--full">
+      <label class="c-member-info__label">Telefon</label>
+      <span class="u-text-color--primary">{{ member.phoneNumber }}</span>
+    </td>
+    <td class="o-icon__container u-padding--2x">
+      <a [href]="'tel:' + member.phoneNumber" class="u-flex-x-center">
+        <mat-icon class="o-icon">phone</mat-icon>
+      </a>
+    </td>
+  </tr>
+
+  <tr *ngIf="member?.email" class="c-member-info__row">
+    <td class="c-member-info__cell c-member-info__cell--full">
+      <label class="c-member-info__label">Email</label>
+      <span class="u-text-color--primary">{{ member.email }}</span>
+    </td>
+    <td class="o-icon__container u-padding--2x">
+      <a [href]="'mailto:' + member.email" class="u-flex-x-center">
+        <mat-icon class="o-icon">email</mat-icon>
+      </a>
+    </td>
+  </tr>
+
+  <tr *ngIf="member?.siblings" class="c-member-info__row">
+    <td class="c-member-info__cell c-member-info__cell--full">
+      <label class="c-member-info__label">Braća i sestre ({{ member.siblings.length }})</label>
+      <span class="u-text-color--primary">Moja braća i sestre</span>
+    </td>
+    <td class="o-icon__container u-padding--2x">
+      <mat-icon class="o-icon">face</mat-icon>
+    </td>
+  </tr>
+
+  <tr *ngIf="member?.note" class="c-member-info__row">
+    <td class="c-member-info__cell c-member-info__cell--full">
+      <label class="c-member-info__label">Napomena</label>
+      <span class="u-text-color--primary">{{ member.note }}</span>
+    </td>
+    <td class="o-icon__container u-padding--2x">
+      <mat-icon class="o-icon">announcement</mat-icon>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,37 @@
+// ===================================================
+//    MEMBERS COMPONENTS - stylings for components:
+//      <members>
+//      <member-info>
+// ===================================================
+
+// ------------------------------------------------------------------
+//    MEMBER INFO COMPONENT - stylings for <member-info> component
+// ------------------------------------------------------------------
+.#{$c}member-info {
+  background-color: theme-color(light);
+}
+
+.#{$c}member-info__table {
+  @include box-shadow;
+  @include flex-box(column);
+  @include spacing(padding, 3x 1x);
+  flex-grow: 1;
+}
+
+.#{$c}member-info__row {
+  @include flex-box();
+  @include spacing(padding, 0 2x);
+  @include spacing(margin, 3x, bottom);
+}
+
+.#{$c}member-info__cell {
+  @include flex-box(column);
+}
+
+.#{$c}member-info__cell--full {
+  flex-grow: 1;
+}
+
+.#{$c}member-info__label {
+  @include font($size: small, $color: secondary);
+}

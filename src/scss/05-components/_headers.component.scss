@@ -60,7 +60,6 @@
   // background: linear-gradient(darken(theme-color(primary), 20%) 100%, theme-color(primary) 0%);
   background: lighten(theme-color(primary), 50%) center center no-repeat;
   background-size: cover;
-  z-index: -1;
 }
 
 .#{$c}header-expanded__info {

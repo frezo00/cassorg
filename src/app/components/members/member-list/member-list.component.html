@@ -17,7 +17,7 @@
     class="c-header-basic"
   ></app-header-basic>
 
-  <div class="o-section__content">
+  <article class="o-section__content u-padding-top--1x u-over-y-auto">
     <table class="o-table">
       <tr
         *ngFor="let member of members | search: searchText:searchKeys"
@@ -91,5 +91,5 @@
         <p>Nema podataka</p>
       </tr>
     </table>
-  </div>
+  </article>
 </section>

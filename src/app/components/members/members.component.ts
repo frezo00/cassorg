@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-members',
   template: `
-    <div class="module-container">
+    <section class="o-section">
       <router-outlet></router-outlet>
-    </div>
+    </section>
   `
 })
 export class MembersComponent implements OnInit {

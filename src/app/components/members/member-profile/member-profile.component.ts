@@ -7,8 +7,7 @@ import { IMember } from '../../../models';
 
 @Component({
   selector: 'app-member-profile',
-  templateUrl: './member-profile.component.html',
-  styleUrls: ['./member-profile.component.scss']
+  templateUrl: './member-profile.component.html'
 })
 export class MemberProfileComponent implements OnInit {
   member: IMember;

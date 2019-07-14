@@ -3,14 +3,15 @@
 // --------------------------------------------------------------------
 .#{$o}section {
   @include flex-box(column, flex-start, stretch, 1);
-  height: 100vh;
+  height: calc(100vh - 60px);
+  background-color: theme-color(background);
 }
 
 .#{$o}section__content {
   @include flex-box(column, flex-start, stretch, 1);
-  @include spacing(padding, 1x 0 120px);
+  @include spacing(padding, 60px, bottom);
   overflow-y: auto;
-  background-color: theme-color(background);
+  height: calc(100vh - 60px);
 
   /* for Firefox scroll */
   min-height: 0px;

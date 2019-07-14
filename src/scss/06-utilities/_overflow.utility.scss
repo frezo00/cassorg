@@ -1,0 +1,32 @@
+// -----------------------------------------------------------------------
+//    OVERFLOW CLASSES - creates utility classes for 'overflow' property
+// -----------------------------------------------------------------------
+.#{$u}over-x-auto {
+  overflow-x: auto !important ;
+}
+.#{$u}over-y-auto {
+  overflow-y: auto !important;
+}
+.#{$u}over-both-auto {
+  overflow: auto !important;
+}
+
+.#{$u}over-x-scroll {
+  overflow-x: scroll !important;
+}
+.#{$u}over-y-scroll {
+  overflow-y: scroll !important;
+}
+.#{$u}over-both-scroll {
+  overflow: scroll !important;
+}
+
+.#{$u}over-x-hide {
+  overflow-x: hidden !important;
+}
+.#{$u}over-y-hide {
+  overflow-y: hidden !important;
+}
+.#{$u}over-both-hide {
+  overflow: hidden !important;
+}

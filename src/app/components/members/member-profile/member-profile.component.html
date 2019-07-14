@@ -1,4 +1,4 @@
-<div class="o-section">
+<article class="o-section__content">
   <app-header-expanded
     [title]="member?.firstName + ' ' + member?.lastName"
     [imageUrl]="member?.photoURL"
@@ -6,7 +6,9 @@
     class="c-header-expanded"
   ></app-header-expanded>
 
-  <div *ngIf="!!member" class="member-profile__content">
+  <app-member-info [member]="member" class="c-member-info"></app-member-info>
+
+  <!-- <div *ngIf="!!member" class="member-profile__content">
     <div
       class="member-profile__content-wrapper"
       fxLayout="column"
@@ -47,5 +49,5 @@
         </div>
       </mat-tab>
     </mat-tab-group>
-  </div>
-</div>
+  </div> -->
+</article>

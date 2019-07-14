@@ -1,0 +1,9 @@
+<div
+  *ngIf="hasAvatarUrl"
+  class="c-avatar__image"
+  [ngStyle]="{ 'background-image': 'url(' + avatarUrl + ')' }"
+></div>
+
+<span *ngIf="!hasAvatarUrl" class="c-avatar__initials u-flex-both-center">
+  {{ text | initials }}
+</span>

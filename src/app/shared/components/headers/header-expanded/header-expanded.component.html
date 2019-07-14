@@ -5,18 +5,29 @@
   ></div>
 
   <div class="o-icon__container u-text-color--lighter u-z-index--1">
-    <mat-icon class="o-icon u-margin-right--auto">arrow_back</mat-icon>
-    <mat-icon class="o-icon u-margin-right--3x">create</mat-icon>
-    <mat-icon class="o-icon">delete</mat-icon>
+    <mat-icon (click)="onBack()" class="o-icon u-margin-right--auto">
+      arrow_back
+    </mat-icon>
+    <mat-icon (click)="onEdit()" class="o-icon u-margin-right--3x">create</mat-icon>
+    <mat-icon (click)="onDelete()" class="o-icon">delete</mat-icon>
   </div>
 
   <div class="c-header-expanded__info u-z-index--1">
-    <div class="c-header-expanded__image-container">
-      <img [src]="imageUrl" [alt]="title + ' image'" class="c-header-expanded__image" />
-    </div>
-    <h2 class="u-text-color--light u-margin-bottom--clear u-margin-top--4x u-text--truncate">
+    <app-avatar
+      [avatarUrl]="imageUrl"
+      [text]="title"
+      class="c-avatar c-avatar--large c-avatar--inverse"
+    ></app-avatar>
+    <h2 class="u-text-color--light u-margin-bottom--clear u-margin-top--4x">
       {{ title }}
     </h2>
     <small class="u-text-color--lighter">Some small text</small>
   </div>
+
+  <!-- TODO: Move this into separate component -->
+  <nav class="c-sub-nav u-flex-x-center">
+    <a href="#" class="c-sub-nav__link c-sub-nav__link--active">Informacije</a>
+    <a href="#" class="c-sub-nav__link">Dolasci</a>
+    <a href="#" class="c-sub-nav__link">Plaćanja</a>
+  </nav>
 </header>

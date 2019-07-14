@@ -3,7 +3,7 @@
     *ngIf="loggedInUser$ | async as loggedInUser"
     class="c-side-nav__header u-flex-x-center u-padding--3x"
   >
-    <app-avatar class="u-padding-right--4x" [firstName]="loggedInUser?.displayName"></app-avatar>
+    <app-avatar class="c-avatar u-margin-right--4x" [text]="loggedInUser?.displayName"></app-avatar>
     <div class="c-side-nav__user u-flex-y u-flex-grow">
       <h4 class="u-margin--clear u-text--truncate">{{ loggedInUser?.displayName }}</h4>
       <small class="u-text-color--secondary u-text--truncate">{{ loggedInUser?.email }}</small>

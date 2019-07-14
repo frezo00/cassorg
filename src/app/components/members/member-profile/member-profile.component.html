@@ -2,54 +2,17 @@
   <app-header-expanded
     [title]="member?.firstName + ' ' + member?.lastName"
     [imageUrl]="member?.photoURL"
+    (back)="onBack()"
     class="c-header-expanded"
   ></app-header-expanded>
 
-  <app-subheader
-    [showBackButton]="true"
-    [showOptions]="true"
-    (options)="optionsAction($event)"
-  ></app-subheader>
-  <div
-    class="member-profile__content mat-elevation-z8"
-    fxLayout="column"
-    fxLayoutAlign="space-between stretch"
-    fxLayoutGap="24px"
-    *ngIf="!!member"
-  >
+  <div *ngIf="!!member" class="member-profile__content">
     <div
       class="member-profile__content-wrapper"
       fxLayout="column"
       fxLayoutAlign="space-between stretch"
       fxLayoutGap="8px"
-    >
-      <div class="member-profile__header" fxLayout="row" fxLayoutAlign="start center">
-        <div class="member-profile__header-photo">
-          <div
-            class="member-profile__header-initials mat-elevation-z2"
-            fxLayoutAlign="center center"
-            [style.background-image]="!!member?.photoURL ? 'url(' + member?.photoURL + ')' : 'none'"
-          >
-            <span *ngIf="!member?.photoURL">
-              {{ (member?.firstName | firstLetter) + (member?.lastName | firstLetter) }}
-            </span>
-          </div>
-        </div>
-        <div
-          class="member-profile__header-info"
-          fxLayout="column"
-          fxLayoutAlign="space-around stretch"
-          fxLayoutGap="4px"
-        >
-          <div class="member-profile__header-full-name">
-            <span>{{ member?.firstName + ' ' + member?.lastName }}</span>
-          </div>
-          <div class="member-profile__header-age">
-            <span>{{ member?.birthdate | age }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    ></div>
     <mat-tab-group dynamicHeight>
       <mat-tab>
         <ng-template mat-tab-label>

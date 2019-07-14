@@ -1,15 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-
-import { LoadingComponent } from './loading/loading.component';
-import { SubheaderComponent } from './subheader/subheader.component';
-import { ModalComponent } from './modal/modal.component';
-import { PaginationComponent } from './pagination/pagination.component';
 import { AlertBarComponent } from './alert-bar/alert-bar.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
+import { LoadingComponent } from './loading/loading.component';
+import { ModalComponent } from './modal/modal.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AvatarComponent } from './avatar/avatar.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { SubheaderComponent } from './subheader/subheader.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +17,7 @@ import { AvatarComponent } from './avatar/avatar.component';
     LoadingComponent,
     SubheaderComponent,
     ModalComponent,
-    PaginationComponent,
-    AvatarComponent
+    PaginationComponent
   ],
   imports: [CommonModule, SharedModule],
   exports: [
@@ -30,8 +27,7 @@ import { AvatarComponent } from './avatar/avatar.component';
     LoadingComponent,
     SubheaderComponent,
     ModalComponent,
-    PaginationComponent,
-    AvatarComponent
+    PaginationComponent
   ],
   providers: [],
   entryComponents: [ModalComponent]

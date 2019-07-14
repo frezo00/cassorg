@@ -3,17 +3,37 @@
 // --------------------------------------------------------
 .#{$c}avatar {
   @include border(1px solid border-color(light));
+  @include flex-box();
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  overflow: hidden;
 }
 
-.#{$c}avatar--image {
-  background: theme-color(primary) center center no-repeat;
+.#{$c}avatar--large {
+  width: 160px;
+  height: 160px;
+
+  .#{$c}avatar__initials {
+    font-size: 2.5rem;
+  }
+}
+
+.#{$c}avatar--inverse {
+  .#{$c}avatar__initials {
+    color: theme-color(primary);
+    background-color: theme-color(light);
+  }
+}
+
+.#{$c}avatar__image {
+  background: lighten(theme-color(primary), 60%) center center no-repeat;
   background-size: contain;
+  flex-grow: 1;
 }
 
-.#{$c}avatar--initials {
+.#{$c}avatar__initials {
   @include font(normal, light, light, 1.5);
   background-color: theme-color(primary);
+  flex-grow: 1;
 }

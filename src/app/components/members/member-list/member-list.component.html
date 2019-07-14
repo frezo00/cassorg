@@ -26,9 +26,9 @@
       >
         <td class="o-table__cell">
           <app-avatar
-            [firstName]="member?.firstName"
-            [lastName]="member?.lastName"
+            [text]="member?.firstName + ' ' + member?.lastName"
             [avatarUrl]="member?.photoURL"
+            class="c-avatar"
           ></app-avatar>
         </td>
 

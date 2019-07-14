@@ -1,5 +1,8 @@
 // ===============================================================================================
-//    NAVIGATIONS COMPONENT - stylings for <side-navigation> and <bottom-navigation> components
+//    NAVIGATIONS COMPONENT - stylings for components:
+//      <side-navigation>
+//      <bottom-navigation>
+//      <sub-navigation>
 // ===============================================================================================
 
 // -------------------------------------------------------------------
@@ -105,4 +108,31 @@
   height: 0;
   visibility: hidden;
   opacity: 0;
+}
+
+// -----------------------------------------------------------------
+//    SUB NAV COMPONENT - stylings for <sub-navigation> component
+// -----------------------------------------------------------------
+.#{$c}sub-nav {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: z-index(1);
+}
+
+.#{$c}sub-nav__link {
+  @include border(3px solid transparent, bottom);
+  @include spacing(padding, 2x 1x);
+  width: calc(100% / 3);
+  color: font-color(light);
+  text-align: font-align(center);
+  text-decoration: none;
+  opacity: 0.5;
+}
+
+.#{$c}sub-nav__link--active {
+  background-color: rgba(theme-color(primary), 0.5);
+  border-bottom-color: border-color(light);
+  opacity: 1;
 }

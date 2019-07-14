@@ -1,9 +1,0 @@
-<div
-  *ngIf="hasAvatarUrl"
-  class="c-avatar c-avatar--image"
-  [ngStyle]="{ 'background-image': 'url(' + avatarUrl + ')' }"
-></div>
-
-<span *ngIf="!hasAvatarUrl" class="c-avatar c-avatar--initials u-flex-both-center">
-  {{ (firstName | firstLetter) + (lastName | firstLetter) }}
-</span>

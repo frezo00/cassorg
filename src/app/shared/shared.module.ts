@@ -10,11 +10,9 @@ import {
 import { RouterModule } from '@angular/router';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { StopPropagationDirective } from '../directives/stop-propagation.directive';
-import { AgePipe } from '../pipes/age.pipe';
-import { FirstLetterPipe } from '../pipes/first-letter.pipe';
-import { SearchPipe } from '../pipes/search.pipe';
-import { UserSizePipe } from '../pipes/user-size.pipe';
+import { PipesModule } from '../pipes/pipes.module';
 import { CreateProjectModalComponent } from './../components/project/create-project-modal/create-project-modal.component';
+import { AvatarComponent } from './components/avatar/avatar.component';
 import { HeaderBasicComponent } from './components/headers/header-basic/header-basic.component';
 import { HeaderExpandedComponent } from './components/headers/header-expanded/header-expanded.component';
 import { MaterialModule } from './material.module';
@@ -23,10 +21,7 @@ import { MaterialModule } from './material.module';
   declarations: [
     StopPropagationDirective,
     CreateProjectModalComponent,
-    FirstLetterPipe,
-    AgePipe,
-    UserSizePipe,
-    SearchPipe,
+    AvatarComponent,
     HeaderBasicComponent,
     HeaderExpandedComponent
   ],
@@ -38,7 +33,8 @@ import { MaterialModule } from './material.module';
     MaterialModule,
     FlexLayoutModule,
     ColorPickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    PipesModule
   ],
   exports: [
     CommonModule,
@@ -51,12 +47,10 @@ import { MaterialModule } from './material.module';
     MatMomentDateModule,
     StopPropagationDirective,
     CreateProjectModalComponent,
-    FirstLetterPipe,
-    AgePipe,
-    UserSizePipe,
-    SearchPipe,
+    AvatarComponent,
     HeaderBasicComponent,
-    HeaderExpandedComponent
+    HeaderExpandedComponent,
+    PipesModule
   ],
   providers: [
     /* {

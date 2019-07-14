@@ -1,4 +1,4 @@
-import { UserSizePipe } from '../user-size.pipe';
+import { UserSizePipe } from './user-size.pipe';
 
 describe('UserSizePipe', () => {
   it('create an instance', () => {

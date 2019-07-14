@@ -6,12 +6,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AvatarComponent implements OnInit {
   @Input() avatarUrl: string;
-  @Input() firstName: string;
-  @Input() lastName: string;
+  @Input() text: string;
 
   hasAvatarUrl: boolean;
-
-  constructor() {}
 
   ngOnInit() {
     this.hasAvatarUrl = true;

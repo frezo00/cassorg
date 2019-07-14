@@ -27,8 +27,7 @@
 // --------------------------------------------------------------------------
 .#{$c}header-expanded {
   position: relative;
-  min-height: 300px;
-  max-height: 400px;
+  min-height: 50vh;
   overflow: hidden;
 
   &::after {
@@ -47,7 +46,7 @@
 
 .#{$c}header-expanded__wrapper {
   @include flex-box(column);
-  @include spacing(padding, 4x);
+  @include spacing(padding, 4x 4x 60px);
   height: 100%;
 }
 
@@ -66,20 +65,4 @@
 
 .#{$c}header-expanded__info {
   @include flex-box(column, center, center, 1);
-}
-
-.#{$c}header-expanded__image-container {
-  @include border(1px solid lighten(theme-color(primary), 60%));
-  @include border-radius(50%);
-  @include box-shadow();
-  @include flex-box(column, center, center);
-  width: 160px;
-  height: 160px;
-  overflow: hidden;
-  background-color: lighten(theme-color(primary), 60%);
-}
-
-.#{$c}header-expanded__image {
-  width: 100%;
-  margin: 0 auto;
 }

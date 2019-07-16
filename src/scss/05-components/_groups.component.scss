@@ -1,0 +1,54 @@
+// =================================================
+//    GROUP COMPONENTS - stylings for components:
+//      <group-list>
+// =================================================
+
+// ----------------------------------------------------------------
+//    GROUP LIST COMPONENT - stylings for <group-list> component
+// ----------------------------------------------------------------
+.#{$c}group-list {
+  @include flex-box($direction: row, $align: flex-start);
+  @include spacing(padding, 4x 2x 60px);
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.#{$c}group {
+  @include border-radius;
+  @include border(1px solid rgba(theme-color(dark), 0.06));
+  @include box-shadow;
+  @include flex-box(column);
+  @include spacing(margin, 0 2x 4x);
+  @include spacing(padding, 3x 4x);
+  flex-basis: calc(100% - 16px);
+
+  @include media(sm) {
+    flex-basis: calc(50% - 16px);
+  }
+
+  @include media(xl) {
+    flex-basis: calc(25% - 16px);
+  }
+}
+
+.#{$c}group__paragraph {
+  @include spacing(margin, 0);
+
+  &:last-of-type {
+    @include spacing(margin, 2x, top);
+  }
+}
+
+.#{$c}group__number {
+  @include font(normal, semi-bold, light);
+  @include spacing(padding, 1x, right);
+}
+
+.#{$c}group__text {
+  @include font(medium, normal, lighter);
+}
+
+.#{$c}group__text--title {
+  @include font(xlarge, semi-bold, light);
+  @include spacing(margin, 1x, top);
+}

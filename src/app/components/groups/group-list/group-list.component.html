@@ -1,60 +1,30 @@
-<div class="group-list__container" fxFlexFill>
-  <app-subheader
+<section *ngIf="groups$ | async as groups" class="o-section">
+  <app-header-basic
+    *ngIf="groups.length"
     [title]="'Grupe'"
-    [subtitle]="'Ukupno: ' + (groups | async)?.length"
-    [actionText]="'Nova grupa'"
-    [actionIcon]="'add'"
-    (action)="goToNewGroup()"
-  ></app-subheader>
-  <div class="group-list__content" fxLayoutAlign="center stretch">
-    <div class="group-list__table" fxFlex="100%">
-      <div class="group-list__row header" fxLayoutAlign="space-between center">
-        <div class="group-list__cell header" fxFlex="50%">
-          <p class="group-list__cell-title header">Naziv</p>
-        </div>
-        <div class="group-list__cell header" fxFlex="50%">
-          <p class="group-list__cell-title header">Boja</p>
-        </div>
-      </div>
-      <div class="group-list__data" fxLayout="column">
-        <a
-          mat-button
-          *ngFor="let group of (groups | async)"
-          class="group-list__item"
-          (click)="goToGroup(group?.id)"
-        >
-          <div
-            class="group-list__row"
-            fxFlex="100%"
-            fxLayoutAlign="space-between center"
-          >
-            <div
-              class="group-list__cell"
-              fxFlex="50%"
-              fxLayout="column"
-              fxLayoutAlign="center start"
-            >
-              <span class="group-list__cell-title">{{ group?.name }}</span>
-              <small class="group-list__cell-subtitle">
-                {{ getGroupMembersLength(group?.members) | userSize }}
-              </small>
-            </div>
-            <div
-              class="group-list__cell"
-              fxFlex="50%"
-              fxLayoutAlign="start center"
-            >
-              <div
-                class="group-list__cell-color"
-                [ngStyle]="{ 'background-color': group?.color }"
-              ></div>
-            </div>
-          </div>
-        </a>
-        <div *ngIf="(groups | async)?.length === 0" class="group-list__empty">
-          <p>Nema podataka</p>
-        </div>
-      </div>
-    </div>
+    [subtitle]="'Ukupno: ' + groups?.length"
+    [showSearch]="true"
+    (searchChange)="onSearchChange($event)"
+    class="c-header-basic"
+  ></app-header-basic>
+
+  <div class="o-section__content c-group-list u-over-y-auto">
+    <article
+      *ngFor="let group of groups | search: searchText:searchKeys"
+      [ngStyle]="{ 'background-color': group.color }"
+      class="c-group"
+    >
+      <p class="c-group__paragraph">
+        <b class="c-group__number">3</b>
+        <span class="c-group__text">aktivnosti</span>
+      </p>
+      <p class="c-group__paragraph">
+        <b class="c-group__number">{{ getGroupMembersLength(group.members) }}</b>
+        <span class="c-group__text">članova</span>
+      </p>
+      <p class="c-group__paragraph">
+        <span class="c-group__text c-group__text--title">{{ group.name }}</span>
+      </p>
+    </article>
   </div>
-</div>
+</section>

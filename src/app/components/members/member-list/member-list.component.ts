@@ -6,8 +6,7 @@ import { getMembersGroups, Go, MembersState, SortMembers } from '../../../store'
 
 @Component({
   selector: 'app-member-list',
-  templateUrl: './member-list.component.html',
-  styleUrls: ['./member-list.component.scss']
+  templateUrl: './member-list.component.html'
 })
 export class MemberListComponent implements OnInit {
   members$: Observable<IMember[]>;
@@ -18,7 +17,6 @@ export class MemberListComponent implements OnInit {
 
   ngOnInit() {
     this.members$ = this.store.select(getMembersGroups);
-    this.members$.subscribe(m => console.log('members', m));
   }
 
   navigateToForm(): void {

@@ -1,0 +1,37 @@
+// =================================================
+//    ACTIVITIES COMPONENTS - stylings for components:
+//      <activity-list>
+// =================================================
+
+// ----------------------------------------------------------------
+//    ACTIVITY LIST COMPONENT - stylings for <activity-list> component
+// ----------------------------------------------------------------
+.#{$c}activity-list {
+  @include flex-box(column);
+  @include spacing(padding, 4x, top);
+}
+
+.#{$c}activity {
+  @include box-shadow;
+  @include flex-box(column);
+  @include spacing(margin, 4x, bottom);
+  background-color: theme-color(light);
+}
+
+.#{$c}activity__groups {
+  @include flex-box($align: center);
+  flex-grow: wrap;
+}
+
+.#{$c}activity__content {
+  @include flex-box(column);
+}
+
+.#{$c}activity__image {
+  height: 160px;
+  overflow: hidden;
+  > img {
+    width: 100%;
+    margin: 0 auto;
+  }
+}

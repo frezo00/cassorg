@@ -55,11 +55,13 @@
 @import './04-objects/icon.object';
 @import './04-objects/section.object';
 @import './04-objects/table.object';
+@import './04-objects/tag.object';
 @import './04-objects/text.object';
 
 // --------------------------------------------------------------------------------
 //    05 COMPONENTS - specific UI components (majority of the code)
 // --------------------------------------------------------------------------------
+@import './05-components/activities.component';
 @import './05-components/admin.component';
 @import './05-components/avatar.component';
 @import './05-components/copyright.component';

@@ -12,6 +12,7 @@
     <article
       *ngFor="let group of groups | search: searchText:searchKeys"
       [ngStyle]="{ 'background-color': group.color }"
+      (click)="goToGroup(group.id)"
       class="c-group"
     >
       <p class="c-group__paragraph">

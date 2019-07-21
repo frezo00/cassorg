@@ -3,13 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  AppState,
-  Go,
-  getGroups,
-  getActivities,
-  selectTotalActivities
-} from '../../../store';
+import { AppState, Go, getGroups, getActivities, selectTotalActivities } from '../../../store';
 import { IActivity, IGroup } from '../../../models';
 
 @Component({
@@ -23,9 +17,13 @@ export class ActivityListComponent implements OnInit {
   sortingGroups$: Observable<{ id: string; name: string }[]>;
   activeGroup$: BehaviorSubject<string>;
 
+  searchText: string;
+  searchKeys: ['title'];
+
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
+    this.searchText = '';
     this.activeGroup$ = new BehaviorSubject<string>('');
     this.activities$ = this.store.select(getActivities);
     this.activitiesTotal$ = this.store.select(selectTotalActivities);
@@ -46,5 +44,9 @@ export class ActivityListComponent implements OnInit {
 
   goToNewActivity(): void {
     this.store.dispatch(new Go('/activities/new'));
+  }
+
+  onSearchChange(searchValue: string): void {
+    this.searchText = searchValue;
   }
 }

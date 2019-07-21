@@ -1,0 +1,22 @@
+// ------------------------------------------------
+//    TAG CLASS - stylings for tag-like elements
+// ------------------------------------------------
+.#{$o}tag {
+  @include border(1px solid transparent);
+  @include border-radius(12px);
+  @include flex-box($align: center);
+  @include font(small, light, light);
+  @include spacing(padding, 2px 3x);
+  @include spacing(margin, 0 1x 1x 0);
+  height: 24px;
+
+  &:last-of-type {
+    @include spacing(margin, 0, right);
+  }
+}
+
+.#{$o}tag--outline {
+  color: theme-color(primary);
+  border-color: theme-color(primary);
+  background-color: theme-color(light);
+}

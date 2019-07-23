@@ -1,6 +1,20 @@
 // ------------------------------------------------------
-//    BREAK TEXT CLASS - breaks overlapping text words
+//    TEXT CLASSES - stylings for various text classe
 // ------------------------------------------------------
-.#{$o}break-text {
-  word-break: break-all;
+.#{$o}text {
+  @include flex-box(column);
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.#{$o}text__title {
+  @include font(xlarge, bold, primary);
+  @include spacing(margin, 0);
+  @include truncate;
+}
+
+.#{$o}text__subtitle {
+  @include font(normal, normal, secondary);
+  @include spacing(margin, 0);
+  @include truncate;
 }

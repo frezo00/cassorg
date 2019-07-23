@@ -10,21 +10,6 @@
 
   <div class="o-section__content c-activity-list u-over-y-auto">
     <article *ngFor="let activity of activities | search: searchText:searchKeys" class="c-activity">
-      <div class="c-activity__author u-flex-x-center u-padding--4x">
-        <app-avatar
-          [avatarUrl]="
-            'https://emilianoimondi.com/wp-content/uploads/2014/12/528-1321319538-large.jpg'
-          "
-          class="c-avatar u-margin-right--4x"
-        ></app-avatar>
-        <div class="u-flex-y">
-          <span class="u-text-color--primary">Ime Prezime</span>
-          <small class="u-text-color--secondary">
-            <span>Author</span>
-            <span>{{ activity?.date | date: 'dd.MM.yyyy. HH:mm' }}</span>
-          </small>
-        </div>
-      </div>
       <div class="c-activity__image">
         <img
           src="https://emilianoimondi.com/wp-content/uploads/2014/12/528-1321319538-large.jpg"
@@ -38,9 +23,13 @@
             {{ actGroup.name }}
           </span>
         </div>
-        <div class="c-activity__text">
-          <h2 class="c-activity__title">{{ activity.title }}</h2>
-          <p class="c-activity__description u-text-color--secondary">{{ activity.description }}</p>
+        <div class="o-text u-margin-bottom--3x">
+          <h2 class="o-text__title">{{ activity.title }}</h2>
+          <p class="o-text__subtitle">{{ activity.description }}</p>
+        </div>
+        <div class="c-activity__credits">
+          <span class="c-activity__author u-separator-dot">Ime Prezime</span>
+          <span class="c-activity__date">{{ activity?.date | date: 'dd. MM. yyyy.' }}</span>
         </div>
       </div>
     </article>

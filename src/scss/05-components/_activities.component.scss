@@ -15,12 +15,14 @@
   @include box-shadow;
   @include flex-box(column);
   @include spacing(margin, 4x, bottom);
+  width: 100vw;
   background-color: theme-color(light);
 }
 
 .#{$c}activity__groups {
   @include flex-box($align: center);
-  flex-grow: wrap;
+  @include spacing(margin, 2x, bottom);
+  flex-wrap: wrap;
 }
 
 .#{$c}activity__content {
@@ -28,10 +30,23 @@
 }
 
 .#{$c}activity__image {
-  height: 160px;
+  height: 100px;
   overflow: hidden;
   > img {
     width: 100%;
     margin: 0 auto;
   }
+}
+
+.#{$c}activity__credits {
+  @include flex-box($align: center);
+}
+
+.#{$c}activity__author {
+  @include font(medium, normal, primary);
+  @include spacing(margin, 0 3x 0 0);
+}
+
+.#{$c}activity__date {
+  @include font(small, normal, secondary);
 }

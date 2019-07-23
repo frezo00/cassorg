@@ -2,13 +2,13 @@
 //    TAG CLASS - stylings for tag-like elements
 // ------------------------------------------------
 .#{$o}tag {
-  @include border(1px solid transparent);
-  @include border-radius(12px);
+  @include border(1px solid rgba(theme-color(dark), 0.06));
+  @include border-radius(10px);
   @include flex-box($align: center);
-  @include font(small, light, light);
+  @include font(xxsmall, semi-bold, light);
   @include spacing(padding, 2px 3x);
   @include spacing(margin, 0 1x 1x 0);
-  height: 24px;
+  height: 20px;
 
   &:last-of-type {
     @include spacing(margin, 0, right);

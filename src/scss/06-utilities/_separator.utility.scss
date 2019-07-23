@@ -1,0 +1,36 @@
+// -----------------------------------------------------------------------------
+//    SEPARATOR CLASSES - creates utility classes for dot and line separators
+// -----------------------------------------------------------------------------
+%separator:not(:last-child) {
+  position: relative;
+  @include spacing(padding, 3x, right);
+  @include spacing(margin, 3x, right);
+
+  &::after {
+    @include pseudo;
+    @include transform(translateY(-50%));
+    background-color: font-color(secondary);
+    right: 0;
+    top: 50%;
+  }
+}
+
+.#{$u}separator-dot:not(:last-child) {
+  @extend %separator;
+
+  &::after {
+    @include border-radius(50%);
+    width: 4px;
+    height: 4px;
+    right: -2px;
+  }
+}
+
+.#{$u}separator-line:not(:last-child) {
+  @extend %separator;
+
+  &::after {
+    width: 1px;
+    height: 70%;
+  }
+}

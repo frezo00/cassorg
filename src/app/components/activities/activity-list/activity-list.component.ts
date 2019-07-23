@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { AppState, Go, getGroups, getActivities, selectTotalActivities } from '../../../store';
 import { IActivity, IGroup } from '../../../models';
+import { AppState, getActivities, getGroups, Go, selectTotalActivities } from '../../../store';
 
 @Component({
   selector: 'app-activity-list',
-  templateUrl: './activity-list.component.html',
-  styleUrls: ['./activity-list.component.scss']
+  templateUrl: './activity-list.component.html'
 })
 export class ActivityListComponent implements OnInit {
   activities$: Observable<IActivity[]>;
@@ -18,7 +16,7 @@ export class ActivityListComponent implements OnInit {
   activeGroup$: BehaviorSubject<string>;
 
   searchText: string;
-  searchKeys: ['title'];
+  searchKeys: string[] = ['title'];
 
   constructor(private store: Store<AppState>) {}
 

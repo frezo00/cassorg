@@ -72,6 +72,7 @@ $font-weight-base: font-weight(normal) !default;
 $font-color-primary: #3c3c3c;
 $font-color-secondary: lighten($font-color-primary, 20%); // #6f6f6f
 $font-color-link: #3d76bd;
+$font-color-theme: $color-theme-primary;
 $font-color-white: #ffffff;
 $font-color-whiter: rgba($font-color-white, 0.8);
 
@@ -80,7 +81,8 @@ $font-colors: (
   secondary: $font-color-secondary,
   light: $font-color-white,
   lighter: $font-color-whiter,
-  link: $font-color-link
+  link: $font-color-link,
+  theme: $font-color-theme
 );
 
 // Returns 'hexa' value for the FONT COLOR name

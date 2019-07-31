@@ -1,0 +1,35 @@
+// ------------------------------------------------
+//    BUTTON CLASS - default stylings for button
+// ------------------------------------------------
+.#{$o}button {
+  @include border(1px solid rgba(theme-color(dark), 0.1));
+  @include border-radius();
+  @include flex-box($justify: center, $align: center);
+  @include spacing(padding, 1x 2x);
+  min-width: 80px;
+  background-color: theme-color(light);
+}
+
+.#{$o}button--inverse {
+  background-color: theme-color(primary);
+  color: font-color(light);
+}
+
+.#{$o}button--outline {
+  border-color: theme-color(primary);
+}
+
+.#{$o}button__icon {
+  @include mat-icon(16px);
+  @include spacing(margin, 1x, right);
+  color: font-color(theme);
+}
+
+.#{$o}button__text {
+  @include font(small, normal, theme);
+  @include spacing(padding, 1x, right);
+}
+
+.#{$o}button__text--uppercase {
+  text-transform: uppercase;
+}

@@ -1,0 +1,29 @@
+// ----------------------------------------------------------
+//    RECENTS COMPONENT - stylings for 'recents' component
+// ----------------------------------------------------------
+.#{$c}recents {
+  @include flex-box(column);
+}
+
+.#{$c}recents__header {
+  @include flex-box($justify: space-between, $align: center);
+  @include spacing(padding, 3x 4x);
+}
+
+.#{$c}recents__title {
+  @include font(medium, normal, secondary);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.#{$c}recents__item {
+  @include border(1px solid rgba(theme-color(dark), 0.1));
+  @include border-radius();
+  @include box-shadow();
+  @include spacing(padding, 4x);
+  @include spacing(margin, 0 2x);
+  min-width: 150px;
+  max-width: 150px;
+  height: 180px;
+  background-color: theme-color(light);
+}

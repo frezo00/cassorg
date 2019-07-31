@@ -1,35 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '../../models/user.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-import * as fromApp from '../../store';
-import { CommonService } from '../../services';
+import { IActivity, IGroup, IMember } from '../../models';
+import { AppState, getActivities, getGroups, getMembers } from '../../store';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
-  userList: Observable<IUser[]>;
+  members$: Observable<IMember[]>;
+  groups$: Observable<IGroup[]>;
+  activities$: Observable<IActivity[]>;
 
-  constructor(
-    public commonService: CommonService,
-    private store: Store<fromApp.AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new fromApp.GetRecentUsers());
-    this.userList = this.store.select(fromApp.getRecentUsers);
-  }
-
-  onCreateProjectModal() {
-    this.commonService.openCreateProjectDialog();
-  }
-
-  onFindProjectModal() {
-    console.log('second action');
-    // this.projectService.openCreateProjectDialog();
+    this.members$ = this.store.select(getMembers);
+    this.groups$ = this.store.select(getGroups);
+    this.activities$ = this.store.select(getActivities);
   }
 }

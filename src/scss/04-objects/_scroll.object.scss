@@ -1,0 +1,13 @@
+// -------------------------------------------------------------
+//    SCROLL CLASS - default stylings for scrollable elements
+// -------------------------------------------------------------
+.#{$o}scroll-x {
+  @include flex-box();
+  max-width: 100vw;
+  overflow-x: auto;
+
+  .#{$o}scroll-x__content {
+    @include flex-box($align: center);
+    @include spacing(padding, 1x 2x 3x);
+  }
+}

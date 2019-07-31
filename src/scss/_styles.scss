@@ -52,7 +52,9 @@
 // --------------------------------------------------------------------------------
 //    04 OBJECTS - class-based selectors which define undecorated design patterns
 // --------------------------------------------------------------------------------
+@import './04-objects/button.object';
 @import './04-objects/icon.object';
+@import './04-objects/scroll.object';
 @import './04-objects/section.object';
 @import './04-objects/table.object';
 @import './04-objects/tag.object';
@@ -69,6 +71,7 @@
 @import './05-components/headers.component';
 @import './05-components/members.component';
 @import './05-components/navigations.component';
+@import './05-components/recents.component';
 @import './05-components/search.component';
 
 // --------------------------------------------------------------------------------

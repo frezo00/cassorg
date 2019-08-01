@@ -1,17 +1,11 @@
-import { Component, OnInit, Input, ViewChild, NgZone } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators
-} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-
-import { AppState, getGroups, Go, CreateActivityBegin } from '../../../store';
-import { IGroup, IActivity } from '../../../models';
+import { IActivity, IGroup } from '../../../models';
+import { AppState, CreateActivityBegin, getGroups, Go } from '../../../store';
 
 @Component({
   selector: 'app-activity-form',
@@ -23,37 +17,30 @@ export class ActivityFormComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   groups$: Observable<IGroup[]>;
 
-  activityForm: FormGroup;
+  form: FormGroup;
   title: FormControl;
   description: FormControl;
   date: FormControl;
-  group: FormControl;
+  groups: FormArray;
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<AppState>,
-    private ngZone: NgZone
-  ) {}
+  constructor(private _fb: FormBuilder, private _store: Store<AppState>, private _ngZone: NgZone) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.groups$ = this.store.select(getGroups);
+    this.groups$ = this._store.select(getGroups);
   }
 
   initForm(): void {
-    this.title = new FormControl('', [
-      Validators.required,
-      Validators.maxLength(100)
-    ]);
+    this.title = new FormControl('', [Validators.required, Validators.maxLength(100)]);
     this.description = new FormControl('', Validators.maxLength(500));
     this.date = new FormControl(null, Validators.required);
-    this.group = new FormControl(null, Validators.required);
+    this.groups = new FormArray([]);
 
-    this.activityForm = this.fb.group({
+    this.form = this._fb.group({
       title: this.title,
       description: this.description,
       date: this.date,
-      group: this.group
+      groups: this.groups
     });
   }
 
@@ -66,7 +53,7 @@ export class ActivityFormComponent implements OnInit {
   }
 
   createActivity(): void {
-    if (this.activityForm.valid) {
+    if (this.form.valid) {
       /* const groupMembers = {};
       this.selectedMembers.value
         .map((m: IMember) => m.id)
@@ -77,11 +64,11 @@ export class ActivityFormComponent implements OnInit {
         title: this.title.value.trim(),
         description: this.description.value.trim(),
         date: this.date.value._d.toISOString(),
-        group: this.group.value,
+        group: this.groups.value,
         dateCreated: new Date().toISOString()
       };
-      this.store.dispatch(new CreateActivityBegin(newActivity));
-      this.activityForm.reset();
+      this._store.dispatch(new CreateActivityBegin(newActivity));
+      this.form.reset();
     }
   }
 
@@ -89,26 +76,22 @@ export class ActivityFormComponent implements OnInit {
 
   onCancel(): void {
     if (!!this.activity) {
-      this.store.dispatch(new Go(`/activities/${this.activity.id}`));
+      this._store.dispatch(new Go(`/activities/${this.activity.id}`));
     } else {
-      this.store.dispatch(new Go('/activities'));
+      this._store.dispatch(new Go('/activities'));
     }
   }
 
   getGroupData(): Observable<IGroup> {
-    if (!!this.group.value) {
+    if (!!this.groups.value) {
       return this.groups$.pipe(
-        map((groups: IGroup[]) =>
-          groups.find((group: IGroup) => this.group.value === group.id)
-        )
+        map((groups: IGroup[]) => groups.find((group: IGroup) => this.groups.value === group.id))
       );
     }
   }
 
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
-    this.ngZone.onStable
-      .pipe(take(1))
-      .subscribe(() => this.autosize.resizeToFitContent(true));
+    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
   }
 }

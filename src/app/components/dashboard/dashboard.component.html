@@ -19,5 +19,41 @@
         </div>
       </div>
     </article>
+
+    <article class="c-recents">
+      <header class="c-recents__header">
+        <h4 class="c-recents__title">Članovi</h4>
+        <button class="o-button o-button--outline">
+          <mat-icon class="o-button__icon">add</mat-icon>
+          <span class="o-button__text o-button__text--uppercase">Dodaj</span>
+        </button>
+      </header>
+
+      <div class="o-scroll-x">
+        <div class="o-scroll-x__content">
+          <div *ngFor="let member of members$ | async; let i = index" class="c-recents__item">
+            {{ member.firstName + ' ' + member.lastName }}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="c-recents">
+      <header class="c-recents__header">
+        <h4 class="c-recents__title">Grupe</h4>
+        <button class="o-button o-button--outline">
+          <mat-icon class="o-button__icon">add</mat-icon>
+          <span class="o-button__text o-button__text--uppercase">Dodaj</span>
+        </button>
+      </header>
+
+      <div class="o-scroll-x">
+        <div class="o-scroll-x__content">
+          <div *ngFor="let group of groups$ | async; let i = index" class="c-recents__item">
+            {{ group.name }}
+          </div>
+        </div>
+      </div>
+    </article>
   </div>
 </section>

@@ -1,0 +1,47 @@
+// ---------------------------------------------------------------
+//    FORM CLASS - default stylings for <form> and its elements
+// ---------------------------------------------------------------
+.#{$o}form {
+  @include flex-box(column);
+}
+
+.#{$o}form-group {
+  @include flex-box(column);
+  @include spacing(margin, 4x, bottom);
+}
+
+.#{$o}form-control {
+  @include flex-box(column);
+  @include spacing(padding, 0 2x);
+  @include spacing(margin, 2x, bottom);
+}
+
+.#{$o}form-control__label {
+  @include font(small, normal, secondary);
+  @include spacing(padding, 1x, left);
+  @include spacing(margin, 1px, bottom);
+  text-transform: uppercase;
+}
+
+.#{$o}form-control__input {
+  @include border-radius();
+  @include font(normal, normal, primary);
+  @include spacing(padding, 2x 4x);
+  @include placeholder {
+    @include font(normal, light, primary);
+  }
+}
+
+.#{$o}form-control__error {
+  @include font(small, light, theme);
+  @include spacing(padding, 0 2px);
+  @include spacing(margin, 1px, top);
+  @include transition(opacity, visibility);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.#{$o}form-control__error--active {
+  opacity: 1;
+  visibility: visible;
+}

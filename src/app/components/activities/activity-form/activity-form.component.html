@@ -1,4 +1,4 @@
-<div class="activity-form__container">
+<!-- <div class="activity-form__container">
   <form [formGroup]="activityForm" (ngSubmit)="onSubmit()">
     <div class="activity-form__content" fxLayout="column" fxLayoutGap="8px">
       <mat-form-field
@@ -44,14 +44,8 @@
           (change)="triggerResize()"
           required
         ></textarea>
-        <mat-hint align="end">
-          {{ description.value?.length || 0 }}/500
-        </mat-hint>
-        <mat-error
-          *ngIf="
-            description.invalid && (description.touched || description.dirty)
-          "
-        >
+        <mat-hint align="end"> {{ description.value?.length || 0 }}/500 </mat-hint>
+        <mat-error *ngIf="description.invalid && (description.touched || description.dirty)">
           {{
             description.hasError('required')
               ? 'Ovo polje je obavezno'
@@ -83,19 +77,12 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker></mat-datepicker>
       </mat-form-field>
-      <mat-form-field
-        class="activity-form__field"
-        floatLabel="always"
-        fxFlex="100%"
-      >
+      <mat-form-field class="activity-form__field" floatLabel="always" fxFlex="100%">
         <mat-label style="line-height: 1.2em;">Grupa</mat-label>
         <mat-select [formControl]="group" name="group" required>
-          <mat-select-trigger
-            *ngIf="!!(groups$ | async)"
-            fxLayoutAlign="space-between center"
-          >
+          <mat-select-trigger *ngIf="!!(groups$ | async)" fxLayoutAlign="space-between center">
             <div
-              *ngIf="(getGroupData() | async) as selectedGroup"
+              *ngIf="getGroupData() | async as selectedGroup"
               class="activity-form__group"
               fxLayoutAlign="start center"
             >
@@ -108,59 +95,19 @@
               </span>
             </div>
           </mat-select-trigger>
-          <mat-option
-            *ngFor="let group of (groups$ | async)"
-            [value]="group.id"
-          >
-            <div
-              class="activity-form__group-option"
-              fxLayoutAlign="start center"
-            >
+          <mat-option *ngFor="let group of groups$ | async" [value]="group.id">
+            <div class="activity-form__group-option" fxLayoutAlign="start center">
               <div
                 class="activity-form__group-color"
                 [ngStyle]="{ 'background-color': group?.color }"
               ></div>
-              <div
-                class="activity-form__group-info"
-                fxLayoutAlign="start center"
-              >
+              <div class="activity-form__group-info" fxLayoutAlign="start center">
                 <span>{{ group?.name }}</span>
               </div>
             </div>
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <!-- <mat-form-field floatLabel="always">
-        <mat-label style="line-height: 1.2em;">Članovi</mat-label>
-        <mat-select placeholder="Odaberi članove" aria-label="Odaberi članove" [formControl]="selectedMembers" multiple>
-          <mat-select-trigger fxLayoutAlign="space-between center">
-            <div class="activity-form__member">
-              <span *ngFor="let selectedUser of selectedMembers.value" class="activity-form__member-input">
-                {{ selectedUser?.firstName + ' ' + selectedUser?.lastName }}
-              </span>
-            </div>
-            <span *ngIf="selectedMembers.value?.length > 1" class="activity-form__member-text">
-              (Ukupno: {{ selectedMembers.value.length }})
-            </span>
-          </mat-select-trigger>
-          <mat-option *ngFor="let member of (members | async)" [value]="member">
-            <div class="activity-form__member-option" fxLayoutAlign="start center">
-              <div class="activity-form__member-initials" fxLayoutAlign="center center">
-                <span>
-                  {{
-                        (member?.firstName | firstLetter) +
-                          (member?.lastName | firstLetter)
-                      }}
-                </span>
-              </div>
-              <div class="activity-form__member-info" fxLayout="column" fxLayoutAlign="center start">
-                <span>{{ member?.firstName + ' ' + member?.lastName }}</span>
-                <small>{{ member?.birthdate | age }}</small>
-              </div>
-            </div>
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
     </div>
     <div class="activity-form__action">
       <button
@@ -181,4 +128,61 @@
       </button>
     </div>
   </form>
-</div>
+</div> -->
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="o-form">
+  <div class="o-form-group">
+    <div class="o-form-control">
+      <label for="title" class="o-form-control__label">Naslov</label>
+      <input
+        formControlName="title"
+        type="text"
+        id="title"
+        placeholder="Naslov"
+        class="o-form-control__input"
+        required
+      />
+      <span class="o-form-control__error">Error</span>
+    </div>
+
+    <div class="o-form-control">
+      <label for="description" class="o-form-control__label">Opis</label>
+      <textarea
+        #autosize="cdkTextareaAutosize"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="5"
+        (change)="triggerResize()"
+        formControlName="description"
+        id="description"
+        placeholder="Opis"
+        class="o-form-control__input"
+        required
+      ></textarea>
+      <span class="o-form-control__error">Error</span>
+    </div>
+
+    <div class="o-form-control">
+      <label for="date" class="o-form-control__label">Datum</label>
+      <input
+        [matDatepicker]="picker"
+        (focus)="picker.open()"
+        formControlName="date"
+        type="date"
+        id="date"
+        placeholder="Datum"
+        class="o-form-control__input"
+        required
+        readonly
+      />
+      <span class="o-form-control__error">Error</span>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </div>
+
+    <!-- <div class="o-form-control">
+      <label for="date" class="o-form-control__label">Odaberi grupe</label>
+      <span class="o-form-control__error">Error</span>
+    </div> -->
+  </div>
+</form>

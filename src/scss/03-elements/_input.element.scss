@@ -1,14 +1,17 @@
 // --------------------------------------------------
 //    INPUT - default stylings for <input> element
 // --------------------------------------------------
-input {
-  @include border(none);
+input,
+textarea {
+  @include border();
+  @include transition(border);
   @include placeholder {
-    opacity: 0.5;
+    opacity: 0.3;
   }
-  background-color: transparent;
+  background-color: theme-color(light);
 
   &:focus {
+    @include border(1px solid border-color(strong));
     outline: none;
   }
 }

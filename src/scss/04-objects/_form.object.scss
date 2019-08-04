@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------
 .#{$o}form {
   @include flex-box(column);
+  @include spacing(padding, 4x 1x);
+  background-color: theme-color(background);
 }
 
 .#{$o}form-group {
@@ -10,10 +12,16 @@
   @include spacing(margin, 4x, bottom);
 }
 
+.#{$o}form-group-x {
+  @include flex-box();
+  @include spacing(margin, 4x, bottom);
+}
+
 .#{$o}form-control {
   @include flex-box(column);
   @include spacing(padding, 0 2x);
   @include spacing(margin, 2x, bottom);
+  position: relative;
 }
 
 .#{$o}form-control__label {
@@ -30,6 +38,15 @@
   @include placeholder {
     @include font(normal, light, primary);
   }
+}
+
+.#{$o}form-control__input-icon {
+  @include mat-icon(spacing-name(6x));
+  @include transform(translateY(-50%));
+  position: absolute;
+  right: spacing-name(5x);
+  top: 50%;
+  color: font-color(secondary);
 }
 
 .#{$o}form-control__error {

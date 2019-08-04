@@ -15,7 +15,8 @@ import { CreateProjectModalComponent } from './../components/project/create-proj
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { HeaderBasicComponent } from './components/headers/header-basic/header-basic.component';
 import { HeaderExpandedComponent } from './components/headers/header-expanded/header-expanded.component';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './modules/material.module';
+import { ModalPageComponent } from './components/modal-page/modal-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MaterialModule } from './material.module';
     CreateProjectModalComponent,
     AvatarComponent,
     HeaderBasicComponent,
-    HeaderExpandedComponent
+    HeaderExpandedComponent,
+    ModalPageComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +52,7 @@ import { MaterialModule } from './material.module';
     AvatarComponent,
     HeaderBasicComponent,
     HeaderExpandedComponent,
+    ModalPageComponent,
     PipesModule
   ],
   providers: [

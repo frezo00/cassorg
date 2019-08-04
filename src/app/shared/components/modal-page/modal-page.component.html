@@ -1,0 +1,13 @@
+<section class="c-modal-page__wrapper">
+  <header class="c-modal-page__header">
+    <mat-icon class="c-modal-page__icon">close</mat-icon>
+    <span class="c-modal-page__title">{{ heading }}</span>
+    <button class="o-button o-button--trans">
+      <span class="o-button__text o-button__text--uppercase">Spremi</span>
+    </button>
+  </header>
+
+  <div class="c-modal-page__content">
+    <ng-content #content></ng-content>
+  </div>
+</section>

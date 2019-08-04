@@ -16,7 +16,7 @@ import { ActivityNewComponent } from './activity-new/activity-new.component';
     ActivityFormComponent
   ],
   imports: [CommonModule, ActivitiesRoutingModule, SharedModule, CommonComponentsModule],
-  exports: [],
+  exports: [ActivityFormComponent],
   providers: []
 })
 export class ActivitiesModule {}

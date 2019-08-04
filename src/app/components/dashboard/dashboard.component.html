@@ -7,7 +7,9 @@
         <h4 class="c-recents__title">Aktivnosti</h4>
         <button class="o-button o-button--outline">
           <mat-icon class="o-button__icon">add</mat-icon>
-          <span class="o-button__text o-button__text--uppercase">Dodaj</span>
+          <span (click)="showModal = true" class="o-button__text o-button__text--uppercase">
+            Dodaj
+          </span>
         </button>
       </header>
 
@@ -57,3 +59,7 @@
     </article>
   </div>
 </section>
+
+<app-modal-page *ngIf="!!showModal" [heading]="'Nova aktivnost'" class="c-modal-page">
+  <app-activity-form></app-activity-form>
+</app-modal-page>

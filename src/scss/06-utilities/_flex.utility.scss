@@ -20,3 +20,9 @@
 .#{$u}flex-grow {
   flex-grow: 1;
 }
+
+@for $i from 1 to 12 {
+  .#{$u}flex-#{$i} {
+    flex: #{$i} !important;
+  }
+}

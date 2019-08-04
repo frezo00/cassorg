@@ -20,7 +20,7 @@ export class ActivityFormComponent implements OnInit {
   form: FormGroup;
   title: FormControl;
   description: FormControl;
-  date: FormControl;
+  datetime: FormGroup;
   groups: FormArray;
 
   constructor(private _fb: FormBuilder, private _store: Store<AppState>, private _ngZone: NgZone) {}
@@ -33,13 +33,16 @@ export class ActivityFormComponent implements OnInit {
   initForm(): void {
     this.title = new FormControl('', [Validators.required, Validators.maxLength(100)]);
     this.description = new FormControl('', Validators.maxLength(500));
-    this.date = new FormControl(null, Validators.required);
+    this.datetime = this._fb.group({
+      date: new FormControl(null, Validators.required),
+      time: new FormControl(null, Validators.required)
+    });
     this.groups = new FormArray([]);
 
     this.form = this._fb.group({
       title: this.title,
       description: this.description,
-      date: this.date,
+      datetime: this.datetime,
       groups: this.groups
     });
   }
@@ -63,7 +66,7 @@ export class ActivityFormComponent implements OnInit {
       const newActivity: IActivity = {
         title: this.title.value.trim(),
         description: this.description.value.trim(),
-        date: this.date.value._d.toISOString(),
+        date: this.datetime.value._d.toISOString(),
         group: this.groups.value,
         dateCreated: new Date().toISOString()
       };

@@ -162,27 +162,46 @@
       <span class="o-form-control__error">Error</span>
     </div>
 
-    <div class="o-form-control">
-      <label for="date" class="o-form-control__label">Datum</label>
-      <input
-        [matDatepicker]="picker"
-        (focus)="picker.open()"
-        formControlName="date"
-        type="date"
-        id="date"
-        placeholder="Datum"
-        class="o-form-control__input"
-        required
-        readonly
-      />
-      <span class="o-form-control__error">Error</span>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker touchUi #picker></mat-datepicker>
+    <div class="o-form-group-x" formGroupName="datetime">
+      <div class="o-form-control u-flex-3">
+        <label for="date" class="o-form-control__label">Datum</label>
+        <input
+          [matDatepicker]="date"
+          (focus)="!date.opened ? date.open() : date.close()"
+          formControlName="date"
+          type="text"
+          id="date"
+          placeholder="Datum"
+          class="o-form-control__input"
+          required
+          readonly
+        />
+        <mat-icon class="o-form-control__input-icon">event</mat-icon>
+        <span class="o-form-control__error">Error</span>
+        <mat-datepicker touchUi #date></mat-datepicker>
+      </div>
+      <div class="o-form-control u-flex-2">
+        <label for="time" class="o-form-control__label">Vrijeme</label>
+        <input
+          [matDatepicker]="time"
+          (focus)="!time.opened ? time.open() : time.close()"
+          formControlName="time"
+          type="text"
+          id="time"
+          placeholder="Vrijeme"
+          class="o-form-control__input"
+          required
+          readonly
+        />
+        <mat-icon class="o-form-control__input-icon">access_time</mat-icon>
+        <span class="o-form-control__error">Error</span>
+        <mat-datepicker touchUi #time></mat-datepicker>
+      </div>
     </div>
 
-    <!-- <div class="o-form-control">
+    <div class="o-form-control">
       <label for="date" class="o-form-control__label">Odaberi grupe</label>
       <span class="o-form-control__error">Error</span>
-    </div> -->
+    </div>
   </div>
 </form>

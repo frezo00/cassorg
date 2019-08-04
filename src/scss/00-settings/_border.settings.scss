@@ -6,10 +6,12 @@ $border-width: 1px;
 $border-style: solid;
 $border-color-light: #eeeeee;
 $border-color-strong: #d5d5d5;
+$border-color-stronger: #999999;
 
 $border-colors: (
   light: $border-color-light,
-  strong: $border-color-strong
+  strong: $border-color-strong,
+  stronger: $border-color-stronger
 );
 
 // Returns 'hexa' value for BORDER color name

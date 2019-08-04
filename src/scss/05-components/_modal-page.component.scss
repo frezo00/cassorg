@@ -1,0 +1,47 @@
+// ------------------------------------------------------------------
+//    MODAL PAGE COMPONENT - stylings for '<modal-page>' component
+// ------------------------------------------------------------------
+.#{$c}modal-page {
+  @include flex-box(column, center, center);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: z-index(5);
+
+  // Backdrop stylings
+  &::before {
+    @include pseudo();
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.#{$c}modal-page__wrapper {
+  @include flex-box($direction: column, $gsb: 1);
+  background-color: theme-color(background);
+  z-index: z-index(5);
+}
+
+.#{$c}modal-page__header {
+  @include flex-box($align: center);
+  @include spacing(padding, 3x 4x);
+  color: font-color(light);
+  background-color: theme-color(secondary);
+}
+
+.#{$c}modal-page__icon {
+  @include mat-icon(spacing-name(5x));
+  color: font-color(lighter);
+}
+
+.#{$c}modal-page__title {
+  @include font($size: large, $color: light);
+  @include spacing(padding, 0 4x);
+  flex-grow: 1;
+}
+
+.#{$c}modal-page__content {
+  @include flex-box(column);
+}

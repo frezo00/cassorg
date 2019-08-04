@@ -3,15 +3,16 @@
 // --------------------------------------------------
 input,
 textarea {
-  @include border();
+  @include border(1px solid border-color(strong));
   @include transition(border);
   @include placeholder {
     opacity: 0.3;
   }
+  width: 100%;
   background-color: theme-color(light);
 
   &:focus {
-    @include border(1px solid border-color(strong));
+    @include border(1px solid border-color(stronger));
     outline: none;
   }
 }

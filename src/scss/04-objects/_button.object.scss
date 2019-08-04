@@ -19,6 +19,12 @@
   border-color: theme-color(primary);
 }
 
+.#{$o}button--trans {
+  border-color: transparent;
+  background-color: transparent;
+  color: font-color(light);
+}
+
 .#{$o}button__icon {
   @include mat-icon(16px);
   @include spacing(margin, 1x, right);

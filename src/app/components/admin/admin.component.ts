@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { toggleSideMenu } from '../../animations/side-menu.animation';
+import { toggleSideMenu } from '../../animations';
 
 @Component({
   selector: 'app-admin',

@@ -1,0 +1,44 @@
+// --------------------------------------------------------
+//    TOGGLE CLASSES - stylings for '.o-toggle' elements
+// --------------------------------------------------------
+.#{$o}toggle {
+  @include border(1px solid border-color(strong));
+  @include border-radius(spacing-name(5x));
+  @include flex-box($align: center);
+  @include spacing(margin, 3x 2x);
+  background-color: #eeeeee; // TODO: Change this
+  overflow: hidden;
+}
+
+.#{$o}toggle__label {
+  @include flex-box(row, center, center, 1);
+
+  &:first-of-type {
+    @include border(1px solid border-color(light), right);
+  }
+}
+
+.#{$o}toggle__radio {
+  display: none;
+}
+
+.#{$o}toggle__text {
+  @include font(small);
+  @include spacing(padding, 3x);
+  @include transition(background-color, opacity);
+  flex-grow: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.#{$o}toggle__radio {
+  display: none;
+
+  &:checked + .#{$o}toggle__text {
+    background-color: theme-color(light);
+  }
+
+  &:not(:checked) + .#{$o}toggle__text {
+    opacity: 0.3;
+  }
+}

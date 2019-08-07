@@ -1,9 +1,9 @@
 <section class="c-modal-page__wrapper">
   <header class="c-modal-page__header">
-    <mat-icon class="c-modal-page__icon">close</mat-icon>
+    <mat-icon (click)="onClose()" class="c-modal-page__icon">close</mat-icon>
     <span class="c-modal-page__title">{{ heading }}</span>
     <button class="o-button o-button--trans">
-      <span class="o-button__text o-button__text--uppercase">Spremi</span>
+      <span (click)="onSave()" class="o-button__text o-button__text--uppercase">Spremi</span>
     </button>
   </header>
 

@@ -7,13 +7,15 @@ import { ActivitiesRoutingModule } from './activities.routing';
 import { ActivityFormComponent } from './activity-form/activity-form.component';
 import { ActivityListComponent } from './activity-list/activity-list.component';
 import { ActivityNewComponent } from './activity-new/activity-new.component';
+import { ActivityParticipantsFormComponent } from './activity-participants-form/activity-participants-form.component';
 
 @NgModule({
   declarations: [
     ActivitiesComponent,
     ActivityListComponent,
     ActivityNewComponent,
-    ActivityFormComponent
+    ActivityFormComponent,
+    ActivityParticipantsFormComponent
   ],
   imports: [CommonModule, ActivitiesRoutingModule, SharedModule, CommonComponentsModule],
   exports: [ActivityFormComponent],

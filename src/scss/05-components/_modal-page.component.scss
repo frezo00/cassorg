@@ -7,8 +7,8 @@
   top: 0;
   right: 0;
   left: 0;
-  bottom: 0;
-  z-index: z-index(5);
+  height: 100vh;
+  z-index: z-index(4);
 
   // Backdrop stylings
   &::before {
@@ -21,7 +21,7 @@
 .#{$c}modal-page__wrapper {
   @include flex-box($direction: column, $gsb: 1);
   background-color: theme-color(background);
-  z-index: z-index(5);
+  z-index: z-index(4);
 }
 
 .#{$c}modal-page__header {

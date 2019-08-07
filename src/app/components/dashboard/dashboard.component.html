@@ -60,6 +60,12 @@
   </div>
 </section>
 
-<app-modal-page *ngIf="!!showModal" [heading]="'Nova aktivnost'" class="c-modal-page">
+<app-modal-page
+  *ngIf="!!showModal"
+  [@bottomToTop]
+  [heading]="'Nova aktivnost'"
+  (closed)="showModal = false"
+  class="c-modal-page"
+>
   <app-activity-form></app-activity-form>
 </app-modal-page>

@@ -1,0 +1,32 @@
+<section class="c-participants">
+  <div class="o-toggle">
+    <label for="groups" class="o-toggle__label">
+      <input
+        [(ngModel)]="toggleBtn"
+        value="groups"
+        type="radio"
+        id="groups"
+        class="o-toggle__radio"
+      />
+      <span class="o-toggle__text">Prema grupi</span>
+    </label>
+    <label for="members" class="o-toggle__label">
+      <input
+        [(ngModel)]="toggleBtn"
+        value="members"
+        type="radio"
+        id="members"
+        class="o-toggle__radio"
+      />
+      <span class="o-toggle__text">Prema članovima</span>
+    </label>
+  </div>
+
+  <div *ngIf="toggleBtn === 'groups'" class="c-participants__groups">
+    Groups
+  </div>
+
+  <div *ngIf="toggleBtn === 'members'" class="c-participants__groups">
+    Members
+  </div>
+</section>

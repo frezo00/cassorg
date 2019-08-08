@@ -1,0 +1,11 @@
+// --------------------------------------------------------------------
+//    PARTICIPANTS COMPONENT - stylings for 'participants' component
+// --------------------------------------------------------------------
+.#{$c}participants {
+  @include flex-box(column);
+  @include spacing(padding, 0 2x);
+}
+
+.#{$c}participants__content {
+  @include flex-box(column);
+}

@@ -3,9 +3,9 @@
 // --------------------------------------------------------
 .#{$o}toggle {
   @include border(1px solid border-color(strong));
-  @include border-radius(spacing-name(5x));
+  @include border-radius(22px);
   @include flex-box($align: center);
-  @include spacing(margin, 3x 2x);
+  @include spacing(margin, 3x 0);
   background-color: #eeeeee; // TODO: Change this
   overflow: hidden;
 }

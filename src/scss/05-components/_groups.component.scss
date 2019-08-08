@@ -52,3 +52,40 @@
   @include font(xlarge, semi-bold, light);
   @include spacing(margin, 1x, top);
 }
+
+// -----------------------------------------------
+//                  GROUP TAG
+// -----------------------------------------------
+.#{$c}group-tag {
+  @include border(1px solid rgba(black, 0.06));
+  @include border-radius(spacing-name(5x));
+  @include box-shadow();
+  @include flex-box($align: center);
+  @include spacing(padding, 0 4x 0 3x);
+  @include spacing(margin, 0 3x 3x 0);
+  @include transition(box-shadow, opacity);
+  height: spacing-name(10x);
+  background-color: theme-color(light);
+}
+
+.#{$c}group-tag__color {
+  @include border(1px solid rgba(black, 0.1));
+  @include border-radius(50%);
+  @include spacing(margin, 2x, right);
+  display: block;
+  width: spacing-name(4x);
+  height: spacing-name(4x);
+}
+
+.#{$c}group-tag__text {
+  @include font($color: secondary);
+}
+
+.#{$c}group-checkbox {
+  display: none;
+}
+
+.#{$c}group-checkbox:not(:checked) + .#{$c}group-tag {
+  opacity: 0.5;
+  box-shadow: none;
+}

@@ -22,11 +22,32 @@
     </label>
   </div>
 
-  <div *ngIf="toggleBtn === 'groups'" class="c-participants__groups">
-    Groups
+  <div *ngIf="toggleBtn === 'groups'" class="c-participants__content">
+    <div class="o-form-control">
+      <input
+        [(ngModel)]="groupSearch"
+        type="search"
+        placeholder="Pretraži grupe"
+        class="o-form-control__input"
+      />
+      <mat-icon class="o-form-control__input-icon o-form-control__input-icon--right">
+        search
+      </mat-icon>
+    </div>
+
+    <div class="o-checkbox-list">
+      <label
+        *ngFor="let group of groups$ | async | search: groupSearch:groupSearchKeys; let i = index"
+        for="group-{{ i }}"
+        class="o-checkbox"
+      >
+        <input type="checkbox" id="group-{{ i }}" class="o-checkbox__input" />
+        <span class="c-checkbox__text">{{ group.name }}</span>
+      </label>
+    </div>
   </div>
 
-  <div *ngIf="toggleBtn === 'members'" class="c-participants__groups">
+  <div *ngIf="toggleBtn === 'members'" class="c-participants__content">
     Members
   </div>
 </section>

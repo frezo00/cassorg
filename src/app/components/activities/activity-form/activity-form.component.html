@@ -200,9 +200,27 @@
     </div>
 
     <div class="o-form-control">
-      <label for="date" class="o-form-control__label">Pozovi sudionike</label>
-      <app-activity-participants-form></app-activity-participants-form>
+      <label class="o-form-control__label">Odaberi grupe</label>
+      <div formArrayName="groups" class="o-form-array">
+        <div *ngFor="let group of groupArray.controls; let i = index">
+          <input
+            [formControlName]="i"
+            type="checkbox"
+            id="group-{{ i }}"
+            class="c-group-checkbox"
+          />
+          <label for="group-{{ i }}" class="c-group-tag">
+            <i [ngStyle]="{ 'background-color': groups[i].color }" class="c-group-tag__color"></i>
+            <span class="c-group-tag__text">{{ groups[i].name }}</span>
+          </label>
+        </div>
+      </div>
       <span class="o-form-control__error">Error</span>
     </div>
+  </div>
+
+  <div class="o-button-container">
+    <button type="reset" class="o-button o-button__outline">Odustani</button>
+    <button type="submit" class="o-button">Spremi</button>
   </div>
 </form>

@@ -1,11 +1,11 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { IActivity, IGroup } from '../../../models';
-import { AppState, CreateActivityBegin, getGroups, Go } from '../../../store';
+import { AppState, getGroups, Go } from '../../../store';
 
 @Component({
   selector: 'app-activity-form',
@@ -14,45 +14,50 @@ import { AppState, CreateActivityBegin, getGroups, Go } from '../../../store';
 })
 export class ActivityFormComponent implements OnInit {
   @Input() activity: IActivity;
+  @Input() groupId: string;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   groups$: Observable<IGroup[]>;
-
+  groups: IGroup[] = [];
   form: FormGroup;
-  title: FormControl;
-  description: FormControl;
-  datetime: FormGroup;
-  groups: FormArray;
 
   constructor(private _fb: FormBuilder, private _store: Store<AppState>, private _ngZone: NgZone) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.groups$ = this._store.select(getGroups);
+    this._store.select(getGroups).subscribe((groups: IGroup[]) => {
+      this.groups = groups;
+      console.log('subscribed', this.groups);
+      this.groups.map((group: IGroup) => this._createGroupControl(group.id === this.groupId));
+    });
   }
 
   initForm(): void {
-    this.title = new FormControl('', [Validators.required, Validators.maxLength(100)]);
-    this.description = new FormControl('', Validators.maxLength(500));
-    this.datetime = this._fb.group({
-      date: new FormControl(null, Validators.required),
-      time: new FormControl(null, Validators.required)
-    });
-    this.groups = new FormArray([]);
-
     this.form = this._fb.group({
-      title: this.title,
-      description: this.description,
-      datetime: this.datetime,
-      groups: this.groups
+      title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      description: new FormControl('', Validators.maxLength(500)),
+      datetime: this._fb.group({
+        date: new FormControl(null, Validators.required),
+        time: new FormControl(null, Validators.required)
+      }),
+      groups: new FormArray([])
     });
   }
 
+  get groupArray(): FormArray {
+    return <FormArray>this.form.get('groups');
+  }
+
+  private _createGroupControl(preselect?: boolean): void {
+    return this.groupArray.push(new FormControl(preselect));
+  }
+
   onSubmit(): void {
-    if (!!this.activity) {
-      this.updateActivity();
-    } else {
-      this.createActivity();
-    }
+    console.log('submitted', this.form.value);
+    // if (!!this.activity) {
+    //   this.updateActivity();
+    // } else {
+    //   this.createActivity();
+    // }
   }
 
   createActivity(): void {
@@ -63,14 +68,14 @@ export class ActivityFormComponent implements OnInit {
         .forEach((mID: string) => {
           groupMembers[mID] = true;
         }); */
-      const newActivity: IActivity = {
-        title: this.title.value.trim(),
-        description: this.description.value.trim(),
-        date: this.datetime.value._d.toISOString(),
-        group: this.groups.value,
-        dateCreated: new Date().toISOString()
-      };
-      this._store.dispatch(new CreateActivityBegin(newActivity));
+      // const newActivity: IActivity = {
+      //   title: this.title.value.trim(),
+      //   description: this.description.value.trim(),
+      //   date: this.datetime.value._d.toISOString(),
+      //   group: this.groups.value,
+      //   dateCreated: new Date().toISOString()
+      // };
+      // this._store.dispatch(new CreateActivityBegin(newActivity));
       this.form.reset();
     }
   }
@@ -82,14 +87,6 @@ export class ActivityFormComponent implements OnInit {
       this._store.dispatch(new Go(`/activities/${this.activity.id}`));
     } else {
       this._store.dispatch(new Go('/activities'));
-    }
-  }
-
-  getGroupData(): Observable<IGroup> {
-    if (!!this.groups.value) {
-      return this.groups$.pipe(
-        map((groups: IGroup[]) => groups.find((group: IGroup) => this.groups.value === group.id))
-      );
     }
   }
 

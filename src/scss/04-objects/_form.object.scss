@@ -14,7 +14,12 @@
 
 .#{$o}form-group-x {
   @include flex-box();
-  @include spacing(margin, 4x, bottom);
+}
+
+.#{$o}form-array {
+  @include flex-box();
+  @include spacing(padding, 2x 0);
+  flex-wrap: wrap;
 }
 
 .#{$o}form-control {
@@ -41,7 +46,7 @@
 }
 
 .#{$o}form-control__input-icon {
-  @include mat-icon(spacing-name(6x));
+  @include mat-icon(spacing-name(5x));
   @include transform(translateY(-50%));
   position: absolute;
   right: spacing-name(5x);

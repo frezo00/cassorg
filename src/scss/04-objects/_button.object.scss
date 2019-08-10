@@ -12,7 +12,16 @@
 
 .#{$o}button--inverse {
   background-color: theme-color(primary);
-  color: font-color(light);
+
+  .#{$o}button__text {
+    color: font-color(light);
+  }
+}
+
+.#{$o}button--small {
+  .#{$o}button__text {
+    font-size: font-size(small);
+  }
 }
 
 .#{$o}button--outline {
@@ -32,7 +41,7 @@
 }
 
 .#{$o}button__text {
-  @include font(small, normal, theme);
+  @include font(medium, normal, theme);
   @include spacing(padding, 1x, right);
 }
 

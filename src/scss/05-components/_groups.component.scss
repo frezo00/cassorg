@@ -57,13 +57,13 @@
 //                  GROUP TAG
 // -----------------------------------------------
 .#{$c}group-tag {
-  @include border(1px solid rgba(black, 0.06));
+  @include border(1px solid rgba(black, 0.2));
   @include border-radius(spacing-name(5x));
   @include box-shadow();
   @include flex-box($align: center);
   @include spacing(padding, 0 4x 0 3x);
   @include spacing(margin, 0 3x 3x 0);
-  @include transition(box-shadow, opacity);
+  @include transition(border-color, box-shadow, opacity);
   height: spacing-name(10x);
   background-color: theme-color(light);
 }
@@ -88,4 +88,5 @@
 .#{$c}group-checkbox:not(:checked) + .#{$c}group-tag {
   opacity: 0.5;
   box-shadow: none;
+  border-color: rgba(black, 0.06);
 }

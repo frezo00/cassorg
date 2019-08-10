@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 .#{$o}form {
   @include flex-box(column);
-  @include spacing(padding, 4x 1x);
+  @include spacing(padding, 4x 2x);
   background-color: theme-color(background);
 }
 

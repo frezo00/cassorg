@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   members$: Observable<IMember[]>;
   groups$: Observable<IGroup[]>;
   activities$: Observable<IActivity[]>;
+  showModal: boolean;
 
   constructor(private store: Store<AppState>) {}
 
@@ -21,5 +22,10 @@ export class DashboardComponent implements OnInit {
     this.members$ = this.store.select(getMembers);
     this.groups$ = this.store.select(getGroups);
     this.activities$ = this.store.select(getActivities);
+    this.showModal = false;
+  }
+
+  onShowModal(show: boolean) {
+    this.showModal = show;
   }
 }

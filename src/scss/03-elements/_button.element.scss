@@ -1,0 +1,29 @@
+// ----------------------------------------------------
+//    BUTTON - default stylings for <butotn> element
+// ----------------------------------------------------
+button {
+  @include transition(box-shadow);
+  position: relative;
+  background-color: transparent;
+  overflow: hidden;
+
+  &:focus {
+    @include box-shadow();
+    outline: none;
+  }
+
+  &::before {
+    @include pseudo();
+    @include transition(background-color);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &:focus::before {
+    background-color: rgba(black, 0.06);
+  }
+}

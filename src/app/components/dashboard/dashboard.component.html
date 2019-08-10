@@ -5,9 +5,9 @@
     <article class="c-recents">
       <header class="c-recents__header">
         <h4 class="c-recents__title">Aktivnosti</h4>
-        <button class="o-button o-button--outline">
+        <button (click)="onShowModal(true)" class="o-button o-button--outline">
           <mat-icon class="o-button__icon">add</mat-icon>
-          <span (click)="showModal = true" class="o-button__text o-button__text--uppercase">
+          <span class="o-button__text o-button__text--uppercase">
             Dodaj
           </span>
         </button>
@@ -63,8 +63,9 @@
 <app-modal-page
   *ngIf="!!showModal"
   [@bottomToTop]
-  [heading]="'Nova aktivnost'"
-  (closed)="showModal = false"
+  (closed)="onShowModal(false)"
+  heading="Nova aktivnost"
+  action="Kreiraj"
   class="c-modal-page"
 >
   <app-activity-form></app-activity-form>

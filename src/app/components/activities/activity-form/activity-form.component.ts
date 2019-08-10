@@ -9,8 +9,7 @@ import { AppState, getGroups, Go } from '../../../store';
 
 @Component({
   selector: 'app-activity-form',
-  templateUrl: './activity-form.component.html',
-  styleUrls: ['./activity-form.component.scss']
+  templateUrl: './activity-form.component.html'
 })
 export class ActivityFormComponent implements OnInit {
   @Input() activity: IActivity;
@@ -26,7 +25,6 @@ export class ActivityFormComponent implements OnInit {
     this.initForm();
     this._store.select(getGroups).subscribe((groups: IGroup[]) => {
       this.groups = groups;
-      console.log('subscribed', this.groups);
       this.groups.map((group: IGroup) => this._createGroupControl(group.id === this.groupId));
     });
   }
@@ -35,9 +33,13 @@ export class ActivityFormComponent implements OnInit {
     this.form = this._fb.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       description: new FormControl('', Validators.maxLength(500)),
-      datetime: this._fb.group({
+      startDatetime: this._fb.group({
         date: new FormControl(null, Validators.required),
         time: new FormControl(null, Validators.required)
+      }),
+      endDatetime: this._fb.group({
+        date: new FormControl(null),
+        time: new FormControl(null)
       }),
       groups: new FormArray([])
     });

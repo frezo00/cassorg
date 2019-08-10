@@ -162,40 +162,74 @@
       <span class="o-form-control__error">Error</span>
     </div>
 
-    <div class="o-form-group-x" formGroupName="datetime">
+    <div class="o-form-group-x" formGroupName="startDatetime">
       <div class="o-form-control u-flex-3">
-        <label for="date" class="o-form-control__label">Datum</label>
+        <label for="startDate" class="o-form-control__label">Datum početka</label>
         <input
-          [matDatepicker]="date"
-          (focus)="!date.opened ? date.open() : date.close()"
+          [matDatepicker]="startDate"
+          (focus)="!startDate.opened ? startDate.open() : startDate.close()"
           formControlName="date"
           type="text"
-          id="date"
-          placeholder="Datum"
+          id="startDate"
+          placeholder="04/11/2019"
           class="o-form-control__input"
           required
           readonly
         />
         <mat-icon class="o-form-control__input-icon">event</mat-icon>
         <span class="o-form-control__error">Error</span>
-        <mat-datepicker touchUi #date></mat-datepicker>
+        <mat-datepicker touchUi #startDate></mat-datepicker>
       </div>
       <div class="o-form-control u-flex-2">
-        <label for="time" class="o-form-control__label">Vrijeme</label>
+        <label for="startTime" class="o-form-control__label">Vrijeme početka</label>
         <input
-          [matDatepicker]="time"
-          (focus)="!time.opened ? time.open() : time.close()"
+          [matDatepicker]="startTime"
+          (focus)="!startTime.opened ? startTime.open() : startTime.close()"
           formControlName="time"
           type="text"
-          id="time"
-          placeholder="Vrijeme"
+          id="startTime"
+          placeholder="17:00"
           class="o-form-control__input"
           required
           readonly
         />
         <mat-icon class="o-form-control__input-icon">access_time</mat-icon>
         <span class="o-form-control__error">Error</span>
-        <mat-datepicker touchUi #time></mat-datepicker>
+        <mat-datepicker touchUi #startTime></mat-datepicker>
+      </div>
+    </div>
+    <div class="o-form-group-x" formGroupName="endDatetime">
+      <div class="o-form-control u-flex-3">
+        <label for="endDate" class="o-form-control__label">Datum završetka</label>
+        <input
+          [matDatepicker]="endDate"
+          (focus)="!endDate.opened ? endDate.open() : endDate.close()"
+          formControlName="date"
+          type="text"
+          id="endDate"
+          placeholder="05/11/2019"
+          class="o-form-control__input"
+          readonly
+        />
+        <mat-icon class="o-form-control__input-icon">event</mat-icon>
+        <span class="o-form-control__error">Error</span>
+        <mat-datepicker touchUi #endDate></mat-datepicker>
+      </div>
+      <div class="o-form-control u-flex-2">
+        <label for="endTime" class="o-form-control__label">Vrijeme završetka</label>
+        <input
+          [matDatepicker]="endTime"
+          (focus)="!endTime.opened ? endTime.open() : endTime.close()"
+          formControlName="time"
+          type="text"
+          id="endTime"
+          placeholder="19:00"
+          class="o-form-control__input"
+          readonly
+        />
+        <mat-icon class="o-form-control__input-icon">access_time</mat-icon>
+        <span class="o-form-control__error">Error</span>
+        <mat-datepicker touchUi #endTime></mat-datepicker>
       </div>
     </div>
 
@@ -217,10 +251,5 @@
       </div>
       <span class="o-form-control__error">Error</span>
     </div>
-  </div>
-
-  <div class="o-button-container">
-    <button type="reset" class="o-button o-button__outline">Odustani</button>
-    <button type="submit" class="o-button">Spremi</button>
   </div>
 </form>

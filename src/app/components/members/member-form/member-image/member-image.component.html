@@ -1,10 +1,19 @@
 <div fxLayoutAlign="center center">
-  <input #imageInput type="file" accept="image/*" class="member-image__input" (change)="onSelectedImage($event)">
+  <input
+    #imageInput
+    type="file"
+    accept="image/*"
+    class="member-image__input"
+    (change)="onSelectedImage($event)"
+  />
   <button mat-button type="button" class="member-image" (click)="imageInput.click()">
-    <div *ngIf="(!tempImage && !photoURL)" class="member-image__icon" fxLayoutAlign="center center">
+    <div *ngIf="!tempImage && !photoURL" class="member-image__icon" fxLayoutAlign="center center">
       <mat-icon>add_a_photo</mat-icon>
     </div>
-    <div *ngIf="(!!tempImage || !!photoURL)" class="member-image__photo" [style.background-image]="'url(' + (!!tempImage ? tempImage : photoURL) + ')'">
-    </div>
+    <div
+      *ngIf="!!tempImage || !!photoURL"
+      class="member-image__photo"
+      [style.background-image]="'url(' + (!!tempImage ? tempImage : photoURL) + ')'"
+    ></div>
   </button>
 </div>

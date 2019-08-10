@@ -8,6 +8,15 @@
   </header>
 
   <div class="c-modal-page__content">
-    <ng-content #content></ng-content>
+    <ng-content #form></ng-content>
   </div>
+
+  <footer class="c-modal-page__footer">
+    <button (click)="onClose()" class="o-button o-button--large o-button--outline u-flex-1">
+      <span class="o-button__text">Odustani</span>
+    </button>
+    <button (click)="onSave()" class="o-button o-button--large o-button--inverse u-flex-1">
+      <span class="o-button__text">{{ action }}</span>
+    </button>
+  </footer>
 </section>

@@ -75,6 +75,7 @@
   right: 0;
   background-color: theme-color(primary);
   overflow: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .#{$c}bottom-nav__wrapper {

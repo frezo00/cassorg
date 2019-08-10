@@ -52,3 +52,24 @@
   margin-top: 50px;
   overflow-y: auto;
 }
+
+.#{$c}modal-page__footer {
+  @include box-shadow();
+  @include spacing(padding, 3x 4x);
+  @include flex-box();
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: theme-color(light);
+  -webkit-backface-visibility: hidden;
+
+  .#{$o}button:first-of-type {
+    @include spacing(margin, 2x, right);
+  }
+
+  .#{$o}button:last-of-type {
+    @include spacing(margin, 2x, left);
+  }
+}

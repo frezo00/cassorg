@@ -17,6 +17,8 @@ import { HeaderBasicComponent } from './components/headers/header-basic/header-b
 import { HeaderExpandedComponent } from './components/headers/header-expanded/header-expanded.component';
 import { MaterialModule } from './modules/material.module';
 import { ModalPageComponent } from './components/modal-page/modal-page.component';
+import { FileImageComponent } from './components/file-image/file-image.component';
+import { ProgressComponent } from './components/progress/progress.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { ModalPageComponent } from './components/modal-page/modal-page.component
     AvatarComponent,
     HeaderBasicComponent,
     HeaderExpandedComponent,
-    ModalPageComponent
+    ModalPageComponent,
+    FileImageComponent,
+    ProgressComponent
   ],
   imports: [
     CommonModule,
@@ -53,6 +57,8 @@ import { ModalPageComponent } from './components/modal-page/modal-page.component
     HeaderBasicComponent,
     HeaderExpandedComponent,
     ModalPageComponent,
+    FileImageComponent,
+    ProgressComponent,
     PipesModule
   ],
   providers: [

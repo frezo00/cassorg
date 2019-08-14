@@ -3,7 +3,7 @@
 // --------------------------------------------------------------------
 .#{$o}section {
   @include flex-box(column, flex-start, stretch, 1);
-  height: calc(100vh - 60px);
+  height: calc(100vh - 50px);
   background-color: theme-color(background);
 }
 

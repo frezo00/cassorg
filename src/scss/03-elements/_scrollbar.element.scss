@@ -1,0 +1,22 @@
+// -----------------------------------------------
+//    SCROLLBAR - custom stylings for scrollbar
+// -----------------------------------------------
+*::-webkit-scrollbar {
+  display: none;
+
+  // Show custom scrollbar on larger screens
+  @include media(md) {
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: theme-color(background);
+
+    &-track {
+      background-color: theme-color(background);
+    }
+
+    &-thumb {
+      background-color: font-color(secondary);
+    }
+  }
+}

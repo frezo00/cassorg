@@ -48,8 +48,10 @@
 }
 
 .#{$c}modal-page__content {
-  @include flex-box($direction: column, $gsb: 1 0 100%);
+  @include flex-box($direction: column);
+  height: calc(100vh - 110px);
   margin-top: 50px;
+  margin-bottom: 60px;
   overflow-y: auto;
 }
 

@@ -1,0 +1,11 @@
+<input #imageInput type="file" accept="image/*" id="image" class="o-form-control__input" required />
+<div
+  [ngStyle]="{ 'background-image': previewImage ? 'url(' + previewImage + ')' : '' }"
+  (click)="imageInput.click()"
+  class="o-form-control__input o-form-control__input--file"
+>
+  <mat-icon *ngIf="!previewImage" class="o-form-control__input-icon">add_a_photo</mat-icon>
+</div>
+<mat-icon *ngIf="previewImage" (click)="onImageRemove()" stopPropagation class="clear">
+  clear
+</mat-icon>

@@ -31,6 +31,7 @@ export class ActivityFormComponent implements OnInit {
 
   initForm(): void {
     this.form = this._fb.group({
+      image: new FormControl(null, Validators.required),
       title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       description: new FormControl('', Validators.maxLength(500)),
       startDatetime: this._fb.group({

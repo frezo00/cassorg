@@ -43,6 +43,48 @@
   @include placeholder {
     @include font(normal, light, primary);
   }
+
+  &[type='file'] {
+    display: none;
+  }
+}
+
+.#{$o}form-control__file {
+  @include border(2px dashed border-color(strong));
+  @include border-radius();
+  position: relative;
+  background-color: theme-color(light);
+
+  .clear {
+    @include mat-icon(32px);
+    @include flex-box($justify: center, $align: center);
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: font-color(light);
+    font-size: font-size(normal) !important;
+    background: radial-gradient(
+      circle,
+      rgba(theme-color(dark), 0.6) 0%,
+      rgba(theme-color(dark), 0.3) 30%,
+      transparent 60%,
+      transparent 100%
+    );
+  }
+}
+
+.#{$o}form-control__input--file {
+  @include flex-box($justify: center, $align: center);
+  height: 160px;
+  background: center center no-repeat theme-color(light);
+  background-size: cover;
+  border: none;
+
+  .#{$o}form-control__input-icon {
+    @include mat-icon(50px);
+    @include transform(translate(-50%, -50%));
+    left: 50%;
+  }
 }
 
 .#{$o}form-control__input-icon {

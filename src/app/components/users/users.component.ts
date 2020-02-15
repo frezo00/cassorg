@@ -16,7 +16,8 @@ import {
 } from '@angular/animations';
 import { DataSource } from '@angular/cdk/table';
 import { Store } from '@ngrx/store';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 import * as fromApp from '../../store';
 import { IUser } from '../../models';

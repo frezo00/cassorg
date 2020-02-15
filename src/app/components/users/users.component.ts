@@ -40,7 +40,7 @@ import { Router } from '@angular/router';
   ]
 })
 export class UsersComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @Input() singleChildRowDetail: boolean;
   private openedRow: CdkDetailRowDirective;
 

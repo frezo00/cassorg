@@ -14,7 +14,7 @@ import { AppState, getGroups, Go } from '../../../store';
 export class ActivityFormComponent implements OnInit {
   @Input() activity: IActivity;
   @Input() groupId: string;
-  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  @ViewChild('autosize', { static: true }) autosize: CdkTextareaAutosize;
   groups$: Observable<IGroup[]>;
   groups: IGroup[] = [];
   form: FormGroup;

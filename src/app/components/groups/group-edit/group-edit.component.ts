@@ -13,7 +13,7 @@ import { IGroup } from '../../../models';
   styleUrls: ['./group-edit.component.scss']
 })
 export class GroupEditComponent implements OnInit {
-  @ViewChild(GroupFormComponent) form: GroupFormComponent;
+  @ViewChild(GroupFormComponent, { static: false }) form: GroupFormComponent;
   group$: Observable<IGroup>;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {}

@@ -19,7 +19,7 @@ import { ActivityFormComponent } from '../activity-form/activity-form.component'
   styleUrls: ['./activity-new.component.scss']
 })
 export class ActivityNewComponent implements OnInit {
-  @ViewChild(ActivityFormComponent) form: ActivityFormComponent;
+  @ViewChild(ActivityFormComponent, { static: true }) form: ActivityFormComponent;
 
   constructor() {}
 

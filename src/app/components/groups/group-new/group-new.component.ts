@@ -8,7 +8,7 @@ import { GroupFormComponent } from '../group-form/group-form.component';
   styleUrls: ['./group-new.component.scss']
 })
 export class GroupNewComponent implements OnInit {
-  @ViewChild(GroupFormComponent) form: GroupFormComponent;
+  @ViewChild(GroupFormComponent, { static: true }) form: GroupFormComponent;
 
   constructor() {}
 

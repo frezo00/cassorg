@@ -18,7 +18,8 @@ export class ModalPageComponent implements OnInit {
   @Input() action: string;
   @Output() closed = new EventEmitter();
   @Output() saved = new EventEmitter();
-  @ContentChild(ActivityFormComponent) form: ActivityFormComponent;
+  @ContentChild(ActivityFormComponent, { static: true })
+  form: ActivityFormComponent;
 
   constructor() {}
 

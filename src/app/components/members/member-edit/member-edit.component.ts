@@ -11,7 +11,7 @@ import { MemberFormComponent } from '../member-form/member-form.component';
   styleUrls: ['./member-edit.component.scss']
 })
 export class MemberEditComponent implements OnInit {
-  @ViewChild(MemberFormComponent) form: MemberFormComponent;
+  @ViewChild(MemberFormComponent, { static: false }) form: MemberFormComponent;
   member: IMember;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {

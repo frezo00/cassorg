@@ -7,7 +7,7 @@ import { MemberFormComponent } from '../member-form/member-form.component';
   styleUrls: ['./member-new.component.scss']
 })
 export class MemberNewComponent implements OnInit {
-  @ViewChild(MemberFormComponent) form: MemberFormComponent;
+  @ViewChild(MemberFormComponent, { static: true }) form: MemberFormComponent;
 
   constructor() {}
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CreateProjectModalComponent } from '../components/project/create-project-modal/create-project-modal.component';
 
 @Injectable({

@@ -1,25 +1,21 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { IGroup, IMember } from '../../models';
+import { IGroup, IMember, Member } from '../../models';
 import { membersAdapter, MembersState } from '../reducers';
 import { getGroups } from '../selectors/groups.selectors';
 
 export const getMembersState = createFeatureSelector<MembersState>('members');
 
 /** Helper Entity Selectors for Members **/
-const { selectIds, selectEntities, selectAll, selectTotal } = membersAdapter.getSelectors();
-
-export const selectAllMembers = createSelector(
-  getMembersState,
-  selectAll
-);
-export const selectTotalMembers = createSelector(
-  getMembersState,
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
   selectTotal
-);
-export const selectIdsMembers = createSelector(
-  getMembersState,
-  selectIds
-);
+} = membersAdapter.getSelectors();
+
+export const selectAllMembers = createSelector(getMembersState, selectAll);
+export const selectTotalMembers = createSelector(getMembersState, selectTotal);
+export const selectIdsMembers = createSelector(getMembersState, selectIds);
 
 /** Helper Entity Selectors for Members **/
 export const getMembers = createSelector(
@@ -61,33 +57,35 @@ export const getMembersError = createSelector(
 );
 
 export const getAllMembersExceptOne = (id: string) =>
-  createSelector(
-    getMembers,
-    (members: IMember[]): IMember[] =>
-      !!members ? members.filter((m: IMember) => m.id !== id) : null
+  createSelector(getMembers, (members: IMember[]): IMember[] =>
+    !!members ? members.filter((m: IMember) => m.id !== id) : null
   );
 
 export const getGroupMembers = (membersObj: object) =>
-  createSelector(
-    getMembers,
-    (members: IMember[]): IMember[] =>
-      !!members
-        ? Object.keys(membersObj).map((id: string) => members.find((m: IMember) => m.id === id))
-        : null
+  createSelector(getMembers, (members: IMember[]): IMember[] =>
+    !!members
+      ? Object.keys(membersObj).map((id: string) =>
+          members.find((m: IMember) => m.id === id)
+        )
+      : null
   );
 
 export const getMembersGroups = createSelector(
   getMembers,
   getGroups,
-  (members: IMember[], groups: IGroup[]): IMember[] =>
-    !!members && !!groups ? members.map((m: IMember) => findMemberGroups(m, groups)) : null
+  (members: IMember[], groups: IGroup[]): Member[] =>
+    !!members && !!groups
+      ? members.map((m: IMember) => findMemberGroups(m, groups))
+      : null
 );
 
-function findMemberGroups(m: IMember, groups: IGroup[]): IMember {
-  return {
-    ...m,
+function findMemberGroups(member: IMember, groups: IGroup[]): Member {
+  return mapToMemberClass({
+    ...member,
     groups: groups
-      .filter((group: IGroup) => (!!group.members ? group.members[m.id] === true : null))
+      .filter((group: IGroup) =>
+        !!group.members ? group.members[member.id] === true : null
+      )
       .filter((g: IGroup) => !!g)
       .map((g: IGroup) => {
         return {
@@ -97,5 +95,28 @@ function findMemberGroups(m: IMember, groups: IGroup[]): IMember {
           membersCount: Object.keys(g.members).length
         };
       })
-  };
+  });
+}
+
+function mapToMemberClass(member: IMember): Member {
+  return new Member(
+    member.id,
+    member.authId,
+    member.createdBy,
+    member.dateCreated,
+    member.firstName,
+    member.lastName,
+    member.birthdate,
+    member.phoneNumber,
+    member.parents,
+    member.gender,
+    member.email,
+    member.address,
+    member.photoURL,
+    member.note,
+    member.siblings,
+    member.applicantId,
+    member.lastUpdated,
+    member.groups
+  );
 }

@@ -1,9 +1,12 @@
-<div
-  *ngIf="hasAvatarUrl"
-  class="c-avatar__image"
-  [ngStyle]="{ 'background-image': 'url(' + avatarUrl + ')' }"
-></div>
+<ng-container *ngIf="url; else noImage">
+  <div
+    class="c-avatar__image"
+    [style.background-image]="'url(' + url + ')'"
+  ></div>
+</ng-container>
 
-<span *ngIf="!hasAvatarUrl" class="c-avatar__initials u-flex-both-center">
-  {{ text | initials }}
-</span>
+<ng-template #noImage>
+  <span class="c-avatar__initials" [style.background-color]="randomColor">
+    {{ text | initials }}
+  </span>
+</ng-template>

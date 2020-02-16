@@ -48,11 +48,19 @@ export class MembersService {
   }
 
   getMember(memberId: string, projectId: string): Promise<any> {
-    return this.af.doc<IMember>(`projects/${projectId}/members/${memberId}`).ref.get();
+    return this.af
+      .doc<IMember>(`projects/${projectId}/members/${memberId}`)
+      .ref.get();
   }
 
-  updateMember(memberId: string, memberData: IMember, projectId: string): Promise<void> {
-    return this.af.doc<IMember>(`projects/${projectId}/members/${memberId}`).ref.set(memberData);
+  updateMember(
+    memberId: string,
+    memberData: IMember,
+    projectId: string
+  ): Promise<void> {
+    return this.af
+      .doc<IMember>(`projects/${projectId}/members/${memberId}`)
+      .ref.set(memberData);
   }
 
   uploadProfileImage(memberId: string, projectId: string) {
@@ -84,7 +92,11 @@ export class MembersService {
       );
   }
 
-  updateMemberProfileImage(memberId: string, photoURL: string, projectId: string): Promise<void> {
+  updateMemberProfileImage(
+    memberId: string,
+    photoURL: string,
+    projectId: string
+  ): Promise<void> {
     return this.af
       .doc<IMember>(`projects/${projectId}/members/${memberId}`)
       .ref.update({ photoURL: photoURL });

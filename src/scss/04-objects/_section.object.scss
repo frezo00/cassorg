@@ -1,15 +1,15 @@
 // --------------------------------------------------------------------
 //    SECTION CLASS - default stylings for <section> and its content
 // --------------------------------------------------------------------
-.#{$o}section {
+.o-section {
   @include flex-box(column, flex-start, stretch, 1);
   height: calc(100vh - 50px);
   background-color: theme-color(background);
 }
 
-.#{$o}section__content {
+.o-section__content {
   @include flex-box(column, flex-start, stretch, 1);
-  @include spacing(padding, 60px, bottom);
+  // @include spacing(padding, 60px, bottom);
   overflow-y: auto;
   height: calc(100vh - 60px);
 

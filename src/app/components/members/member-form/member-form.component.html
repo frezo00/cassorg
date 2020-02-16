@@ -209,7 +209,7 @@
             >
               <div class="member-form__sibling">
                 <span
-                  *ngFor="let sibling of (getSiblingsData() | async)"
+                  *ngFor="let sibling of getSiblingsData() | async"
                   class="member-form__sibling-input"
                 >
                   {{ sibling?.firstName + ' ' + sibling?.lastName }}
@@ -223,7 +223,7 @@
               </span>
             </mat-select-trigger>
             <mat-option
-              *ngFor="let sibling$ of (siblings$ | async)"
+              *ngFor="let sibling$ of siblings$ | async"
               [value]="sibling$.id"
             >
               <div
@@ -286,7 +286,7 @@
             >
               <div class="member-form__group">
                 <span
-                  *ngFor="let group of (getGroupsData() | async)"
+                  *ngFor="let group of getGroupsData() | async"
                   class="member-form__group-input"
                 >
                   {{ group?.name }}
@@ -300,7 +300,7 @@
               </span>
             </mat-select-trigger>
             <mat-option
-              *ngFor="let group of (groups$ | async)"
+              *ngFor="let group of groups$ | async"
               [value]="group.id"
             >
               <div

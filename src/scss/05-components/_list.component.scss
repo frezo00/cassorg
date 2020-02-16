@@ -1,0 +1,15 @@
+.c-list-item {
+  @include flex-box($align: center);
+  @include border-radius();
+  @include box-shadow();
+  background-color: color(light);
+  margin: $spacing-3x $spacing-4x;
+  padding: $spacing-2x $spacing-4x;
+
+  &:first-of-type {
+    margin-top: $spacing-4x;
+  }
+  &:last-of-type {
+    margin-bottom: 60px;
+  }
+}

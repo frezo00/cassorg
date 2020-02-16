@@ -80,7 +80,7 @@ export class UpdateMemberBegin implements Action {
   constructor(
     public payload: {
       id: string;
-      memberData: IMember;
+      memberData: Partial<IMember>;
       hasImage?: boolean;
       memberGroups?: { [id: string]: boolean };
     }

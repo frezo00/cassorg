@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-header-expanded',
+  selector: 'cas-header-expanded',
   templateUrl: './header-expanded.component.html'
 })
 export class HeaderExpandedComponent implements OnInit {

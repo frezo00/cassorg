@@ -1,35 +1,32 @@
-<section *ngIf="members$ | async as members" class="o-section">
+<section class="o-section">
   <app-header-basic
-    *ngIf="members.length"
     [title]="'Članovi'"
-    [subtitle]="'Ukupno: ' + members?.length"
+    [subtitle]="'Ukupno: ' + total || 0"
     [showSearch]="true"
-    (searchChange)="onSearchChange($event)"
+    (searchChange)="searchText = $event"
     class="c-header-basic"
   ></app-header-basic>
 
-  <article class="o-section__content u-padding-top--1x u-over-y-auto">
-    <table class="o-table">
-      <tr
-        *ngFor="let member of members | search: searchText:searchKeys"
-        (click)="navigateToProfile(member?.id)"
-        class="o-table__row"
+  <div class="o-section__content">
+    <cdk-virtual-scroll-viewport
+      *ngIf="members$ | async as members"
+      [itemSize]="70"
+      [style.height]="'100%'"
+    >
+      <article
+        *cdkVirtualFor="
+          let member of members | search: searchText:['firstName', 'lastName']
+        "
+        (click)="navigateToProfile(member.id)"
+        class="c-list-item"
       >
-        <td class="o-table__cell">
-          <app-avatar
-            [text]="member?.firstName + ' ' + member?.lastName"
-            [avatarUrl]="member?.photoURL"
-            class="c-avatar"
-          ></app-avatar>
-        </td>
-
-        <td class="o-table__cell o-table__cell--contain o-table__cell--separate">
-          <span class="u-text--truncate">{{ member?.firstName + ' ' + member?.lastName }}</span>
-        </td>
-      </tr>
-      <tr *ngIf="!members || members?.length === 0" class="member-list__empty-list">
-        <p>Nema podataka</p>
-      </tr>
-    </table>
-  </article>
+        <cas-avatar
+          [text]="member.fullName"
+          [url]="member.photoURL"
+          class="c-avatar u-margin-right--3x"
+        ></cas-avatar>
+        <span class="u-text--truncate">{{ member.fullName }}</span>
+      </article>
+    </cdk-virtual-scroll-viewport>
+  </div>
 </section>

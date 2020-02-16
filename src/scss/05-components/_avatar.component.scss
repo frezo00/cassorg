@@ -34,6 +34,7 @@
 
 .#{$c}avatar__initials {
   @include font(normal, light, light, 1.5);
+  @include flex-box($justify: center, $align: center);
   background-color: theme-color(primary);
   flex-grow: 1;
 }

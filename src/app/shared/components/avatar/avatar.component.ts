@@ -1,19 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { Color } from '../../../enums';
+import { getRandomColor } from '../../../utils';
 
 @Component({
-  selector: 'app-avatar',
+  selector: 'cas-avatar',
   templateUrl: './avatar.component.html'
 })
 export class AvatarComponent implements OnInit {
-  @Input() avatarUrl: string;
+  @Input() url: string;
   @Input() text: string;
 
-  hasAvatarUrl: boolean;
+  randomColor: Color[keyof Color];
 
-  ngOnInit() {
-    this.hasAvatarUrl = true;
-    if (!this.avatarUrl || !this.avatarUrl.trim()) {
-      this.hasAvatarUrl = false;
+  ngOnInit(): void {
+    if (!this.url) {
+      this.randomColor = getRandomColor();
     }
   }
 }

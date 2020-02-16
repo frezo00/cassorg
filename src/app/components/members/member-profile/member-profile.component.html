@@ -1,10 +1,10 @@
 <article class="o-section__content">
-  <app-header-expanded
+  <cas-header-expanded
     [title]="member?.firstName + ' ' + member?.lastName"
     [imageUrl]="member?.photoURL"
     (back)="onBack()"
     class="c-header-expanded"
-  ></app-header-expanded>
+  ></cas-header-expanded>
 
   <app-member-info [member]="member" class="c-member-info"></app-member-info>
 

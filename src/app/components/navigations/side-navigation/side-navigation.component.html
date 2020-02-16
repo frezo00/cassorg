@@ -3,10 +3,17 @@
     *ngIf="loggedInUser$ | async as loggedInUser"
     class="c-side-nav__header u-flex-x-center u-padding--3x"
   >
-    <app-avatar class="c-avatar u-margin-right--4x" [text]="loggedInUser?.displayName"></app-avatar>
+    <cas-avatar
+      class="c-avatar u-margin-right--4x"
+      [text]="loggedInUser?.displayName"
+    ></cas-avatar>
     <div class="c-side-nav__user u-flex-y u-flex-grow">
-      <h4 class="u-margin--clear u-text--truncate">{{ loggedInUser?.displayName }}</h4>
-      <small class="u-text-color--secondary u-text--truncate">{{ loggedInUser?.email }}</small>
+      <h4 class="u-margin--clear u-text--truncate">
+        {{ loggedInUser?.displayName }}
+      </h4>
+      <small class="u-text-color--secondary u-text--truncate">{{
+        loggedInUser?.email
+      }}</small>
     </div>
     <mat-icon class="u-text-color--secondary">more_vert</mat-icon>
   </header>
@@ -15,13 +22,17 @@
     <a
       *ngFor="let nav of navList"
       class="c-side-nav__link u-flex-x-center u-text-color--primary"
-      [ngClass]="{ 'c-side-nav__link--active': nav.link === (activeUrl$ | async) }"
+      [ngClass]="{
+        'c-side-nav__link--active': nav.link === (activeUrl$ | async)
+      }"
       (click)="onLinkClick(nav.link)"
     >
       <i class="c-side-nav__link-icon u-padding--3x">
         <mat-icon>{{ nav.icon }}</mat-icon>
       </i>
-      <span class="c-side-nav__link-text u-flex-x-center u-flex-grow">{{ nav.title }}</span>
+      <span class="c-side-nav__link-text u-flex-x-center u-flex-grow">{{
+        nav.title
+      }}</span>
     </a>
     <!-- <mat-icon class="u-text-color--secondary">first_page</mat-icon> -->
   </nav>
